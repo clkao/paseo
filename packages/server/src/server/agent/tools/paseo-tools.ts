@@ -17,6 +17,7 @@ import type { Logger } from "pino";
 import type { AgentMode, AgentProvider, AgentSessionConfig } from "../agent-sdk-types.js";
 import type { AgentManager, ManagedAgent } from "../agent-manager.js";
 import { ActiveTurnBehaviorSchema, AgentProfileSchema } from "@getpaseo/protocol/messages";
+import { getParentAgentIdFromLabels } from "@getpaseo/protocol/agent-labels";
 import type { DaemonConfigStore } from "../../daemon-config-store.js";
 import { featuresFromControls } from "@getpaseo/protocol/option-controls";
 import {
@@ -863,6 +864,26 @@ function createToolCatalog(
       throw new PaseoToolInputError(`Parent agent ${callerAgentId} not found`);
     }
     return parentAgent;
+  };
+
+  // ACL(agent-identity): an agent may direct only the agents it started. The
+  // recipient's daemon-recorded creator (paseo.parent-agent-id) must equal the
+  // authenticated caller. Top-level/operator callers pass no callerAgentId and
+  // are not constrained. Routed sends run this on the daemon that owns the
+  // target, against the forwarded caller.
+  const assertAgentDirectionAllowed = async (targetAgentId: string): Promise<void> => {
+    if (!callerAgentId) return;
+    const target = agentManager.getAgent(targetAgentId) ?? (await agentStorage.get(targetAgentId));
+    if (!target) {
+      throw new PaseoToolInputError(`Agent ${targetAgentId} not found`);
+    }
+    const startedBy = getParentAgentIdFromLabels(target.labels);
+    if (startedBy !== callerAgentId) {
+      throw new PaseoToolInputError(
+        `Agent ${callerAgentId} may direct only the agents it started; ` +
+          `${targetAgentId} was started by ${startedBy ?? "no agent (top-level)"}.`,
+      );
+    }
   };
 
   const workspaceBackgroundIntent = (background: boolean | undefined) => {
@@ -1986,9 +2007,7 @@ function createToolCatalog(
       notifyOnFinish = Boolean(callerAgentId),
       activeTurnBehavior = callerAgentId ? "steer" : "interrupt",
     }) => {
-      if (callerAgentId && !agentManager.getAgent(agentId) && !(await agentStorage.get(agentId))) {
-        throw new PaseoToolInputError(`Agent ${agentId} not found`);
-      }
+      await assertAgentDirectionAllowed(agentId);
       const notifying = Boolean(callerAgentId && notifyOnFinish);
       const notification =
         notifying && callerAgentId

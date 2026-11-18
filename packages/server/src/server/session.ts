@@ -8976,6 +8976,23 @@ export class Session {
     try {
       const agentId = resolved.agentId;
 
+      // ACL(agent-identity): an agent-attributed directive may target only the
+      // agents the claimed sender started. The recipient's daemon-recorded
+      // creator (paseo.parent-agent-id) must equal the sender. Operator/UI sends
+      // carry no sourceAgentId and are not constrained here.
+      if (msg.sourceAgentId) {
+        const target =
+          this.agentManager.getAgent(agentId) ?? (await this.agentStorage.get(agentId));
+        const startedBy = target ? getParentAgentIdFromLabels(target.labels) : null;
+        if (startedBy !== msg.sourceAgentId) {
+          throw new SessionRequestError(
+            "agent_direction_forbidden",
+            `Agent ${msg.sourceAgentId} may direct only the agents it started; ` +
+              `${agentId} was started by ${startedBy ?? "no agent (top-level)"}.`,
+          );
+        }
+      }
+
       const prompt = buildAgentPrompt(msg.text, msg.images, msg.attachments);
       this.sessionLogger.trace(
         {
