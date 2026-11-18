@@ -26,6 +26,10 @@ A prototype, not a design document. It finds out whether the daemon can know whi
 - **Budget:** one working day of one agent.
 - **Approval:** CL approved the next step on 2026-11-18. CL starts the VM. MetaFO starts the mandate agent. The first officer here does not start it.
 
+## After the prototype
+
+The design step after question 2 starts from the design note `.spacedock/repo/notes/agent-access-capability-pattern.md`, which lives on `main` of the spec repository. The note describes the exe.dev integration pattern: the secret stays at the edge, the channel gives the caller's identity, a grant is a relation, and a grant can be narrower. The design uses this pattern as its first candidate, or says why it does not fit. The prototype does not change.
+
 ## Environment
 
 - **VM:** `paseo-acl-prototype` on exe.dev. Its exe.dev comment: "paseo: access control prototype, first mandate; remove: when the mandate stops, or 2 days after the start".
