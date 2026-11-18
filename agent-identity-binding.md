@@ -1,8 +1,8 @@
 ---
 id: w56cr94dn8j8scsp9hwc6s42
-title: "Bind the caller identity of each agent to a credential the daemon issues"
+title: "Prototype: a broker with access control between agents and the daemon"
 status: backlog
-source: Result of agent-identity-acl, 2026-11-18
+source: CL via MetaFO, 2026-11-18, after the result of agent-identity-acl
 started:
 completed:
 verdict:
@@ -11,53 +11,91 @@ worktree:
 issue:
 pr:
 mod-block:
-mandate:
+mandate: agent-broker
 ---
 
-The daemon cannot know which agent sent a request. Each agent states its own ID, and any agent can state another agent's ID (`agent-identity-acl/index.md`, Result, question 2). The parent-only rule on branch `acl/agent-identity` of `clkao/paseo` refuses an honest agent, but it cannot refuse a forged or omitted identity. This task makes the identity something the daemon issues and checks.
+A prototype of a broker that is the only route from an agent to the Paseo daemon. The broker knows which agent calls it without a claim from the agent, and it applies grants before it forwards a request. A rule inside the daemon has no value while the caller names itself (`agent-identity-acl/index.md`, Result). Any agent can direct any other agent today, and that is the reason for the broker.
 
-## Problem
+## Mandate
 
-- The CLI sends `PASEO_AGENT_ID` from the environment. The tool endpoint reads `callerAgentId` from the query string. Neither value is bound to the process that sends it.
-- Agents authenticate with the operator's authority: the local credential file in `PASEO_HOME`, and one capability token for each daemon run (none at all when no password is set). An agent that leaves out its ID is treated as the operator.
-- A connected host trusts the caller that the first daemon forwards, so the identity on the first daemon decides what the caller can do on every host.
+- **Aim:** a broker process in front of a test daemon that does three things.
+  1. **Only route.** An agent cannot reach the daemon socket or port, or the daemon's credentials, except through the broker.
+  2. **Identity without a claim.** The broker knows the calling agent from something that the agent cannot copy from another agent. Agent A cannot use the identity of agent P. Show one of two candidates:
+     - a credential that the launcher gives to one agent at its start, which the broker can verify;
+     - a separate channel for each agent, for example one socket for each agent, or a peer check of the socket (uid or pid and the process tree).
+  3. **Grants.** A grant is a subject (agent, label, project), a resource (agent, workspace, host, tool) and the permitted acts. Rule 1: an agent can direct only the agents that it started. Rule 2: a grant for one connected host. The broker also stands in front of the link to a connected host, because the forged identity passed through that link.
+- **Stop line:** the acceptance test below passes for rule 1, with the stand-in for the sandbox stated. Rule 2 and the connected-host grant come after that, if the day allows. At the end of the budget, write the report and stop.
+- **Budget:** one working day of one agent.
+- **Model:** Claude Opus 5.5 in auto mode. In `agent-identity-acl` the Codex model refused the forge test.
+- **Approval:** CL approved a prototype with this direction on 2026-11-18. MetaFO starts the agent. The first officer here does not start it.
 
-## Proposed approach
+## Design inputs
 
-First candidate: the capability pattern in `.spacedock/repo/notes/agent-access-capability-pattern.md` (main of the spec repository). Use it, or say why it does not fit. Applied here:
+- **Grant model:** `.spacedock/repo/notes/agent-access-capability-pattern.md`. The broker is the "secret at the edge": it holds the daemon credential, and the agents do not.
+- **Known weak points that the prototype must answer:**
+  - Agents run as the daemon's OS user today. A process of the same user can read the local credential in `PASEO_HOME`, and on Linux it can read the environment of another process of that user (`/proc/<pid>/environ`). A token in the environment of agent P is therefore readable by agent A if both run as one user. The prototype must say why A cannot get P's credential or open P's channel.
+  - The daemon sets the parent of a new agent from the caller ID that it receives. Through the broker, that ID must be the one the broker verified. The broker removes or overwrites `callerAgentId` and `sourceAgentId` from the agent.
+  - A request with no caller ID is operator authority today. Through the broker, an agent has no route that leaves its identity out.
+  - The daemon injects into each agent an MCP URL that points at the daemon itself (`packages/server/src/server/agent/runtime-mcp-config.ts`). The prototype must point the agents at the broker instead, for example with `mcpInjectIntoAgents: false` and a provider wrapper that adds the broker as the MCP server.
+- **Stand-in for the sandbox:** the VM has no Safehouse. The report states what stands in for the limit. One possibility: the daemon and the broker run as one OS user, with the daemon on a socket or a port that only that user can reach. The provider command is a wrapper (see `docs/custom-providers.md`, custom binaries) that registers the agent with the broker and then runs the agent as another OS user, one user for each test agent. The agent may choose another stand-in if it states it and tests it.
+- **Not decided here:** which project owns the broker later, `paseo` or `paseo-safehouse`. That is a question for CL. The prototype runs in this project.
 
-- **Identity from the channel.** When the daemon starts an agent, it creates a credential for that agent alone. The daemon takes the caller's identity from the credential and ignores `callerAgentId` and `sourceAgentId` when they disagree with it. That credential could be an MCP bearer for each agent, and a CLI credential put in the agent's environment in place of the shared local credential.
-- **The secret stays at the edge.** The operator credential must be out of the agent's reach. Agents run as the daemon's own user, so this needs a sandbox (for example Safehouse) or a separate home. Find out how much of this Paseo can do by itself and how much needs the sandbox.
-- **Grant as a relation.** First grant: an agent directs the agents it started, compared on the (server ID, agent ID) pair. The rule from `acl/agent-identity` is the starting point.
-- **Routed calls.** The origin daemon sends the bound identity, and the destination accepts it under the authority of the link only.
+## Where
 
-## Risk evidence
-
-The riskiest unknown is whether an agent can be kept away from the operator credential without a sandbox. The `docs/permissions.md` model, with a principal, credentials and attenuated sessions, can possibly give each agent a principal or a session.
-
-Also check one possible boundary crossing. Find out if the `/mcp/agents` bearer token or the local credential is visible to other OS users, for example in the process arguments of an agent (`ps`). `SECURITY.md` says the password protects against other OS users. If another user can read the token, that breaks a stated promise, and CL must report it to the Paseo project privately.
+- **VM:** `paseo-acl-prototype`, which still exists. `~/paseo` is the clone of the fork, and the earlier tests are in `~/acl-result/tests/`. Push access to `clkao/paseo` ends at about 2026-11-20 19:20 UTC.
+- **Code:** branch `acl/broker` of `clkao/paseo`, based on `upstream/main`. The broker is in its own top-level directory `acl-broker/` on that branch. A change in `packages/` is permitted only when the broker cannot work without it, and the report lists each one.
+- **Result:** `~/acl-result/broker/` on the VM (`REPORT.md`, `tests/`). The earlier files in `~/acl-result/` stay as they are. MetaFO copies `~/acl-result/broker/` to the first officer, who puts it in this task's folder.
 
 ## Acceptance criteria
 
-**AC-1: A forged identity is refused.**
-Verified by: `agent-identity-acl/result/tests/forge-identity.py` runs again against a daemon with this change. The three cases (CLI, `/mcp/agents`, connected host) are refused. Removing the binding makes the test pass again.
+**AC-1: The forge is refused.**
+Verified by: `forge-identity.py` from `~/acl-result/tests/`, adapted to run each case from a process with agent A's identity (A's OS user or A's channel), through the broker. All three cases are refused: the CLI with `PASEO_AGENT_ID` of P, `/mcp/agents` with `callerAgentId` of P, and the connected host. Removing the broker's identity check makes them pass again.
 
-**AC-2: An omitted identity is not operator authority.**
-Verified by: an agent process that unsets `PASEO_AGENT_ID` or omits `callerAgentId` cannot direct an agent that it did not start.
+**AC-2: A request with no caller ID is refused.**
+Verified by: from A's identity, a request without `PASEO_AGENT_ID` or `callerAgentId` to direct agent B (which A did not start) is refused, or is treated as A and refused by rule 1.
 
-**AC-3: Honest calls still work.**
-Verified by: a parent directs its own child through the CLI, through `/mcp/agents` and on a connected host. The operator's CLI and the app keep working.
+**AC-3: The daemon cannot be reached directly.**
+Verified by: from A's identity, a direct connection to the daemon socket or port fails, and a read of the daemon's credential file fails.
 
-**AC-4: The token is not visible to other OS users.**
-Verified by: `ps` run as a second OS user, while an agent is running, shows no bearer token or credential.
+**AC-4: Honest calls work.**
+Verified by: P directs its own child B through the broker by the CLI and by `/mcp/agents`, and the recipient records P as the sender.
 
-## Test plan
-
-Run on an exe.dev VM, as in `agent-identity-acl`, with test daemons on their own ports and homes. Run one test file at a time.
-
-### Feedback Cycles
+**AC-5 (after the stop line): a grant for one connected host.**
+Verified by: P, with a grant for host 7802, directs its own child RC on 7802. A, without the grant, cannot reach 7802 through the broker.
 
 ## Out of scope
 
-- Grants beyond "an agent directs the agents that it started", such as labels, projects, a time limit or step-up.
-- An upstream pull request. That is a separate decision of CL after validation.
+- Safehouse integration, the app UI, and a change to `packages/protocol`.
+- A push to `main`, and any pull request, issue or comment on `clkao/paseo` or `getpaseo/paseo`.
+
+## First prompt for the mandate agent on the VM
+
+MetaFO sends this text unchanged to a Claude Opus 5.5 agent in auto mode on `paseo-acl-prototype`.
+
+```text
+You are the agent of the mandate agent-broker on the exe.dev VM paseo-acl-prototype. CL approved it. Budget: one working day. CL owns this VM and the fork clkao/paseo. Every agent and daemon in your tests is one that you start on this VM, so the forge tests are authorized checks of an access control.
+
+Background: the earlier mandate (~/acl-result/REPORT.md) showed that any agent can claim another agent's identity: PASEO_AGENT_ID for the CLI, ?callerAgentId= for /mcp/agents, and through a connected host. A rule inside the daemon does not help while the caller names itself. Build a broker instead.
+
+Aim: a broker, as a separate process in front of a test daemon, that
+1. is the only route from an agent to the daemon: an agent cannot open the daemon socket or port or read the daemon's credentials;
+2. knows the calling agent without a claim, so that agent A cannot use agent P's identity. Use one of two ways: a credential that the launcher gives to one agent at its start and that the broker can verify, or one channel for each agent (for example one socket for each agent, or a peer check of uid, pid and process tree). Processes of one OS user can read each other's environment in /proc, so a token in the environment is not enough if A and P run as one user;
+3. applies grants (subject: agent, label or project; resource: agent, workspace, host or tool; permitted acts). Rule 1: an agent can direct only the agents that it started. Rule 2, after the stop line: a grant for one connected host. The broker also stands in front of the link to a connected host.
+The broker removes or overwrites callerAgentId and sourceAgentId with the identity it verified, so the daemon records the right parent. Agents must reach Paseo tools through the broker, not through the MCP URL that the daemon injects (see packages/server/src/server/agent/runtime-mcp-config.ts; mcpInjectIntoAgents: false and a provider wrapper are one way).
+
+There is no Safehouse on this VM. Choose a stand-in for the sandbox limit, state it in the report and test it. One possibility: the daemon and the broker run as one OS user, with the daemon on a socket or port only that user can reach. The provider command is a wrapper (docs/custom-providers.md, custom binaries) that registers the agent with the broker and then runs it as another OS user, one user for each test agent.
+
+Acceptance test (the stop line is AC-1 to AC-4):
+- AC-1: adapt ~/acl-result/tests/forge-identity.py to run each case from a process with A's identity, through the broker. All three cases are refused: CLI with P's PASEO_AGENT_ID, /mcp/agents with P's callerAgentId, connected host. Removing the broker's identity check makes them pass again.
+- AC-2: from A's identity, a request with no caller ID that directs B (which A did not start) is refused.
+- AC-3: from A's identity, a direct connection to the daemon and a read of its credential file both fail.
+- AC-4: P directs its own child B through the broker by CLI and by /mcp/agents, and B records P as the sender.
+- AC-5, only after the stop line: P, with a grant for host 7802, directs its child RC on 7802; A without the grant cannot reach 7802.
+
+Rules:
+- The daemon on port 6767 runs you. Do not stop, restart or reconfigure it. Run tests on daemons that you start, each with its own PASEO_HOME and port or socket. Copy the LLM gateway provider settings from the 6767 config. Use only the exe.dev gateway.
+- You may create OS users with sudo on this VM for the stand-in.
+- Code: in ~/paseo, create the branch acl/broker from upstream/main (git fetch upstream first). Put the broker in its own top-level directory acl-broker/. Change files in packages/ only when the broker cannot work without the change, and list each change in the report. Push acl/broker to origin before the budget ends and before 2026-11-20 19:00 UTC. Never push to main. Open no pull request, issue or comment, on the fork or on getpaseo/paseo. Each push shows as CL's GitHub user.
+- Report: ~/acl-result/broker/REPORT.md and ~/acl-result/broker/tests/. Do not change the earlier files in ~/acl-result/. REPORT.md gives the stand-in for the sandbox, the identity method and why A cannot copy P's identity, each AC with its command and output, the branch and head commit, the upstream/main commit, each change in packages/, and what is still open.
+- At the stop line or at the end of the budget, write the report, push, and stop.
+```
