@@ -1,0 +1,160 @@
+---
+commissioned-by: hand-written@spacedock-0.29.0-pre0
+entity-type: task
+entity-label: task
+entity-label-plural: tasks
+id-style: sd-b32
+state: .spacedock-state
+state-branch: dev-state
+stages:
+  defaults:
+    worktree: false
+    concurrency: 2
+  states:
+    - name: backlog
+      initial: true
+    - name: ideation
+      gate: true
+    - name: implementation
+      worktree: true
+      context-sections:
+        - Review-finding disposition
+    - name: validation
+      worktree: true
+      fresh: true
+      feedback-to: implementation
+      gate: true
+      context-sections:
+        - Review-finding disposition
+    - name: done
+      terminal: true
+---
+
+# Changes to our fork of Paseo
+
+Each task is one change to Paseo that we carry in our fork of `getpaseo/paseo`, or a prototype that decides whether such a change is worth making. A task moves from backlog through ideation (CL approves the design), implementation in a worktree, independent validation (CL approves the result), and done.
+
+This workflow lives off the tree of the fork. The code checkout excludes `.spacedock/` and `.worktrees/` through `.git/info/exclude`. This README is on `main` of the spec repository `.spacedock/repo`. The task files are on its orphan branch `dev-state`, checked out at `.spacedock/dev/.spacedock-state`. Run `overlay-setup.sh` from this repository on a new machine to restore the layout.
+
+## Remotes
+
+- `upstream` is `getpaseo/paseo`. Read only.
+- `origin` does not exist yet. It becomes our fork when CL creates the fork. Until then, nothing is pushed and no pull request is opened.
+- The state repository's `origin` is the local bare repository `.spacedock/state.git`. Change its URL when a shared state repository exists.
+
+## File Naming
+
+Each task is a flat file `{slug}.md`, or a folder `{slug}/index.md` when the task keeps sibling artifacts such as logs or test scripts. Slugs are lowercase with hyphens.
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | SD-B32 stored ID from `spacedock status --next-id --id-seed <slug>` |
+| `title` | string | Task name |
+| `status` | enum | backlog, ideation, implementation, validation, done |
+| `source` | string | Who asked for the task |
+| `started` | ISO 8601 | When work began |
+| `completed` | ISO 8601 | When the task reached done |
+| `verdict` | enum | PASSED or REJECTED, set at validation |
+| `score` | number | Priority, 0.0–1.0, optional |
+| `worktree` | string | Worktree path while work is active |
+| `issue` | string | Upstream issue reference (`getpaseo/paseo#N`), optional |
+| `pr` | string | Pull request reference (`owner/repo#N`), set when a PR exists |
+| `mod-block` | string | Pending mod action, unused until a mod is installed |
+| `mandate` | string | Mandate name when the work runs as a mandate in its own workspace |
+
+## Stages
+
+### `backlog`
+
+A proposed change or prototype with a seed description. The first officer moves a task to ideation when CL or MetaFO asks for it.
+
+- **Inputs:** The request from CL or MetaFO.
+- **Outputs:** A task file with the problem, the scope and the proof that decides whether design starts.
+
+### `ideation`
+
+Design the change against the current Paseo source and the `docs/` directory of the checkout.
+
+- **Inputs:** The task file, `docs/` (start with the docs that `CLAUDE.md` lists for the subject), the source files the change touches.
+- **Outputs:** The approach, the files and the estimated lines with a tolerance, acceptance criteria with `Verified by:` clauses, a test plan, and the platforms the change touches (iOS, Android, web, Electron, daemon, CLI). A change to `packages/protocol` states how it stays backward-compatible (`docs/protocol-compatibility.md`).
+- **Good:** Each criterion names a check that can fail. The plan names the specific test files to run.
+- **Bad:** A design that needs a new dependency without saying so. A plan that runs the full test suite.
+- **Gate content:** CL reads the approach, the expected surface, the acceptance criteria with their proof, and any act that needs approval (a download, `npm install`, a VM, spend). Approval starts implementation.
+
+### `implementation`
+
+Build the change in a worktree under `.worktrees/` on a branch named `task/{slug}`. Base the branch on `upstream/main` when the change will go upstream, otherwise on local `main`.
+
+- **Inputs:** The approved design.
+- **Outputs:** Commits on the branch. `npm run typecheck`, `npm run lint` and `npm run format` pass. The tests that the plan names pass, run one file at a time (`npx vitest run <file> --bail=1`).
+- **Good:** The smallest change that meets the criteria.
+- **Bad:** Running the full suite. Starting, stopping or restarting the daemon on port 6767. A build that installs Paseo on this Mac. `npm install` or a download without approval.
+
+### `validation`
+
+A fresh agent checks the change against the acceptance criteria. It reproduces each `Verified by:` clause and does not trust the implementation report.
+
+- **Inputs:** The branch, the acceptance criteria, the implementation report.
+- **Outputs:** A report with each criterion, the command that was run, and its output. A recommendation of PASSED or REJECTED.
+- **Good:** Scale the checks to the size of the change.
+- **Bad:** Proving a behavior by reading the code or by a grep of prose.
+- **Gate content:** CL reads the report, the evidence for each criterion and the findings. Approval sends the task to done. Rejection sends it back to implementation with the findings.
+
+### `done`
+
+CL approved the validation. The first officer merges the branch into local `main` and archives the task. When the fork exists, merging happens through a pull request on the fork, and a change for upstream also gets a pull request that CL opens or approves.
+
+## Review-finding disposition
+
+The reviewer reports a finding. The worker investigates it without changing the branch and proposes one of: material (fix), deferred risk, polish, or needs decision. The first officer authorizes the fix, the decline, or the escalation. Only CL changes the scope or the acceptance criteria. A material finding at validation sends the task back to implementation.
+
+## Workflow-specific rules
+
+- Read the checkout's `CLAUDE.md` before work in the code. Its critical rules apply to every stage.
+- No push, pull request, issue, comment or fork without CL's approval. No download and no `npm install` without approval.
+- Stop if the free disk space on this Mac is less than 1.5 GiB.
+- A task that runs as a mandate names its aim, its stop line and its budget in the task body. CL or MetaFO approves the mandate before it starts.
+- To sync with upstream: `git fetch upstream`, then merge `upstream/main` into `main`. Merge keeps every commit that a stage report cites reachable.
+
+## Workflow State
+
+```bash
+spacedock status --workflow-dir .spacedock/dev
+```
+
+## Task Template
+
+```yaml
+---
+id:
+title: Task title here
+status: backlog
+source:
+started:
+completed:
+verdict:
+score:
+worktree:
+issue:
+pr:
+mod-block:
+mandate:
+---
+
+## Problem
+
+## Proposed approach
+
+## Acceptance criteria
+
+**AC-1 — {End-state property.}**
+Verified by: {a check that can fail}
+
+## Test plan
+
+### Feedback Cycles
+
+## Out of scope
+```
