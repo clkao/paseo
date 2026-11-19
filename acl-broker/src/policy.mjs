@@ -62,7 +62,7 @@ export class Policy {
     if (msg?.type === "hello") {
       // Isolate the upstream session from every other CLI session.
       return JSON.stringify({ type: "hello", clientId: randomUUID(), clientType: "cli",
-        protocolVersion: msg.protocolVersion, capabilities: { explicitEventSubscriptions: true } });
+        protocolVersion: msg.protocolVersion, capabilities: { explicit_event_subscriptions: true } });
     }
     if (msg?.type === "ping") return JSON.stringify({ type: "ping" });
     const inner = msg?.type === "session" && msg.message;

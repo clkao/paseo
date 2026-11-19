@@ -14,7 +14,7 @@ user=acl-probe
 if [[ -n ${PASEO_AGENT_ID:-} ]]; then
   [[ "$PASEO_AGENT_ID" =~ ^[a-fA-F0-9-]{36}$ ]]
   user=$(curl -fsS --unix-socket "$admin" -X POST -H 'content-type: application/json' \
-    --data "{\"agentId\":\"$PASEO_AGENT_ID\"}" http://localhost/register | jq -er .user)
+    --data "{\"agentId\":\"$PASEO_AGENT_ID\"}" "http://localhost/register${ACL_BROKER_REGISTRATION_PATH:-}" | jq -er .user)
   [[ "$user" =~ ^acl-ag[1-8]$ ]]
   args+=(-c "mcp_servers.paseo.url=\"http://$broker/mcp/agents\"")
 fi

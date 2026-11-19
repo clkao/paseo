@@ -23,12 +23,15 @@ for slot in ("7901", "7902"):
     provider = dict(settings["agents"]["providers"]["codex"])
     provider.update(command=[str(BROKER_DIR / "bin/agent-launch")], env={
         "ACL_BROKER_ADMIN": str(root / "broker/admin.sock"),
+        "ACL_BROKER_REGISTRATION_PATH": "/destination" if slot == "7902" else "",
         "ACL_BROKER_URL": "127.0.0.1:7900",
         "ACL_CODEX_GATEWAY": gateway["base_url"], "ACL_CODEX_MODEL": native["model"],
     })
     config = {"version": 1, "daemon": {
         "listen": f"unix://{home}/daemon.sock", "relay": {"enabled": False},
-        "mcp": {"enabled": True, "injectIntoAgents": False},
+        # A Unix listener has no injectable HTTP URL. Enable the scoped MCP
+        # catalog; Codex has no native Paseo tool bridge.
+        "mcp": {"enabled": True, "injectIntoAgents": True},
     }, "agents": {"providers": {"codex": provider}}}
     (home / "config.json").write_text(json.dumps(config, indent=2))
 print(root)

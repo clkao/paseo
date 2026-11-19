@@ -5,7 +5,7 @@
 // accepts agent connections on loopback TCP and reads the uid of the client
 // socket from /proc/net/tcp. That uid maps to exactly one agent id, which the
 // launcher registered over the admin socket before the agent started. The
-// agent sends no identity claim; any it sends is overwritten.
+// agent needs no identity claim. Conflicting claims are refused.
 //
 // Authorization: see policy.mjs. Rule 1: an agent may direct only the agents
 // it started. Grants (grants.json) add host, agent, workspace and tool access.
@@ -48,26 +48,35 @@ function saveState() {
 }
 const uidOfUser = new Map();
 for (const user of config.pool) {
-  uidOfUser.set(user, Number(execFileSync("id", ["-u", user], { encoding: "utf8" }).trim()));
+  const uid = Number(execFileSync("id", ["-u", user], { encoding: "utf8" }).trim());
+  if (!Number.isInteger(uid) || uid <= 0 || uid === process.getuid() || [...uidOfUser.values()].includes(uid)) {
+    throw new Error("pool requires distinct unprivileged UIDs");
+  }
+  uidOfUser.set(user, uid);
 }
 function agentForUid(uid) {
   for (const [agentId, rec] of Object.entries(state.agents)) {
-    if (rec.uid === uid) return agentId;
+    if (rec.uid === uid && rec.scope !== "destination" && uidOfUser.get(rec.user) === uid) return agentId;
   }
   return null;
 }
-function register(agentId) {
+function register(agentId, scope) {
   if (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(agentId)) {
     throw new Error("agentId must be a UUID");
   }
   const existing = state.agents[agentId];
-  if (existing) return existing;
+  if (existing) {
+    if ((existing.scope ?? "origin") !== scope || uidOfUser.get(existing.user) !== existing.uid) {
+      throw new Error("conflicting registry entry");
+    }
+    return existing;
+  }
   const used = new Set(Object.values(state.agents).map((r) => r.user));
   const user = config.pool.find((u) => !used.has(u));
   if (!user) throw new Error("agent OS user pool exhausted");
-  const rec = { user, uid: uidOfUser.get(user), registeredAt: new Date().toISOString() };
+  const rec = { scope, user, uid: uidOfUser.get(user), registeredAt: new Date().toISOString() };
   state.agents[agentId] = rec;
-  saveState();
+  try { saveState(); } catch (err) { delete state.agents[agentId]; throw err; }
   log("register", { agentId, ...rec });
   return rec;
 }
@@ -79,9 +88,9 @@ const admin = createHttpServer((req, res) => {
   req.on("data", (c) => (body += c));
   req.on("end", () => {
     try {
-      if (req.method === "POST" && req.url === "/register") {
+      if (req.method === "POST" && ["/register", "/register/destination"].includes(req.url)) {
         const { agentId } = JSON.parse(body);
-        const rec = register(agentId);
+        const rec = register(agentId, req.url === "/register" ? "origin" : "destination");
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({ agentId, user: rec.user }));
         return;
@@ -184,7 +193,7 @@ async function handleMcp(req, res, caller) {
 const ingress = createHttpServer((req, res) => {
   const caller = identify(req.socket);
   if (!caller.agentId) {
-    log("refuse_unknown_peer", { uid: caller.uid, url: req.url });
+    log("refuse_unknown_peer", { uid: caller.uid });
     return sendJson(res, 403, { error: `acl-broker: uid ${caller.uid} is not a registered agent` });
   }
   const path = req.url?.split("?")[0];
@@ -219,7 +228,7 @@ ingress.on("upgrade", (req, socket, head) => {
 
 function bridgeWs(client, caller) {
   // Upstream: the daemon's /ws on its Unix socket. No credential forwarded from
-  // the agent; the socket's file mode is the daemon's admission check.
+  // the agent. Only the service UID can traverse the socket's parent directory.
   const upstream = new WebSocket(`ws+unix://${config.daemon.socket}:/ws`, { headers: { host: "localhost" } });
   const pending = [];
   let open = false;
@@ -228,9 +237,23 @@ function bridgeWs(client, caller) {
     for (const m of pending) upstream.send(m);
     pending.length = 0;
   });
+  // Each upstream connection belongs to this client. Forward only handshake
+  // data and replies to authorized RPCs, never unsolicited daemon events.
+  const outstanding = new Map();
   upstream.on("message", (data, isBinary) => {
-    if (client.readyState === WebSocket.OPEN) client.send(data, { binary: isBinary });
+    if (isBinary || client.readyState !== WebSocket.OPEN) return;
+    let frame;
+    try { frame = JSON.parse(data); } catch { return; }
+    const msg = frame.type === "session" && frame.message;
+    const id = msg?.payload?.requestId;
+    if (outstanding.has(id) && (outstanding.get(id) === msg.type || msg.type === "rpc_error")) {
+      outstanding.delete(id);
+    } else if (!(msg?.type === "status" && msg.payload?.status === "server_info") && frame.type !== "pong") {
+      return;
+    }
+    client.send(data, { binary: false });
   });
+  client.on("error", () => upstream.terminate());
   upstream.on("close", () => client.close());
   upstream.on("error", (err) => {
     log("ws_upstream_error", { error: String(err) });
@@ -249,6 +272,8 @@ function bridgeWs(client, caller) {
         if (client.readyState === WebSocket.OPEN) client.send(JSON.stringify(refusal));
       });
       if (out === null) return;
+      const msg = JSON.parse(out).message;
+      if (msg) outstanding.set(msg.requestId, msg.type.replace(/_request$/, "_response"));
       if (open) upstream.send(out);
       else pending.push(out);
     }).catch((err) => log("ws_error", { error: String(err?.stack ?? err) }));
