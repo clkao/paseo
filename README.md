@@ -32,7 +32,7 @@ stages:
 
 # Changes to our fork of Paseo
 
-Each task is one change to Paseo that we carry in our fork of `getpaseo/paseo`, or a prototype that decides whether such a change is worth making. A task moves from backlog through ideation (CL approves the design), implementation in a worktree, independent validation (CL approves the result), and done.
+Each task is one change to Paseo, with value a Paseo user can see, that we carry in our fork of `getpaseo/paseo`. Exploring an approach is not a task. An approach is filed as a task once it is chosen, and the exploration behind it is kept in `research/` of this repository. A task moves from backlog through ideation (CL approves the design), implementation in a worktree, independent validation (CL approves the result), and done.
 
 This workflow lives off the tree of the fork. The code checkout excludes `.spacedock/` and `.worktrees/` through `.git/info/exclude`. This README is on `main` of the spec repository `.spacedock/repo`. The task files are on its orphan branch `dev-state`, checked out at `.spacedock/dev/.spacedock-state`. Run `overlay-setup.sh` from this repository on a new machine to restore the layout.
 
@@ -81,6 +81,7 @@ Design the change against the current Paseo source and the `docs/` directory of 
 - **Outputs:** The approach, the files and the estimated lines with a tolerance, acceptance criteria with `Verified by:` clauses, a test plan, and the platforms the change touches (iOS, Android, web, Electron, daemon, CLI). A change to `packages/protocol` states how it stays backward-compatible (`docs/protocol-compatibility.md`).
 - **Good:** Each criterion names a check that can fail. The plan names the specific test files to run.
 - **Bad:** A design that needs a new dependency without saying so. A plan that runs the full test suite.
+- **Prototype:** when the design depends on a mechanism that is not proven, ideation may run a bounded prototype. The task body states its aim, stop line and budget, and the result feeds the design. CL or MetaFO approves the prototype before it starts.
 - **Gate content:** CL reads the approach, the expected surface, the acceptance criteria with their proof, and any act that needs approval (a download, `npm install`, a VM, spend). Approval starts implementation.
 
 ### `implementation`

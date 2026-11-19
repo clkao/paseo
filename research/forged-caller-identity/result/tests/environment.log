@@ -1,0 +1,68 @@
+$ git -C ~/paseo remote -v
+origin  https://github.int.exe.xyz/clkao/paseo.git (fetch)
+origin  https://github.int.exe.xyz/clkao/paseo.git (push)
+upstream  https://github.com/getpaseo/paseo.git (fetch)
+upstream  https://github.com/getpaseo/paseo.git (push)
+$ git -C ~/paseo fetch upstream
+$ git -C ~/paseo rev-parse upstream/main
+8edccf05030fcfe4c9bdac523a937bc6ecac5720
+$ git -C ~/paseo rev-parse 'v0.16.2^{}'
+2ee30f4164af42ba209236ab3a31bf9532592fc3
+$ paseo --version
+0.16.2
+$ python3 ~/acl-result/tests/setup.py
+/tmp/paseo-acl-mw0tsmte
+$ bash ~/acl-result/tests/start.sh /tmp/paseo-acl-mw0tsmte 7801
+Started: PID 8079, listening on 127.0.0.1:7801
+Logs: /tmp/paseo-acl-mw0tsmte/7801/daemon.log
+$ bash ~/acl-result/tests/start.sh /tmp/paseo-acl-mw0tsmte 7802
+Started: PID 8146, listening on 127.0.0.1:7802
+Logs: /tmp/paseo-acl-mw0tsmte/7802/daemon.log
+$ env -u PASEO_AGENT_ID PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7801 paseo host add 127.0.0.1:7802 --label acl-destination --json --home /tmp/paseo-acl-mw0tsmte/7801
+Selected output:
+"registrationId": "hst_1005c190-7939-45d1-bac0-ca2723f97688"
+"status": "connecting"
+"targetDescription": "tcp://127.0.0.1:7802"
+$ bash ~/acl-result/tests/parent.sh /tmp/paseo-acl-mw0tsmte
+Selected output:
+"agentId": "022f4109-b9e0-462f-a9c3-98ce57635803"
+"status": "running"
+$ python3 ~/acl-result/tests/parent-send.py /tmp/paseo-acl-mw0tsmte
+Selected output:
+022f4109-b9e0-462f-a9c3-98ce57635803  sent          Message sent, not waiting for completion
+$ env PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7801 paseo daemon stop --home /tmp/paseo-acl-mw0tsmte/7801
+stopped: /tmp/paseo-acl-mw0tsmte/7801
+$ bash ~/acl-result/tests/debug-origin.sh /tmp/paseo-acl-mw0tsmte
+Foreground process. Request projections in daemon-evidence.jsonl.
+$ python3 ~/acl-result/tests/remote-child.py /tmp/paseo-acl-mw0tsmte
+Destination workspace {'workspaceId': 'wks_d0c033a31549f873', 'project': 'dest-work', 'name': 'dest-work', 'isolation': 'local', 'cwd': '/tmp/paseo-acl-mw0tsmte/dest-work', 'background': False}
+{'agentId': '022f4109-b9e0-462f-a9c3-98ce57635803', 'status': 'sent', 'message': 'Message sent, not waiting for completion'}
+$ python3 ~/acl-result/tests/evidence.py /tmp/paseo-acl-mw0tsmte > ~/acl-result/tests/daemon-evidence.jsonl
+Exit 0
+$ env PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7801 paseo daemon stop --home /tmp/paseo-acl-mw0tsmte/7801
+stopped: /tmp/paseo-acl-mw0tsmte/7801
+$ env PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7802 paseo daemon stop --home /tmp/paseo-acl-mw0tsmte/7802
+stopped: /tmp/paseo-acl-mw0tsmte/7802
+
+Follow-up fixture check (same homes)
+$ bash ~/acl-result/tests/start.sh /tmp/paseo-acl-mw0tsmte 7802
+Started: PID 11974, listening on 127.0.0.1:7802
+Logs: /tmp/paseo-acl-mw0tsmte/7802/daemon.log
+$ bash ~/acl-result/tests/start.sh /tmp/paseo-acl-mw0tsmte 7801
+Started: PID 12070, listening on 127.0.0.1:7801
+Logs: /tmp/paseo-acl-mw0tsmte/7801/daemon.log
+$ env -u PASEO_AGENT_ID -u PASEO_WORKSPACE_ID -u PASEO_AGENT_CWD PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7801 paseo run --home /tmp/paseo-acl-mw0tsmte/7801 --workspace wks_9f87fb7e9fb14231 --provider claude --model claude-sonnet-5-5 --title acl-independent --wait-timeout 90s --json 'Reply with ACL_INDEPENDENT_READY only. Use no tools.'
+Using workspace wks_9f87fb7e9fb14231
+{
+  "agentId": "c1dc1b52-bc48-49b4-bd24-e2895af4b220",
+  "status": "completed",
+  "provider": "claude",
+  "cwd": "/tmp/paseo-acl-mw0tsmte/work",
+  "title": "acl-independent"
+}
+$ python3 ~/acl-result/tests/fixture-status.py /tmp/paseo-acl-mw0tsmte 022f4109-b9e0-462f-a9c3-98ce57635803 b652a8d5-1f46-4a09-97ef-dc1a23b73861 c1dc1b52-bc48-49b4-bd24-e2895af4b220 e9e69983-a757-4c17-bfe6-d231a8c59dd4
+Exit 0. Output in fixture-status.log.
+$ env PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7801 paseo daemon stop --home /tmp/paseo-acl-mw0tsmte/7801
+stopped: /tmp/paseo-acl-mw0tsmte/7801
+$ env PASEO_HOME=/tmp/paseo-acl-mw0tsmte/7802 paseo daemon stop --home /tmp/paseo-acl-mw0tsmte/7802
+stopped: /tmp/paseo-acl-mw0tsmte/7802

@@ -1,6 +1,6 @@
 # Keycard: what applies to Paseo agent identity and grants
 
-Read on 2026-11-19 for `notes/agent-identity-and-grants.md`. The pages were read with a web fetch tool that returns summaries, so the quotes are short and the wording is close to the source, not exact.
+Read on 2026-11-19 for the task `agent-broker-plugin` (its `design.md`). The pages were read with a web fetch tool that returns summaries, so the quotes are short and the wording is close to the source, not exact.
 
 ## What is open source
 
