@@ -12,6 +12,17 @@ issue:
 pr:
 mod-block:
 mandate:
+gates:
+    version: 1
+    records:
+        - id: gate:74gqm38tar8mhyynj7vsw23j:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:74gqm38tar8mhyynj7vsw23j-ideation-1
+              briefing:
+                id: briefing:74gqm38tar8mhyynj7vsw23j:ideation:attempt-1:revision-1
+                digest: sha256:f9c1f5e683fe123c17c07f1bd35f19ae8a6d7633dd639902e235d3d922a740ec
+                room-ref: '@review/ideation/briefing-1'
 ---
 
 > I noticed in PR #2089 all browser tabs now share the same session store. I'd like to see it possible to scope by project or workspace, so that you can operate the same site with different credentials.

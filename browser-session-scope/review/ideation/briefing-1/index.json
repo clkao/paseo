@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:74gqm38tar8mhyynj7vsw23j:ideation:attempt-1:revision-1",
+  "question": "Approve the ideation design for browser sessions scoped by project or workspace, with the unit and the default, and the prototype run?",
+  "artifacts": [
+    {
+      "id": "artifact:74gqm38tar8mhyynj7vsw23j:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/c64246d968610d921272b9cf2e8e691076dec486/browser-session-scope.md",
+      "rev": "sha256:8113b306afa371ef3cd6e64c301460ecb5e368ed3e93de489a98d695b8048bcd",
+      "mediaType": "text/markdown",
+      "summary": "Session mode per project (Shared / This project / Each workspace), hashed scoped partitions, anchored attach gate, opener-session popups, no migration, Electron only. About 950 lines ±30%, 11 acceptance criteria. Needs: unit and default choice, and approval of the prototype run (npm install or a 400 MB Electron-only run)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:74gqm38tar8mhyynj7vsw23j:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/c297e6a8436244e573a0edd83440e65ed8e7a3c2/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:7ad37ec6a4ef2204de73dd91c15589c45f852239c2d17ec9698713739de05995"
+    }
+  ]
+}
