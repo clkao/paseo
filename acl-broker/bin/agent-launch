@@ -1,0 +1,27 @@
+#!/bin/bash
+# Paseo launches this trusted wrapper before any agent code executes.
+set -euo pipefail
+admin=${ACL_BROKER_ADMIN:?}
+broker=${ACL_BROKER_URL:?}
+gateway=${ACL_CODEX_GATEWAY:?}
+[[ "$gateway" == https://llm.int.exe.xyz/openai/v1 ]]
+args=(-c 'model_provider="exe-llm"' -c 'model_providers.exe-llm.name="exe llm"'
+      -c "model_providers.exe-llm.base_url=\"$gateway\""
+      -c 'model_providers.exe-llm.wire_api="responses"'
+      -c 'model_providers.exe-llm.requires_openai_auth=false'
+      -c "model=\"${ACL_CODEX_MODEL:?}\"")
+user=acl-probe
+if [[ -n ${PASEO_AGENT_ID:-} ]]; then
+  [[ "$PASEO_AGENT_ID" =~ ^[a-fA-F0-9-]{36}$ ]]
+  user=$(curl -fsS --unix-socket "$admin" -X POST -H 'content-type: application/json' \
+    --data "{\"agentId\":\"$PASEO_AGENT_ID\"}" http://localhost/register | jq -er .user)
+  [[ "$user" =~ ^acl-ag[1-8]$ ]]
+  args+=(-c "mcp_servers.paseo.url=\"http://$broker/mcp/agents\"")
+fi
+# Never pass the operator's environment or working directory to an agent.
+cd /
+exec sudo -n -H -u "$user" -- /usr/bin/env -i \
+  HOME="/home/$user" USER="$user" LOGNAME="$user" LANG=C.UTF-8 \
+  PATH=/opt/acl-broker/bin:/usr/local/bin:/usr/bin:/bin \
+  PASEO_HOST="$broker" PASEO_AGENT_ID="${PASEO_AGENT_ID:-}" \
+  /usr/local/bin/codex "${args[@]}" "$@"
