@@ -187,6 +187,8 @@ The harness run and the builds need `npm install`. This checkout has no `node_mo
 
 ### Feedback Cycles
 
+- Cycle 1: revise — ideation gate, CL; one global session setting, new tabs only, clear-all only, no separate prototype, criteria in **AC-N** form; surface about 950 → about 430 lines (±25%); AC narrowed: per-session clear, tab recreation and the toolbar menu dropped. The round recorder (`gate record --round`) was not run: this gate has no review-room briefing or log to record.
+
 ## Out of scope
 
 - Browser automation features beyond choosing the session.
