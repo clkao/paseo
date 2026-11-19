@@ -1,9 +1,9 @@
 ---
 id: 74gqm38tar8mhyynj7vsw23j
 title: "Browser sessions scoped by project or workspace"
-status: backlog
+status: ideation
 source: CL, 2026-11-19 (user request quoting PR #2089)
-started:
+started: 2026-11-19T21:33:15Z
 completed:
 verdict:
 score:
