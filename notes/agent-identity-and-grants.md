@@ -21,6 +21,66 @@ The daemon identifies agents correctly in every setup. An agent is isolated from
 
 Without such a sandbox, an agent that deliberately uses the operator listener gets operator authority, as `SECURITY.md` already states for processes of the daemon's user. Paseo still issues identities in that case, and the docs say what is missing.
 
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph OP["Operator"]
+    APP["App / web"]
+    OCLI["paseo CLI<br/>(user's terminal)"]
+  end
+
+  subgraph SBX["Agent sandbox (one per agent)"]
+    ROOT["Provider process<br/>= launch root"]
+    SH["Shell tool"]
+    ACLI["paseo CLI<br/>PASEO_AGENT_SOCKET"]
+    BR["stdio MCP bridge"]
+    ROOT --> SH --> ACLI
+    ROOT --> BR
+  end
+
+  subgraph D["Paseo daemon (host H1)"]
+    OL["Operator listener<br/>TCP 6767 / daemon socket<br/>password · local-credential"]
+    AS["Agent socket<br/>(Unix path, runtime dir)"]
+    PC["Peer check<br/>peer PID → parent chain<br/>→ launch root → agent:id"]
+    INP["In-process tools<br/>(bound at launch)"]
+    DEC["decide(agent, act, target)<br/>default deny · logged"]
+    AM["Agent manager<br/>delivery · create · control"]
+    LR[("Launch roots<br/>memory + runtimeInfo")]
+    OL -- "owner" --> AM
+    AS --> PC --> DEC
+    INP --> DEC
+    PC -. reads .-> LR
+    DEC --> AM
+  end
+
+  subgraph HOME["$PASEO_HOME (operator only)"]
+    CFG[("config.json<br/>access.agentGrants")]
+    REC[("agents/*.json<br/>parentage · launch root")]
+  end
+
+  APP --> OL
+  OCLI --> OL
+  ACLI --> AS
+  BR --> AS
+  SBX -. "blocked by sandbox" .-> OL
+  SBX -. "blocked by sandbox" .-> HOME
+  DEC -. reads .-> CFG
+  DEC -. reads .-> REC
+  AM -- "starts, records root" --> ROOT
+
+  subgraph H2["Connected host H2 (second release)"]
+    DEC2["decide(agent:P@srv_H1, act, target)<br/>H2's own grants"]
+  end
+  AM -- "link: agent:P@srv_H1<br/>(origin grant with host: srv_H2)" --> DEC2
+```
+
+- **Operator path:** the app and your CLI use the operator listener with the password or the local credential, as today, and get owner authority.
+- **Agent path:** the agent's CLI and its Paseo tools use the agent socket. The peer check turns the connection into `agent:<id>`, and `decide` applies grants and parentage before the agent manager acts.
+- **In-process tools** skip the socket. The daemon binds them to the agent at launch.
+- **The sandbox** blocks the operator listener and `$PASEO_HOME`, and allows the agent socket.
+- **Connected hosts:** the origin sends only the resolved address `agent:P@srv_H1`. The destination applies its own grants.
+
 ## Design
 
 ### Agent channel and identity
@@ -56,7 +116,7 @@ The user writes grants in the daemon config, `$PASEO_HOME/config.json`:
   - `control`: cancel, stop and archive;
   - `create`;
   - `direct`: all of these.
-- **Subjects and targets:** agent IDs, and the relation `started-by:self`.
+- **Subjects and targets:** agent IDs, and the relation `started-by:self`. An orchestrator gets one grant, `direct` on `started-by:self`, instead of one grant for each child.
 - **Without a grant**, an agent may act only on itself.
 - **Editing:** the user edits the file and reloads, or patches it through the existing daemon-config request. A change applies to the next request. Changing grants requires `access.manage`. Agent sessions never get `access.manage` or `daemon.manage`.
 
@@ -81,6 +141,69 @@ One function in the daemon, `decide(agent, act, target)`, runs before any side e
 - On the origin, a grant with `"host": "srv_H2"` lets agent P act on that host. The origin sends P's resolved address `agent:P@srv_H1` across the link, never a credential.
 - On the destination, that host's user grants the remote subject, for example `{ "subject": "agent:P@srv_H1", "act": "send", "target": "agent:R" }`. A child that P creates there gets the parent `P@srv_H1`, so `started-by:self` works there too.
 - The destination accepts an `@srv_H1` subject only from the authenticated link of `srv_H1`. A compromised origin can misuse only the grants given to its own agents.
+
+## Plugin support
+
+### What today's plugin system can and cannot do
+
+A plugin could act as a broker: it opens its own socket, checks peers and forwards requests with its `context.paseo` session. The plugin API leaves out what that needs:
+
+1. **No launch root.** No hook or event reports the provider's process ID. `agent.session_open` runs before the process exists, and `agent.created` carries no process ID. Without the launch root, the peer check has nothing to match.
+2. **The built-in tools cannot be replaced for each agent.** `agent.session_open` can add MCP servers, but a name that collides with Paseo's internal `paseo` server fails the open. Only the daemon-wide `daemon.mcp.injectIntoAgents` turns the built-in tools off (`public-docs/plugins/reference.md`, "Inject MCP servers").
+3. **The CLI path needs a full protocol proxy.** To catch an agent's `paseo` CLI, the plugin must carry the whole WebSocket protocol through its socket. The broker prototype allowed only two message types and broke most CLI commands.
+4. **In-process tools never cross a plugin.** The OpenCode bridge and native tool catalogs run inside the daemon.
+5. **The daemon cannot tell who the sender is.** The plugin forwards with owner authority and names the sender in a request field. The daemon cannot tell that assertion from any other owner's claim.
+6. **Parentage is open.** Callers can write the parent labels through `create_agent` and `update_agent`. A plugin cannot reserve them.
+
+So the system cannot carry the design as it is.
+
+### Proposed split: identity in core, policy in a plugin
+
+Identity must hold for every agent request, and it needs a native addon. It belongs in the core. Policy decides who may do what, which differs between users. It fits a plugin.
+
+| Core (always on) | Policy plugin |
+|---|---|
+| Agent socket and peer check, launch roots | Grants and their storage |
+| The resolved agent on every agent request, in-process tools included | `decide(agent, act, target)` |
+| Daemon-owned parent labels | The editor for grants: a settings screen with host-scoped persisted values (`defineSettings`) |
+| One call to the policy hook before each side effect | Audit records, if wanted |
+| Origin-side refusal of agent routes to other hosts while no policy allows them | Host grants, both sides |
+
+### New hook
+
+```ts
+server.before("agent.request", ({ request }) => {
+  // request.caller: { agentId, serverId, parentAgentId }   resolved by the core, never claimed
+  // request.act:    "send" | "read" | "control" | "create"
+  // request.target: { kind: "agent" | "workspace" | "host" | "tool", id, serverId }
+  // request.operation: the RPC or tool name
+  // return undefined to allow; throw to refuse with a message
+});
+```
+
+- **When it runs:** the core calls the hook for each request from an agent, after it has resolved the agent and before any side effect. It never calls the hook for operator requests.
+- **Several policy plugins:** every registered plugin must allow the request. A throw, invalid data or the 30-second timeout refuses it, like the existing before hooks.
+- **Connected hosts:** the destination calls its own hook with `caller.serverId` set to the origin. `started-by:self` uses `caller` and the target's parent, which `PluginHookAgent.parentAgentId` already carries.
+- **Optional events:** `agent.runtime_started` and `agent.runtime_closed`, with the launch generation, for audit.
+
+### Packaging the grants
+
+The grants in this design can ship as a **built-in plugin** (`plugins/<id>/`, listed in `packages/server/src/server/plugins/builtin/index.ts`).
+- Built-ins run in the daemon process, so the hook costs no inter-process round trip.
+- Built-ins stay active independently of `pluginsEnabled`.
+- Agent sessions must not reach plugin settings RPCs. The core admits agents only to the operations that the policy hook covers.
+
+**With no policy plugin**, the core still resolves every agent, so the "Sent by" names are true. Requests are allowed as today. Installing or enabling the policy plugin makes grants explicit.
+
+### What it takes
+
+- **Core:**
+  - the identity work in "Changes by package";
+  - one hook name in the lifecycle registry;
+  - the request schema in `@getpaseo/plugin/server`;
+  - the call site at the decision point;
+  - reference docs.
+- **Plugin:** the grant parser, `decide`, the settings screen, and its tests. This is the policy code of this design moved behind the hook, not new behavior.
 
 ## Where state lives
 
@@ -136,16 +259,15 @@ No secret is issued, so none is stored.
 
 ## Open questions
 
-1. **Daemons with no password.** Without a sandbox, an agent can still use the passwordless operator listener as owner. One option is to run the same peer check on the operator listener and treat a connection from an agent's process tree as that agent. This is cheap on a Unix socket. On the default TCP port it needs a lookup from connection to process (`/proc/net/tcp` on Linux, a scan of process file descriptors on macOS).
-2. **`started-by:self`.** It lets an orchestrator direct the agents it starts with one grant. Without it, the user must grant each child.
-3. **Claude Code's shell tool.** The Linux probe did not reach Claude's Bash tool, because the exe credits ran out. The stdio MCP path was verified under Claude.
-4. **Windows.** Named pipes give the client process ID (`GetNamedPipeClientProcessId`). This was not tested.
+1. **Claude Code's shell tool.** The Linux probe did not reach Claude's Bash tool, because the exe credits ran out. The stdio MCP path was verified under Claude.
+2. **Windows.** Named pipes give the client process ID (`GetNamedPipeClientProcessId`). This was not tested.
 
 ## Alternatives considered
 
 - **A secret credential for each agent,** in the agent's environment or a private file. It works with no native code. But a secret can leak into a transcript, a log or another agent's prompt, and anyone who reaches the daemon can replay it. The peer check has nothing to leak.
 - **An inherited socketpair (fd 3).** Neither Claude Code nor Codex passes an inherited descriptor to its tools or MCP servers, so the channel never reaches the agent.
 - **A broker process with one OS user for each agent.** It identifies agents by user ID, but users do not create OS accounts for each agent.
+- **The peer check on the operator listener too,** so that an agent that bypasses the agent socket is still treated as an agent. On the default TCP port, every connection would need a lookup from connection to process: `/proc/net/tcp` and a file-descriptor scan on Linux, a scan of process file descriptors on macOS. That lookup is costly. The isolation requirements give one rule instead: agents use the agent socket, and the sandbox keeps them off the operator listener.
 - **An immutable scope envelope for each agent, narrowed at each delegation** (as in shisad's task envelopes). While the user is the only writer of grants and a child starts with none, there is nothing to narrow. It becomes useful if agents may pass part of their grants to their children.
 
 ## Evidence
