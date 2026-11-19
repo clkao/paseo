@@ -1,0 +1,41 @@
+Validation ran on Linux x64 with Electron 44.2.0 under Xvfb. The proof scripts in this directory were run from .dev/validation-66805ba in the candidate checkout.
+
+Fork head (before and after):
+66805baff99fadd1942d36f70f02befdb3167eb3	refs/heads/task/browser-session-scope
+
+Free disk checks before building:
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  9.3G  76% /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  9.2G  76% /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  9.3G  76% /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  8.6G  77% /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  8.6G  77% /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  8.6G  78% /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   29G  8.5G  78% /
+
+Clean-cache Electron renderer build:
+Web Bundled 169328ms packages/app/index.ts (5885 modules)
+Exported: /home/exedev/worktrees/browser-session-scope/.dev/validation-66805ba/renderer
+
+Production listen socket before:
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+LISTEN 0      0            0.0.0.0:6767      0.0.0.0:*    users:(("Paseo Daemon",pid=5293,fd=24))
+
+Production listen socket after:
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+LISTEN 0      0            0.0.0.0:6767      0.0.0.0:*    users:(("Paseo Daemon",pid=5293,fd=24))
+
+Test daemon shutdown:
+{
+  "action": "stopped",
+  "pid": 61963,
+  "forced": false,
+  "usedLifecycleRpc": false,
+  "home": "/home/exedev/worktrees/browser-session-scope/.dev/validation-66805ba/daemon"
+}

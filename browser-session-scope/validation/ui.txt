@@ -1,0 +1,51 @@
+From packages/app:
+  CI=1 NODE_OPTIONS=--max-old-space-size=4096 PASEO_WEB_PLATFORM=electron EXPO_PUBLIC_LOCAL_DAEMON=127.0.0.1:24767 npx expo export --platform web --clear --no-minify --max-workers 1 --output-dir "$a/renderer"
+From the repository root ($a is the fresh validation directory under .dev):
+  node packages/cli/dist/index.js --home "$a/daemon" start --timeout 35 --json
+  node packages/cli/dist/index.js --host 127.0.0.1:24767 project create "$a/projects/$project" --json
+  node packages/cli/dist/index.js --host 127.0.0.1:24767 workspace create --isolation local --path "$a/projects/$project" --title "$project" --json
+  python3 "$a/fixture.py"
+  bash "$a/run-desktop.sh"
+  node "$a/desktop-ui.mjs" settings
+  In Hosts > Add host > Direct connection, enter host 127.0.0.1 and port 24767.
+  node "$a/desktop-ui.mjs" accounts
+Projects Northwind and Contoso each use a separate empty local fixture repository. The local test server sets an HttpOnly session cookie for the selected fixture account. The renderer was exported with its Electron platform overlay. Electron main was built by the capture-harness script. The test profile disables the built-in daemon manager.
+  node "$a/desktop-ui.mjs" clear
+
+Settings
+captured settings-shared
+persisted { sessionScope: 'workspace' }
+captured settings-workspace
+persisted { sessionScope: 'project' }
+captured settings-project
+captured settings-choices
+
+Accounts after reload
+Northwind http://127.0.0.1:24769/ Account portal
+Account
+
+Signed in as Northwind tester
+
+northwind-qa@example.test
+captured account-northwind-qa
+Contoso http://127.0.0.1:24769/ Account portal
+Account
+
+Signed in as Contoso tester
+
+contoso-qa@example.test
+captured account-contoso-qa
+
+Clear through window.paseoDesktop.browser.clearProfile([])
+After clear: Northwind Sign in http://127.0.0.1:24769/
+After clear: Contoso Sign in http://127.0.0.1:24769/
+
+Test daemon
+{
+  "serverId": "scope-validation-local",
+  "pid": 61963,
+  "workerPid": 61974,
+  "listen": "127.0.0.1:24767",
+  "localDaemon": "running",
+  "desktopManaged": false
+}

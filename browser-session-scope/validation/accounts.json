@@ -1,0 +1,16 @@
+[
+  {
+    "project": "Northwind",
+    "account": "northwind-qa",
+    "partition": "persist:paseo-browser-scope-b320b2410fbb5a9045f2579273067690",
+    "url": "http://127.0.0.1:24769/",
+    "afterReload": "Account portal\nAccount\n\nSigned in as Northwind tester\n\nnorthwind-qa@example.test"
+  },
+  {
+    "project": "Contoso",
+    "account": "contoso-qa",
+    "partition": "persist:paseo-browser-scope-99121006dc962d4c9f01aa442b0451c2",
+    "url": "http://127.0.0.1:24769/",
+    "afterReload": "Account portal\nAccount\n\nSigned in as Contoso tester\n\ncontoso-qa@example.test"
+  }
+]

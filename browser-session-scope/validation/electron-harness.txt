@@ -1,0 +1,31 @@
+$ PASEO_CAPTURE_HARNESS_OUT_DIR=<fresh evidence directory> XDG_CONFIG_HOME=<fresh harness profile> PASEO_CAPTURE_HARNESS_GROUP=browser-profile xvfb-run -a npm run capture-harness --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 capture-harness
+> npm run build:main && ./capture-harness/run.sh
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+[61394:1119/222020.343396:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61394:1119/222020.361775:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[61394:1119/222020.361971:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61394:1119/222020.366084:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[61394:1119/222020.488755:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS browser profile renderer did-attach identities match their main-process guests
+PASS browser profile tabs share cookies, localStorage, and one persistent session
+[61394:1119/222021.453620:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61394:1119/222022.455681:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS capture harness browser-profile complete output=/home/exedev/worktrees/browser-session-scope/.dev/validation-66805ba/evidence/harness
+[61673:1119/222024.333749:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61673:1119/222024.359037:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[61673:1119/222024.361699:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61673:1119/222024.361711:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[61673:1119/222024.395899:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS browser profile renderer did-attach identities match their main-process guests
+PASS browser profile tabs share cookies, localStorage, and one persistent session
+PASS browser profile cookies and localStorage survived an Electron process restart
+[61673:1119/222025.318156:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[61673:1119/222025.540934:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 2 rejected by interface blink.mojom.Widget
+[61673:1119/222026.224295:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS capture harness browser-profile complete output=/home/exedev/worktrees/browser-session-scope/.dev/validation-66805ba/evidence/harness

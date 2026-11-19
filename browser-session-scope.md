@@ -265,3 +265,36 @@ Implementation stage report from Paseo agent a14826a1.
 `task/browser-session-scope` is clean at `66805baff99fadd1942d36f70f02befdb3167eb3`, based on `upstream/main` at `95542dbfe6047ad45f9b5a10df5619278e53ac17`. The change spans 38 files with 560 additions and 109 deletions, **451 net lines**, 4.9% above the 430-line estimate and within tolerance. [Per-file diffstat](/home/exedev/acl-result/browser-session-scope/branch.txt)
 
 Electron 44 emitted `did-attach` before the guest ID was readable. The app and harness now read it on the first `dom-ready` after each attachment. Settings > General and the existing Settings > Browser page use the same control.
+
+## Stage Report: validation
+
+- DONE: AC-1 — Two sign-ins stay apart on one origin and survive a restart.
+  `PASEO_CAPTURE_HARNESS_GROUP=browser-profile xvfb-run -a npm run capture-harness --workspace=@getpaseo/desktop` exited 0. The write and read processes both compared each guest’s cookie and local storage with its own expected value. [Process output](browser-session-scope/validation/electron-harness.txt) · [scoped-isolation and scoped-restart-persistence](browser-session-scope/validation/results.json)
+- DONE: AC-2 — Shared and unset select the existing shared profile.
+  `session-scope.test.ts` (1/1) returned `persist:paseo-browser`. `desktop-settings.test.ts` (14/14) read an older settings file as Shared. The two-process harness passed shared-profile-data and process-restart-persistence. [Individual commands and output](browser-session-scope/validation/vitest.txt) · [Harness results](browser-session-scope/validation/results.json)
+- DONE: AC-3 — Project and workspace scopes use distinct, server-qualified partitions.
+  `session-scope.test.ts` (1/1) matched the project’s known hash across workspaces, separated different workspaces, projects and servers, and distinguished ["a","bc"] from ["ab","c"]. [Command and output](browser-session-scope/validation/vitest.txt)
+- DONE: AC-4 — The attach gate accepts only allowed URLs and exact partition names.
+  `browser-webviews/index.test.ts` (8/8) accepted shared and a 32-digit lowercase scoped name, rejected legacy, foreign, missing, short, long, uppercase and suffixed names, and rejected a file URL. [Command and output](browser-session-scope/validation/vitest.txt)
+- DONE: AC-5 — A guest cannot register against a different session.
+  `browser-webviews/index.test.ts` (8/8) received false for a mismatched guest and found no registered browser ID afterward. [Command and output](browser-session-scope/validation/vitest.txt)
+- DONE: AC-6 — A scoped popup shares its opener’s session.
+  The browser-profile harness opened a real window and checked both Electron session identity and the opener’s cookie and local storage. scoped-popup-session passed. [Process output](browser-session-scope/validation/electron-harness.txt) · [Result](browser-session-scope/validation/results.json)
+- DONE: AC-7 — Agent-created tabs use the workspace’s session and fail for unknown workspaces.
+  `automation/handler.test.ts` (15/15) checked the shared, project and workspace partitions passed to webview creation. An unknown workspace produced a failure response and zero new webviews. [Command and output](browser-session-scope/validation/vitest.txt)
+- DONE: AC-8 — Clearing includes shared, scoped and legacy profiles and reloads the scoped guest.
+  `browser-profile.test.ts` (6/6) resolved five expected sessions, skipped malformed and foreign entries, and observed a scoped guest reload. scoped-isolation verified both real partition directories existed. [Command and output](browser-session-scope/validation/vitest.txt) · [Harness result](browser-session-scope/validation/results.json)
+- DONE: AC-9 — A setting change affects new tabs and preserves the open tab’s session.
+  Chromium ran `resident-webviews.browser.test.ts` (17/17). Reusing the first ID returned the same element with its shared partition, and a second ID received the new scoped partition. [Command and output](browser-session-scope/validation/vitest.txt)
+- DONE: AC-10 — A persisted setting survives reopening and an invalid value falls back to Shared.
+  `desktop-settings.test.ts` (14/14) opened a fresh store on the patched file, read back Per workspace and the sound preference, and preserved other settings when recovering from an invalid scope. [Command and output](browser-session-scope/validation/vitest.txt)
+- DONE: AC-11 — Settings shows all three choices and the current selection, and two projects can sign in to one site with different accounts.
+  The Linux Electron app showed [Shared](browser-session-scope/validation/settings-shared.png), [Per project](browser-session-scope/validation/settings-project.png), [Per workspace](browser-session-scope/validation/settings-workspace.png) and the [open menu](browser-session-scope/validation/settings-choices.png). Under Per project, [Northwind](browser-session-scope/validation/account-northwind-qa.png) and [Contoso](browser-session-scope/validation/account-contoso-qa.png) retained their respective fixture sign-ins after reload at the same URL. [Commands and output](browser-session-scope/validation/ui.txt) · [Observed partitions](browser-session-scope/validation/accounts.json)
+
+### Summary
+
+**Recommendation: PASSED.** All eleven criteria reproduced at fork head `66805baff99fadd1942d36f70f02befdb3167eb3`. The six named files passed 61/61 tests and both Electron processes completed. As an additional AC-8 check, clearing through the desktop bridge returned both open fixture tabs to sign-in.
+
+UI coverage was Linux x64 under Xvfb with Electron 44.2.0. The initial minified renderer export exhausted a worker’s memory and a cached export held an old fixture port. The screenshots came from a fresh profile and a successful clean-cache, unminified Electron renderer export. The isolated daemon used port 24767 and stopped after capture. Port 6767 retained the same listener and PID. [Environment and build](browser-session-scope/validation/environment.txt)
+
+The fresh Codex worker did not list `spacedock:ensign` in its runtime skill catalog. It read the installed edge 0.29.0-pre0 skill, shared core and Codex adapter from disk. Automatic skill binding could not be verified. Gate decision remains with CL.

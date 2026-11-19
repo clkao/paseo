@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-11-19T22:20:26.822Z",
+  "browserProfileResults": [
+    {
+      "group": "browser-profile",
+      "check": "renderer-main-identity",
+      "pass": true
+    },
+    {
+      "group": "browser-profile",
+      "check": "shared-profile-data",
+      "pass": true
+    },
+    {
+      "group": "browser-profile",
+      "check": "process-restart-persistence",
+      "pass": true
+    },
+    {
+      "group": "browser-profile",
+      "check": "scoped-isolation",
+      "pass": true
+    },
+    {
+      "group": "browser-profile",
+      "check": "scoped-restart-persistence",
+      "pass": true
+    },
+    {
+      "group": "browser-profile",
+      "check": "scoped-popup-session",
+      "pass": true
+    }
+  ]
+}

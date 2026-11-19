@@ -1,0 +1,134 @@
+$ cd packages/app && npx vitest run  src/desktop/browser/automation/handler.test.ts --bail=1 --reporter=verbose
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-session-scope/packages/app
+
+stderr | src/desktop/browser/automation/handler.test.ts
+[DraftStore] Attachment garbage collection failed Error: IndexedDB is unavailable in this runtime.
+    at ensureIndexedDb (/home/exedev/worktrees/browser-session-scope/packages/app/src/attachments/web/indexeddb-attachment-store.ts:27:11)
+    at /home/exedev/worktrees/browser-session-scope/packages/app/src/attachments/web/indexeddb-attachment-store.ts:34:21
+    at new Promise (<anonymous>)
+    at openAttachmentDb (/home/exedev/worktrees/browser-session-scope/packages/app/src/attachments/web/indexeddb-attachment-store.ts:33:10)
+    at Object.garbageCollect (/home/exedev/worktrees/browser-session-scope/packages/app/src/attachments/web/indexeddb-attachment-store.ts:192:24)
+    at /home/exedev/worktrees/browser-session-scope/packages/app/src/attachments/service.ts:188:17
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+(node:61238) [DEP0151] DeprecationWarning: Package /home/exedev/worktrees/browser-session-scope/node_modules/react-native-worklets/ has a "main" field set to "./lib/module/index", excluding the full filename and extension to the resolved file at "lib/module/index.js", imported from /home/exedev/worktrees/browser-session-scope/node_modules/react-native-reanimated/lib/module/initializers.js.
+ Automatic extension resolution of the "main" field is deprecated for ES modules.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab creates a workspace browser tab without stealing focus 11ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab uses the project session 53ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab uses the workspace session 54ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab fails before opening a tab in an unknown workspace 2ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab returns a retryable timeout when the resident webview does not register 20ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab wraps registration bridge errors in a response 2ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_resize updates resident webview dimensions 4ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_resize returns not found for a tab outside the request workspace 3ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_close_tab removes the workspace tab, browser record, resident webview, and registry entry 4ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_close_tab returns not found after the tab is gone 3ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > non-new-tab requests send the desktop bridge response 1ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > missing desktop bridge sends browser_unsupported 1ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > typed bridge errors become failure responses 1ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > unimplemented preload IPC reports browser_unsupported 1ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > unsubscribe stops handling browser automation requests 1ms
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  22:20:03
+   Duration  15.27s (transform 12.59s, setup 49ms, import 14.94s, tests 168ms, environment 0ms)
+
+$ cd packages/app && npx vitest run --project browser src/desktop/browser/resident-webviews.browser.test.ts --bail=1 --reporter=verbose
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-session-scope/packages/app
+
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a browser webview in the permanent paintable 1x1 host 4ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > presents and parks a browser without changing its webview parent 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > clips an oversized fixed viewport to its pane without resizing the webview 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > creates a resident webview for an agent-created unfocused tab 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > keeps the partition of a resident browser when the setting changes 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > shares one profile and registers attached guests with explicit identity 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > normalizes an existing resident host back to permanent parking 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > normalizes an existing resident webview and its stale host before reusing them 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks resident webviews as an overlapping stack 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > returns a resident webview without detaching it from its permanent surface 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > applies an exact fixed viewport without a flex width override 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a browser at its last resolved viewport dimensions 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > keeps an inactive in-place browser at its last resolved viewport dimensions 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a cold inactive browser at its canonical fixed viewport 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > returns an existing visible pane webview instead of creating a resident duplicate 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > finds the originating browser webview for focus restoration 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > removes a resident webview when its browser tab closes 0ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  22:20:20
+   Duration  1.82s (transform 0ms, setup 0ms, import 498ms, tests 13ms, environment 0ms)
+
+$ cd packages/app && npx vitest run  src/desktop/browser/session-scope.test.ts --bail=1 --reporter=verbose
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-session-scope/packages/app
+
+ ✓ |unit| src/desktop/browser/session-scope.test.ts > scopes persistent partitions by server and project or workspace 12ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  22:20:03
+   Duration  189ms (transform 56ms, setup 54ms, import 21ms, tests 13ms, environment 0ms)
+
+$ cd packages/desktop && npx vitest run  src/features/browser-profile.test.ts --bail=1 --reporter=verbose
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-session-scope/packages/desktop
+
+ ✓ src/features/browser-profile.test.ts > listPaseoBrowserProfileGuests > reloads live webviews and popups across cleared profiles 2ms
+ ✓ src/features/browser-profile.test.ts > legacy browser profiles > accepts only unique saved browser ids and resolves their old partitions 1ms
+ ✓ src/features/browser-profile.test.ts > legacy browser profiles > resolves one valid legacy profile for tab-close cleanup 0ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > clears site data, HTTP cache, and auth before reloading live guests 0ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > skips destroyed guests and logs individual reload failures 0ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > propagates clear failures without reloading guests 1ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  22:20:01
+   Duration  182ms (transform 48ms, setup 0ms, import 59ms, tests 6ms, environment 0ms)
+
+$ cd packages/desktop && npx vitest run  src/features/browser-webviews/index.test.ts --bail=1 --reporter=verbose
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-session-scope/packages/desktop
+
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > accepts only allowed URLs on the shared profile partition 1ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > admits only complete lowercase scoped names on allowed URLs 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > binds explicit browser identity to the renderer that hosts the guest 1ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > rejects a guest hosted by another renderer 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > rejects a guest whose session differs from its claimed scoped partition 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > concurrent windows cannot swap browser identities 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > unregisters the same browser only from its requesting host 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > removes registration when the guest is destroyed 0ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  22:20:00
+   Duration  210ms (transform 78ms, setup 0ms, import 96ms, tests 5ms, environment 0ms)
+
+$ cd packages/desktop && npx vitest run  src/settings/desktop-settings.test.ts --bail=1 --reporter=verbose
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-session-scope/packages/desktop
+
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > persists default settings for new users 5ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > handles concurrent first-launch reads without racing the settings write 5ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > coerces invalid persisted values back to safe defaults 3ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > patches nested settings and leaves no temp files behind 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > defaults notification sounds on for existing settings documents 2ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > keeps an explicit notification sound choice across restarts 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > does not let stale legacy renderer settings override an explicit desktop patch 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > does not rewrite existing settings while reading them 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > resets the pre-existing keep-running default so the daemon stops with the app 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > keeps an explicit keep-running choice across restarts 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > migrates desktop-owned values from legacy renderer settings once 11ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > keeps keys written by another build across a patch 4ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > keeps keys written by another build across the legacy renderer migration 1ms
+ ✓ src/settings/desktop-settings.test.ts > desktop-settings > replaces an unusable modelled value on the write path 5ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  22:20:02
+   Duration  263ms (transform 65ms, setup 0ms, import 114ms, tests 44ms, environment 0ms)
+
