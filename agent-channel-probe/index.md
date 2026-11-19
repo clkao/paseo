@@ -60,6 +60,35 @@ The design for agent identity (`.spacedock/repo/notes/agent-identity-envelope.md
 - No push, issue or comment.
 - Put the scripts and logs in this task's folder: `.spacedock/dev/.spacedock-state/agent-channel-probe/` (`probe/` and `logs/`). Do not commit.
 
-## Result
+## Result (2026-11-19)
 
-To be written by the worker: the filled table, then a recommendation in 5 lines or fewer. Mark each cell as observed (with its log file) or as documented or inferred.
+Two runs did the work:
+- the Mac run in Safehouse, by agent `ebd5b5d6`. Its scripts and logs are in this folder (`probe/`, `logs/`).
+- the Linux run on `paseo-acl-prototype`, by agent `3dd8c94a`. Its report and logs are on the VM in `~/acl-result/channel-probe/` (`REPORT.md`, `probe/`, `logs/`) and have not been copied here.
+
+`probe/run-all.sh` (the Mac run outside the sandbox) has not run.
+
+| Property | Named socket + peer check | Inherited socketpair (fd 3) |
+|---|---|---|
+| CLI from the Claude Code Bash tool | Not tested. On Linux, Claude got HTTP 402: the exe credits ran out. | **Fails.** fd 3 absent, Mac, observed (`logs/claude-safehouse.clients.log`) |
+| CLI from the Codex shell tool | Sandbox off: accepted. Sandbox on: `EPERM` at connect, because the Codex sandbox blocks the socket. Linux, observed | **Fails.** fd 3 absent with the sandbox on and off. Linux, observed |
+| stdio MCP server started by the agent CLI | Accepted under Claude and under Codex, sandbox on and off. Linux, observed | **Fails.** fd 3 absent under Claude (Mac and Linux) and under Codex (Linux), observed |
+| Non-descendant process of the same user | Refused. Linux, observed | No fd 3, so no channel. Observed |
+| Escaped process | `setsid` and `nohup` accepted: they stay descendants. A double fork is refused after it is reparented to PID 1. Linux, observed | Works while the agent lives; closes when the agent exits. Observed |
+| Secret that could leak into a transcript | None. A copied path still meets the peer check | None |
+| Agent restart | A new agent is accepted; an orphan of the old agent is refused. Linux, observed | A new pair works; the old fd gets `EPIPE`. Observed |
+| Daemon (harness) restart | An agent that is still running reconnects once the daemon restores its record (root PID and start time). Linux, observed | Lost: there is no way to reconnect. Observed |
+| Cost of the peer check | 43 µs median, 57 µs p95. If the connecting process has already exited, the check refuses. Linux, observed | None |
+| Mac and Safehouse | Inside Safehouse a process cannot bind a Unix socket, and connect is allowed only to listed paths. The daemon (outside) owns the socket, and the profile must allow the agent's path. `ps` and `libproc` stop at the sandbox edge, so the ancestry check must run in the daemon. Observed | Inheritance works in the baseline, but no agent CLI passes fd 3 to its tools |
+
+**Recommendation (first officer).**
+1. Drop the socketpair: neither Claude Code nor Codex passes fd 3 to its tools or MCP servers.
+2. Use a named socket for each agent, owned by the daemon. The daemon checks the peer process (PID, start time, ancestry back to the agent's root process) and needs no secret.
+3. Agents reach Paseo tools through a stdio MCP bridge that connects to that socket; the bridge passed the check under both CLIs.
+4. Codex's sandbox and Safehouse each need an allow rule for the agent's socket path.
+
+Still open:
+- the Claude Bash path on Linux (needs exe credits);
+- the Mac run outside the sandbox (`run-all.sh`);
+- a double fork loses access, which is by design but must be documented;
+- re-adopting a running agent after a daemon restart needs the root PID and start time saved on the agent's record.

@@ -1,0 +1,11 @@
+11:46:58 NAMED bind/listen FAILED /tmp/agent-channel-probe/d.sock: [Errno 1] Operation not permitted
+11:46:58 SPAWN agent#1 pid=92748 start=1795117618 cmd=['bash', '-c', '\npython3 -I /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py bash-c\npython3 -I /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py bash-c escapes\nnohup sh -c \'sleep 3; python3 -I /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py bash-nohup-orphan\' >/dev/null 2>&1 &\nnode -e \'const cp=require("child_process"); cp.spawnSync("python3",["-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","node-spawnSync"],{stdio:"inherit"}); cp.spawnSync("python3",["-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","node-spawn-stdio3-inherit"],{stdio:[0,1,2,3]})\'\npython3 -I -c \'import subprocess,sys; subprocess.run([sys.executable,"-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","py-subprocess-default"]); subprocess.run([sys.executable,"-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","py-subprocess-pass_fds3"],pass_fds=(3,))\'\n']
+11:46:58 PAIR[agent#1] msg='bash-c pid=92749'
+11:46:58 PAIR[agent#1] msg='bash-c-setsid-parent-alive pid=92751'
+11:46:58 PAIR[agent#1] msg='bash-c-direct pid=92750'
+11:46:58 PAIR[agent#1] msg='node-spawn-stdio3-inherit pid=92767'
+11:46:58 PAIR[agent#1] msg='py-subprocess-pass_fds3 pid=92769'
+11:46:59 EXIT agent#1 rc=0; closing its pair end
+11:46:59 GRACE 5.0s for late/escaped clients
+11:46:59 PAIR[agent#1] closed by peer side
+11:47:04 HARNESS exit

@@ -1,0 +1,9 @@
+11:47:04 NAMED bind/listen FAILED /tmp/agent-channel-probe/d.sock: [Errno 1] Operation not permitted
+11:47:04 SPAWN agent#1 pid=92809 start=1795117624 cmd=['bash', '-c', 'for i in 1 2 3 4 5 6 7 8 9 10; do python3 -I /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py fake-agent-tick$i; sleep 1; done']
+11:47:04 PAIR[agent#1] msg='fake-agent-tick1 pid=92810'
+11:47:05 PAIR[agent#1] msg='fake-agent-tick2 pid=92815'
+11:47:06 PAIR[agent#1] msg='fake-agent-tick3 pid=92820'
+11:47:07 HARNESS exit without stopping agent (daemon crash)
+11:47:07 ADOPT root={'pid': 92809, 'start': 1795117624} alive_and_same=True (err=0)
+11:47:07 NAMED bind/listen FAILED /tmp/agent-channel-probe/d.sock: [Errno 1] Operation not permitted
+11:47:15 HARNESS exit (adopt)

@@ -1,0 +1,10 @@
+11:44:17 SPAWN agent#1 pid=84539 start=1795117457 cmd=['bash', '-c', '\npython3 -I /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py bash-c\npython3 -I /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py bash-c escapes\nnohup python3 -I -c \'import time,subprocess,sys; time.sleep(2); subprocess.run([sys.executable,"-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","bash-nohup-orphan"])\' >/dev/null 2>&1 &\nnode -e \'require("child_process").spawnSync("python3",["-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","node-spawnSync"],{stdio:"inherit"}); require("child_process").spawn("python3",["-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","node-spawn"],{stdio:"inherit"})\'\nsleep 0.5\npython3 -I -c \'import subprocess,sys; subprocess.run([sys.executable,"-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","py-subprocess-default"]); subprocess.run([sys.executable,"-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","py-subprocess-close_fds-False"],close_fds=False); subprocess.run([sys.executable,"-I","/Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/client.py","py-subprocess-pass_fds3"],pass_fds=(3,))\'\n']
+11:44:17 PAIR[agent#1] msg='bash-c pid=84540'
+11:44:17 PAIR[agent#1] msg='bash-c-setsid-parent-alive pid=84542'
+11:44:17 PAIR[agent#1] msg='bash-c-direct pid=84541'
+11:44:18 PAIR[agent#1] msg='py-subprocess-close_fds-False pid=84564'
+11:44:18 PAIR[agent#1] msg='py-subprocess-pass_fds3 pid=84565'
+11:44:18 EXIT agent#1 rc=0; closing its pair end
+11:44:18 PAIR[agent#1] closed by peer side
+11:44:18 GRACE 4.0s for late/escaped clients
+11:44:22 HARNESS exit
