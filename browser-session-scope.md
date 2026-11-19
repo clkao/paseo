@@ -7,7 +7,7 @@ started: 2026-11-19T21:33:15Z
 completed:
 verdict:
 score:
-worktree:
+worktree: vm:paseo-acl-prototype:~/worktrees/browser-session-scope (agent a14826a1)
 issue:
 pr:
 mod-block:
