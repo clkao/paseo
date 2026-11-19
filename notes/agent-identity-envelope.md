@@ -1,10 +1,55 @@
 # Design note: agent identity and task envelopes inside the Paseo daemon
 
-Status: proposal for CL, 2026-11-19. It replaces the external broker of `agent-identity-binding` as the direction for the next prototype.
+Status: proposal for CL, 2026-11-19. It replaces the external broker of `agent-identity-binding` as the direction for the next prototype. The target is an upstream pull request to `getpaseo/paseo`.
 
 ## Assumption
 
 Each agent runs in a sandboxed or ephemeral place where it cannot read another agent's credential or the operator's credential. Paseo does not create OS accounts and does not depend on how the sandbox is built. It needs one thing from the sandbox: a private place where the daemon can put one agent's credential.
+
+## Decisions from CL (2026-11-19)
+
+- **Upstream.** The protocol stays backward-compatible, and the feature is gated.
+- **Authority comes from explicit grants.** An agent that the user starts is a normal agent. It has authority beyond itself only through grants that the user defines. Applied as a recommendation: the agent may act on itself and on the agents that it started without a grant.
+- **No sandbox: still issue credentials.** The daemon issues credentials in every case. The docs state what true isolation requires: the agent cannot read another agent's credential, the operator credential (`local-credential`, the daemon password) or `$PASEO_HOME`, and cannot reach the daemon except with its own credential.
+
+## What changes, by area
+
+| Area | Files | Change |
+|---|---|---|
+| Protocol | `packages/protocol/src/messages.ts` (hello `auth`) | New optional auth kind `agentCredential`. It is safe for old daemons, because only a daemon that issues credentials gives an agent one. |
+| Spawn | `packages/server/src/server/agent/agent-manager.ts` (launch context, about line 5569), `agent/runtime-mcp-config.ts` | The daemon creates a credential for each runtime launch. It puts the credential in the agent's environment (`PASEO_AGENT_CREDENTIAL`) and as the MCP bearer, in place of the shared token. |
+| Admission | `session-admission-auth.ts`, `auth.ts` (`isAgentMcpRequestAuthorized`), `bootstrap.ts` (`/mcp/agents` handler) | The credential resolves to the principal `agent:<id>` with its envelope. `callerAgentId` and `sourceAgentId` are ignored or must match. |
+| Native tools | `agent/tools/paseo-tools.ts`, the OpenCode bridge (`providers/opencode/bridge.ts`) | In-process tool catalogs are already bound to one agent. The bridge token is one for each daemon and becomes one for each agent. |
+| Decision | `authorization/` (new `decide()` next to `SessionAuthorization`), call sites in `session.ts` and `paseo-tools.ts` | One function for each request from an agent. It denies by default, records each decision, and does not read content. |
+| Parentage | `agent/tools/paseo-tools.ts` (`create_agent` and `update_agent` accept any labels), `agent/lifecycle-command.ts` | Today any caller can set `paseo.parent-agent-id` and adopt any agent. The `paseo.*` labels become daemon-owned: only the daemon writes them, from the verified creator. |
+| Connected hosts | `agent/host-operations/index.ts` (routes with `OWNER_PERMISSIONS`), `connected-hosts/session.ts` | Forward the verified agent and the scope narrowed for that request. The destination intersects it with the link's authority. |
+| CLI | `packages/cli/src/utils/client.ts`, `utils/caller-agent.ts` | When `PASEO_AGENT_CREDENTIAL` is present, send it and not the local credential. Stop sending `PASEO_AGENT_ID` as the identity. |
+| App, CLI | grants editor | List, add and revoke grants, behind `access.manage`. |
+| Docs | `docs/permissions.md`, `SECURITY.md`, `docs/data-model.md` | Agent principals, envelopes, grants, and the isolation requirement. |
+
+## Where it is stored
+
+| Data | Where | Lifetime |
+|---|---|---|
+| Agent credential (secret) | Not on disk. The daemon keeps only a hash in memory. The agent receives the secret in its environment, or in its private place when it has one. | One runtime launch |
+| Envelope | New optional field `envelope` on the agent record, `$PASEO_HOME/agents/{dir}/{agentId}.json`. Frozen at creation. | The life of the agent, kept after archive for audit |
+| Parentage | The `paseo.parent-agent-id` and `paseo.parent-server-id` labels on the same record, written only by the daemon | The life of the agent |
+| Grants | New store `$PASEO_HOME/access/grants.json`, owned by the operator, written atomically | Until the user revokes them |
+| Decisions | The daemon log (`daemon.log`) | Log rotation |
+
+The effective authority for a request is the agent's envelope intersected with the current grants. When the user revokes a grant, it takes effect on the next request. A widened grant does not widen a child, because the child's envelope is frozen.
+
+## Restarts
+
+- **Daemon restart.** Provider runtimes end, and their records become `closed`, as today. Credentials existed only in daemon memory, so every credential is invalid. When an agent resumes (`ensureAgentLoaded()`), it starts with a new credential. Envelopes, parentage and grants are on disk, so they are unchanged. A process left over from an agent's shell holds a dead credential and is refused. It does not fall back to the operator. Links to connected hosts reconnect, and the scope is sent again with each request.
+- **Agent process restart** (reload, idle cleanup and resume, a provider crash). The new launch gets a new credential, and the daemon revokes the old one when it releases the runtime. The agent ID, the envelope and the parentage stay the same.
+- **Archive and unarchive.** Archive revokes the credential and keeps the envelope. Unarchive resumes with a new credential under the same envelope.
+- **Connected host restart.** The destination keeps its own records and the envelopes of its remote children. The origin's verified identity arrives again with each routed request after the link reconnects.
+
+## Recommendation for upstream adoption
+
+- **Part 1, always on:** the credential, ignoring claimed IDs, and daemon-owned parentage. These fix attribution and break no workflow.
+- **Part 2, opt-in:** enforcement, set in the daemon config, for example `agents.access: open | granted`. Today's behavior equals one default grant, "every agent may act on every agent", so `open` changes nothing. A later release can change the default.
 
 ## Design
 
@@ -72,7 +117,7 @@ On the VM, the stand-in for the private place is one directory for each test age
 
 ## Owner
 
-`paseo`. All of this is in `packages/server`, plus optional protocol fields. paseo-safehouse only provides the private place.
+`paseo`. Everything is in `packages/server`, `packages/cli` and `packages/protocol`, with optional protocol fields only. paseo-safehouse only provides the private place.
 
 ## Protocol
 
