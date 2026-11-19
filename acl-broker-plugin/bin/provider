@@ -1,0 +1,75 @@
+#!/usr/bin/python3
+"""exe.dev stand-in. All host-side paths except the socket are operator provisioned."""
+import os
+from pathlib import Path
+import re
+import sys
+
+env = os.environ
+provider, *argv = sys.argv[1:]
+if provider not in ("codex", "claude", "exec"):
+    sys.exit("unknown provider")
+root = Path(env["ACL_TEST_ROOT"]).resolve(strict=True)
+work = root / "workspace"
+directory = Path(__file__).resolve().parents[1]
+agent = env.get("PASEO_AGENT_ID")
+socket_uri = env.get("PASEO_HOST", "")
+if agent:
+    if not re.fullmatch(r"[a-zA-Z0-9_-]{1,128}", agent):
+        sys.exit("invalid launch directory name")
+    if not re.fullmatch(r"unix:///tmp/paseo-acl-[A-Za-z0-9]+/[0-9a-f-]{36}\.sock", socket_uri):
+        sys.exit("missing broker listener")
+    listener = Path(socket_uri[7:])
+    if not listener.is_socket():
+        sys.exit("broker offline")
+    data = root / "state" / agent
+else:
+    # Provider catalog/version probes get no broker listener.
+    data = root / "discovery" / provider
+
+os.umask(0o077)
+data.mkdir(parents=True, exist_ok=True)
+home = data / "home"
+home.mkdir(exist_ok=True)
+workspace = data / "work"
+workspace.mkdir(exist_ok=True)
+args = ["bwrap", "--unshare-all", "--unshare-user", "--die-with-parent", "--new-session",
+        "--cap-drop", "ALL", "--clearenv", "--ro-bind", "/usr", "/usr",
+        "--symlink", "usr/bin", "/bin", "--symlink", "usr/sbin", "/sbin",
+        "--symlink", "usr/lib", "/lib", "--symlink", "usr/lib64", "/lib64",
+        "--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp",
+        "--bind", str(home), "/home/agent", "--bind", str(workspace), str(work)]
+def mount(source, target):
+    args.extend(["--ro-bind", str(source), str(target)])
+
+for name in ("passwd", "group", "hosts", "ssl/certs", "ca-certificates", "nsswitch.conf"):
+    mount("/etc/" + name, "/etc/" + name)
+mount(Path(env["ACL_NODE"]).resolve(strict=True), "/opt/bin/node")
+mount(Path(env["ACL_CLI"]).resolve(strict=True), "/opt/paseo")
+mount(directory / "bin/bridge.py", directory / "bin/bridge.py")
+args += ["--symlink", "/opt/paseo/bin/paseo", "/opt/bin/paseo", "--dir", "/home/agent/.codex"]
+mount(root / "codex.toml", "/home/agent/.codex/config.toml")
+for name, value in {"HOME": "/home/agent", "USER": "agent", "LANG": "C.UTF-8",
+        "PATH": "/opt/bin:/usr/local/bin:/usr/bin:/bin", "CODEX_HOME": "/home/agent/.codex",
+        "HTTPS_PROXY": "http://127.0.0.1:18080", "HTTP_PROXY": "http://127.0.0.1:18080",
+        "NO_PROXY": "localhost,127.0.0.1", "TMPDIR": "/tmp"}.items():
+    args.extend(["--setenv", name, value])
+if agent:
+    mount(listener, listener)
+    args += ["--setenv", "PASEO_HOST", socket_uri, "--setenv", "PASEO_AGENT_ID", agent]
+    for name in ("PASEO_WORKSPACE_ID", "PASEO_AGENT_CWD"):
+        if name in env:
+            args += ["--setenv", name, env[name]]
+if provider == "claude":
+    # bwrap --clearenv supports no selective pass-through. Use a minimal exec
+    # environment below instead, which also preserves Claude's provider keys.
+    args.remove("--clearenv")
+args += ["--chdir", str(work), "--", "/bin/sh", "-c",
+         'if [ -n "$PASEO_HOST" ]; then socat TCP4-LISTEN:18080,bind=127.0.0.1,reuseaddr,fork '
+         'UNIX-CONNECT:"${PASEO_HOST#unix://}" </dev/null >/dev/null 2>&1 & fi; exec "$@"', "provider"]
+if provider != "exec":
+    args.append("/usr/local/bin/" + provider)
+args += argv
+passthrough = {key: env[key] for key in ("ANTHROPIC_API_KEY", "ANTHROPIC_BASE_URL")
+               if provider == "claude" and key in env}
+os.execve("/usr/bin/bwrap", args, passthrough)

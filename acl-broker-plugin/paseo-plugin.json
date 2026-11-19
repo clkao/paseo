@@ -1,0 +1,4 @@
+{
+  "id": "acl-broker",
+  "requirements": { "paseo": ">=0.16.2-0" }
+}
