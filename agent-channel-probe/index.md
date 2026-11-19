@@ -14,7 +14,7 @@ mod-block:
 mandate: agent-channel-probe
 ---
 
-The design for agent identity (`.spacedock/repo/notes/agent-identity-envelope.md`, and its review) needs one channel from each agent to the daemon that another agent cannot use. This probe tests the two candidates on CL's Mac, with the real Claude Code and Codex CLIs. It does not use Paseo.
+The design for agent identity (`.spacedock/repo/notes/agent-identity-and-grants.md`, and its review) needs one channel from each agent to the daemon that another agent cannot use. This probe tests the two candidates on CL's Mac, with the real Claude Code and Codex CLIs. It does not use Paseo.
 
 ## Mandate
 
