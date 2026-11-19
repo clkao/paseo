@@ -39,6 +39,7 @@ The fix keeps #2089's value: sign-ins persist across tabs and restarts within a 
 3. **Worktrees:** whether a worktree workspace uses its project's session or its own.
 4. **Clearing data:** for each scope, and for all scopes at once.
 5. **Agents:** an agent's browser tools use the session of the agent's workspace.
+6. **Plugins:** whether a plugin may write cookies into a scoped session, for example to sign a workspace's browser in with credentials that the plugin holds. No plugin API reaches the browser session today. The plugin client API has only `navigation.openBrowser({ url, workspaceId })` (`packages/plugin/src/client/contracts.ts:40`). The desktop shell's only cookie code clears data. Plugin server code runs on the daemon host, which may be another machine, while the browser session lives in the desktop's Electron main process. So cookies would travel from the plugin server, through the plugin's client entry, to a new desktop API that Electron-only gating and user consent protect. Decide whether this is part of this task or a later task that builds on its scopes.
 
 ## Proof that decides whether design starts
 
