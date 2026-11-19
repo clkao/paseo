@@ -1,12 +1,20 @@
-import { beforeEach, describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { SessionInboundMessage, SessionOutboundMessage } from "@getpaseo/protocol/messages";
 import { createJSONStorage, type StateStorage } from "zustand/middleware";
+import { useSessionStore } from "@/stores/session-store";
+import { loadDesktopSettings, DEFAULT_DESKTOP_SETTINGS } from "@/desktop/settings/desktop-settings";
+import { resolveBrowserPartition } from "../session-scope";
 import { mountBrowserAutomationHandler } from "./handler";
 import type { DesktopHostBridge } from "@/desktop/host";
 import { useBrowserStore } from "@/desktop/browser/store";
 import { findPaneById } from "@/stores/workspace-layout-actions";
 import { useWorkspaceLayoutStore } from "@/stores/workspace-layout-store";
 import { buildWorkspaceTabPersistenceKey } from "@/workspace-tabs/model";
+
+vi.mock("@/desktop/settings/desktop-settings", async (load) => ({
+  ...(await load<typeof import("@/desktop/settings/desktop-settings")>()),
+  loadDesktopSettings: vi.fn(),
+}));
 
 type BrowserAutomationExecuteRequest = Extract<
   SessionOutboundMessage,
@@ -277,6 +285,34 @@ useWorkspaceLayoutStore.persist.setOptions({
 
 describe("mountBrowserAutomationHandler", () => {
   beforeEach(() => {
+    vi.mocked(loadDesktopSettings).mockResolvedValue(DEFAULT_DESKTOP_SETTINGS);
+    const store = useSessionStore.getState();
+    store.initializeSession("server-1", null);
+    store.setWorkspaces(
+      "server-1",
+      new Map([
+        [
+          "wks_workspace_a",
+          {
+            id: "wks_workspace_a",
+            projectId: "project-a",
+            projectDisplayName: "Project A",
+            projectRootPath: "/repo",
+            workspaceDirectory: "/repo/worktree",
+            projectKind: "git",
+            workspaceKind: "worktree",
+            name: "worktree",
+            status: "done",
+            scripts: [],
+            createdAt: null,
+            lastUserMessageAt: null,
+            archivingAt: null,
+            statusEnteredAt: null,
+            diffStat: null,
+          },
+        ],
+      ]),
+    );
     browserAutomationStorage.clear();
     useBrowserStore.setState({ browsersById: {} });
     useWorkspaceLayoutStore.setState({ layoutByWorkspace: {} });
@@ -324,6 +360,7 @@ describe("mountBrowserAutomationHandler", () => {
     expect(browser.resident.ensuredWebviews).toEqual([
       {
         browserId: result.browserId,
+        partition: "persist:paseo-browser",
         workspaceId: "wks_workspace_a",
         url: "https://example.com",
       },
@@ -337,6 +374,39 @@ describe("mountBrowserAutomationHandler", () => {
         command: { command: "list_tabs", args: {} },
       },
     ]);
+  });
+
+  test.each(["project", "workspace"] as const)(
+    "browser_new_tab uses the %s session",
+    async (sessionScope) => {
+      vi.mocked(loadDesktopSettings).mockResolvedValue({
+        ...DEFAULT_DESKTOP_SETTINGS,
+        browser: { sessionScope },
+      });
+      const browser = new BrowserAutomationHandlerHarness();
+      browser.mount({ serverId: "server-1" });
+      browser.receive(browserNewTabRequest());
+      await vi.waitFor(() => expect(browser.client.sentResponses).toHaveLength(1));
+      newTabResultFrom(browser.client.payloadAt(0));
+      expect(browser.resident.ensuredWebviews[0]).toMatchObject({
+        partition: await resolveBrowserPartition(
+          sessionScope,
+          "server-1",
+          "project-a",
+          "wks_workspace_a",
+        ),
+      });
+    },
+  );
+
+  test("browser_new_tab fails before opening a tab in an unknown workspace", async () => {
+    const browser = new BrowserAutomationHandlerHarness();
+    browser.mount({ serverId: "server-1" });
+    browser.receive({ ...browserNewTabRequest(), workspaceId: "missing" });
+    await flushAsyncWork();
+    expect(browser.client.payloadAt(0).ok).toBe(false);
+    expect(browser.resident.ensuredWebviews).toEqual([]);
+    expect(useBrowserStore.getState().browsersById).toEqual({});
   });
 
   test("browser_new_tab returns a retryable timeout when the resident webview does not register", async () => {

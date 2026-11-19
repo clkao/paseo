@@ -2457,7 +2457,13 @@ export const zhCN: TranslationResources = {
       browserData: {
         title: "浏览器数据",
         siteData: "Cookie 和网站数据",
-        description: "浏览器标签页在 Paseo 中共享登录状态和网站数据。",
+        scope: "浏览器会话",
+        scopeHint:
+          "更改将应用于新标签页。已打开的标签页会保留当前会话，直至关闭标签页或重启 Paseo。",
+        shared: "共享",
+        project: "按项目",
+        workspace: "按工作区",
+        description: "清除所有浏览器会话的 Cookie 和网站数据。",
         clear: "清除浏览器数据",
         clearing: "正在清除...",
         confirmTitle: "清除浏览器数据？",

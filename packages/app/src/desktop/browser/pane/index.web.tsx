@@ -6,6 +6,7 @@ import { StyleSheet, useUnistyles } from "react-native-unistyles";
 interface BrowserPaneProps {
   browserId: string;
   serverId: string;
+  projectId: string | null;
   workspaceId: string;
   cwd: string | null;
   isInteractive?: boolean;

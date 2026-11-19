@@ -12,6 +12,7 @@ import { i18n } from "@/i18n/i18next";
 const DESKTOP_SETTINGS_QUERY_KEY = ["desktop-settings"] as const;
 
 export interface DesktopSettings {
+  browser: { sessionScope: "shared" | "project" | "workspace" };
   releaseChannel: ReleaseChannel;
   notifications: {
     playSound: boolean;
@@ -23,12 +24,14 @@ export interface DesktopSettings {
 }
 
 export interface DesktopSettingsPatch {
+  browser?: Partial<DesktopSettings["browser"]>;
   releaseChannel?: ReleaseChannel;
   notifications?: Partial<DesktopSettings["notifications"]>;
   daemon?: Partial<DesktopSettings["daemon"]>;
 }
 
 export const DEFAULT_DESKTOP_SETTINGS: DesktopSettings = {
+  browser: { sessionScope: "shared" },
   releaseChannel: "stable",
   notifications: {
     playSound: true,
@@ -151,10 +154,12 @@ export async function migrateLegacyDesktopSettings(input: {
 
 function parseDesktopSettings(raw: unknown): DesktopSettings {
   const record = isRecord(raw) ? raw : {};
+  const scope = isRecord(record.browser) ? record.browser.sessionScope : null;
   const notifications = isRecord(record.notifications) ? record.notifications : {};
   const daemon = isRecord(record.daemon) ? record.daemon : {};
 
   return {
+    browser: { sessionScope: scope === "project" || scope === "workspace" ? scope : "shared" },
     releaseChannel: record.releaseChannel === "beta" ? "beta" : "stable",
     notifications: {
       playSound:
@@ -180,6 +185,7 @@ function mergeDesktopSettings(
   updates: DesktopSettingsPatch,
 ): DesktopSettings {
   return {
+    browser: { ...current.browser, ...updates.browser },
     releaseChannel: updates.releaseChannel ?? current.releaseChannel,
     notifications: {
       ...current.notifications,
@@ -194,6 +200,7 @@ function mergeDesktopSettings(
 
 function normalizePatch(updates: DesktopSettingsPatch): Record<string, unknown> {
   return {
+    ...(updates.browser ? { browser: updates.browser } : {}),
     ...(updates.releaseChannel ? { releaseChannel: updates.releaseChannel } : {}),
     ...(updates.notifications ? { notifications: updates.notifications } : {}),
     ...(updates.daemon ? { daemon: updates.daemon } : {}),

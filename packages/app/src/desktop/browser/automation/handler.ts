@@ -1,6 +1,10 @@
 import { BROWSER_AUTOMATION_COMMAND_NAMES } from "@getpaseo/protocol/browser-automation/rpc-schemas";
 import type { DaemonClient } from "@getpaseo/client/internal/daemon-client";
 import type { SessionInboundMessage, SessionOutboundMessage } from "@getpaseo/protocol/messages";
+import { selectWorkspace } from "@/stores/session-store-hooks/selectors";
+import { useSessionStore } from "@/stores/session-store";
+import { loadDesktopSettings } from "@/desktop/settings/desktop-settings";
+import { resolveBrowserPartition } from "../session-scope";
 import { getDesktopHost, type DesktopHostBridge } from "@/desktop/host";
 import {
   ensureResidentBrowserWebview as ensureResidentBrowserWebviewDefault,
@@ -359,6 +363,21 @@ async function openBrowserTabForRequest(params: {
     });
   }
 
+  const workspace = selectWorkspace(useSessionStore.getState(), serverId, workspaceId);
+  if (!workspace?.projectId) {
+    return browserAutomationFailure({
+      requestId: request.requestId,
+      code: "browser_unsupported",
+      message: "Cannot resolve the workspace or project for this browser tab.",
+    });
+  }
+  const { browser } = await loadDesktopSettings();
+  const partition = await resolveBrowserPartition(
+    browser.sessionScope,
+    serverId,
+    workspace.projectId,
+    workspaceId,
+  );
   const url = command.args.url ?? "https://example.com";
   const { browserId, url: normalizedUrl } = createWorkspaceBrowser({ initialUrl: url });
   const workspaceKey = buildWorkspaceTabPersistenceKey({ serverId, workspaceId });
@@ -376,7 +395,7 @@ async function openBrowserTabForRequest(params: {
   });
 
   if (browserHost?.executeAutomationCommand) {
-    ensureResidentBrowserWebview({ browserId, workspaceId, url: normalizedUrl });
+    ensureResidentBrowserWebview({ browserId, workspaceId, partition, url: normalizedUrl });
     const registered = await waitForBrowserRegistration({
       request,
       browserId,

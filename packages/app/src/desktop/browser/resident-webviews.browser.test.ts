@@ -25,7 +25,6 @@ const attachedBrowsers: Array<{
   webContentsId: number;
 }> = [];
 const profileHost: BrowserWebviewProfileHost = {
-  profilePartition: "persist:paseo-browser",
   registerAttachedBrowser: async (input) => {
     attachedBrowsers.push(input);
   },
@@ -36,14 +35,18 @@ function ensureTestBrowser(input: {
   workspaceId: string;
   url: string;
 }): HTMLElement | null {
-  return ensureResidentBrowserWebview({ ...input, profileHost });
+  return ensureResidentBrowserWebview({
+    partition: "persist:paseo-browser",
+    ...input,
+    profileHost,
+  });
 }
 
 function prepareTestBrowser(
   webview: HTMLElement,
   input: { browserId: string; workspaceId: string; initialUrl?: string | null },
 ): void {
-  prepareBrowserWebview(webview, { ...input, profileHost });
+  prepareBrowserWebview(webview, { partition: "persist:paseo-browser", ...input, profileHost });
 }
 
 function residentHost(): HTMLElement {
@@ -222,6 +225,19 @@ describe("resident browser webviews", () => {
     expectResidentWebviewParking(webview as HTMLElement);
   });
 
+  it("keeps the partition of a resident browser when the setting changes", () => {
+    const input = { browserId: "first", workspaceId: "workspace", url: "about:blank", profileHost };
+    const first = ensureTestBrowser(input);
+    const partition = `persist:paseo-browser-scope-${"a".repeat(32)}`;
+    expect(ensureResidentBrowserWebview({ ...input, partition })).toBe(first);
+    expect(first?.getAttribute("partition")).toBe("persist:paseo-browser");
+    expect(
+      ensureResidentBrowserWebview({ ...input, browserId: "second", partition })?.getAttribute(
+        "partition",
+      ),
+    ).toBe(partition);
+  });
+
   it("shares one profile and registers attached guests with explicit identity", () => {
     const firstWebview = ensureTestBrowser({
       browserId: "browser-first",
@@ -241,12 +257,25 @@ describe("resident browser webviews", () => {
 
     firstWebview.dispatchEvent(new Event("did-attach"));
     secondWebview.dispatchEvent(new Event("did-attach"));
+    expect(attachedBrowsers).toEqual([]);
+    firstWebview.dispatchEvent(new Event("dom-ready"));
+    secondWebview.dispatchEvent(new Event("dom-ready"));
 
     expect(firstWebview.getAttribute("partition")).toBe("persist:paseo-browser");
     expect(secondWebview.getAttribute("partition")).toBe("persist:paseo-browser");
     expect(attachedBrowsers).toEqual([
-      { browserId: "browser-first", workspaceId: "workspace-a", webContentsId: 101 },
-      { browserId: "browser-second", workspaceId: "workspace-b", webContentsId: 202 },
+      {
+        browserId: "browser-first",
+        workspaceId: "workspace-a",
+        partition: "persist:paseo-browser",
+        webContentsId: 101,
+      },
+      {
+        browserId: "browser-second",
+        workspaceId: "workspace-b",
+        partition: "persist:paseo-browser",
+        webContentsId: 202,
+      },
     ]);
   });
 

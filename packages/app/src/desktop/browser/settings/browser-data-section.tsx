@@ -1,6 +1,9 @@
 import { useCallback, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import { SettingsCard, SettingsSelect } from "@/components/settings";
+import { useDesktopSettings } from "@/desktop/settings/desktop-settings";
+import type { BrowserSessionScope } from "../session-scope";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/contexts/toast-context";
 import { getDesktopHost } from "@/desktop/host";
@@ -12,6 +15,15 @@ import { confirmDialog } from "@/utils/confirm-dialog";
 export function BrowserDataSection() {
   const { t } = useTranslation();
   const toast = useToast();
+  const { settings, isLoading, isSaving, error, updateSettings } = useDesktopSettings();
+  const changeScope = useCallback(
+    (sessionScope: BrowserSessionScope) => {
+      void updateSettings({ browser: { sessionScope } }).catch(() => {
+        // useDesktopSettings reports persistence errors and rolls back the selection.
+      });
+    },
+    [updateSettings],
+  );
   const clearInFlightRef = useRef(false);
   const [isClearing, setIsClearing] = useState(false);
 
@@ -54,7 +66,18 @@ export function BrowserDataSection() {
 
   return (
     <SettingsSection title={t("settings.general.browserData.title")}>
-      <View style={settingsStyles.card}>
+      <SettingsCard>
+        <SettingsSelect
+          label={t("settings.general.browserData.scope")}
+          hint={t("settings.general.browserData.scopeHint")}
+          value={settings.browser.sessionScope}
+          options={(["shared", "project", "workspace"] as const).map((value) => ({
+            value,
+            label: t(`settings.general.browserData.${value}`),
+          }))}
+          disabled={isLoading || isSaving || Boolean(error)}
+          onValueChange={changeScope}
+        />
         <View style={settingsStyles.row}>
           <View style={settingsStyles.rowContent}>
             <Text style={settingsStyles.rowTitle}>
@@ -73,7 +96,7 @@ export function BrowserDataSection() {
             {clearButtonLabel}
           </Button>
         </View>
-      </View>
+      </SettingsCard>
     </SettingsSection>
   );
 }

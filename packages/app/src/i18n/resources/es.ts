@@ -2531,8 +2531,13 @@ export const es: TranslationResources = {
       browserData: {
         title: "Datos del navegador",
         siteData: "Cookies y datos de sitios",
-        description:
-          "Las pestañas del navegador comparten inicios de sesión y datos de sitios en Paseo.",
+        scope: "Sesiones del navegador",
+        scopeHint:
+          "El cambio se aplica a las pestañas nuevas. Las pestañas abiertas conservan su sesión hasta que se cierren o se reinicie Paseo.",
+        shared: "Compartida",
+        project: "Por proyecto",
+        workspace: "Por espacio de trabajo",
+        description: "Borra las cookies y los datos de sitios de todas las sesiones del navegador.",
         clear: "Borrar datos del navegador",
         clearing: "Borrando...",
         confirmTitle: "¿Borrar los datos del navegador?",

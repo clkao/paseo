@@ -2492,7 +2492,13 @@ export const ko: TranslationResources = {
       browserData: {
         title: "브라우저 데이터",
         siteData: "쿠키 및 사이트 데이터",
-        description: "브라우저 탭은 Paseo 전체에서 로그인 및 사이트 데이터를 공유합니다.",
+        scope: "브라우저 세션",
+        scopeHint:
+          "변경 사항은 새 탭에 적용됩니다. 열린 탭은 닫거나 Paseo를 다시 시작할 때까지 현재 세션을 유지합니다.",
+        shared: "공유",
+        project: "프로젝트별",
+        workspace: "작업 공간별",
+        description: "모든 브라우저 세션의 쿠키와 사이트 데이터를 삭제합니다.",
         clear: "브라우저 데이터 지우기",
         clearing: "삭제 중...",
         confirmTitle: "브라우저 데이터를 삭제하시겠습니까?",

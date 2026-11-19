@@ -7,6 +7,7 @@ import { z } from "zod";
 import type { AppReleaseChannel } from "../features/auto-updater.js";
 
 export interface DesktopSettings {
+  browser: { sessionScope: "shared" | "project" | "workspace" };
   releaseChannel: AppReleaseChannel;
   notifications: {
     playSound: boolean;
@@ -18,6 +19,7 @@ export interface DesktopSettings {
 }
 
 interface DesktopSettingsPatch {
+  browser?: Partial<DesktopSettings["browser"]>;
   releaseChannel?: AppReleaseChannel;
   notifications?: Partial<DesktopSettings["notifications"]>;
   daemon?: Partial<DesktopSettings["daemon"]>;
@@ -30,6 +32,7 @@ export interface DesktopSettingsStore {
 }
 
 export const DEFAULT_DESKTOP_SETTINGS: DesktopSettings = {
+  browser: { sessionScope: "shared" },
   releaseChannel: "stable",
   notifications: {
     playSound: true,
@@ -43,6 +46,8 @@ export const DEFAULT_DESKTOP_SETTINGS: DesktopSettings = {
 const DESKTOP_SETTINGS_FILENAME = "desktop-settings.json";
 
 const ReleaseChannelSchema = z.enum(["stable", "beta"]);
+
+const SessionScopeSchema = z.enum(["shared", "project", "workspace"]);
 
 const NotificationsSchema = z
   .looseObject({
@@ -60,6 +65,9 @@ const DaemonSchema = z
 const DesktopSettingsSchema = z
   .looseObject({
     releaseChannel: ReleaseChannelSchema.catch(DEFAULT_DESKTOP_SETTINGS.releaseChannel),
+    browser: z
+      .looseObject({ sessionScope: SessionScopeSchema.catch("shared") })
+      .catch(() => ({ ...DEFAULT_DESKTOP_SETTINGS.browser })),
     notifications: NotificationsSchema,
     daemon: DaemonSchema,
   })
@@ -105,6 +113,7 @@ function isNodeError(error: unknown): error is NodeJS.ErrnoException {
 
 function buildDefaultSettings(): StoredDesktopSettings {
   return {
+    browser: { ...DEFAULT_DESKTOP_SETTINGS.browser },
     releaseChannel: DEFAULT_DESKTOP_SETTINGS.releaseChannel,
     notifications: { ...DEFAULT_DESKTOP_SETTINGS.notifications },
     daemon: { ...DEFAULT_DESKTOP_SETTINGS.daemon },
@@ -124,6 +133,7 @@ function buildDefaultDocument(): PersistedDesktopSettingsDocument {
 
 function toDesktopSettings(stored: StoredDesktopSettings): DesktopSettings {
   return {
+    browser: { sessionScope: stored.browser.sessionScope },
     releaseChannel: stored.releaseChannel,
     notifications: { playSound: stored.notifications.playSound },
     daemon: {
@@ -142,6 +152,11 @@ function coerceDesktopSettingsPatch(input: unknown): DesktopSettingsPatch {
   const releaseChannel = coerceReleaseChannel(input.releaseChannel);
   if (releaseChannel) {
     patch.releaseChannel = releaseChannel;
+  }
+
+  if (isRecord(input.browser)) {
+    const scope = SessionScopeSchema.safeParse(input.browser.sessionScope);
+    if (scope.success) patch.browser = { sessionScope: scope.data };
   }
 
   if (isRecord(input.notifications)) {
@@ -196,6 +211,7 @@ function mergeDesktopSettings(
 ): StoredDesktopSettings {
   return {
     ...current,
+    browser: { ...current.browser, ...patch.browser },
     releaseChannel: patch.releaseChannel ?? current.releaseChannel,
     notifications: { ...current.notifications, ...patch.notifications },
     daemon: { ...current.daemon, ...patch.daemon },

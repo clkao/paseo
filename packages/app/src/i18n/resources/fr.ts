@@ -2532,8 +2532,13 @@ export const fr: TranslationResources = {
       browserData: {
         title: "Données du navigateur",
         siteData: "Cookies et données des sites",
-        description:
-          "Les onglets du navigateur partagent les connexions et les données des sites dans Paseo.",
+        scope: "Sessions du navigateur",
+        scopeHint:
+          "Ce choix s’applique aux nouveaux onglets. Les onglets ouverts gardent leur session jusqu’à leur fermeture ou au redémarrage de Paseo.",
+        shared: "Partagée",
+        project: "Par projet",
+        workspace: "Par espace de travail",
+        description: "Effacer les cookies et les données des sites de toutes les sessions.",
         clear: "Effacer les données du navigateur",
         clearing: "Effacement…",
         confirmTitle: "Effacer les données du navigateur ?",

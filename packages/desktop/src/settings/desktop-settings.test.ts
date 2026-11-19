@@ -67,6 +67,8 @@ describe("desktop-settings", () => {
       JSON.stringify({
         version: 1,
         settings: {
+          browser: { sessionScope: "invalid" },
+          notifications: { playSound: false },
           releaseChannel: "nightly",
           daemon: {
             manageBuiltInDaemon: "sometimes",
@@ -80,8 +82,9 @@ describe("desktop-settings", () => {
     const settings = await store.get();
 
     expect(settings).toEqual({
+      browser: { sessionScope: "shared" },
       releaseChannel: "stable",
-      notifications: { playSound: true },
+      notifications: { playSound: false },
       daemon: {
         manageBuiltInDaemon: true,
         keepRunningAfterQuit: false,
@@ -102,6 +105,7 @@ describe("desktop-settings", () => {
     const files = await readdir(userDataPath);
 
     expect(next).toEqual({
+      browser: { sessionScope: "shared" },
       releaseChannel: "beta",
       notifications: { playSound: true },
       daemon: {
@@ -135,6 +139,7 @@ describe("desktop-settings", () => {
 
     const settings = await createDesktopSettingsStore({ userDataPath }).get();
 
+    expect(settings.browser.sessionScope).toBe("shared");
     expect(settings.notifications.playSound).toBe(true);
   });
 
@@ -143,11 +148,13 @@ describe("desktop-settings", () => {
     directories.add(userDataPath);
 
     await createDesktopSettingsStore({ userDataPath }).patch({
+      browser: { sessionScope: "workspace" },
       notifications: { playSound: false },
     });
 
     const settings = await createDesktopSettingsStore({ userDataPath }).get();
 
+    expect(settings.browser.sessionScope).toBe("workspace");
     expect(settings.notifications.playSound).toBe(false);
   });
 
@@ -269,6 +276,7 @@ describe("desktop-settings", () => {
     });
 
     expect(migrated).toEqual({
+      browser: { sessionScope: "shared" },
       releaseChannel: "beta",
       notifications: { playSound: true },
       daemon: {
@@ -314,6 +322,7 @@ describe("desktop-settings", () => {
     expect(persisted.futureDocumentKey).toBe("kept");
     expect(persisted.settings.releaseChannel).toBe("beta");
     expect(next).toEqual({
+      browser: { sessionScope: "shared" },
       releaseChannel: "beta",
       notifications: { playSound: false },
       daemon: { manageBuiltInDaemon: true, keepRunningAfterQuit: false },

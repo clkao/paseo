@@ -139,6 +139,7 @@ export interface DesktopBrowserNewTabRequestEvent {
 }
 
 export interface DesktopAttachedBrowserRegistration {
+  partition: string;
   browserId: string;
   workspaceId: string;
   webContentsId: number;

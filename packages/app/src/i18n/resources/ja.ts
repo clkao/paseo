@@ -2505,7 +2505,13 @@ export const ja: TranslationResources = {
       browserData: {
         title: "ブラウザーデータ",
         siteData: "Cookie とサイトデータ",
-        description: "ブラウザータブ間でログイン情報とサイトデータが共有されます。",
+        scope: "ブラウザーセッション",
+        scopeHint:
+          "変更は新しいタブに適用されます。開いているタブは、閉じるか Paseo を再起動するまで現在のセッションを使用します。",
+        shared: "共有",
+        project: "プロジェクトごと",
+        workspace: "ワークスペースごと",
+        description: "すべてのブラウザーセッションの Cookie とサイトデータを消去します。",
         clear: "ブラウザーデータを消去",
         clearing: "消去中...",
         confirmTitle: "ブラウザーデータを消去しますか？",

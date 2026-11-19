@@ -37,7 +37,7 @@ npm run build:main --workspace=@getpaseo/desktop
 PASEO_CAPTURE_HARNESS_GROUP=automation npm run capture-harness --workspace=@getpaseo/desktop
 ```
 
-Run the shared browser profile fixture with:
+Run the browser profile fixture with:
 
 ```bash
 PASEO_CAPTURE_HARNESS_GROUP=browser-profile npm run capture-harness --workspace=@getpaseo/desktop
@@ -56,9 +56,7 @@ the mouse idle during this group. It reads the app's production CSS and writes
 screenshots and window bounds to the output directory.
 
 The browser profile group runs two Electron processes in sequence. It verifies that each
-renderer-side `did-attach` identity maps to the correct main-process guest, that two live
-tabs share cookies and local storage through one persistent session, and that the data is
-still present after the first Electron process exits and the second starts.
+renderer-side `did-attach` identity maps to the correct main-process guest, that shared tabs see the same cookies and local storage, and that scoped tabs keep different values on the same origin. Both profiles survive the process restart. The scoped fixture also checks partition directories and opens a popup that reads its opener’s cookie.
 
 The automation group uses a real guest webview to verify the page-side ref contract:
 ARIA-like snapshot text includes headings, static text, and controls; refs survive

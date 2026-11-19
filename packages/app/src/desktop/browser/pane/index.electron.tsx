@@ -1,3 +1,6 @@
+import { useFetchQuery } from "@/data/query";
+import { loadDesktopSettings } from "@/desktop/settings/desktop-settings";
+import { resolveBrowserPartition } from "../session-scope";
 import {
   useCallback,
   useEffect,
@@ -581,6 +584,7 @@ function rememberResolvedBrowserWebviewSize(browserId: string, webview: HTMLElem
 // eslint-disable-next-line complexity
 export function BrowserPane({
   browserId,
+  projectId,
   serverId,
   workspaceId,
   cwd,
@@ -589,6 +593,7 @@ export function BrowserPane({
 }: {
   browserId: string;
   serverId: string;
+  projectId: string | null;
   workspaceId: string;
   cwd: string | null;
   isInteractive?: boolean;
@@ -596,6 +601,18 @@ export function BrowserPane({
 }) {
   const { theme } = useUnistyles();
   const { t } = useTranslation();
+  const { data: partition, error: partitionError } = useFetchQuery({
+    dataShape: "value",
+    queryKey: ["browser-partition", browserId, serverId, projectId, workspaceId],
+    enabled: Boolean(projectId),
+    queryFn: async () => {
+      if (!projectId) throw new Error("Missing browser workspace project");
+      const { browser } = await loadDesktopSettings();
+      return resolveBrowserPartition(browser.sessionScope, serverId, projectId, workspaceId);
+    },
+    immutableWhen: () => true,
+    gcTime: 0,
+  });
   const browser = useBrowserStore((state) => state.browsersById[browserId] ?? null);
   const updateBrowser = useBrowserStore((state) => state.updateBrowser);
   const setBrowserViewport = useBrowserStore((state) => state.setBrowserViewport);
@@ -726,7 +743,7 @@ export function BrowserPane({
 
     const host = webviewHostRef.current;
     const clip = webviewClipRef.current;
-    if (!host || !clip) {
+    if (!host || !clip || !partition) {
       return;
     }
 
@@ -741,6 +758,7 @@ export function BrowserPane({
     webviewRef.current = webview;
     if (!residentWebview) {
       prepareBrowserWebview(webview, {
+        partition,
         browserId,
         workspaceId,
         initialUrl: initialUnsafeNavigationMessage ? "about:blank" : initialUrlRef.current,
@@ -907,7 +925,7 @@ export function BrowserPane({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [browserId, onFocusPane]);
+  }, [browserId, onFocusPane, partition]);
 
   useEffect(() => {
     const webview = webviewRef.current;
@@ -1528,10 +1546,10 @@ export function BrowserPane({
           </ToolbarButton>
         </View>
       </View>
-      {browser?.lastError ? (
+      {partitionError || browser?.lastError ? (
         <View style={styles.errorRow}>
           <Text numberOfLines={1} style={errorTextStyle}>
-            {browser.lastError}
+            {partitionError ? t("desktop.settings.loadFailed") : browser?.lastError}
           </Text>
         </View>
       ) : null}

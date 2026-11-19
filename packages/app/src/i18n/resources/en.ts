@@ -2612,7 +2612,13 @@ export const en = {
       browserData: {
         title: "Browser data",
         siteData: "Cookies and site data",
-        description: "Browser tabs share sign-ins and site data across Paseo.",
+        scope: "Browser sessions",
+        scopeHint:
+          "Changes apply to new tabs. Open tabs keep their session until you close them or restart Paseo.",
+        shared: "Shared",
+        project: "Per project",
+        workspace: "Per workspace",
+        description: "Clear cookies and site data from all browser sessions.",
         clear: "Clear browser data",
         clearing: "Clearing...",
         confirmTitle: "Clear browser data?",

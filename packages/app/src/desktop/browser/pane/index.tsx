@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 interface BrowserPaneProps {
   browserId: string;
   serverId: string;
+  projectId: string | null;
   workspaceId: string;
   cwd: string | null;
   isInteractive?: boolean;

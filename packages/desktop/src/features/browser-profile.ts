@@ -1,4 +1,28 @@
+import { readdir } from "node:fs/promises";
+import path from "node:path";
+
 export const PASEO_BROWSER_PROFILE_PARTITION = "persist:paseo-browser";
+const SCOPED_PARTITION_DIRECTORY = /^paseo-browser-scope-[0-9a-f]{32}$/;
+
+export function isPaseoBrowserPartition(partition: unknown): partition is string {
+  return (
+    partition === PASEO_BROWSER_PROFILE_PARTITION ||
+    (typeof partition === "string" &&
+      partition.startsWith("persist:") &&
+      SCOPED_PARTITION_DIRECTORY.test(partition.slice("persist:".length)))
+  );
+}
+
+export async function listBrowserPartitionDirectories(userData: string): Promise<string[]> {
+  try {
+    const entries = await readdir(path.join(userData, "Partitions"), { withFileTypes: true });
+    return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
+    throw error;
+  }
+}
+
 const LEGACY_BROWSER_ID_PATTERN =
   /^(?:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|\d{13,}-[0-9a-f]+)$/i;
 const MAX_LEGACY_BROWSER_PROFILES = 1000;
@@ -33,7 +57,7 @@ interface BrowserProfileWebContents extends BrowserProfileGuest {
 }
 
 interface ListBrowserProfileGuestsInput {
-  profileSession: object;
+  profileSessions: ReadonlySet<object>;
   webContents: BrowserProfileWebContents[];
 }
 
@@ -47,7 +71,7 @@ interface ElectronSessions {
   fromPartition(partition: string): BrowserProfileSession;
 }
 
-export function getPaseoBrowserProfileSession(sessions: ElectronSessions): BrowserProfileSession {
+function getPaseoBrowserProfileSession(sessions: ElectronSessions): BrowserProfileSession {
   return sessions.fromPartition(PASEO_BROWSER_PROFILE_PARTITION);
 }
 
@@ -70,11 +94,23 @@ export function readLegacyPaseoBrowserIds(input: unknown): string[] {
 export function getPaseoBrowserProfileSessions(
   sessions: ElectronSessions,
   legacyBrowserIds: string[],
+  directories: string[],
 ): [BrowserProfileSession, ...BrowserProfileSession[]] {
+  // COMPAT(browserProfile): added in v0.1.108; remove after 2027-01-15.
+  // Include per-tab profiles whose saved browser record no longer exists.
+  const legacyPrefix = "paseo-browser-";
+  const legacyIds = new Set(legacyBrowserIds);
+  for (const name of directories) {
+    const id = name.slice(legacyPrefix.length);
+    if (name.startsWith(legacyPrefix) && LEGACY_BROWSER_ID_PATTERN.test(id)) legacyIds.add(id);
+  }
   return [
     getPaseoBrowserProfileSession(sessions),
+    ...directories
+      .filter((name) => SCOPED_PARTITION_DIRECTORY.test(name))
+      .map((name) => sessions.fromPartition(`persist:${name}`)),
     // COMPAT(browserProfile): added in v0.1.108; remove after 2027-01-15.
-    ...legacyBrowserIds.map((browserId) =>
+    ...Array.from(legacyIds, (browserId) =>
       sessions.fromPartition(`${PASEO_BROWSER_PROFILE_PARTITION}-${browserId}`),
     ),
   ];
@@ -97,7 +133,7 @@ export function listPaseoBrowserProfileGuests(
     (contents) =>
       !contents.isDestroyed() &&
       (contents.getType() === "webview" || contents.getType() === "window") &&
-      contents.session === input.profileSession,
+      input.profileSessions.has(contents.session),
   );
 }
 

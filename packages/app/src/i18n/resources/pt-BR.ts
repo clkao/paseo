@@ -2515,7 +2515,13 @@ export const ptBR: TranslationResources = {
       browserData: {
         title: "Dados do navegador",
         siteData: "Cookies e dados de sites",
-        description: "As abas do navegador compartilham logins e dados de sites no Paseo.",
+        scope: "Sessões do navegador",
+        scopeHint:
+          "A mudança se aplica às novas abas. As abas abertas mantêm a sessão até serem fechadas ou até o Paseo reiniciar.",
+        shared: "Compartilhada",
+        project: "Por projeto",
+        workspace: "Por espaço de trabalho",
+        description: "Limpa os cookies e os dados de sites de todas as sessões do navegador.",
         clear: "Limpar dados do navegador",
         clearing: "Limpando...",
         confirmTitle: "Limpar dados do navegador?",

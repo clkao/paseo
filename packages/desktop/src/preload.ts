@@ -28,6 +28,7 @@ function readWindowChromeMode(): DesktopWindowChromeMode {
 }
 
 interface AttachedBrowserRegistration {
+  partition: string;
   browserId: string;
   workspaceId: string;
   webContentsId: number;

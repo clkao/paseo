@@ -22,24 +22,19 @@ interface BrowserWebviewElement extends HTMLElement {
 }
 
 interface BrowserWebviewIdentity {
+  partition: string;
   browserId: string;
   workspaceId: string;
 }
 
 export interface BrowserWebviewProfileHost {
-  profilePartition: string;
   registerAttachedBrowser(input: DesktopAttachedBrowserRegistration): Promise<void>;
 }
 
 function isAttachedBrowserBridge(
   browser: DesktopBrowserBridge | undefined,
 ): browser is BrowserWebviewProfileHost {
-  return (
-    browser !== undefined &&
-    typeof browser.profilePartition === "string" &&
-    browser.profilePartition.startsWith("persist:") &&
-    typeof browser.registerAttachedBrowser === "function"
-  );
+  return browser !== undefined && typeof browser.registerAttachedBrowser === "function";
 }
 
 function getBrowserBridge(override?: BrowserWebviewProfileHost): BrowserWebviewProfileHost {
@@ -60,10 +55,11 @@ function registerBrowserWhenAttached(
 ): void {
   // Reparenting a webview can replace its guest WebContents without replacing
   // this DOM element, so every attachment needs a fresh main-process registration.
-  webview.addEventListener("did-attach", () => {
+  const register = () => {
     const webContentsId = webview.getWebContentsId();
     void browser
       .registerAttachedBrowser({
+        partition: identity.partition,
         browserId: identity.browserId,
         workspaceId: identity.workspaceId,
         webContentsId,
@@ -71,6 +67,10 @@ function registerBrowserWhenAttached(
       .catch((error) => {
         console.error("[browser-webview] attached registration failed", error);
       });
+  };
+  webview.addEventListener("did-attach", () => {
+    // Electron may dispatch did-attach before getWebContentsId() is available.
+    webview.addEventListener("dom-ready", register, { once: true });
   });
 }
 
@@ -296,6 +296,7 @@ export function presentBrowserWebview(
 export function prepareBrowserWebview(
   webview: HTMLElement,
   input: {
+    partition: string;
     browserId: string;
     workspaceId: string;
     initialUrl?: string | null;
@@ -304,7 +305,7 @@ export function prepareBrowserWebview(
 ): void {
   const browser = getBrowserBridge(input.profileHost);
   webview.setAttribute(BROWSER_ID_ATTRIBUTE, input.browserId);
-  webview.setAttribute("partition", browser.profilePartition);
+  webview.setAttribute("partition", input.partition);
   webview.setAttribute("allowpopups", "true");
   webview.setAttribute("spellcheck", "false");
   webview.setAttribute("autosize", "on");
@@ -315,6 +316,7 @@ export function prepareBrowserWebview(
 }
 
 export function ensureResidentBrowserWebview(input: {
+  partition: string;
   browserId: string;
   workspaceId: string;
   url: string;
@@ -348,6 +350,7 @@ export function ensureResidentBrowserWebview(input: {
     browserId,
     workspaceId: input.workspaceId,
     initialUrl: input.url,
+    partition: input.partition,
     profileHost: input.profileHost,
   });
   releaseResidentBrowserWebview(browserId, webview);

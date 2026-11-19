@@ -1357,6 +1357,7 @@ export default function SettingsScreen({ view }: SettingsScreenProps) {
           return (
             <>
               <GeneralSection settings={settings} handleLanguageChange={handleLanguageChange} />
+              {isDesktopApp ? <BrowserDataSection /> : null}
               <SendingSection />
               {isDesktopApp ? <OpenLocationSection /> : null}
             </>
