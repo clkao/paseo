@@ -16,11 +16,11 @@ stages:
     - name: ideation
       gate: true
     - name: implementation
-      worktree: false  # runs on the VM; see "Remote execution"
+      worktree: false  # the stage worktree is ~/worktrees/{slug} on the VM; see "Remote execution"
       context-sections:
         - Review-finding disposition
     - name: validation
-      worktree: false  # runs on the VM; see "Remote execution"
+      worktree: false  # the stage worktree is ~/worktrees/{slug} on the VM; see "Remote execution"
       fresh: true
       feedback-to: implementation
       gate: true
@@ -39,8 +39,12 @@ This workflow lives off the tree of the fork. The code checkout excludes `.space
 ## Remotes
 
 - `upstream` is `getpaseo/paseo`. Read only.
-- `origin` does not exist yet. It becomes our fork when CL creates the fork. Until then, nothing is pushed and no pull request is opened.
-- The state repository's `origin` is the local bare repository `.spacedock/state.git`. Change its URL when a shared state repository exists.
+- `origin` is our fork `clkao/paseo`. The VM reaches it as `https://github.int.exe.xyz/clkao/paseo.git`.
+- **The workflow lives on two branches of the fork.**
+  - `spacedock-spec` holds this README and the setup script. It is checked out at `.spacedock/repo`.
+  - `dev-state` holds the task files. It is checked out at `.spacedock/dev/.spacedock-state`.
+  - Both are public, like the fork. Neither branch shares history with `main`.
+- **Moving the workflow between machines.** One first officer at a time owns the workflow and pushes these branches. To hand over, the giving machine pushes both branches. The receiving machine fetches them before its first state command. A machine that cannot push (this Mac's sandbox) works read-only, or ships its commits through a push that CL runs.
 
 ## File Naming
 
@@ -117,13 +121,13 @@ The reviewer reports a finding. The worker investigates it without changing the 
 - No push, pull request, issue, comment or fork without CL's approval. No download and no `npm install` without approval.
 - Stop if the free disk space on this Mac is less than 1.5 GiB.
 - A task that runs as a mandate names its aim, its stop line and its budget in the task body. CL or MetaFO approves the mandate before it starts.
-- **Dispatch:** the first officer builds each dispatch with `spacedock dispatch build`. It launches the ensign as a Paseo agent in its own workspace under this project, on a Safehouse provider, labelled `role=worker repo=paseo`, with the model the captain names. It does not use the host's `Agent` tool. A Paseo agent cannot message "main", so the ensign ends with a final message that carries the completion line. The first officer waits with `paseo wait <agent>`, reads the stage report, and runs the gate with `spacedock gate`.
-- **Remote execution.** This Mac cannot hold a monorepo `npm install`: it has under 2 GiB free, against the 1.5 GiB stop line. So implementation and validation run on the VM `paseo-acl-prototype` in the workspace `wks_d70f4643277e6dda`. CL approved `npm install`, `apt install` and pushes of `task/*` branches to the fork `clkao/paseo` there.
-  - The ensign works in a VM worktree `~/worktrees/{slug}` of `~/paseo` (origin = the fork, upstream = getpaseo) and pushes `task/{slug}`. It never pushes `main`, and it opens no pull request, issue or comment.
-  - The dispatch prompt carries the entity body, because the VM cannot read this Mac.
-  - The ensign returns its stage report in its final message. The first officer copies that report verbatim under `## Stage Report: {stage}`, citing the agent ID, and records the VM path in the entity's `worktree` field.
-  - Validation is a fresh VM agent on the pushed branch.
-  - The VM's push access ends about 2026-11-20 19:20 UTC. Work that is not pushed by then is lost.
+- **First officer.** The first officer is the session that runs the workflow: on the VM a Codex agent (`spacedock codex`), on the Mac the paseo project manager. Load the first-officer contract before the first status change or dispatch.
+  - On the VM, the first officer dispatches ensigns with its runtime's own subagents. Ensigns write their stage reports into the state checkout themselves.
+  - On the Mac, the first officer launches each ensign as a Paseo agent, labelled `role=worker repo=paseo`, and waits with `paseo wait`. A Paseo agent cannot message "main", so it ends with a final message that carries the completion line.
+- **Remote execution.** This Mac cannot hold a monorepo `npm install`. It has under 2 GiB free, against the 1.5 GiB stop line. So implementation and validation run on the VM `paseo-acl-prototype` (workspace `wks_d70f4643277e6dda`), with the first officer there.
+  - CL approved the following on the VM: `npm install`, `apt install`, installing Spacedock, and pushes of `task/*`, `spacedock-spec` and `dev-state` to the fork. Never push `main`, and open no pull request, issue or comment without CL.
+  - The code checkout is `~/paseo`, and stage worktrees are `~/worktrees/{slug}`.
+  - The VM's push access ends about 2026-11-20 19:20 UTC. Before that, the VM first officer pushes `dev-state` and `spacedock-spec` a last time and stops. The Mac takes the workflow back from the fork.
 - To sync with upstream: `git fetch upstream`, then merge `upstream/main` into `main`. Merge keeps every commit that a stage report cites reachable.
 
 ## Workflow State
