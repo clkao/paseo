@@ -120,3 +120,30 @@ Ideation writes it from the prototype's scripts.
 - In-process tools, such as OpenCode's bridge and native tool catalogs.
 - An `ask` decision that routes to an operator approval.
 - Core changes to Paseo. `design.md` lists them as optional follow-ups.
+
+## Prototype result (2026-11-19)
+
+Reported by VM agent `bc3097af` (Codex, astra). The report is on the VM in `~/acl-result/broker-plugin/` (`REPORT.md`, `tests/`). It has not been copied here. The first officer has not checked the logs; they are not reachable from this Mac.
+
+Code: branch `acl/broker-plugin` of `clkao/paseo`, head `6ce0b15`, based on upstream `95542dbf`. Everything is under `acl-broker-plugin/`. Lint, format and typecheck pass.
+
+| Check | Result |
+|---|---|
+| P-1 Forge refused | **Incomplete.** All three refusal cases pass against the plugin with an in-memory SDK fixture, and the no-ID case also passes against a live daemon. Two checks were not run: the live impersonation trials (CLI and tool claiming P), and the control that trusts claimed IDs. The report does not say why. |
+| P-2 No route around the broker | Pass. From A's shell, the daemon listener, its `PASEO_HOME` and P's socket all return `ENOENT`, and A can open its own socket. |
+| P-3 Honest calls | Pass. B records P as sender on CLI and MCP messages. The token scan of environments and timelines finds zero matches. |
+| P-4 Parentage | Pass. B's stored parent is P, and the reserved labels are stripped. |
+| P-5 Lifecycle | Pass. The old socket returns `ECONNREFUSED` after reload. After reopen, the old token returns `INVALID_TOKEN` and the new one is accepted. |
+| P-6 Grant or ask | Deferred at the stop line. |
+
+| Open item | Answer |
+|---|---|
+| 1. `PASEO_HOST` at session open | Yes. On upstream `95542dbf` the hook is named `agent.open.before`. This checkout's docs still say `agent.session_open`. |
+| 2. Sender and caller through the SDK | Yes. `sourceAgentId` sets the sender, and the SDK `parent` handle supplies the caller on create. |
+| 3. What `injectIntoAgents: false` removes | The internal MCP server and the native Paseo catalogs, including the conditional `speak` and browser tools. The plugin's `paseo-acl` server stays. |
+| 4. Codex sandbox | `workspace-write` returns `EPERM` by default. `sandbox_workspace_write.network_access=true` allows the socket, which also opens Codex's network. |
+| 5. CLI protocol | Traced for `send`, `run`, `ls`, `logs` and `wait`. The broker implements text send and wait-for-finish. |
+| 6. Sidecar memory | Eight idle sidecar processes: 124.7 MiB PSS. Eight listeners in one process: 16.9 MiB. One sidecar process for all agents is the better design. |
+
+Open before design: the live forge trials and their control; voice `speak` and the browser tools, which the plugin must provide again; Codex's network opening; Claude (HTTP 402, exe credits).
+
