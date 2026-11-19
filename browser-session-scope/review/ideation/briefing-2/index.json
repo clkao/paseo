@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:74gqm38tar8mhyynj7vsw23j:ideation:attempt-2:revision-1",
+  "question": "Approve the revised ideation design (one global browser-session setting) and enter implementation on the VM?",
+  "artifacts": [
+    {
+      "id": "artifact:74gqm38tar8mhyynj7vsw23j:ideation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/f66f0c4525594753187da493781bbcee9863d6aa/browser-session-scope.md",
+      "rev": "sha256:221acefa90f1b1675308530b37d30e535c8bb22dae242921e6dd0c35c2c8fc4b",
+      "mediaType": "text/markdown",
+      "summary": "Cycle 2: one global setting Shared (default) / Per project / Per workspace, new tabs only, clear-all only, hashed scoped partitions, anchored attach gate, opener-session popups, agent new_tab resolves the workspace session. About 430 lines ±25%, AC-1..AC-11."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:74gqm38tar8mhyynj7vsw23j:ideation:attempt-2:revision-1:item-2",
+      "uri": "git-root://state/4b13cc1aad3657b697a1ceda6f4f0b6fd2a0f5de/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:3dd27b453ae9174dc2b1d63db40d040e18e079e6ab499a2b3e4766d5d40ffa3c"
+    }
+  ]
+}

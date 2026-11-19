@@ -31,6 +31,11 @@ gates:
                 at: "2026-11-19T21:56:40.875299Z"
                 decision: revise
                 reason: 'CL accepts the direction and asks for the simpler version: (1) one global setting in Settings for browser sessions, Shared (default) / Per project / Per workspace, applying to new tabs only; clear-all only, extended to every scoped session on disk; keep the popup opener session, the agent new_tab resolution, the anchored attach gate and the hashed partition names; about 400 lines. (2) Drop the separate prototype: the per-tab persistent partitions that existed before #2089 already showed isolation and persistence; keep the capture-harness check for criterion 1 and the popup session in the test plan. (3) Restate the acceptance criteria in the template''s **AC-N** form.'
+            - id: gate-attempt:74gqm38tar8mhyynj7vsw23j-ideation-2
+              briefing:
+                id: briefing:74gqm38tar8mhyynj7vsw23j:ideation:attempt-2:revision-1
+                digest: sha256:e0ffa23cd09b16e3929a97ce677ae295ebe4f3218739881104b37db4e401086c
+                room-ref: '@review/ideation/briefing-2'
 ---
 
 > I noticed in PR #2089 all browser tabs now share the same session store. I'd like to see it possible to scope by project or workspace, so that you can operate the same site with different credentials.
