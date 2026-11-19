@@ -117,6 +117,7 @@ The reviewer reports a finding. The worker investigates it without changing the 
 - No push, pull request, issue, comment or fork without CL's approval. No download and no `npm install` without approval.
 - Stop if the free disk space on this Mac is less than 1.5 GiB.
 - A task that runs as a mandate names its aim, its stop line and its budget in the task body. CL or MetaFO approves the mandate before it starts.
+- **Dispatch:** the first officer builds each dispatch with `spacedock dispatch build`. It launches the ensign as a Paseo agent in its own workspace under this project, on a Safehouse provider, labelled `role=worker repo=paseo`, with the model the captain names. It does not use the host's `Agent` tool. A Paseo agent cannot message "main", so the ensign ends with a final message that carries the completion line. The first officer waits with `paseo wait <agent>`, reads the stage report, and runs the gate with `spacedock gate`.
 - To sync with upstream: `git fetch upstream`, then merge `upstream/main` into `main`. Merge keeps every commit that a stage report cites reachable.
 
 ## Workflow State
