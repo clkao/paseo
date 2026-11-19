@@ -50,6 +50,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:74gqm38tar8mhyynj7vsw23j:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:74gqm38tar8mhyynj7vsw23j-validation-1
+              briefing:
+                id: briefing:74gqm38tar8mhyynj7vsw23j:validation:attempt-1:revision-1
+                digest: sha256:71733baefeda1b5a3048a9633d18045fa23b382abb35ff41cd2ecf6a192e2b04
+                room-ref: '@review/validation/briefing-1'
 ---
 
 > I noticed in PR #2089 all browser tabs now share the same session store. I'd like to see it possible to scope by project or workspace, so that you can operate the same site with different credentials.

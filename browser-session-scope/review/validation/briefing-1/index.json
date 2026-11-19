@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:74gqm38tar8mhyynj7vsw23j:validation:attempt-1:revision-1",
+  "question": "Does CL approve validation of browser sessions scoped by project or workspace at 66805baff?",
+  "artifacts": [
+    {
+      "id": "artifact:74gqm38tar8mhyynj7vsw23j:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9a8cc8b222e0b7c227b34c4d4e22c2c180175e9f/browser-session-scope.md",
+      "rev": "sha256:306ebb2f9fc1d00d3e3a6c7f292d611f4a9521a29cd35eaf93d6e7b4699a3065",
+      "mediaType": "text/markdown",
+      "summary": "Fresh validation reproduced AC-1 through AC-11. Two projects retained different accounts on one site, scoped storage survived restart, and Shared preserved existing sessions. All 61 targeted tests and six Electron harness checks passed. Desktop screenshots use a clean-cache, unminified Linux renderer under Xvfb. The validator recommends PASSED."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:74gqm38tar8mhyynj7vsw23j:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/2bad4f0dd70324deadc2bc829d4684548e97f980/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:2268a41528880ff26b2b6d32d8f4baa04730c7e8aa3a9cf689829edbee87e148"
+    }
+  ]
+}
