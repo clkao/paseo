@@ -32,7 +32,7 @@ stages:
 
 # Changes to our fork of Paseo
 
-Each task is one change to Paseo, with value a Paseo user can see, that we carry in our fork of `getpaseo/paseo`. Exploring an approach is not a task. An approach is filed as a task once it is chosen, and the exploration behind it is kept in `research/` of this repository. A task moves from backlog through ideation (CL approves the design), implementation in a worktree, independent validation (CL approves the result), and done.
+Each task is one change to Paseo, with value a Paseo user can see, that we carry in our fork of `getpaseo/paseo`. Work that can ship as a plugin outside Paseo is not a task here either. It belongs to the project that owns the plugin, and only the core changes it needs become tasks here. Exploring an approach is not a task. An approach is filed as a task once it is chosen, and the exploration behind it is kept in `research/` of this repository. A task moves from backlog through ideation (CL approves the design), implementation in a worktree, independent validation (CL approves the result), and done.
 
 This workflow lives off the tree of the fork. The code checkout excludes `.spacedock/` and `.worktrees/` through `.git/info/exclude`. This README is on `main` of the spec repository `.spacedock/repo`. The task files are on its orphan branch `dev-state`, checked out at `.spacedock/dev/.spacedock-state`. Run `overlay-setup.sh` from this repository on a new machine to restore the layout.
 
