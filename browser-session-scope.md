@@ -1,7 +1,7 @@
 ---
 id: 74gqm38tar8mhyynj7vsw23j
 title: "Browser sessions scoped by project or workspace"
-status: ideation
+status: implementation
 source: CL, 2026-11-19 (user request quoting PR #2089)
 started: 2026-11-19T21:33:15Z
 completed:
@@ -49,7 +49,7 @@ gates:
                     source: CL in the Claude Code session, 2026-11-19
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 > I noticed in PR #2089 all browser tabs now share the same session store. I'd like to see it possible to scope by project or workspace, so that you can operate the same site with different credentials.
