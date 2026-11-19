@@ -1,6 +1,0 @@
-[claude-safehouse-mcp-startup] pid=90221 ppid=90131 | fd3: absent (Bad file descriptor) | named: error ([Errno 2] No such file or directory)
-[claude-safehouse-shell] pid=90265 ppid=90262 | fd3: absent (Bad file descriptor) | named: error ([Errno 2] No such file or directory)
-[claude-safehouse-shell-setsid-parent-alive] pid=90267 ppid=90266 | fd3: absent (Bad file descriptor) | named: error ([Errno 2] No such file or directory)
-[claude-safehouse-shell-direct] pid=90266 ppid=90262 | fd3: absent (Bad file descriptor) | named: error ([Errno 2] No such file or directory)
-[claude-safehouse-shell-setsid-orphan] pid=90268 ppid=1 | fd3: absent (Bad file descriptor) | named: error ([Errno 2] No such file or directory)
-[claude-safehouse-shell-doublefork] pid=90270 ppid=1 | fd3: absent (Bad file descriptor) | named: error ([Errno 2] No such file or directory)

@@ -1,3 +1,0 @@
-$ sudo -n -H -u acl-ag2 -- /usr/bin/env -i HOME=/home/acl-ag2 PATH=/opt/acl-broker/bin:/usr/bin:/bin PASEO_HOST=127.0.0.1:7900 curl -fsS --max-time 90 -H 'Content-type: application/json' -H 'Accept: application/json, text/event-stream' --data-binary '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "send_agent_prompt", "arguments": {"agentId": "ff98ea98-7018-482c-b3e8-321237c82051", "prompt": "Broker deny AC2", "notifyOnFinish": false}}}' http://127.0.0.1:7900/mcp/agents
-{"content": [{"type": "text", "text": "acl-broker refused: caller did not start the target agent"}], "isError": true}
-PASS AC-2

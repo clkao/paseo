@@ -1,7 +1,0 @@
-11:45:33 NAMED bind/listen FAILED /tmp/agent-channel-probe/d.sock: [Errno 1] Operation not permitted
-11:45:33 SPAWN agent#1 pid=90131 start=1795117533 cmd=['claude', '-p', 'Use the Bash tool to run exactly this command, once: bash /Users/clkao/git/spacedock-research/paseo/.spacedock/dev/.spacedock-state/agent-channel-probe/probe/agent_cmd.sh claude-safehouse   Then reply with its output and nothing else.', '--model', 'haiku', '--tools', 'Bash', '--allowedTools', 'Bash', '--mcp-config', '/tmp/agent-channel-probe/claude-safehouse/mcp.json', '--strict-mcp-config', '--no-session-persistence']
-Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
-11:45:41 PAIR[agent#1] closed by peer side
-11:45:41 EXIT agent#1 rc=0; closing its pair end
-11:45:41 GRACE 8.0s for late/escaped clients
-11:45:49 HARNESS exit

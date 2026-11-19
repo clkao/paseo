@@ -1,6 +1,0 @@
-table inet paseo_broker_4rpazfuf {
-	chain output {
-		type filter hook output priority filter; policy accept;
-		oifname "lo" meta skuid { 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009 } tcp dport != 7900 counter packets 2 bytes 120 reject with tcp reset
-	}
-}
