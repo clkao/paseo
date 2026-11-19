@@ -36,6 +36,20 @@ gates:
                 id: briefing:74gqm38tar8mhyynj7vsw23j:ideation:attempt-2:revision-1
                 digest: sha256:e0ffa23cd09b16e3929a97ce677ae295ebe4f3218739881104b37db4e401086c
                 room-ref: '@review/ideation/briefing-2'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:74gqm38tar8mhyynj7vsw23j:ideation:2
+                briefing: briefing:74gqm38tar8mhyynj7vsw23j:ideation:attempt-2:revision-1
+                by: agent:first-officer
+                at: "2026-11-19T21:58:50.981957Z"
+                decision: approve
+                reason: 'Cycle 2 meets all three revise asks: one global setting (new tabs only, clear-all), no separate prototype with the harness checks kept, AC-1..AC-11 in template form (ac-scan finds 11). Spot-checked named files and functions against upstream/main. Open item for implementation: confirm worktree workspaces carry projectId.'
+                conn:
+                    quote: can you get the design revised and approved, then find a way to dispatch implementation and validation on the vm?
+                    source: CL in the Claude Code session, 2026-11-19
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 > I noticed in PR #2089 all browser tabs now share the same session store. I'd like to see it possible to scope by project or workspace, so that you can operate the same site with different credentials.
