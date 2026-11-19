@@ -1,0 +1,11 @@
+$ /opt/acl-broker/bin/paseo run --home /tmp/paseo-broker-4rpazfuf/7902 --new-workspace local --cwd /tmp/paseo-codex-work-zukpz9df --no-wait --json --provider codex/gpt-6.2-sol --title broker-R 'Reply READY only. Use no tools.'
+{
+  "agentId": "4ea203f3-df54-4f57-953d-171346df2475",
+  "status": "running",
+  "provider": "codex",
+  "cwd": "/tmp/paseo-codex-work-zukpz9df",
+  "title": "broker-R"
+}
+
+R 4ea203f3-df54-4f57-953d-171346df2475
+PASS destination

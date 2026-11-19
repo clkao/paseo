@@ -1,0 +1,13 @@
+$ sudo -n -H -u acl-ag1 -- /usr/bin/env -i HOME=/home/acl-ag1 PATH=/opt/acl-broker/bin:/usr/bin:/bin PASEO_HOST=127.0.0.1:7900 PASEO_AGENT_ID=053698ba-3c85-4ab0-ba77-030494c4b5f0 /opt/acl-broker/bin/paseo send --json --no-wait ff98ea98-7018-482c-b3e8-321237c82051 'Reply BROKER_CLI_OK_1795047646742065111 only. Use no tools.'
+{
+  "agentId": "ff98ea98-7018-482c-b3e8-321237c82051",
+  "status": "queued",
+  "message": "Message queued for delivery after two quiet seconds"
+}
+
+$ sudo -n -H -u acl-ag1 -- /usr/bin/env -i HOME=/home/acl-ag1 PATH=/opt/acl-broker/bin:/usr/bin:/bin PASEO_HOST=127.0.0.1:7900 curl -fsS --max-time 90 -H 'Content-type: application/json' -H 'Accept: application/json, text/event-stream' --data-binary '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "send_agent_prompt", "arguments": {"agentId": "ff98ea98-7018-482c-b3e8-321237c82051", "prompt": "Reply BROKER_MCP_OK_1795047646742065111 only. Use no tools.", "notifyOnFinish": false}}}' http://127.0.0.1:7900/mcp/agents
+{"content": [{"type": "text", "text": "{\n  \"success\": true,\n  \"deliveryStatus\": \"queued\",\n  \"messageId\": \"6a701e44-2c8c-4bb7-a0cb-ef8250a3711b\",\n  \"status\": \"idle\",\n  \"guidance\": \"Queued for delivery after two quiet seconds; provider dispatch has not occurred.\",\n  \"serverId\": \"srv_xd5vw6qNzf2l\"\n}"}], "structuredContent": {"success": true, "deliveryStatus": "queued", "messageId": "6a701e44-2c8c-4bb7-a0cb-ef8250a3711b", "status": "idle", "guidance": "Queued for delivery after two quiet seconds; provider dispatch has not occurred.", "serverId": "srv_xd5vw6qNzf2l"}}
+$ /opt/acl-broker/bin/paseo logs --home /tmp/paseo-broker-4rpazfuf/7901 --json ff98ea98-7018-482c-b3e8-321237c82051
+$ /opt/acl-broker/bin/paseo logs --home /tmp/paseo-broker-4rpazfuf/7901 --json ff98ea98-7018-482c-b3e8-321237c82051
+[{"event": "message", "sender": {"id": "053698ba-3c85-4ab0-ba77-030494c4b5f0", "title": "broker-P"}, "text": "Reply READY only. Use no tools."}, {"event": "message", "sender": {"id": "053698ba-3c85-4ab0-ba77-030494c4b5f0", "title": "broker-P"}, "text": "Reply BROKER_CLI_OK only. Use no tools."}, {"event": "message", "sender": {"id": "053698ba-3c85-4ab0-ba77-030494c4b5f0", "title": "broker-P"}, "text": "Reply BROKER_MCP_OK only. Use no tools."}, {"event": "message", "sender": {"id": "053698ba-3c85-4ab0-ba77-030494c4b5f0", "title": "broker-P"}, "text": "Reply BROKER_CLI_OK_1795047646742065111 only. Use no tools."}, {"event": "message", "sender": {"id": "053698ba-3c85-4ab0-ba77-030494c4b5f0", "title": "broker-P"}, "text": "Reply BROKER_MCP_OK_1795047646742065111 only. Use no tools."}]
+PASS AC-4
