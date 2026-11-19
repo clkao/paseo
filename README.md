@@ -16,11 +16,11 @@ stages:
     - name: ideation
       gate: true
     - name: implementation
-      worktree: true
+      worktree: false  # runs on the VM; see "Remote execution"
       context-sections:
         - Review-finding disposition
     - name: validation
-      worktree: true
+      worktree: false  # runs on the VM; see "Remote execution"
       fresh: true
       feedback-to: implementation
       gate: true
@@ -86,7 +86,7 @@ Design the change against the current Paseo source and the `docs/` directory of 
 
 ### `implementation`
 
-Build the change in a worktree under `.worktrees/` on a branch named `task/{slug}`. Base the branch on `upstream/main` when the change will go upstream, otherwise on local `main`.
+Build the change on a branch named `task/{slug}`, in a worktree on the machine that runs the stage (see "Remote execution"). Base the branch on `upstream/main` when the change will go upstream, otherwise on the fork's `main`.
 
 - **Inputs:** The approved design.
 - **Outputs:** Commits on the branch. `npm run typecheck`, `npm run lint` and `npm run format` pass. The tests that the plan names pass, run one file at a time (`npx vitest run <file> --bail=1`).
@@ -118,6 +118,12 @@ The reviewer reports a finding. The worker investigates it without changing the 
 - Stop if the free disk space on this Mac is less than 1.5 GiB.
 - A task that runs as a mandate names its aim, its stop line and its budget in the task body. CL or MetaFO approves the mandate before it starts.
 - **Dispatch:** the first officer builds each dispatch with `spacedock dispatch build`. It launches the ensign as a Paseo agent in its own workspace under this project, on a Safehouse provider, labelled `role=worker repo=paseo`, with the model the captain names. It does not use the host's `Agent` tool. A Paseo agent cannot message "main", so the ensign ends with a final message that carries the completion line. The first officer waits with `paseo wait <agent>`, reads the stage report, and runs the gate with `spacedock gate`.
+- **Remote execution.** This Mac cannot hold a monorepo `npm install`: it has under 2 GiB free, against the 1.5 GiB stop line. So implementation and validation run on the VM `paseo-acl-prototype` in the workspace `wks_d70f4643277e6dda`. CL approved `npm install`, `apt install` and pushes of `task/*` branches to the fork `clkao/paseo` there.
+  - The ensign works in a VM worktree `~/worktrees/{slug}` of `~/paseo` (origin = the fork, upstream = getpaseo) and pushes `task/{slug}`. It never pushes `main`, and it opens no pull request, issue or comment.
+  - The dispatch prompt carries the entity body, because the VM cannot read this Mac.
+  - The ensign returns its stage report in its final message. The first officer copies that report verbatim under `## Stage Report: {stage}`, citing the agent ID, and records the VM path in the entity's `worktree` field.
+  - Validation is a fresh VM agent on the pushed branch.
+  - The VM's push access ends about 2026-11-20 19:20 UTC. Work that is not pushed by then is lost.
 - To sync with upstream: `git fetch upstream`, then merge `upstream/main` into `main`. Merge keeps every commit that a stage report cites reachable.
 
 ## Workflow State
