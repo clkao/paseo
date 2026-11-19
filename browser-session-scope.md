@@ -248,3 +248,24 @@ The design gives each project a session mode (Shared, This project, Each workspa
 ### Summary
 
 The design is now one setting in Settings, a resolver that hashes the scope into a partition name, the anchored gate, opener-session popups and a clear-all that reads the scoped partitions from disk. Two claims are not yet proved in this app and are decided by harness checks during implementation: that `webPreferences.session` on a popup is honoured, and that scoped partitions sit under `<userData>/Partitions`. Still unchecked in the code: whether every worktree workspace carries its project's `projectId`, and the i18n file layout.
+
+Implementation stage report from Paseo agent a14826a1.
+
+
+---
+
+Done: Browser sessions scoped by project or workspace completed implementation.
+
+## Stage Report: implementation
+
+- DONE: AC-1 through AC-10 passed. All 61 tests in the six planned Vitest files passed, run one file at a time with `--bail=1`. The two-process Electron harness recorded `pass: true` for all six checks, including `scoped-isolation`, `scoped-restart-persistence`, and `scoped-popup-session`. `npm run typecheck`, `npm run lint`, and `npm run format` passed. [Vitest commands and results](/home/exedev/acl-result/browser-session-scope/vitest.txt) · [Harness results](/home/exedev/acl-result/browser-session-scope/harness/results.json) · [Typecheck](/home/exedev/acl-result/browser-session-scope/typecheck.log) · [Lint](/home/exedev/acl-result/browser-session-scope/lint.log) · [Format](/home/exedev/acl-result/browser-session-scope/format.log)
+
+- DONE: Directory and worktree provisioning both write the owning project’s `projectId`. The protocol requires it on every workspace descriptor, and the app copies it into the session store. The implementation reached `clkao/paseo` on November 19 at 22:13 UTC. The final push check at 22:16 UTC confirmed that the fork matched local HEAD. [Workspace identity evidence](/home/exedev/acl-result/browser-session-scope/workspace-project-id.txt) · [Final push](/home/exedev/acl-result/browser-session-scope/final-push.log)
+
+- DONE: AC-11 screenshots were captured in the built Linux desktop app under Xvfb. Settings > General shows each selected state and all three choices. Under Per project, Staging and Customer retained different signed-in accounts at the same fixture URL after reload. Clear browser data then returned both open tabs to sign-in. UI verification used an isolated daemon on port 19767. [Shared](/home/exedev/acl-result/browser-session-scope/settings-shared.png) · [Per project](/home/exedev/acl-result/browser-session-scope/settings-project.png) · [Per workspace](/home/exedev/acl-result/browser-session-scope/settings-workspace.png) · [Choices](/home/exedev/acl-result/browser-session-scope/settings-choices.png) · [Staging admin](/home/exedev/acl-result/browser-session-scope/account-staging-admin.png) · [Customer test](/home/exedev/acl-result/browser-session-scope/account-customer-test.png) · [Clear-data results](/home/exedev/acl-result/browser-session-scope/clear-all.json)
+
+### Summary
+
+`task/browser-session-scope` is clean at `66805baff99fadd1942d36f70f02befdb3167eb3`, based on `upstream/main` at `95542dbfe6047ad45f9b5a10df5619278e53ac17`. The change spans 38 files, with 560 additions and 109 deletions: **451 net lines**, 4.9% above the 430-line estimate. [Per-file diffstat](/home/exedev/acl-result/browser-session-scope/branch.txt)
+
+Electron 44 required waiting for the first `dom-ready` after each `did-attach` before reading the guest ID. Both the app and harness now use that sequence. The existing Settings > Browser page and the requested Settings > General row use the same control.
