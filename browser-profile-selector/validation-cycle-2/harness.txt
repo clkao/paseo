@@ -1,0 +1,41 @@
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  7.9G  79% /
+/home/exedev/worktrees/browser-profile-selector
+XDG_CONFIG_HOME=/tmp/selector-independent-b1QwDQzl/harness-config
+PASEO_CAPTURE_HARNESS_GROUP=browser-profile
+PASEO_CAPTURE_HARNESS_OUT_DIR=/tmp/selector-independent-b1QwDQzl/harness
+$ xvfb-run -a npm run capture-harness --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 capture-harness
+> npm run build:main && ./capture-harness/run.sh
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+[116492:1120/060641.826456:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116492:1120/060641.855559:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[116492:1120/060641.855861:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116492:1120/060641.860001:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[116492:1120/060641.927415:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116492:1120/060642.105415:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 6 rejected by interface blink.mojom.WidgetHost
+[116492:1120/060642.105678:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 7 rejected by interface blink.mojom.WidgetHost
+PASS browser profile renderer did-attach identities match their main-process guests
+PASS browser profile tabs share cookies, localStorage, and one persistent session
+[116492:1120/060642.856692:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116492:1120/060643.781914:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS capture harness browser-profile complete output=/tmp/selector-independent-b1QwDQzl/harness
+[116666:1120/060645.682642:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116666:1120/060645.707763:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[116666:1120/060645.708905:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116666:1120/060645.710653:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[116666:1120/060645.751987:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116666:1120/060645.945878:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 2 rejected by interface blink.mojom.Widget
+PASS browser profile renderer did-attach identities match their main-process guests
+PASS browser profile tabs share cookies, localStorage, and one persistent session
+PASS browser profile cookies and localStorage survived an Electron process restart
+[116666:1120/060646.679882:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[116666:1120/060647.588620:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS capture harness browser-profile complete output=/tmp/selector-independent-b1QwDQzl/harness
+Everything up-to-date
+Everything up-to-date

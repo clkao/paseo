@@ -1,0 +1,12 @@
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  7.9G  79% /
+/home/exedev/worktrees/browser-profile-selector
+$ npm run lint
+
+> paseo@0.17.0-beta.1 lint
+> oxlint
+
+Found 0 warnings and 0 errors.
+Finished in 5.8s on 5639 files with 177 rules using 2 threads.
+Everything up-to-date
+Everything up-to-date

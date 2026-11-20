@@ -1,0 +1,14 @@
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  7.9G  79% /
+/home/exedev/worktrees/browser-profile-selector
+$ npm run format:check
+
+> paseo@0.17.0-beta.1 format:check
+> oxfmt --check .
+
+Checking formatting...
+
+All matched files use the correct format.
+Finished in 7311ms on 6148 files using 2 threads.
+Everything up-to-date
+Everything up-to-date

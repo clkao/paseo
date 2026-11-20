@@ -1,0 +1,20 @@
+Fri Nov 20 06:07:55 UTC 2026
+Linux x86_64
+v26.13.1
+44.2.0
+91b91456703e3dd73ae6a42d0bc8d004fb56d8b5
+cba515ef7300bc00cc7c73cf69ee4d8c00907578
+## task/browser-profile-selector...origin/task/browser-profile-selector
+ 40 files changed, 1934 insertions(+), 213 deletions(-)
+ 21 files changed, 268 insertions(+), 78 deletions(-)
+Product, translations and docs 769
+Unit and browser tests 364
+Full-app E2E 512
+Electron harness 76
+Net lines 1721
+Estimate 840 upper 1008 overrun 713
+0a10d03958d6de6404bfbfe62eb56341e200ef84	refs/heads/dev-state
+2bad4f0dd70324deadc2bc829d4684548e97f980	refs/heads/spacedock-spec
+91b91456703e3dd73ae6a42d0bc8d004fb56d8b5	refs/heads/task/browser-profile-selector
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  7.9G  79% /

@@ -1,0 +1,55 @@
+{
+  "before": [],
+  "result": [
+    {
+      "name": "Café 1",
+      "normalized": "Café 1",
+      "decision": "rejected",
+      "error": "Duplicate profile name"
+    },
+    {
+      "name": "Café 1",
+      "normalized": "Café 1",
+      "decision": "created",
+      "slug": "cafe-1"
+    },
+    {
+      "name": "Café",
+      "normalized": "Café",
+      "decision": "created",
+      "slug": "cafe"
+    },
+    {
+      "name": "Café",
+      "normalized": "Café",
+      "decision": "created",
+      "slug": "cafe-2"
+    }
+  ],
+  "after": [
+    {
+      "group": {
+        "serverId": "server",
+        "projectId": "project"
+      },
+      "name": "Café 1",
+      "slug": "cafe-1"
+    },
+    {
+      "group": {
+        "serverId": "server",
+        "projectId": "project"
+      },
+      "name": "Café",
+      "slug": "cafe"
+    },
+    {
+      "group": {
+        "serverId": "server",
+        "projectId": "project"
+      },
+      "name": "Café",
+      "slug": "cafe-2"
+    }
+  ]
+}

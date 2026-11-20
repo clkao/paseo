@@ -1,0 +1,121 @@
+{
+  "duplicate": [
+    {
+      "name": "Café 1",
+      "target": "Desktop browser project 1",
+      "message": "A profile with this name already exists in this group.",
+      "previous": "Browser profile Desktop browser project 1 › Café 1",
+      "after": "Browser profile Desktop browser project 1 › Café 1"
+    },
+    {
+      "name": "CAFÉ 2",
+      "target": "Desktop browser project 1",
+      "message": "A profile with this name already exists in this group.",
+      "previous": "Browser profile Desktop browser project 1 › Café 1",
+      "after": "Browser profile Desktop browser project 1 › Café 1"
+    },
+    {
+      "name": "ORIGINAL PROJECT ONLY",
+      "target": "Desktop browser project 1",
+      "message": "A profile with this name already exists in this group.",
+      "previous": "Browser profile Desktop browser project 1 › Café 1",
+      "after": "Browser profile Desktop browser project 1 › Café 1"
+    },
+    {
+      "name": "VALIDATION SHARED",
+      "target": "Shared",
+      "message": "A profile with this name already exists in this group.",
+      "previous": "Browser profile Desktop browser project 1 › Café 1",
+      "after": "Browser profile Desktop browser project 1 › Café 1"
+    }
+  ],
+  "views": [
+    {
+      "workspace": "desktop-browser-original",
+      "labels": [
+        "Shared",
+        "Desktop browser project 1"
+      ],
+      "sharedRows": [
+        "default",
+        "Validation shared",
+        "Create new shared profile…"
+      ],
+      "projectRows": [
+        "Café 1",
+        "Original project only",
+        "Create new workspace profile…"
+      ],
+      "selected": [
+        "Café 1"
+      ]
+    },
+    {
+      "workspace": "desktop-browser-evict-one",
+      "labels": [
+        "Shared",
+        "Desktop browser project 1"
+      ],
+      "sharedRows": [
+        "default",
+        "Validation shared",
+        "Create new shared profile…"
+      ],
+      "projectRows": [
+        "Café 2",
+        "Original project only",
+        "Create new workspace profile…"
+      ],
+      "selected": [
+        "Café 2"
+      ]
+    },
+    {
+      "workspace": "desktop-browser-evict-two",
+      "labels": [
+        "Shared",
+        "Desktop browser project 3"
+      ],
+      "sharedRows": [
+        "default",
+        "Validation shared",
+        "Create new shared profile…"
+      ],
+      "projectRows": [
+        "Café 3",
+        "Foreign project only",
+        "Create new workspace profile…"
+      ],
+      "selected": [
+        "Café 3"
+      ]
+    }
+  ],
+  "equivalentWorkspaceName": {
+    "autoName": "Café 1",
+    "equivalentName": "Café 1",
+    "decision": "created",
+    "original": {
+      "id": "fa1e5236-c571-460b-af67-7918c8bc9543",
+      "partition": "persist:paseo-project-dead2c48d36b76d0e93ad5ecfc05c25b-ws-15c4f3793f4035e7616d62936a87e28b",
+      "account": "Alice",
+      "cookie": "account=Alice",
+      "storage": "Alice",
+      "label": "Desktop browser project 1 › Café 1",
+      "screenshot": "unicode-automatic.png"
+    },
+    "rows": [
+      "Café 1",
+      "Café 1"
+    ],
+    "other": {
+      "id": "48de0ac4-d6ea-4492-a68e-008af2324eaa",
+      "partition": "persist:paseo-project-dead2c48d36b76d0e93ad5ecfc05c25b-cafe-1",
+      "account": "Signed out",
+      "cookie": "",
+      "storage": null,
+      "label": "Desktop browser project 1 › Café 1",
+      "screenshot": "unicode-named.png"
+    }
+  }
+}

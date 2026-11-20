@@ -1,0 +1,66 @@
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  7.9G  79% /
+/home/exedev/worktrees/browser-profile-selector
+PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/tmp/selector-independent-b1QwDQzl/old-replay
+$ node /home/exedev/paseo/.spacedock/dev/.spacedock-state/browser-profile-selector/validation/edge-cases.mjs
+{
+  "registration": {
+    "before": {
+      "command": "list_tabs",
+      "tabs": []
+    },
+    "returned": {
+      "command": "new_tab",
+      "browserId": "572de33d-7beb-432f-ae63-78966fb64663",
+      "workspaceId": "desktop-browser-original",
+      "url": "http://127.0.0.1:41103/slow-first-document",
+      "browserHost": {
+        "browserHostId": "cdbf1a9ffbdadf087a45b0ea7e5907e367a6a097866bb38716da3ebebedaabf3",
+        "label": "paseo-acl-prototype · Window 1 (B7E210)",
+        "canOpenTabs": true
+      }
+    },
+    "error": null,
+    "elapsed": 1827,
+    "beforeResponse": true,
+    "receivedAfterMs": 1319,
+    "respondedAfterMs": 9319,
+    "late": {
+      "command": "list_tabs",
+      "tabs": [
+        {
+          "browserId": "572de33d-7beb-432f-ae63-78966fb64663",
+          "workspaceId": "desktop-browser-original",
+          "url": "http://127.0.0.1:41103/slow-first-document",
+          "title": "Slow fixture",
+          "isActive": false,
+          "isLoading": false,
+          "canGoBack": false,
+          "canGoForward": false,
+          "browserHost": {
+            "browserHostId": "cdbf1a9ffbdadf087a45b0ea7e5907e367a6a097866bb38716da3ebebedaabf3",
+            "label": "paseo-acl-prototype · Window 1 (B7E210)",
+            "canOpenTabs": true
+          }
+        }
+      ]
+    }
+  },
+  "duplicate": {
+    "decision": "rejected",
+    "message": "A profile with this name already exists in this group.",
+    "original": {
+      "label": "Desktop browser project 1 › Desktop browser workspace 1",
+      "id": "ed878242-7aeb-418f-abe9-61f7e94630e4",
+      "partition": "persist:paseo-project-b9ddb2f77201d347415bbb1ec18a1db6-ws-c66b156532f14ab6bab0cce3e26e761c",
+      "data": {
+        "account": "Alice",
+        "cookie": "account=Alice",
+        "storage": "Alice"
+      }
+    }
+  }
+}
+Per-tab browser profile journey passed.
+Everything up-to-date
+Everything up-to-date

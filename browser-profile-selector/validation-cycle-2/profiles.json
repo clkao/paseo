@@ -1,0 +1,121 @@
+{
+  "before": [
+    {
+      "id": "1090f6e9-255d-43d4-8ffe-2de2e3662290",
+      "label": "Shared › Work",
+      "account": "Alice",
+      "cookie": "account=Alice",
+      "storage": "Alice",
+      "url": "http://127.0.0.1:46309/profile-account",
+      "firstCookie": "",
+      "screenshot": "before-alice.png"
+    },
+    {
+      "id": "0599c763-8374-4c7d-be1e-09df3a1829e5",
+      "label": "Desktop browser project 1 › Customer",
+      "account": "Bob",
+      "cookie": "account=Bob",
+      "storage": "Bob",
+      "url": "http://127.0.0.1:46309/profile-account",
+      "firstCookie": "",
+      "screenshot": "before-bob.png"
+    }
+  ],
+  "after": [
+    {
+      "id": "1090f6e9-255d-43d4-8ffe-2de2e3662290",
+      "label": "Shared › Work",
+      "account": "Alice",
+      "cookie": "account=Alice",
+      "storage": "Alice",
+      "url": "http://127.0.0.1:46309/profile-account",
+      "firstCookie": "account=Alice",
+      "screenshot": "after-alice.png"
+    },
+    {
+      "id": "0599c763-8374-4c7d-be1e-09df3a1829e5",
+      "label": "Desktop browser project 1 › Customer",
+      "account": "Bob",
+      "cookie": "account=Bob",
+      "storage": "Bob",
+      "url": "http://127.0.0.1:46309/profile-account",
+      "firstCookie": "account=Bob",
+      "screenshot": "after-bob.png"
+    }
+  ],
+  "groups": [
+    {
+      "workspace": "desktop-browser-evict-one",
+      "selected": "Browser profile Desktop browser project 1 › Desktop browser workspace 2",
+      "shared": "Shared\ndefault\nWork\nCreate new shared profile…",
+      "groupLabels": [
+        "Shared",
+        "Desktop browser project 1"
+      ],
+      "project": "Desktop browser project 1\nDesktop browser workspace 2\nCustomer\nCreate new workspace profile…",
+      "checked": "Desktop browser workspace 2"
+    },
+    {
+      "workspace": "desktop-browser-evict-two",
+      "selected": "Browser profile Desktop browser project 3 › Desktop browser workspace 3",
+      "shared": "Shared\ndefault\nWork\nCreate new shared profile…",
+      "groupLabels": [
+        "Shared",
+        "Desktop browser project 3"
+      ],
+      "project": "Desktop browser project 3\nDesktop browser workspace 3\nCreate new workspace profile…",
+      "checked": "Desktop browser workspace 3"
+    }
+  ],
+  "duplicate": {
+    "error": "A profile with this name already exists in this group.",
+    "automatic": "Desktop browser project 1 › Desktop browser workspace 1"
+  },
+  "delayedRegistration": {
+    "browserId": "95ab5522-eee9-4c84-9931-d341ea191fed",
+    "requestedMs": 53,
+    "returnedMs": 195,
+    "respondedMs": 8053,
+    "pending": [
+      "95ab5522-eee9-4c84-9931-d341ea191fed"
+    ],
+    "loaded": [
+      "95ab5522-eee9-4c84-9931-d341ea191fed"
+    ]
+  },
+  "defaults": {
+    "parked": "75863763-307e-4a26-9cdf-0eedde805779",
+    "supplied": "88e78350-99d0-4909-b4a6-955e0f1d2f5a",
+    "link": "d9175440-fcbd-4b20-8b65-d67ae860c65f",
+    "firstRequest": "account=Workspace",
+    "plugin": {
+      "id": "13aa0cd6-1bd4-48e8-a362-3e56b5f3a1b4",
+      "label": "Desktop browser project 1 › Desktop browser workspace 1",
+      "firstRequest": "account=Workspace"
+    },
+    "exampleRequests": []
+  },
+  "processes": [
+    119692,
+    120687,
+    121102
+  ],
+  "restored": {
+    "revisited": "a16521bc-8ddc-4fad-ad64-7ac9b8ff82ec",
+    "untouched": "3f7adb2a-bd25-4f19-9540-ebe75a53dc57",
+    "legacy": "145a2c04-1662-4d0c-bd8b-142193741c0b"
+  },
+  "clear": {
+    "open": "1090f6e9-255d-43d4-8ffe-2de2e3662290",
+    "closed": "0599c763-8374-4c7d-be1e-09df3a1829e5",
+    "closedPartition": "persist:paseo-project-de73583de2ea6b9d2e06c700fd6f0770-customer",
+    "liveBefore": [
+      "paseo-shared-work"
+    ],
+    "openLabel": "Shared › Work",
+    "reopenedLabel": "Desktop browser project 1 › Customer",
+    "cookie": "",
+    "storage": null,
+    "unrelated": "retained"
+  }
+}

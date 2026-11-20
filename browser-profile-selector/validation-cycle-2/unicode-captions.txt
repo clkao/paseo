@@ -1,0 +1,7 @@
+Comparison of the complete read-only toolbar captions from two original 1200 × 800 captures.
+For each source run: convert NAME -crop 217x26+848+77 +repage -depth 8 RGB:-
+unicode-automatic.png crop SHA-256 025ba142455766ce5fc81991e24a42149422fca8f4e27404442abd87d54afd81 account Alice
+label 'Desktop browser project 1 \u203a Caf\xe9 1'
+unicode-named.png crop SHA-256 025ba142455766ce5fc81991e24a42149422fca8f4e27404442abd87d54afd81 account Signed out
+label 'Desktop browser project 1 \u203a Cafe\u0301 1'
+Differing pixels 0
