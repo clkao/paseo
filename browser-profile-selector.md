@@ -68,6 +68,17 @@ gates:
                 id: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-2:revision-1
                 digest: sha256:221f5e601b3ee8b4658474505e4aa01c456eee7430b403e7a621d023ab2f3c3b
                 room-ref: '@review/validation/briefing-2'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:vb7f0c31h72remcb4fypyeqg:validation:2
+                briefing: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-11-20T19:05:59.581025639Z"
+                decision: approve
+                reason: CL approved validation cycle 2, relayed by the paseo project manager. Six of seven criteria pass. CL accepts the remaining AC-2 Unicode-normalization case as follow-up browser-profile-name-normalization. The full-app journey trim is deferred to pre-upstream review. macOS and Windows runtime coverage is deferred. Delivery through a fork or upstream PR is pending CL’s separate decision; hold at approved-awaiting-merge.
+              application:
+                target-stage: done
+                state: pending
 review-round:
     id: round:vb7f0c31h72remcb4fypyeqg:validation:1
     stage: validation
