@@ -63,6 +63,14 @@ gates:
                 at: "2026-11-20T05:43:55.355502751Z"
                 decision: revise
                 reason: 'CL rejects validation at ef1a90004, relayed by the paseo project manager. Return to implementation: fix AC-2 duplicate display names within a group including the automatic workspace row and add a creation regression. Fix AC-3 by registering an attached guest independently of first-document readiness and test a delayed server for successful creation without an orphan tab. CL narrows AC-2 and the dropdown to Shared and the current project only; defer Select from other project… to browser-profile-other-project in backlog. Keep the full-app journey for now; decide trimming before an upstream PR. macOS and Windows runtime coverage remains deferred.'
+review-round:
+    id: round:vb7f0c31h72remcb4fypyeqg:validation:1
+    stage: validation
+    cycle: 1
+    briefing:
+        id: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-1:revision-1
+        digest: sha256:bcd4ad474c6daefdf63c2e8acb7806e5e53e50dd2e3adfae18aa51362760518f
+        room-ref: '@review/validation/round-1'
 ---
 
 ## Problem
@@ -155,6 +163,7 @@ From the root, build desktop main with the existing script. Run `PASEO_CAPTURE_H
 ### Feedback Cycles
 
 - Cycle 1: revise — CL, relayed by the paseo project manager, 2026-11-20, ideation briefing 1. Choose the profile on a never-navigated blank tab and show it read-only after the first site loads. The revised design removes switching a loaded tab, its history reset and their tests; it omits the optional new-tab shortcut. The estimate drops from 1,000 net lines ±25% to 840 ±20%. The same ideation ensign revised the design, seven acceptance criteria and file-specific test plan for CL’s review.
+- Validation cycle 1: revise — CL rejected briefing 1 at `ef1a90004`. Material fixes: reject a duplicate display name including the automatic workspace row (AC-2), and register the agent tab before a slow first document responds without leaving an orphan (AC-3). CL narrowed AC-2 group membership to Shared and the current project only; “Select from other project…” is filed as `browser-profile-other-project` in backlog. Keep the full-app journey for now; review trimming before an upstream PR. macOS and Windows runtime coverage is deferred. Implementation returned `91b914567` for independent revalidation.
 
 ## Out of scope
 
