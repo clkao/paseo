@@ -226,6 +226,7 @@ The harness run and the builds need `npm install`. This checkout has no `node_mo
 ### Feedback Cycles
 
 - Cycle 1: revise — ideation gate, CL; one global session setting, new tabs only, clear-all only, no separate prototype, criteria in **AC-N** form; surface about 950 → about 430 lines (±25%); AC narrowed: per-session clear, tab recreation and the toolbar menu dropped. The round recorder (`gate record --round`) was not run: this gate has no review-room briefing or log to record.
+- 2026-11-20 — CL superseded the global session setting with the new task `browser-profile-selector`. CL requested closure without delivery. The earlier validation applies to the tested implementation at `66805baf`; its branch is retained as reference.
 
 ## Out of scope
 
