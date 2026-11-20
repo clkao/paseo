@@ -1,0 +1,10 @@
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Browser desktop browser E2E passed: WebContents 5 remained 5; viewport, inactive capture, focus continuity, list, snapshot, click, local-page selectors passed.
+Per-tab browser profile journey passed.

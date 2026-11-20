@@ -1,0 +1,43 @@
+{
+  "browserId": "ff25e57c-6a82-46c4-bd97-d33d79d9936a",
+  "originalWebContentsId": 5,
+  "finalWebContentsId": 5,
+  "viewport": "passed",
+  "guestFocus": "passed",
+  "overlayPlane": "passed",
+  "inactiveCapture": "passed",
+  "hiddenWindowCapture": "passed",
+  "list": "passed",
+  "snapshot": "passed",
+  "click": "passed",
+  "localPageSelectors": "passed",
+  "evaluateWithoutUnsafeEval": "passed",
+  "settingsMemory": {
+    "warmRounds": 1,
+    "stressRounds": 4,
+    "detachedAfterWarmRound": 1,
+    "detachedAfterStress": 1
+  },
+  "pluginLinks": {
+    "remoteWorkspaceId": "desktop-browser-evict-one",
+    "oldWorkaroundOpenedPopup": true,
+    "newExternalPopups": 0,
+    "workspaceId": "desktop-browser-original",
+    "url": "http://127.0.0.1:36607/"
+  },
+  "adaptiveTheme": [
+    {
+      "from": "dark",
+      "to": "light",
+      "foreground": "rgb(26, 26, 30)",
+      "background": "rgb(255, 255, 255)"
+    },
+    {
+      "from": "light",
+      "to": "dark",
+      "foreground": "rgb(250, 250, 250)",
+      "background": "rgb(24, 27, 26)"
+    }
+  ],
+  "browserHostRouting": "passed"
+}

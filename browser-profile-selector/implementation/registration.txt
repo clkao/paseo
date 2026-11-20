@@ -1,0 +1,9 @@
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  04:49:17
+   Duration  520ms (transform 215ms, setup 0ms, import 254ms, tests 38ms, environment 0ms)
+

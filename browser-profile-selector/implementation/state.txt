@@ -1,0 +1,9 @@
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  04:49:19
+   Duration  478ms (transform 126ms, setup 94ms, import 117ms, tests 13ms, environment 0ms)
+
