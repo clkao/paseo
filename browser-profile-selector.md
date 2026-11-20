@@ -6,7 +6,7 @@ started: 2026-11-20T04:09:03Z
 completed:
 verdict:
 score:
-worktree:
+worktree: /home/exedev/worktrees/browser-profile-selector
 issue:
 pr:
 mod-block:
