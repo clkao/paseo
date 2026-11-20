@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-2:revision-1",
+  "question": "Does CL approve choosing a browser tab’s profile only before its first navigation, then displaying that profile read-only?",
+  "artifacts": [
+    {
+      "id": "artifact:vb7f0c31h72remcb4fypyeqg:ideation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/a76625de8809d5bcfa0c39320825394f9e95fbfc/browser-profile-selector.md",
+      "rev": "sha256:dfb86fb72ebe43080c54d702e7638cfec993be541353dbc28d2cf67fe59b4c82",
+      "mediaType": "text/markdown",
+      "summary": "A new tab without a URL opens genuinely blank in its workspace profile. A user may select a different profile there; the first committed site fixes the choice through blank-page revisits and relaunch. The design omits the optional new-tab shortcut and removes loaded-page replacement, history reset, and their tests. The new estimate is 840 net lines ±20%, with seven criteria and a two-account, two-label restart test."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:vb7f0c31h72remcb4fypyeqg:ideation:attempt-2:revision-1:item-2",
+      "uri": "git-root://state/2bad4f0dd70324deadc2bc829d4684548e97f980/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:2268a41528880ff26b2b6d32d8f4baa04730c7e8aa3a9cf689829edbee87e148"
+    }
+  ]
+}
