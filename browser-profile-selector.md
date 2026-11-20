@@ -63,6 +63,11 @@ gates:
                 at: "2026-11-20T05:43:55.355502751Z"
                 decision: revise
                 reason: 'CL rejects validation at ef1a90004, relayed by the paseo project manager. Return to implementation: fix AC-2 duplicate display names within a group including the automatic workspace row and add a creation regression. Fix AC-3 by registering an attached guest independently of first-document readiness and test a delayed server for successful creation without an orphan tab. CL narrows AC-2 and the dropdown to Shared and the current project only; defer Select from other project… to browser-profile-other-project in backlog. Keep the full-app journey for now; decide trimming before an upstream PR. macOS and Windows runtime coverage remains deferred.'
+            - id: gate-attempt:vb7f0c31h72remcb4fypyeqg-validation-2
+              briefing:
+                id: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-2:revision-1
+                digest: sha256:221f5e601b3ee8b4658474505e4aa01c456eee7430b403e7a621d023ab2f3c3b
+                room-ref: '@review/validation/briefing-2'
 review-round:
     id: round:vb7f0c31h72remcb4fypyeqg:validation:1
     stage: validation
