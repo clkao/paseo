@@ -23,6 +23,14 @@ gates:
                 id: briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-1:revision-1
                 digest: sha256:f4b4bf955576daa4126421426a58be2875debbfa346c78622741249422be333b
                 room-ref: '@review/ideation/briefing-1'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:vb7f0c31h72remcb4fypyeqg:ideation:1
+                briefing: briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-20T04:17:36.065851678Z"
+                decision: revise
+                reason: 'CL, relayed by the paseo project manager: retain the per-tab selector but allow profile changes only while the new tab is blank before its first navigation. A new tab starts in its workspace''s profile. After the first URL loads, show the profile label read-only. To use another profile, open a new tab; ideation may include Open in new tab with profile for the current URL only if cheap. Drop reload-in-place, navigation-history reset and their tests. Preserve grouping, automatic workspace profiles, prefixes, storage, defaults for user/link/agent tabs, opener-session popups, and restart proof of the visible profile and account. Revise the design, expected surface with a smaller estimate and tolerance, AC-N criteria and named test plan.'
 ---
 
 ## Problem
