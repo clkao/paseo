@@ -12,6 +12,17 @@ pr:
 mod-block:
 mandate:
 id: vb7f0c31h72remcb4fypyeqg
+gates:
+    version: 1
+    records:
+        - id: gate:vb7f0c31h72remcb4fypyeqg:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:vb7f0c31h72remcb4fypyeqg-ideation-1
+              briefing:
+                id: briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-1:revision-1
+                digest: sha256:f4b4bf955576daa4126421426a58be2875debbfa346c78622741249422be333b
+                room-ref: '@review/ideation/briefing-1'
 ---
 
 ## Problem

@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-1:revision-1",
+  "question": "Does CL approve the per-tab browser profile selector design for implementation, including its menu visibility, workspace defaults and switching behavior?",
+  "artifacts": [
+    {
+      "id": "artifact:vb7f0c31h72remcb4fypyeqg:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/715125e1b485803304790c10d5ef8dc943617b4b/browser-profile-selector.md",
+      "rev": "sha256:5ba440b54430cba8500bc1ce5c810f09ecd3029a4cfcf93530f7ffdacb213f3c",
+      "mediaType": "text/markdown",
+      "summary": "A labelled toolbar selector switches a tab to a shared or project profile. Electron main stores named profiles, while each tab persists its selected profile by browser ID. The plan estimates 750–1,250 net lines, reuses validated Electron partition mechanisms, and specifies seven acceptance criteria, including visible profile and account identity across a full restart."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:vb7f0c31h72remcb4fypyeqg:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/2bad4f0dd70324deadc2bc829d4684548e97f980/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:2268a41528880ff26b2b6d32d8f4baa04730c7e8aa3a9cf689829edbee87e148"
+    }
+  ]
+}
