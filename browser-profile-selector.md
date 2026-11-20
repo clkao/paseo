@@ -1,6 +1,6 @@
 ---
 title: "Per-tab browser profile selector"
-status: ideation
+status: implementation
 source: CL, via the paseo project manager, 2026-11-20
 started: 2026-11-20T04:09:03Z
 completed:
@@ -46,7 +46,7 @@ gates:
                 reason: 'CL approved the revised design: profile chosen before first navigation, fixed after; relayed by the paseo project manager'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 ## Problem
