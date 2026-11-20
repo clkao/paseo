@@ -1,8 +1,8 @@
 ---
 title: "Per-tab browser profile selector"
-status: backlog
+status: ideation
 source: CL, via the paseo project manager, 2026-11-20
-started:
+started: 2026-11-20T04:09:03Z
 completed:
 verdict:
 score:
