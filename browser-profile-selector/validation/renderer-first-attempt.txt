@@ -1,0 +1,36 @@
+Fri Nov 20 05:20:53 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+env PASEO_WEB_PLATFORM=electron CI=1 npx expo export --platform web --max-workers 1 --output-dir /tmp/profile-validator-WP5Z0l/renderer 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Expo Autolinking module resolution enabled
+Starting Metro Bundler
+
+
+<--- Last few GCs --->
+
+[94989:0x16254000]   260748 ms: Scavenge 2016.5 (2041.6) -> 2013.1 (2044.3) MB, pooled: 0.0 MB, 4.54 / 0.00 ms (average mu = 0.219, current mu = 0.187) allocation failure; 
+[94989:0x16254000]   262350 ms: Incremental Mark-Compact (reduce) 2019.3 (2044.6) -> 2016.0 (2034.1) MB, pooled: 0.0 MB, 711.93 / 0.00 ms (+ 860.6 ms in 98 steps since start of marking, biggest step 20.7 ms, walltime since start of marking 1602 ms) (avera
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 0x842e50  [node]
+ 2: 0x8430bd node::OOMErrorHandler(char const*, v8::OOMDetails const&) [node]
+ 3: 0xcd716b  [node]
+ 4: 0xf46aa5  [node]
+ 5: 0xf44cac  [node]
+ 6: 0xe8753f  [node]
+ 7: 0x13d056e  [node]
+ 8: 0x7fc046dbea76 
+Aborted
+/tmp/profile-validator-WP5Z0l/run: line 31: et: command not found
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Expo Autolinking module resolution enabled
+Starting Metro Bundler
+
+Terminated
+exit=143
+Fri Nov 20 05:26:04 UTC 2026

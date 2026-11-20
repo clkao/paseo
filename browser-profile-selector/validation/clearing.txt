@@ -1,0 +1,23 @@
+Fri Nov 20 05:20:34 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+npx vitest run src/features/browser-profile.test.ts --bail=1 --reporter=verbose 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+ ✓ src/features/browser-profile.test.ts > listPaseoBrowserProfileGuests > reloads live webviews and popups across cleared profiles 3ms
+ ✓ src/features/browser-profile.test.ts > legacy browser profiles > accepts only unique saved browser ids and resolves their old partitions 2ms
+ ✓ src/features/browser-profile.test.ts > legacy browser profiles > resolves one valid legacy profile for tab-close cleanup 1ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > clears site data, HTTP cache, and auth before reloading live guests 1ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > skips destroyed guests and logs individual reload failures 1ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > propagates clear failures without reloading guests 2ms
+ ✓ src/features/browser-profile.test.ts > disk discovery includes closed named, automatic and old per-tab sessions 6ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  05:20:35
+   Duration  212ms (transform 65ms, setup 0ms, import 83ms, tests 18ms, environment 0ms)
+
+exit=0
+Fri Nov 20 05:20:35 UTC 2026

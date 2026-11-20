@@ -1,0 +1,19 @@
+Fri Nov 20 05:20:33 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+npx vitest run src/features/browser-profile-catalog.test.ts --bail=1 --reporter=verbose 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+ ✓ src/features/browser-profile-catalog.test.ts > concurrent creates allocate stable bounded keys inside their group 11ms
+ ✓ src/features/browser-profile-catalog.test.ts > rejects bad or duplicate names and preserves an unreadable catalog 4ms
+ ✓ src/features/browser-profile-catalog.test.ts > collisions with the bare project slug ws never allocate a reserved workspace key 2ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  05:20:34
+   Duration  249ms (transform 64ms, setup 0ms, import 126ms, tests 18ms, environment 0ms)
+
+exit=0
+Fri Nov 20 05:20:34 UTC 2026

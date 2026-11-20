@@ -1,0 +1,111 @@
+{
+  "registration": {
+    "before": {
+      "command": "list_tabs",
+      "tabs": []
+    },
+    "returned": null,
+    "error": "Error: browser_new_tab failed: {\"ok\":false,\"error\":{\"code\":\"browser_timeout\",\"message\":\"Timed out waiting for browser tab 05762801-1a1a-48eb-ae66-32058b84d1eb to register with the browser automation host. Try browser_new_tab again.\",\"retryable\":true},\"context\":{\"agentId\":\"4982d519-9b1a-401d-8f0a-340ef2646803\",\"cwd\":\"/tmp/paseo-desktop-browser-e2e-89HcE2/workspaces/workspace-1\",\"workspaceId\":\"desktop-browser-original\"}}",
+    "elapsed": 6059,
+    "beforeResponse": true,
+    "receivedAfterMs": 1101,
+    "respondedAfterMs": 9102,
+    "late": {
+      "command": "list_tabs",
+      "tabs": [
+        {
+          "browserId": "05762801-1a1a-48eb-ae66-32058b84d1eb",
+          "workspaceId": "desktop-browser-original",
+          "url": "http://127.0.0.1:36549/slow-first-document",
+          "title": "Slow fixture",
+          "isActive": false,
+          "isLoading": false,
+          "canGoBack": false,
+          "canGoForward": false,
+          "browserHost": {
+            "browserHostId": "3874da4176ab2f618cdb4ac68e149ba2e67a746330a42760fddc0df62f2a8d66",
+            "label": "paseo-acl-prototype · Window 1 (8AA4F0)",
+            "canOpenTabs": true
+          }
+        }
+      ]
+    }
+  },
+  "duplicate": {
+    "decision": "created",
+    "rows": [
+      "Desktop browser workspace 1",
+      "Desktop browser workspace 1"
+    ],
+    "original": {
+      "label": "Desktop browser project 1 › Desktop browser workspace 1",
+      "id": "daedd6fd-1bd9-4613-b58e-4a9ff6b09fd6",
+      "partition": "persist:paseo-project-563141e5b8ce2596cac905aed5a0c03a-ws-c1897033fac3e3004bd4139d7f74c607",
+      "data": {
+        "account": "Alice",
+        "cookie": "account=Alice",
+        "storage": "Alice"
+      }
+    },
+    "other": {
+      "label": "Desktop browser project 1 › Desktop browser workspace 1",
+      "id": "ad043bfe-e7d1-4284-8c5a-c19e5f7e3bcb",
+      "partition": "persist:paseo-project-563141e5b8ce2596cac905aed5a0c03a-desktop-browser-workspace-1",
+      "data": {
+        "account": "Signed out",
+        "cookie": "",
+        "storage": null
+      }
+    }
+  },
+  "attributeOrder": [
+    [
+      {
+        "attr": "partition",
+        "id": "05762801-1a1a-48eb-ae66-32058b84d1eb"
+      },
+      {
+        "attr": "src",
+        "id": "05762801-1a1a-48eb-ae66-32058b84d1eb"
+      }
+    ],
+    [
+      {
+        "attr": "partition",
+        "id": "daedd6fd-1bd9-4613-b58e-4a9ff6b09fd6"
+      },
+      {
+        "attr": "src",
+        "id": "daedd6fd-1bd9-4613-b58e-4a9ff6b09fd6"
+      },
+      {
+        "attr": "src",
+        "id": "daedd6fd-1bd9-4613-b58e-4a9ff6b09fd6"
+      }
+    ],
+    [
+      {
+        "attr": "partition",
+        "id": "ad043bfe-e7d1-4284-8c5a-c19e5f7e3bcb"
+      },
+      {
+        "attr": "src",
+        "id": "ad043bfe-e7d1-4284-8c5a-c19e5f7e3bcb"
+      }
+    ],
+    [
+      {
+        "attr": "partition",
+        "id": "ad043bfe-e7d1-4284-8c5a-c19e5f7e3bcb"
+      },
+      {
+        "attr": "src",
+        "id": "ad043bfe-e7d1-4284-8c5a-c19e5f7e3bcb"
+      },
+      {
+        "attr": "src",
+        "id": "ad043bfe-e7d1-4284-8c5a-c19e5f7e3bcb"
+      }
+    ]
+  ]
+}

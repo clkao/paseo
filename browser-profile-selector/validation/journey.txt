@@ -1,0 +1,17 @@
+Fri Nov 20 05:26:29 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/tmp/profile-validator-WP5Z0l/journey npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.0G  79% /
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Browser desktop browser E2E passed: WebContents 5 remained 5; viewport, inactive capture, focus continuity, list, snapshot, click, local-page selectors passed.
+Per-tab browser profile journey passed.
+exit=0
+Fri Nov 20 05:30:40 UTC 2026

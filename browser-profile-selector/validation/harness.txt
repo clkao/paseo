@@ -1,0 +1,36 @@
+Fri Nov 20 05:26:21 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+env XDG_CONFIG_HOME=/tmp/profile-validator-WP5Z0l/harness-config PASEO_CAPTURE_HARNESS_OUT_DIR=/tmp/profile-validator-WP5Z0l/harness PASEO_CAPTURE_HARNESS_GROUP=browser-profile xvfb-run -a npm run capture-harness --workspace=@getpaseo/desktop 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.0G  79% /
+
+> @getpaseo/desktop@0.17.0-beta.1 capture-harness
+> npm run build:main && ./capture-harness/run.sh
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+[95451:1120/052622.671530:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[95451:1120/052622.700317:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[95451:1120/052622.700461:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[95451:1120/052622.701249:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[95451:1120/052622.779592:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS browser profile renderer did-attach identities match their main-process guests
+PASS browser profile tabs share cookies, localStorage, and one persistent session
+[95451:1120/052623.718754:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[95451:1120/052624.635696:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS capture harness browser-profile complete output=/tmp/profile-validator-WP5Z0l/harness
+[95621:1120/052626.548386:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[95621:1120/052626.569729:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[95621:1120/052626.570424:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[95621:1120/052626.575116:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[95621:1120/052626.616194:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS browser profile renderer did-attach identities match their main-process guests
+PASS browser profile tabs share cookies, localStorage, and one persistent session
+PASS browser profile cookies and localStorage survived an Electron process restart
+[95621:1120/052627.569241:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[95621:1120/052628.473921:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS capture harness browser-profile complete output=/tmp/profile-validator-WP5Z0l/harness
+exit=0
+Fri Nov 20 05:26:29 UTC 2026

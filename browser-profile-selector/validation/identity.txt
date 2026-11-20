@@ -1,0 +1,17 @@
+Fri Nov 20 05:20:16 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+npx vitest run src/desktop/browser/profiles.test.ts --bail=1 --reporter=verbose 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+ ✓ |unit| src/desktop/browser/profiles.test.ts > uses stable, server-qualified scope keys and the existing shared default 9ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  05:20:17
+   Duration  196ms (transform 62ms, setup 63ms, import 15ms, tests 11ms, environment 0ms)
+
+exit=0
+Fri Nov 20 05:20:17 UTC 2026

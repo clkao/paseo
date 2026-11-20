@@ -1,0 +1,24 @@
+Fri Nov 20 05:20:35 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+npx vitest run src/features/browser-webviews/index.test.ts --bail=1 --reporter=verbose 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > accepts only allowed URLs on the shared profile partition 1ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > admits only complete lowercase scoped names on allowed URLs 1ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > binds explicit browser identity to the renderer that hosts the guest 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > rejects a guest hosted by another renderer 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > rejects a guest whose session differs from its claimed scoped partition 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > concurrent windows cannot swap browser identities 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > unregisters the same browser only from its requesting host 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > removes registration when the guest is destroyed 0ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  05:20:35
+   Duration  203ms (transform 74ms, setup 0ms, import 95ms, tests 5ms, environment 0ms)
+
+exit=0
+Fri Nov 20 05:20:36 UTC 2026

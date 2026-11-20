@@ -1,0 +1,54 @@
+2026-11-20 05:23:25.207789+00:00
+Linux-6.12.115-x86_64-with-glibc2.39
+v26.13.1
+Electron 44.2.0
+HEAD ef1a900049664d0299294fa8b9b42db552518245
+upstream/main cba515ef7300bc00cc7c73cf69ee4d8c00907578
+ef1a900049664d0299294fa8b9b42db552518245	refs/heads/task/browser-profile-selector
+git diff --shortstat upstream/main HEAD
+40 files changed, 1716 insertions(+), 185 deletions(-)
+product, translations, docs: +692
+unit/browser tests: +324
+capture harness: +76
+desktop e2e: +439
+git diff --numstat upstream/main HEAD
+2	2	docs/architecture.md
+12	5	docs/browser-capture-harness.md
+9	4	packages/app/src/components/rename-modal.tsx
+76	8	packages/app/src/desktop/browser/automation/handler.test.ts
+24	2	packages/app/src/desktop/browser/automation/handler.ts
+141	19	packages/app/src/desktop/browser/pane/index.electron.tsx
+2	0	packages/app/src/desktop/browser/pane/index.tsx
+2	0	packages/app/src/desktop/browser/pane/index.web.tsx
+172	0	packages/app/src/desktop/browser/pane/profile-selector.electron.tsx
+10	4	packages/app/src/desktop/browser/panel.tsx
+19	0	packages/app/src/desktop/browser/profiles.test.ts
+36	0	packages/app/src/desktop/browser/profiles.ts
+56	5	packages/app/src/desktop/browser/resident-webviews.browser.test.ts
+45	10	packages/app/src/desktop/browser/resident-webviews.ts
+10	0	packages/app/src/desktop/browser/store/index.ts
+37	0	packages/app/src/desktop/browser/store/state.test.ts
+33	1	packages/app/src/desktop/browser/store/state.ts
+14	0	packages/app/src/desktop/host.ts
+8	1	packages/app/src/i18n/resources/ar.ts
+8	1	packages/app/src/i18n/resources/en.ts
+8	2	packages/app/src/i18n/resources/es.ts
+8	1	packages/app/src/i18n/resources/fr.ts
+8	1	packages/app/src/i18n/resources/ja.ts
+8	1	packages/app/src/i18n/resources/ko.ts
+8	1	packages/app/src/i18n/resources/pt-BR.ts
+8	1	packages/app/src/i18n/resources/ru.ts
+8	1	packages/app/src/i18n/resources/zh-CN.ts
+10	5	packages/desktop/capture-harness/index.html
+83	12	packages/desktop/capture-harness/main.js
+371	0	packages/desktop/e2e/browser-profiles.electron.mjs
+117	49	packages/desktop/e2e/browser-tabs.e2e.mjs
+56	0	packages/desktop/src/features/browser-profile-catalog.test.ts
+82	0	packages/desktop/src/features/browser-profile-catalog.ts
+62	4	packages/desktop/src/features/browser-profile.test.ts
+52	4	packages/desktop/src/features/browser-profile.ts
+43	8	packages/desktop/src/features/browser-webviews/index.test.ts
+18	6	packages/desktop/src/features/browser-webviews/index.ts
+22	0	packages/desktop/src/features/browser-webviews/window-open.ts
+23	27	packages/desktop/src/main.ts
+5	0	packages/desktop/src/preload.ts

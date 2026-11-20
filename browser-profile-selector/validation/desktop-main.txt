@@ -1,0 +1,11 @@
+Fri Nov 20 05:20:50 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+npm run build:main --workspace=@getpaseo/desktop 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+exit=0
+Fri Nov 20 05:20:53 UTC 2026

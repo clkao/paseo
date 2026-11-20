@@ -1,0 +1,34 @@
+Fri Nov 20 05:20:48 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+env PLAYWRIGHT_BROWSERS_PATH=/home/exedev/worktrees/browser-session-scope/.dev/browser-bin npx vitest run --project browser src/desktop/browser/resident-webviews.browser.test.ts --bail=1 --reporter=verbose 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a browser webview in the permanent paintable 1x1 host 5ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > presents and parks a browser without changing its webview parent 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > clips an oversized fixed viewport to its pane without resizing the webview 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > creates a resident webview for an agent-created unfocused tab 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > keeps the partition of a resident browser when the setting changes 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > shares one profile and registers attached guests with explicit identity 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > normalizes an existing resident host back to permanent parking 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > normalizes an existing resident webview and its stale host before reusing them 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks resident webviews as an overlapping stack 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > returns a resident webview without detaching it from its permanent surface 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > applies an exact fixed viewport without a flex width override 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a browser at its last resolved viewport dimensions 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > keeps an inactive in-place browser at its last resolved viewport dimensions 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a cold inactive browser at its canonical fixed viewport 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > returns an existing visible pane webview instead of creating a resident duplicate 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > finds the originating browser webview for focus restoration 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > removes a resident webview when its browser tab closes 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > persists first top-level navigation while parked and keeps a committed tab locked 5ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  05:20:48
+   Duration  1.64s (transform 0ms, setup 0ms, import 500ms, tests 21ms, environment 0ms)
+
+exit=0
+Fri Nov 20 05:20:50 UTC 2026

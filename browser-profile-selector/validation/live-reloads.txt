@@ -1,0 +1,15 @@
+Fri Nov 20 05:34:01 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+bash /home/exedev/paseo/.spacedock/dev/.spacedock-state/browser-profile-selector/validation/check-live-reload.sh 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.0G  79% /
+{
+  "paseo-browser": 1,
+  "paseo-shared-work": 1,
+  "paseo-project-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-customer": 1,
+  "paseo-project-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-ws-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb": 1,
+  "paseo-browser-1700000000001-ef": 1,
+  "unrelated": 0
+}
+exit=0
+Fri Nov 20 05:34:01 UTC 2026

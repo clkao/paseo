@@ -1,0 +1,34 @@
+Fri Nov 20 05:20:17 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+npx vitest run src/desktop/browser/store/state.test.ts --bail=1 --reporter=verbose 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.1G  79% /
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > normalizes local development hosts to http by default 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > normalizes public hosts to https by default 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > keeps explicit protocols unchanged 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > falls back to a default URL when input is blank 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > createBrowserRecord > normalizes the initial URL and starts with idle state 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > updates the browser's canonical viewport 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > normalizes URL updates 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > returns the same state reference when nothing changes 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > returns the same state when the browser id is unknown 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > returns the same state when the browser id is blank 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > removeBrowserFromIndex > removes the named browser 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > removeBrowserFromIndex > returns the same state when the browser id is unknown 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > removeBrowserFromIndex > returns the same state when the browser id is blank 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > sanitizeBrowsersForPersist > clears transient fields on every record 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > sanitizeBrowsersForPersist > preserves viewport state 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserIndexState > defaults legacy persisted records to Responsive 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > retains tab phase across persistence and rejects profile changes after navigation begins 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > restores legacy blank records locked and isolates a corrupt explicit profile 1ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  05:20:18
+   Duration  249ms (transform 88ms, setup 50ms, import 88ms, tests 11ms, environment 0ms)
+
+exit=0
+Fri Nov 20 05:20:18 UTC 2026

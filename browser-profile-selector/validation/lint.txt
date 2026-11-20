@@ -1,0 +1,13 @@
+Fri Nov 20 05:31:59 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+npm run lint 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.0G  79% /
+
+> paseo@0.17.0-beta.1 lint
+> oxlint
+
+Found 0 warnings and 0 errors.
+Finished in 5.5s on 5639 files with 177 rules using 2 threads.
+exit=0
+Fri Nov 20 05:32:04 UTC 2026

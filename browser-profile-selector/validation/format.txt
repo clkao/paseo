@@ -1,0 +1,15 @@
+Fri Nov 20 05:32:04 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+npm run format -- --check 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda         40G   30G  8.0G  79% /
+
+> paseo@0.17.0-beta.1 format
+> oxfmt . --check
+
+Checking formatting...
+
+All matched files use the correct format.
+Finished in 7478ms on 6148 files using 2 threads.
+exit=0
+Fri Nov 20 05:32:12 UTC 2026
