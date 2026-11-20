@@ -1,0 +1,94 @@
+{
+  "registration": {
+    "before": {
+      "command": "list_tabs",
+      "tabs": []
+    },
+    "returned": {
+      "command": "new_tab",
+      "browserId": "3f191d72-96ac-4a3d-a781-e5d5e98c488b",
+      "workspaceId": "desktop-browser-original",
+      "url": "http://127.0.0.1:41125/slow-first-document",
+      "browserHost": {
+        "browserHostId": "2e6a6270f786a6630051cc0569f7ddfff47d2c382b71f0d009fa9b139f7e41bc",
+        "label": "paseo-acl-prototype · Window 1 (F69AB9)",
+        "canOpenTabs": true
+      }
+    },
+    "error": null,
+    "elapsed": 1415,
+    "beforeResponse": true,
+    "receivedAfterMs": 190,
+    "respondedAfterMs": 8191,
+    "late": {
+      "command": "list_tabs",
+      "tabs": [
+        {
+          "browserId": "3f191d72-96ac-4a3d-a781-e5d5e98c488b",
+          "workspaceId": "desktop-browser-original",
+          "url": "http://127.0.0.1:41125/slow-first-document",
+          "title": "Slow fixture",
+          "isActive": false,
+          "isLoading": false,
+          "canGoBack": false,
+          "canGoForward": false,
+          "browserHost": {
+            "browserHostId": "2e6a6270f786a6630051cc0569f7ddfff47d2c382b71f0d009fa9b139f7e41bc",
+            "label": "paseo-acl-prototype · Window 1 (F69AB9)",
+            "canOpenTabs": true
+          }
+        }
+      ]
+    }
+  },
+  "duplicate": {
+    "decision": "rejected",
+    "message": "A profile with this name already exists in this group.",
+    "original": {
+      "label": "Desktop browser project 1 › Desktop browser workspace 1",
+      "id": "949d54b9-7c34-4eb5-8f54-7a8b801ac6d1",
+      "partition": "persist:paseo-project-1a3d6cbe9d8bb50ed369c5bc04b45dbf-ws-28e948a6565202214f493e67d73a9dc7",
+      "data": {
+        "account": "Alice",
+        "cookie": "account=Alice",
+        "storage": "Alice"
+      }
+    }
+  },
+  "attributeOrder": [
+    [
+      {
+        "attr": "partition",
+        "id": "3f191d72-96ac-4a3d-a781-e5d5e98c488b"
+      },
+      {
+        "attr": "src",
+        "id": "3f191d72-96ac-4a3d-a781-e5d5e98c488b"
+      }
+    ],
+    [
+      {
+        "attr": "partition",
+        "id": "949d54b9-7c34-4eb5-8f54-7a8b801ac6d1"
+      },
+      {
+        "attr": "src",
+        "id": "949d54b9-7c34-4eb5-8f54-7a8b801ac6d1"
+      },
+      {
+        "attr": "src",
+        "id": "949d54b9-7c34-4eb5-8f54-7a8b801ac6d1"
+      }
+    ],
+    [
+      {
+        "attr": "partition",
+        "id": "d4820fe6-b132-4edd-bf86-4f233b2aea48"
+      },
+      {
+        "attr": "src",
+        "id": "d4820fe6-b132-4edd-bf86-4f233b2aea48"
+      }
+    ]
+  ]
+}

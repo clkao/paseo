@@ -1,0 +1,19 @@
+$ git rev-parse HEAD
+91b91456703e3dd73ae6a42d0bc8d004fb56d8b5
+$ git ls-remote origin refs/heads/task/browser-profile-selector
+91b91456703e3dd73ae6a42d0bc8d004fb56d8b5	refs/heads/task/browser-profile-selector
+$ git diff --shortstat cba515ef7 HEAD
+40 files changed, 1934 insertions(+), 213 deletions(-)
+Complete feature relative to upstream base.
+
+$ git diff --shortstat ef1a90004 HEAD
+21 files changed, 268 insertions(+), 78 deletions(-)
+Implementation corrections relative to the rejected candidate.
+
+Net lines by area.
+Product, translations and docs: +769
+Unit and browser tests: +364
+Electron harness: +76
+Full-app E2E: +512
+
+Linux x86_64, Electron 44.2.0, Node v26.13.1. Native macOS and Windows runtime deferred.

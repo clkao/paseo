@@ -1,0 +1,160 @@
+$ (cd packages/app && npx vitest run src/desktop/browser/profiles.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+ ✓ |unit| src/desktop/browser/profiles.test.ts > uses stable, server-qualified scope keys and the existing shared default 10ms
+ ✓ |unit| src/desktop/browser/profiles.test.ts > distinguishes a previously saved or renamed workspace collision without changing either identity 1ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  05:54:14
+   Duration  184ms (transform 52ms, setup 51ms, import 21ms, tests 12ms, environment 0ms)
+
+
+$ (cd packages/app && npx vitest run src/desktop/browser/store/state.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > normalizes local development hosts to http by default 2ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > normalizes public hosts to https by default 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > keeps explicit protocols unchanged 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserUrl > falls back to a default URL when input is blank 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > createBrowserRecord > normalizes the initial URL and starts with idle state 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > updates the browser's canonical viewport 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > normalizes URL updates 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > returns the same state reference when nothing changes 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > returns the same state when the browser id is unknown 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > applyBrowserPatch > returns the same state when the browser id is blank 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > removeBrowserFromIndex > removes the named browser 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > removeBrowserFromIndex > returns the same state when the browser id is unknown 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > removeBrowserFromIndex > returns the same state when the browser id is blank 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > sanitizeBrowsersForPersist > clears transient fields on every record 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > sanitizeBrowsersForPersist > preserves viewport state 0ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > normalizeBrowserIndexState > defaults legacy persisted records to Responsive 1ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > retains tab phase across persistence and rejects profile changes after navigation begins 2ms
+ ✓ |unit| src/desktop/browser/store/state.test.ts > restores legacy blank records locked and isolates a corrupt explicit profile 1ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  05:52:45
+   Duration  252ms (transform 78ms, setup 48ms, import 91ms, tests 12ms, environment 0ms)
+
+
+$ (cd packages/app && npx vitest run src/desktop/browser/automation/handler.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+stderr | src/desktop/browser/automation/handler.test.ts
+[DraftStore] Attachment garbage collection failed Error: IndexedDB is unavailable in this runtime.
+    at ensureIndexedDb (/home/exedev/worktrees/browser-profile-selector/packages/app/src/attachments/web/indexeddb-attachment-store.ts:27:11)
+    at /home/exedev/worktrees/browser-profile-selector/packages/app/src/attachments/web/indexeddb-attachment-store.ts:34:21
+    at new Promise (<anonymous>)
+    at openAttachmentDb (/home/exedev/worktrees/browser-profile-selector/packages/app/src/attachments/web/indexeddb-attachment-store.ts:33:10)
+    at Object.garbageCollect (/home/exedev/worktrees/browser-profile-selector/packages/app/src/attachments/web/indexeddb-attachment-store.ts:192:24)
+    at /home/exedev/worktrees/browser-profile-selector/packages/app/src/attachments/service.ts:188:17
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+(node:106841) [DEP0151] DeprecationWarning: Package /home/exedev/worktrees/browser-profile-selector/node_modules/react-native-worklets/ has a "main" field set to "./lib/module/index", excluding the full filename and extension to the resolved file at "lib/module/index.js", imported from /home/exedev/worktrees/browser-profile-selector/node_modules/react-native-reanimated/lib/module/initializers.js.
+ Automatic extension resolution of the "main" field is deprecated for ES modules.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab creates a workspace browser tab without stealing focus 60ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > a second workspace's no-URL agent tab opens blank in its own partition 56ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab fails before opening a tab in an unknown workspace 3ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab returns a retryable timeout when the resident webview does not register 22ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_new_tab wraps registration bridge errors in a response 51ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_resize updates resident webview dimensions 57ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_resize returns not found for a tab outside the request workspace 54ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_close_tab removes the workspace tab, browser record, resident webview, and registry entry 55ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > browser_close_tab returns not found after the tab is gone 55ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > non-new-tab requests send the desktop bridge response 3ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > missing desktop bridge sends browser_unsupported 2ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > typed bridge errors become failure responses 2ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > unimplemented preload IPC reports browser_unsupported 2ms
+ ✓ |unit| src/desktop/browser/automation/handler.test.ts > mountBrowserAutomationHandler > unsubscribe stops handling browser automation requests 2ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  05:52:46
+   Duration  14.12s (transform 11.48s, setup 51ms, import 13.54s, tests 425ms, environment 0ms)
+
+
+$ (cd packages/app && PLAYWRIGHT_BROWSERS_PATH=/home/exedev/worktrees/browser-session-scope/.dev/browser-bin npx vitest run --project browser src/desktop/browser/resident-webviews.browser.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/app
+
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a browser webview in the permanent paintable 1x1 host 4ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > presents and parks a browser without changing its webview parent 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > clips an oversized fixed viewport to its pane without resizing the webview 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > creates a resident webview for an agent-created unfocused tab 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > keeps the partition of a resident browser when the setting changes 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > registers each attached guest when its ID becomes readable before DOM readiness 53ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > normalizes an existing resident host back to permanent parking 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > normalizes an existing resident webview and its stale host before reusing them 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks resident webviews as an overlapping stack 2ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > returns a resident webview without detaching it from its permanent surface 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > applies an exact fixed viewport without a flex width override 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a browser at its last resolved viewport dimensions 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > keeps an inactive in-place browser at its last resolved viewport dimensions 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > parks a cold inactive browser at its canonical fixed viewport 0ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > returns an existing visible pane webview instead of creating a resident duplicate 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > finds the originating browser webview for focus restoration 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > resident browser webviews > removes a resident webview when its browser tab closes 1ms
+ ✓ |browser (chromium)| src/desktop/browser/resident-webviews.browser.test.ts > persists first top-level navigation while parked and keeps a committed tab locked 5ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  05:53:01
+   Duration  1.68s (transform 0ms, setup 0ms, import 467ms, tests 75ms, environment 0ms)
+
+
+$ (cd packages/desktop && npx vitest run src/features/browser-profile-catalog.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+ ✓ src/features/browser-profile-catalog.test.ts > concurrent creates allocate stable bounded keys inside their group 11ms
+ ✓ src/features/browser-profile-catalog.test.ts > rejects bad or duplicate names and preserves an unreadable catalog 4ms
+ ✓ src/features/browser-profile-catalog.test.ts > collisions with the bare project slug ws never allocate a reserved workspace key 2ms
+ ✓ src/features/browser-profile-catalog.test.ts > reserves the project's automatic workspace names without occupying them in Shared 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  05:50:33
+   Duration  247ms (transform 69ms, setup 0ms, import 118ms, tests 19ms, environment 0ms)
+
+
+$ (cd packages/desktop && npx vitest run src/features/browser-webviews/index.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > accepts only allowed URLs on the shared profile partition 1ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > admits only complete lowercase scoped names on allowed URLs 1ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > binds explicit browser identity to the renderer that hosts the guest 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > rejects a guest hosted by another renderer 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > rejects a guest whose session differs from its claimed scoped partition 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > concurrent windows cannot swap browser identities 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > unregisters the same browser only from its requesting host 0ms
+ ✓ src/features/browser-webviews/index.test.ts > browser webview attachment > removes registration when the guest is destroyed 0ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  05:53:04
+   Duration  217ms (transform 80ms, setup 0ms, import 95ms, tests 5ms, environment 0ms)
+
+
+$ (cd packages/desktop && npx vitest run src/features/browser-profile.test.ts --bail=1 --reporter=verbose)
+
+ RUN  v4.1.7 /home/exedev/worktrees/browser-profile-selector/packages/desktop
+
+ ✓ src/features/browser-profile.test.ts > listPaseoBrowserProfileGuests > reloads live webviews and popups across cleared profiles 2ms
+ ✓ src/features/browser-profile.test.ts > legacy browser profiles > accepts only unique saved browser ids and resolves their old partitions 1ms
+ ✓ src/features/browser-profile.test.ts > legacy browser profiles > resolves one valid legacy profile for tab-close cleanup 0ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > clears site data, HTTP cache, and auth before reloading live guests 1ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > skips destroyed guests and logs individual reload failures 0ms
+ ✓ src/features/browser-profile.test.ts > clearPaseoBrowserProfile > propagates clear failures without reloading guests 1ms
+ ✓ src/features/browser-profile.test.ts > disk discovery includes closed named, automatic and old per-tab sessions 4ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  05:53:03
+   Duration  196ms (transform 64ms, setup 0ms, import 77ms, tests 10ms, environment 0ms)
+
