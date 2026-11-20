@@ -36,6 +36,17 @@ gates:
                 id: briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-2:revision-1
                 digest: sha256:6901daf1a5bcaf7dbddada3e8fbd3d12eb3b60c8f2214b9cd89698cbb1b043fa
                 room-ref: '@review/ideation/briefing-2'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:vb7f0c31h72remcb4fypyeqg:ideation:2
+                briefing: briefing:vb7f0c31h72remcb4fypyeqg:ideation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-11-20T04:33:40.607503903Z"
+                decision: approve
+                reason: 'CL approved the revised design: profile chosen before first navigation, fixed after; relayed by the paseo project manager'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 ## Problem
