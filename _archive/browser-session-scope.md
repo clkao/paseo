@@ -1,11 +1,11 @@
 ---
 id: 74gqm38tar8mhyynj7vsw23j
 title: "Browser sessions scoped by project or workspace"
-status: validation
+status: done
 source: CL, 2026-11-19 (user request quoting PR #2089)
 started: 2026-11-19T21:33:15Z
-completed:
-verdict:
+completed: 2026-11-20T04:08:26Z
+verdict: REJECTED
 score:
 worktree: /home/exedev/worktrees/browser-session-scope
 issue:
@@ -68,7 +68,8 @@ gates:
                 reason: CL approved validation of commit 66805baff and directed that execution be held.
               application:
                 target-stage: done
-                state: pending
+                state: consumed
+archived: 2026-11-20T04:08:26Z
 ---
 
 > I noticed in PR #2089 all browser tabs now share the same session store. I'd like to see it possible to scope by project or workspace, so that you can operate the same site with different credentials.
