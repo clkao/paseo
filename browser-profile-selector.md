@@ -122,6 +122,8 @@ From the root, build desktop main with the existing script. Run `PASEO_CAPTURE_H
 
 ### Feedback Cycles
 
+- Cycle 1: revise — CL, relayed by the paseo project manager, 2026-11-20, ideation briefing 1. Choose the profile on a never-navigated blank tab and show it read-only after the first site loads. The revised design removes switching a loaded tab, its history reset and their tests; it omits the optional new-tab shortcut. The estimate drops from 1,000 net lines ±25% to 840 ±20%. The same ideation ensign revised the design, seven acceptance criteria and file-specific test plan for CL’s review.
+
 ## Out of scope
 
 The agent access control itself, and plugin cookie injection.
