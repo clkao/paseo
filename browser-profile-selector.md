@@ -55,6 +55,14 @@ gates:
                 id: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-1:revision-1
                 digest: sha256:bcd4ad474c6daefdf63c2e8acb7806e5e53e50dd2e3adfae18aa51362760518f
                 room-ref: '@review/validation/briefing-1'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:vb7f0c31h72remcb4fypyeqg:validation:1
+                briefing: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-20T05:43:55.355502751Z"
+                decision: revise
+                reason: 'CL rejects validation at ef1a90004, relayed by the paseo project manager. Return to implementation: fix AC-2 duplicate display names within a group including the automatic workspace row and add a creation regression. Fix AC-3 by registering an attached guest independently of first-document readiness and test a delayed server for successful creation without an orphan tab. CL narrows AC-2 and the dropdown to Shared and the current project only; defer Select from other project… to browser-profile-other-project in backlog. Keep the full-app journey for now; decide trimming before an upstream PR. macOS and Windows runtime coverage remains deferred.'
 ---
 
 ## Problem
