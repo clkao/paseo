@@ -90,7 +90,7 @@ Design the change against the current Paseo source and the `docs/` directory of 
 
 ### `implementation`
 
-Build the change on a branch named `task/{slug}`, in a worktree on the machine that runs the stage (see "Remote execution"). Base the branch on `upstream/main` when the change will go upstream, otherwise on the fork's `main`.
+Build the change on a branch named `task/{slug}`, in a worktree on the machine that runs the stage (see "Where stages run"). Base the branch on `upstream/main` when the change will go upstream, otherwise on the fork's `main`.
 
 - **Inputs:** The approved design.
 - **Outputs:** Commits on the branch. `npm run typecheck`, `npm run lint` and `npm run format` pass. The tests that the plan names pass, run one file at a time (`npx vitest run <file> --bail=1`).
