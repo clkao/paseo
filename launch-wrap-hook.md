@@ -329,3 +329,54 @@ Support moved from the open request to a provider property, which a command-base
 ### Summary
 
 Both commits landed on `task/launch-wrap-hook` from 2445adec. Codex and command-based `runAcpProvider` sessions spawn `[...wrap, command, ...args]`. Support is published as an optional `launchWrap` snapshot field before the provider first connects. Every wrapped open on an unsupported provider is rejected before a spawn. `requiresPlugins` blocks opens while a listed plugin is inactive. Each AC was proven by tests and the key ones were falsified by mutation. The open item is the root typecheck: it could not run locally because the full install does not fit on this Mac's disk (1.9 GiB free now), so CI has to run it.
+
+## Stage Report: validation
+
+- DONE: Independently reproduce each AC-1 to AC-6 Verified by clause and make one reversible deliberate break per criterion.
+  On `2dc585c14`, 40 selected tests passed in 15 files. Each of six independent scratch mutations failed its selected test with exit 1. All edits were restored byte-for-byte.
+- DONE: Check the diff against the approved design and the launch-wrap handoff contract and classify departures.
+  One material Windows refresh regression is described below. The stage tested the provider-level capability approved at the ideation gate.
+- DONE: Report the typecheck, test-size and public hook reference gaps for CL and recommend PASSED or REJECTED.
+  **REJECTED.** A supported provider with a Windows command-script launch can close a running session before telling the caller that refresh is unsupported.
+
+### Acceptance evidence
+
+1. **AC-1.** The create hook saw `launchWrap: true` with zero connections. Command registration published the field, the connector omitted it, Codex and its derived provider advertised it while loading, and the schema accepted both shapes. Removing the loading-entry field failed on Codex. Running the head selection test against server source archived from `2445adecd` with the existing dependencies failed at `lifecycle/index.ts:402` with `unrecognized_keys ["wrap"]`. The unknown-key rejection passed on head.
+2. **AC-2.** The ACP fixture recorded argv elements containing spaces intact and the session token. Two opens shared a connection, with one launcher invocation and one bare session. Antigravity received the env and the suffix `agy acp --disable-telemetry`. Removing the session env from ACP spawn yielded `token: null` where `"one"` was expected.
+3. **AC-3.** Both handler and cross-plugin tests retained an omitted wrap, accepted an equal wrap and rejected a different one. Using reference equality rejected the second handler’s equal argv.
+4. **AC-4.** Both Codex resume purposes used the captured launcher and exact argv. Archived history retained the wrap while dropping tools, MCP servers and prompt additions. Appending an extra wrapper argument to resume failed the history argv assertion.
+5. **AC-5.** Unsupported create, resume, import and refresh returned the typed error with no provider call. Refresh preserved the session, tools detached, and the supported open left the record free of its wrapper. Live capability denial sent zero session opens, connector support was absent, and rewind reused the prefix. Both missing launchers failed. The committed ACP test counts successful starts only. An independent ACP spawn trace counted one bare initialization probe followed by exactly one failed wrapped session attempt, both with `shell: false`. Codex recorded one wrapped attempt. Changing the admission error code failed the manager assertion. The separate Windows provider-command case below failed on unmodified production code.
+6. **AC-6.** Two plugins added their own IDs. Foreign additions and removals failed. Either inactive ID blocked resume and refresh before provider calls. Storage retained both IDs and accepted a legacy record. Including the active plugin in the inactive error added an unexpected `zerosub` and failed the manager assertion.
+
+Each row ran from the file’s package directory as `npx --no-install vitest run <package-relative file> --bail=1 -t '<filter>'`, with inherited `PASEO_*` variables cleared. The cold-daemon fixture used a temporary home and an ephemeral port.
+
+| File | Test name filter | Passed |
+| --- | --- | ---: |
+| `packages/server/src/server/plugins/agent-configuration.e2e.test.ts` | `create hook reads launch-wrap` | 1 |
+| `packages/server/src/server/plugins/index.posix.test.ts` | `launch-wrap declaration` | 1 |
+| `packages/server/src/server/agent/provider-snapshot-manager.test.ts` | `loading entries already report launch-wrap` | 1 |
+| `packages/server/src/server/agent/provider-registry.test.ts` | `launch-wrap support comes` | 1 |
+| `packages/protocol/src/messages.providers-snapshot.test.ts` | `launch-wrap support` | 1 |
+| `packages/server/src/server/plugins/lifecycle/handlers.test.ts` | `wrap\|unknown key\|omits requiresPlugins` | 8 |
+| `packages/server/src/server/plugins/runtime.posix.test.ts` | `open-hook launch wrap across plugins\|create-hook plugin requirements across plugins` | 7 |
+| `packages/plugin/src/server/acp.test.ts` | `runAcpProvider launch wrap` | 5 |
+| `packages/plugin/src/server/provider.test.ts` | `Provider launch wrap` | 2 |
+| `plugins/antigravity-provider/server/provider.test.ts` | `runs a wrapped session` | 1 |
+| `packages/server/src/server/agent/agent-manager.test.ts` | `wrapped open rejects\|receives the wrap\|Windows command-script wrap\|every plugin it requires` | 4 |
+| `packages/server/src/server/agent/plugin-provider.test.ts` | `declared launch wrap\|declares no launch wrap\|reopen sends the wrap\|neither declares nor offers launch wrap` | 4 |
+| `packages/server/src/server/agent/providers/codex-app-server-agent.test.ts` | `spawns a wrapped` | 2 |
+| `packages/server/src/server/agent/providers/codex-app-server-agent.spawn-error.test.ts` | `missing launch wrap` | 1 |
+| `packages/server/src/server/agent/agent-storage.test.ts` | `required plugins are persisted` | 1 |
+
+### Findings
+
+1. **Material.** On simulated `win32`, a native wrapper and Codex prefix `fixture.cmd` yielded `closed: true, code: null, spawns: 0`. The scratch check exercised `reloadAgentSession` with a close-recording current session and the real Codex open implementation behind a fixture process port. Manager admission checks the wrapper extension only, then closes the session at `agent-manager.ts:1987`. Codex first checks the provider command at `codex-app-server-agent.ts:8218`, where `applyLaunchWrap` throws a plain Error. Move the provider-command check into admission and cover the refresh outcome for both script positions. The existing Windows test covers the wrapper position.
+2. **Deferred risk.** The full typecheck remains unverified for app, desktop, website and plugin examples. Implementation recorded the failed attempt. Validation reused the installed dependencies and skipped the root script because its plugin-examples step runs an install.
+3. **Deferred risk.** The ACP negotiation probe starts a process before admission finishes. The handoff explicitly exempts capability probes. Reserve the “before anything starts” wording in `docs/plugins.md:485` for session harnesses. The optional activity query defaults to inactive, consistent with the approved fail-closed rule.
+4. **Deferred risk.** Activity is sampled before asynchronous open hooks. A hook registration change during that interval marks the session stale for a later prompt. The AC-6 tests establish behavior for plugins inactive at entry and do not cover in-flight deregistration.
+5. **Polish.** `git diff --numstat 2445adecd 14238df28` gives 935 test lines added and 3 removed, net 932 versus about 420 (+122%). The fixture scripts and manager path coverage account for much of the increase. Commit two added 143 net test lines versus about 190, within tolerance.
+6. **Polish.** `public-docs/plugins/hooks.md:59` and its open-hook reference omit `requiresPlugins` and `wrap`. The immutable-target diagnostic in `plugins/lifecycle/index.ts:291` also omits `wrap` from its list of mutable fields.
+
+### Summary
+
+Return the Windows provider-command check to implementation so an unsupported refresh preserves the running session and returns `launch_wrap_unsupported`. The task worktree was clean at `2dc585c14` after validation.
