@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-1:revision-1",
+  "question": "Approve the launch-wrap-hook ideation design and answer its six questions?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b44efa2b24b71f0273376a2cb36142763965babb/launch-wrap-hook.md",
+      "rev": "sha256:f70cf0db8ffd4a9f33244581b5dd46e12bcb124dd0cc8412577b23fc0aba0566",
+      "mediaType": "text/markdown",
+      "summary": "Per-open wrap at agent.open.before with one-selection rule in validateBeforeResult; old hosts already reject unknown keys (strict schema); connect-first for plugin providers; wrap carried in ProviderSessionConfig for hook-less reopen; AgentClient opt-in (no protocol change); errors launch_wrap_unsupported / required_plugin_inactive. ~190 prod + 350 test lines, requiresPlugin commit ~95 + 150, ±30%. Six questions; largest: provider processes outside an open (probes, catalogs, draft command listing) stay unwrapped."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/8bc076e59ac1d60856652172a143e4cd665cd062/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:0cb2a8d84c882b6697b0025c668cb5c1cf0e770281c681d00d5d089a89cd2abe"
+    }
+  ]
+}
