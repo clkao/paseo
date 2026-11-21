@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-1:revision-1",
+  "question": "Validation of launch-wrap-hook at 2dc585c14: reject back to implementation for the Windows refresh regression, or accept?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/bd1e57ad948c609c20e5c225b9b57986ff458c4a/launch-wrap-hook.md",
+      "rev": "sha256:92138cf3edf0a1c37539d511e0389a0babc9b5f29b1317fcf5e8fcdb0c8b2d5b",
+      "mediaType": "text/markdown",
+      "summary": "REJECTED recommended: on simulated win32, refreshing Codex with a .cmd provider command closes the running session before rejecting with a plain Error (not launch_wrap_unsupported). AC-1..AC-6 reproduced (40 tests, 15 files, six reverted mutations). Deferred: full typecheck (app/desktop/website), ACP probe before admission, activity sampled before async hooks. Polish: 932 vs ~420 test lines; public hooks.md omits wrap/requiresPlugins."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/8ba5bca9891d048ef43047b41c8c6b5b19c8d6be/handoff/launch-wrap/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:c10fdfa92b5969132204cf94bef68b9661f85f24ed939fbebabb7687dc72ddfd"
+    }
+  ]
+}
