@@ -279,6 +279,7 @@ Tests use fixture launcher scripts and the existing Codex `appServerProcess` por
 ### Feedback Cycles
 
 - Cycle 1: revise — ideation gate, CL, after consensus with the paseo-safehouse manager. The launch-wrap support signal moves from `request.launchWrap` to a provider-level property visible at create time (provider list through the plugin API); AC-2 adds an argument containing spaces; follow-up scope names draft discovery and the create-time catalog lookup; documented limits record daemon access Off and the Windows rejection; reference `.spacedock/repo/handoff/launch-wrap/README.md`. Surface may grow by one optional provider-snapshot field in `packages/protocol`.
+- Validation cycle 1: revise — CL, at 2dc585c14. Material: the Windows command-script rejection in applyLaunchWrap fails after refresh has closed the session; remove it and rely on spawnProcess, which already handles .cmd/.bat through cmd.exe. Polish: docs/plugins.md:485 wording, public hook reference, lifecycle diagnostic list. Deferred: full typecheck in CI; activity sampled before async hooks. Test-size overrun accepted. The round recorder was not run: no review-room briefing or log exists.
 
 ## Out of scope
 
