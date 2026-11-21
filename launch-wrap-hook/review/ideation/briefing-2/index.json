@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-2:revision-1",
+  "question": "Approve the revised launch-wrap-hook design (provider-level support, requiresPlugins array) for implementation on this Mac?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/857a49f543f2762bf82d9cc310ec36495c20f952/launch-wrap-hook.md",
+      "rev": "sha256:cd859cdc977ca88bdfe6db6b522b82d70d6b84f2c0615e8b44de5f57c30ae806",
+      "mediaType": "text/markdown",
+      "summary": "Cycle 2: request.launchWrap replaced by static provider-level launchWrap (core registry table, ProviderRegistration.launchWrap, optional provider-snapshot field, visible before first connect); open-time admission unchanged; AC-2 spaces; documented limits (daemon access Off, Windows rejected, discovery follow-up); requiresPlugins string[] own-id union."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-2:revision-1:item-2",
+      "uri": "git-root://state/fb7fbfbca987f88f7a7960564773b2212a9b7cc0/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:0cb2a8d84c882b6697b0025c668cb5c1cf0e770281c681d00d5d089a89cd2abe"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-2:revision-1:item-3",
+      "uri": "git-root://state/fb7fbfbca987f88f7a7960564773b2212a9b7cc0/handoff/launch-wrap/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:c10fdfa92b5969132204cf94bef68b9661f85f24ed939fbebabb7687dc72ddfd"
+    }
+  ]
+}
