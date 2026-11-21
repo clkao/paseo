@@ -33,7 +33,7 @@ The guarantee: once an open selects a wrapper, a supported provider runs that se
 
 1. A durable plugin requirement: included as `requiresPlugin`.
 2. Draft discovery in protected workspaces: a policy hook or cached data. Separate from this PR.
-3. Windows: whether to support a prefix that needs a shell, with verified argument quoting, or to reject it.
+3. Windows. Resolved in this project on 2026-11-21: a Windows script launcher (`.cmd`/`.bat`) is supported through `spawnProcess`, which runs it through `cmd.exe` with tested quoting, as it does for every provider launcher. A provider command that is a script is only an argument to the wrapper. The rejection agreed earlier was dropped after validation showed it broke refresh.
 
 ## Later PRs, one provider at a time
 
