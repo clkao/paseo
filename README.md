@@ -16,11 +16,11 @@ stages:
     - name: ideation
       gate: true
     - name: implementation
-      worktree: false  # the stage worktree is ~/worktrees/{slug} on the VM; see "Remote execution"
+      worktree: false  # the ensign creates the worktree from upstream/main; see "Where stages run"
       context-sections:
         - Review-finding disposition
     - name: validation
-      worktree: false  # the stage worktree is ~/worktrees/{slug} on the VM; see "Remote execution"
+      worktree: false  # the ensign creates the worktree from upstream/main; see "Where stages run"
       fresh: true
       feedback-to: implementation
       gate: true
@@ -124,10 +124,13 @@ The reviewer reports a finding. The worker investigates it without changing the 
 - **First officer.** The first officer is the session that runs the workflow: on the VM a Codex agent (`spacedock codex`), on the Mac the paseo project manager. Load the first-officer contract before the first status change or dispatch.
   - On the VM, the first officer dispatches ensigns with its runtime's own subagents. Ensigns write their stage reports into the state checkout themselves.
   - On the Mac, the first officer launches each ensign as a Paseo agent, labelled `role=worker repo=paseo`, and waits with `paseo wait`. A Paseo agent cannot message "main", so it ends with a final message that carries the completion line.
-- **Remote execution.** This Mac cannot hold a monorepo `npm install`. It has under 2 GiB free, against the 1.5 GiB stop line. So implementation and validation run on the VM `paseo-acl-prototype` (workspace `wks_d70f4643277e6dda`), with the first officer there.
-  - CL approved the following on the VM: `npm install`, `apt install`, installing Spacedock, and pushes of `task/*`, `spacedock-spec` and `dev-state` to the fork. Never push `main`, and open no pull request, issue or comment without CL.
-  - The code checkout is `~/paseo`, and stage worktrees are `~/worktrees/{slug}`.
-  - The VM's push access ends about 2026-11-20 19:20 UTC. Before that, the VM first officer pushes `dev-state` and `spacedock-spec` a last time and stops. The Mac takes the workflow back from the fork.
+- **Where stages run.** Implementation and validation run on the machine of the first officer that owns the workflow.
+  - **The ensign makes the worktree.** It runs `git worktree add -b task/{slug} <worktree> upstream/main` after fetching upstream. Spacedock does not create it, because its worktree would start from this checkout's old `main`.
+  - **Where the worktree goes.** On this Mac, `.worktrees/{slug}`. On the VM `paseo-acl-prototype` (workspace `wks_d70f4643277e6dda`), `~/worktrees/{slug}`.
+  - **Stop line.** Check free disk before `npm install`. Stop below 1.5 GiB.
+  - **Install scripts.** CL's npm config sets `ignore-scripts=true`. Inside an ensign's Safehouse sandbox, an install with scripts (`npm ci --ignore-scripts=false`) is allowed. Outside the sandbox it is not.
+  - **Pushes.** Pushes to the fork (`task/*`, `spacedock-spec`, `dev-state`) need CL's GitHub credentials. This Mac's sandbox has none, so CL runs them. The VM's exe.dev push access must be renewed before it is used again.
+  - **Approvals.** Never push `main`, and open no pull request, issue or comment without CL.
 - **Dev tooling on the Mac.** Never launch Paseo dev tooling (`npm run dev`, `dev:desktop`, `cli`) from a shell that Paseo spawned without clearing `PASEO_HOME`, `PASEO_HOST`, `PASEO_AGENT_ID` and `PASEO_LISTEN` (`env -u …`). The dev launcher keeps an inherited `PASEO_HOME` (`scripts/dev-home.sh`). On 2026-11-20 a dev desktop launched this way used `~/.paseo` and its CLI client ID (`~/.paseo/cli-client-id`), and its daemon manager stopped the production daemon when the app quit. Check that the launcher's banner shows the checkout's `.dev/paseo-home` and port 6768 before you use it.
 - To sync with upstream: `git fetch upstream`, then merge `upstream/main` into `main`. Merge keeps every commit that a stage report cites reachable.
 
