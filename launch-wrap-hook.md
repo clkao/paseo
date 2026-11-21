@@ -1,9 +1,9 @@
 ---
 id: 86k2tpskkhrpqw7z4z1rrt9w
 title: "Plugins can wrap an agent's launch command (agent.open.before wrap), fail-closed"
-status: backlog
+status: ideation
 source: CL, 2026-11-21, contract agreed by the spacedock-v1 first officer and the paseo-safehouse manager
-started:
+started: 2026-11-21T19:22:06Z
 completed:
 verdict:
 score:
