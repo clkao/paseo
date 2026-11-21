@@ -23,6 +23,14 @@ gates:
                 id: briefing:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-1:revision-1
                 digest: sha256:bc57537f933e592b413b55a4189f5c338407595736c268e83ff6870d511c88d5
                 room-ref: '@review/ideation/briefing-1'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:86k2tpskkhrpqw7z4z1rrt9w:ideation:1
+                briefing: briefing:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-21T19:35:26.841394Z"
+                decision: revise
+                reason: 'CL accepts the direction; consensus with the paseo-safehouse manager changes one point. Revise: (1) replace request.launchWrap with provider-level launch-wrap support visible at create time through the plugin API provider list (static per provider: core AgentClient opt-in, plugin providers declare at registration; runAcpProvider command branch supports), an optional provider-snapshot field; open-time admission stays as designed. (2) AC-2 adds an argument containing spaces. (3) Follow-up scope: draft command/control discovery plus the create-time catalog lookup with no model (agent-manager.ts:1607-1617). (4) Record documented limits: guarantee needs Safehouse daemon access Off; Windows shell-needing prefixes rejected in v1. Answers: connect-first as designed; reopen reuses the original wrap; no RPC requirement for the error code; wrap with unsupported rejects; requiresPlugin v1 own-id, no release. (5) Reference .spacedock/repo/handoff/launch-wrap/README.md.'
 ---
 
 ## Problem
