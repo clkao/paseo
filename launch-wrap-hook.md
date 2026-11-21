@@ -36,6 +36,17 @@ gates:
                 id: briefing:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-2:revision-1
                 digest: sha256:b6e9aa755a28b2c3d03a6d0a4d6d2a2ca1af7dafdfd758202c9984975412c38a
                 room-ref: '@review/ideation/briefing-2'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:86k2tpskkhrpqw7z4z1rrt9w:ideation:2
+                briefing: briefing:86k2tpskkhrpqw7z4z1rrt9w:ideation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-11-21T19:46:51.725525Z"
+                decision: approve
+                reason: 'CL approved the cycle-2 design: provider-level launchWrap visible before first connect, unchanged open-time admission, requiresPlugins own-id union, AC-1..AC-6, documented limits; implementation on CL''s Mac.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 ## Problem
