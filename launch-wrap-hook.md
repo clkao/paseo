@@ -1,7 +1,7 @@
 ---
 id: 86k2tpskkhrpqw7z4z1rrt9w
 title: "Plugins can wrap an agent's launch command (agent.open.before wrap), fail-closed"
-status: validation
+status: implementation
 source: CL, 2026-11-21, contract agreed by the spacedock-v1 first officer and the paseo-safehouse manager
 started: 2026-11-21T19:22:06Z
 completed:
@@ -78,7 +78,7 @@ gates:
                 reason: 'CL approved validation cycle 2 at e3fd597ff: Windows script launchers through spawnProcess, AC-1..AC-6 hold (1,129 tests, 16 files). Deferred: full typecheck to upstream CI; activity sampled before async hooks. Delivery: CL pushes task/launch-wrap-hook to the fork and opens the upstream PR.'
               application:
                 target-stage: done
-                state: pending
+                state: superseded
 ---
 
 ## Problem
@@ -296,6 +296,7 @@ Tests use fixture launcher scripts and the existing Codex `appServerProcess` por
 
 - Cycle 1: revise — ideation gate, CL, after consensus with the paseo-safehouse manager. The launch-wrap support signal moves from `request.launchWrap` to a provider-level property visible at create time (provider list through the plugin API); AC-2 adds an argument containing spaces; follow-up scope names draft discovery and the create-time catalog lookup; documented limits record daemon access Off and the Windows rejection; reference `.spacedock/repo/handoff/launch-wrap/README.md`. Surface may grow by one optional provider-snapshot field in `packages/protocol`.
 - Validation cycle 1: revise — CL, at 2dc585c14. Material: the Windows command-script rejection in applyLaunchWrap fails after refresh has closed the session; remove it and rely on spawnProcess, which already handles .cmd/.bat through cmd.exe. Polish: docs/plugins.md:485 wording, public hook reference, lifecycle diagnostic list. Deferred: full typecheck in CI; activity sampled before async hooks. Test-size overrun accepted. The round recorder was not run: no review-room briefing or log exists.
+- Delivery rework (after validation cycle 2 approval): CL, from the Gemini 4 Neon code review (`.spacedock/repo/reviews/launch-wrap-hook-neon.md`). The PR splits: `requiresPlugins` moves to task `plugin-required-active` (branch `task/plugin-required-active` keeps 2dc585c14); this task drops commit 2 and AC-6 is removed. Material fixes for the wrap: no public `applyLaunchWrap` export (SDK boundary test), wrap tests spawn Node through `process.execPath` instead of shebang scripts, simulated-win32 tests without `vi.mock` or patched `process.platform`. Polish: empty wrap executable, fit issues, fixture duplication, doc gaps.
 
 ## Out of scope
 
