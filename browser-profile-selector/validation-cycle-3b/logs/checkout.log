@@ -1,0 +1,39 @@
++ git status --porcelain=v1 --branch
+## HEAD (no branch)
+++ git status --porcelain
++ test -z ''
++ git fetch https://github.int.exe.xyz/clkao/paseo.git task/browser-profile-selector
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                task/browser-profile-selector -> FETCH_HEAD
+++ git rev-parse FETCH_HEAD
++ test 5a0bf1449286899f174ef7e1073f37c97cdc5443 = 5a0bf1449286899f174ef7e1073f37c97cdc5443
++ git checkout --detach 5a0bf1449
+HEAD is now at 5a0bf1449 Document browser profile partitions, the catalog and the profile journey
++ git status --porcelain=v1 --branch
+## HEAD (no branch)
++ git fetch https://github.int.exe.xyz/clkao/paseo.git dev-state
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                dev-state  -> FETCH_HEAD
++ git show FETCH_HEAD:browser-profile-selector.md
++ git show FETCH_HEAD:browser-profile-name-normalization.md
++ git ls-tree -r --name-only FETCH_HEAD browser-profile-selector/validation-cycle-2
++ git show FETCH_HEAD:browser-profile-selector/validation-cycle-2/REPORT.md
+fatal: path 'browser-profile-selector/validation-cycle-2/REPORT.md' does not exist in 'FETCH_HEAD'
++ git fetch https://github.int.exe.xyz/clkao/paseo.git spacedock-spec
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                spacedock-spec -> FETCH_HEAD
++ git show FETCH_HEAD:reviews/browser-profile-selector-neon.md
++ git fetch https://github.int.exe.xyz/clkao/paseo.git evidence/browser-profile-selector-validation-3
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                evidence/browser-profile-selector-validation-3 -> FETCH_HEAD
+++ git ls-tree -r --name-only FETCH_HEAD
+++ rg 'logs/check-lock.py$'
++ p=browser-profile-selector/validation-cycle-3/logs/check-lock.py
++ git show FETCH_HEAD:browser-profile-selector/validation-cycle-3/logs/check-lock.py
++ df -B1 .
+Filesystem       1B-blocks        Used  Available Use% Mounted on
+/dev/vda       42158374912 31574052864 8420061184  79% /
++ node -v
+v26.13.1
++ npm -v
+11.20.0

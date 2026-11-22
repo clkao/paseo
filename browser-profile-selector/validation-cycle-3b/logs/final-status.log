@@ -1,0 +1,16 @@
++ cd packages/app
++ node -p 'require.resolve('\''@typescript-eslint/scope-manager/package.json'\'')+'\'' '\''+require('\''@typescript-eslint/scope-manager/package.json'\'').version'
+/home/exedev/worktrees/browser-profile-selector/node_modules/@typescript-eslint/scope-manager/package.json 8.72.1
++ cd packages/desktop
++ node -p 'require.resolve('\''vitest/package.json'\'')+'\'' '\''+require('\''vitest/package.json'\'').version'
+/home/exedev/worktrees/browser-profile-selector/node_modules/vitest/package.json 4.1.7
++ git rev-parse HEAD HEAD:package-lock.json
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+6429b4be0d2897f6eccf6b0423622aa4b10d5d94
++ git hash-object package-lock.json
+6429b4be0d2897f6eccf6b0423622aa4b10d5d94
++ git status --porcelain=v1 --branch
+## HEAD (no branch)
++ df -B1 .
+Filesystem       1B-blocks        Used  Available Use% Mounted on
+/dev/vda       42158374912 36675297280 3318816768  92% /
