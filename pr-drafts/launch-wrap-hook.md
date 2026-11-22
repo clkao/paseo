@@ -6,7 +6,7 @@ Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (9f9f39ce, on 244
 
 ### Linked issue
 
-{LINK: the Discussion that shows demand for per-session sandboxing by plugins.}
+Discussion: https://discord.com/channels/1481169421832814616/1491287786370633929/1573786425298649162
 
 ### Type of change
 
