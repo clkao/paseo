@@ -68,6 +68,17 @@ gates:
                 id: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-2:revision-1
                 digest: sha256:177f8b777b18287133b6ac7a6087453c98e41bfd32d85dcca4e9cf27ed6e04b9
                 room-ref: '@review/validation/briefing-2'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:86k2tpskkhrpqw7z4z1rrt9w:validation:2
+                briefing: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-11-22T00:12:10.579424Z"
+                decision: approve
+                reason: 'CL approved validation cycle 2 at e3fd597ff: Windows script launchers through spawnProcess, AC-1..AC-6 hold (1,129 tests, 16 files). Deferred: full typecheck to upstream CI; activity sampled before async hooks. Delivery: CL pushes task/launch-wrap-hook to the fork and opens the upstream PR.'
+              application:
+                target-stage: done
+                state: pending
 ---
 
 ## Problem
