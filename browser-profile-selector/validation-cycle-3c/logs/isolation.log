@@ -1,0 +1,86 @@
+async function startBrowserProfileServer() {
+  let port = 0;
+  if (BROWSER_PROFILE_PHASE === "read") {
+    const previousOrigin = (await fsp.readFile(BROWSER_PROFILE_ORIGIN_FILE, "utf8")).trim();
+    port = Number(new URL(previousOrigin).port);
+  }
+
+  const server = http.createServer((_request, response) => {
+    response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+    response.end("<!doctype html><title>Shared browser profile</title><h1>Profile fixture</h1>");
+  });
+  await new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(port, "127.0.0.1", resolve);
+  });
+  const address = server.address();
+  if (!address || typeof address === "string") {
+    throw new Error("browser profile fixture server has no TCP address");
+  }
+  const origin = `http://127.0.0.1:${address.port}`;
+  if (BROWSER_PROFILE_PHASE === "write") {
+#!/bin/sh
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+REPO_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/../../.." && pwd)
+ELECTRON="$REPO_ROOT/node_modules/.bin/electron"
+
+if [ "${PASEO_CAPTURE_HARNESS_GROUP:-}" = "browser-profile" ] && [ -z "${PASEO_CAPTURE_HARNESS_PHASE:-}" ]; then
+  PASEO_CAPTURE_HARNESS_PHASE=write "$ELECTRON" "$SCRIPT_DIR/main.js"
+  # Give Chromium's profile helpers time to release the persistent session before reopening it.
+  sleep 1
+  PASEO_CAPTURE_HARNESS_PHASE=read "$ELECTRON" "$SCRIPT_DIR/main.js"
+  exit
+fi
+
+exec "$ELECTRON" "$SCRIPT_DIR/main.js"
+  const artifactDir =
+    process.env.PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR ??
+    fs.mkdtempSync(path.join(os.tmpdir(), "paseo-desktop-browser-e2e-artifacts-"));
+  const runtimeDir = fs.mkdtempSync(path.join(os.tmpdir(), "paseo-desktop-browser-e2e-"));
+  fs.mkdirSync(artifactDir, { recursive: true });
+  const paseoHome = path.join(runtimeDir, "paseo-home");
+  const userData = path.join(runtimeDir, "electron-user-data");
+  const workspaceRoot = path.join(runtimeDir, "workspaces");
+  fs.mkdirSync(paseoHome, { recursive: true });
+
+  const [daemonPort, expoPort, cdpPort, inspectorPort, remotePort] = await Promise.all([
+    reservePort(),
+    reservePort(),
+    reservePort(),
+    reservePort(),
+    reservePort(),
+  ]);
+  const listen = `127.0.0.1:${daemonPort}`;
+  // The profile journey needs two workspaces in one project; the other regressions do not mind.
+  seedPaseoHome(paseoHome, listen, workspaceRoot, true);
+  const target = await startTargetPage();
+  seedPluginLinks(paseoHome, workspaceIds[0], target.url, workspaceIds[1]);
+  const remoteHome = path.join(runtimeDir, "remote-home");
+  seedPaseoHome(remoteHome, `127.0.0.1:${remotePort}`, path.join(runtimeDir, "remote-workspaces"));
+  const children = [];
+  let browser = null;
+    const commonEnv = {
+      ...process.env,
+      PATH: `${openerDirectory}${path.delimiter}${process.env.PATH}`,
+      PASEO_TEST_EXTERNAL_OPEN_LOG: externalOpenLog,
+      PASEO_HOME: paseoHome,
+      PASEO_LISTEN: listen,
+      PASEO_DAEMON_ENDPOINT: `localhost:${daemonPort}`,
+      PASEO_CORS_ORIGINS: "*",
+      PASEO_LOCAL_SPEECH_AUTO_DOWNLOAD: "0",
+      PASEO_DICTATION_ENABLED: "0",
+      PASEO_VOICE_MODE_ENABLED: "0",
+      FORCE_COLOR: "0",
+            EXPO_UNSTABLE_HEADLESS: "1",
+            EXPO_PORT: String(expoPort),
+            EXPO_DEV_URL: `http://localhost:${expoPort}`,
+            PASEO_ELECTRON_REMOTE_DEBUGGING_PORT: String(cdpPort),
+            PASEO_ELECTRON_USER_DATA_DIR: userData,
+            PASEO_ELECTRON_FLAGS: `--remote-debugging-address=127.0.0.1 --remote-debugging-port=${cdpPort}`,
+          },
+        },
+44.2.0/tmp/selector-3c.gH7OCU/capture/config/Electron/Partitions/paseo-project-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb-customer
+/tmp/selector-3c.gH7OCU/capture/config/Electron/Partitions/paseo-shared-work
+/tmp/selector-3c.gH7OCU/capture/config/Electron/Partitions/paseo-browser-profile-harness-restart

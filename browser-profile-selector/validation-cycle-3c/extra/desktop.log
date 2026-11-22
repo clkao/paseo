@@ -1,0 +1,1080 @@
+[metro] Using src/app as the root directory for Expo Router.
+[metro] Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+[metro] Waiting on http://localhost:40439
+[metro]
+[metro] Logs for your project will appear below.
+[electron] Debugger listening on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 05:42:55.279 › [desktop] app startup {
+[electron]   version: '0.17.0-beta.1',
+[electron]   platform: 'linux',
+[electron]   arch: 'x64',
+[electron]   isPackaged: false
+[electron] }
+[electron] 05:42:55.282 › [dev-user-data] forced userData dir: /tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/electron-user-data
+[electron] 05:42:55.282 › [electron-flags] --remote-debugging-address=127.0.0.1 --remote-debugging-port=36991
+[electron] 05:42:55.283 › [linux-sandbox] { enabled: false, reason: 'Chromium default' }
+[electron] 05:42:55.284 › [login-shell-env] start {
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   attempts: [
+[electron]     { attemptKind: 'interactive', shellArgs: [Array] },
+[electron]     { attemptKind: 'non-interactive', shellArgs: [Array] }
+[electron]   ],
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/url-handler:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin'
+[electron] }
+[electron] 05:42:55.373 › [login-shell-env] attempt applied {
+[electron]   attemptKind: 'interactive',
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   reason: 'success',
+[electron]   durationMs: 88,
+[electron]   timeoutMs: 15000
+[electron] }
+[electron] 05:42:55.375 › [login-shell-env] applied {
+[electron]   attemptKind: 'interactive',
+[electron]   durationMs: 91,
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/url-handler:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin',
+[electron]   afterPath: '/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/url-handler:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin',
+[electron]   pathChanged: true,
+[electron]   shell: '/bin/bash'
+[electron] }
+[electron] [158073:1122/054255.414027:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron]
+[electron] DevTools listening on ws://127.0.0.1:36991/devtools/browser/17bd8aae-ff9f-47c6-8439-e4252788f676
+[electron] [158073:1122/054255.438781:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [158073:1122/054255.442738:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [158073:1122/054255.546359:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [158073:1122/054255.561243:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [DevTools] Patched React DevTools 8.0.0 content scripts for Electron
+[electron] [DevTools] Loaded: React Developer Tools
+[metro] Web Bundled 4557ms packages/app/index.ts (5968 modules)
+[electron] (electron) 'console-message' arguments are deprecated and will be removed. Please use Event<WebContentsConsoleMessageEventParams> object instead.
+[electron] 05:43:02.232 › Running application "main" with appParams:
+[electron]  [object Object] 
+[electron] Development-level warnings: ON.
+[electron] Performance optimizations: OFF.
+[metro] Web  LOG  Running application "main" with appParams:
+[metro]  {"hydrate": undefined, "rootTag": "#root"} 
+[metro] Development-level warnings: ON.
+[metro] Performance optimizations: OFF.
+[electron] 05:43:02.269 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.296 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.298 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.573 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.577 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.581 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.583 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.585 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.590 › Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.591 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.614 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.659 › Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.662 › Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:02.724 › Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 05:43:02.887 › props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 05:43:03.067 › [open-project] renderer requested pending path: {
+[electron]   webContentsId: 1,
+[electron]   pendingPath: '/home/exedev/worktrees/browser-profile-selector/packages/desktop'
+[electron] }
+[electron] 05:43:03.071 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 05:43:03.072 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 05:43:03.075 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 05:43:03.075 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 05:43:03.229 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web Bundled 100ms packages/app/src/desktop/attachments/desktop-attachment-store.ts (1 module)
+[electron] 05:43:03.235 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web Bundled 59ms packages/app/src/desktop/attachments/desktop-attachment-bridge.ts (1 module)
+[electron] 05:43:04.622 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 05:43:04.852 › [desktop daemon] initial status check before start {
+[electron]   pid: 157876,
+[electron]   status: 'running',
+[electron]   listen: '127.0.0.1:44647',
+[electron]   serverId: 'srv_-6bTVBbf8Q2Z',
+[electron]   error: null,
+[electron]   desktopManaged: false
+[electron] }
+[electron] 05:43:04.865 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web  WARN  Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 05:43:05.056 › Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 05:43:08.207 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[electron] 05:43:08.917 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[electron] 05:43:09.018 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[electron] 05:43:09.144 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[electron] 05:43:09.247 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[electron] 05:43:09.592 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[electron] 05:43:09.750 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[electron] 05:43:09.844 › Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 7d0cb2b6-4b53-4562-a044-7e9525e73580
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[metro] Web  ERROR  
+[metro]
+[metro] Code: strategy-web.tsx
+[metro] [0m [90m 1310 |[39m   [36mconst[39m liveHeadRows [33m=[39m useMemo(() [33m=>[39m {
+[metro]  [90m 1311 |[39m     [36mreturn[39m segments[33m.[39mliveHead[33m.[39mmap((item[33m,[39m index) [33m=>[39m (
+[metro] [31m[1m>[22m[39m[90m 1312 |[39m       [33m<[39m[33mdiv[39m
+[metro]  [90m      |[39m       [31m[1m^[22m[39m
+[metro]  [90m 1313 |[39m         key[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1314 |[39m         data[33m-[39mhistory[33m-[39mrow[33m-[39mid[33m=[39m{item[33m.[39mid}
+[metro]  [90m 1315 |[39m         data[33m-[39mmessage[33m-[39mid[33m=[39m{getStreamItemMessageId(item)}[0m
+[metro] Call Stack
+[metro]   segments.liveHead.map$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1312:7)
+[metro]   useMemo$argument_0 (packages/app/src/agent-stream/strategy-web.tsx:1311:30)
+[metro]   WebStreamViewport (packages/app/src/agent-stream/strategy-web.tsx:1310:31)
+[metro]   createStreamStrategy$argument_0.render (packages/app/src/agent-stream/strategy-web.tsx:1426:7)
+[metro]   AgentStreamView (packages/app/src/agent-stream/view.tsx:1186:40)
+[metro]   AgentStreamSection (packages/app/src/panels/agent-panel.tsx:1501:5)
+[metro]   ChatAgentReadyContent (packages/app/src/panels/agent-panel.tsx:1217:9)
+[metro]   ChatAgentContent (packages/app/src/panels/agent-panel.tsx:1012:5)
+[metro]   AgentPanelBody (packages/app/src/panels/agent-panel.tsx:658:5)
+[metro]   AgentPanelContent (packages/app/src/panels/agent-panel.tsx:501:5)
+[metro]   AgentConversationPanel (packages/app/src/panels/agent-panel.tsx:363:7)
+[metro]   WorkspacePaneContent (packages/app/src/screens/workspace/workspace-pane-content.tsx:162:13)
+[metro]   MountedTab (packages/app/src/screens/workspace/workspace-panel-host.tsx:55:9)
+[metro]   mountedIds.map$argument_0 (packages/app/src/screens/workspace/workspace-panel-host.tsx:126:7)
+[metro]   WorkspacePanelHost (packages/app/src/screens/workspace/workspace-panel-host.tsx:121:20)
+[metro]   SplitPaneView (packages/app/src/components/split-container.tsx:876:11)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:506:11)
+[metro]   node.group.children.map$argument_0 (packages/app/src/components/split-container.tsx:560:13)
+[metro]   SplitNodeView (packages/app/src/components/split-container.tsx:553:28)
+[metro]   SplitContainer (packages/app/src/components/split-container.tsx:275:14)
+[metro]   useMemo$argument_0 (packages/app/src/screens/workspace/workspace-screen.tsx:3545:7)
+[metro]   WorkspaceScreenContent (packages/app/src/screens/workspace/workspace-screen.tsx:3540:38)
+[metro]   WorkspaceScreen (packages/app/src/screens/workspace/workspace-screen.tsx:449:5)
+[metro]   WorkspaceDeckEntry (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:261:7)
+[metro]   renderedEntries.map$argument_0 (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:216:13)
+[metro]   WorkspaceDeck (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:214:25)
+[metro]   HostWorkspaceRouteContent (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:146:10)
+[metro]   HostWorkspaceIndexRoute (packages/app/src/app/h/[serverId]/workspace/[workspaceId]/index.tsx:96:7)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   KnownHostRoute (packages/app/src/app/h/[serverId]/_layout.tsx:39:5)
+[metro]   HostRouteLayout (packages/app/src/app/h/[serverId]/_layout.tsx:18:10)
+[metro]   ThemedStackBase (packages/app/src/navigation/themed-stack.tsx:64:5)
+[metro]   RootStack (packages/app/src/app/_layout.tsx:916:5)
+[metro]   AppShell (packages/app/src/app/_layout.tsx:965:11)
+[metro]   RootAppTree (packages/app/src/app/_layout.tsx:1031:17)
+[metro]   RootLayout (packages/app/src/app/_layout.tsx:1052:10)
+[metro]   RootRouter (packages/app/src/root-app.tsx:35:15)
+[metro]   RootApp (packages/app/src/root-app.tsx:19:7)
+[electron] 05:43:11.323 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 2,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron] 05:43:11.338 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 05:43:14.043 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 3,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron] 05:43:14.108 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 05:43:15.111 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:15.115 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 4,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron] 05:43:15.865 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:15.887 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 5,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron]
+[electron] (electron:158073): libnotify-WARNING **: 05:43:16.059: Failed to connect to proxy
+[electron]
+[electron] (electron:158073): libnotify-WARNING **: 05:43:16.059: Failed to connect to proxy
+[electron]
+[electron] (electron:158073): libnotify-WARNING **: 05:43:16.059: Failed to connect to proxy
+[electron] [158073:1122/054316.059680:ERROR:electron/shell/browser/notifications/linux/libnotify_notification.cc:61] notify_notification_show: domain=1083 code=13 message="Unknown or unsupported transport “disabled” for address “disabled:”"
+[electron] 05:43:16.343 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 6,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron] 05:43:16.367 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:16.852 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:16.876 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 7,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron] 05:43:17.098 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 8,
+[electron]   registeredBrowserIds: [ '6097d688-8888-4bdf-bd70-002007e6557b' ]
+[electron] }
+[electron] 05:43:17.131 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] (electron) 'webContents.canGoBack' is deprecated and will be removed. Please use 'webContents.navigationHistory.canGoBack' instead.
+[electron] (electron) 'webContents.canGoForward' is deprecated and will be removed. Please use 'webContents.navigationHistory.canGoForward' instead.
+[electron] 05:43:17.406 › [browser-webview] registered {
+[electron]   browserId: '06db5ce5-2d69-4f5a-a5ac-8cfbe4d502e8',
+[electron]   webContentsId: 9,
+[electron]   registeredBrowserIds: [
+[electron]     '06db5ce5-2d69-4f5a-a5ac-8cfbe4d502e8',
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b'
+[electron]   ]
+[electron] }
+[electron] 05:43:25.435 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 05:43:25.781 › [browser-webview] registered {
+[electron]   browserId: 'c4cf3a19-f5c5-4cbd-9267-551b805de765',
+[electron]   webContentsId: 10,
+[electron]   registeredBrowserIds: [
+[electron]     '06db5ce5-2d69-4f5a-a5ac-8cfbe4d502e8',
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]     'c4cf3a19-f5c5-4cbd-9267-551b805de765'
+[electron]   ]
+[electron] }
+[electron] 05:43:25.795 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:26.010 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:26.867 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:26.881 › [browser-webview] registered {
+[electron]   browserId: '53210740-766f-46ff-bad7-3b361a20e6f0',
+[electron]   webContentsId: 11,
+[electron]   registeredBrowserIds: [
+[electron]     '06db5ce5-2d69-4f5a-a5ac-8cfbe4d502e8',
+[electron]     '53210740-766f-46ff-bad7-3b361a20e6f0',
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]     'c4cf3a19-f5c5-4cbd-9267-551b805de765'
+[electron]   ]
+[electron] }
+[electron] 05:43:27.040 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:27.711 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:27.780 › [browser-webview] registered {
+[electron]   browserId: 'b854c651-4e4c-423b-8ba8-b6cc370dd175',
+[electron]   webContentsId: 12,
+[electron]   registeredBrowserIds: [
+[electron]     '06db5ce5-2d69-4f5a-a5ac-8cfbe4d502e8',
+[electron]     '53210740-766f-46ff-bad7-3b361a20e6f0',
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]     'b854c651-4e4c-423b-8ba8-b6cc370dd175',
+[electron]     'c4cf3a19-f5c5-4cbd-9267-551b805de765'
+[electron]   ]
+[electron] }
+[electron] 05:43:28.499 › [browser-webview] registered {
+[electron]   browserId: 'b854c651-4e4c-423b-8ba8-b6cc370dd175',
+[electron]   webContentsId: 13,
+[electron]   registeredBrowserIds: [
+[electron]     '06db5ce5-2d69-4f5a-a5ac-8cfbe4d502e8',
+[electron]     '53210740-766f-46ff-bad7-3b361a20e6f0',
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]     'b854c651-4e4c-423b-8ba8-b6cc370dd175',
+[electron]     'c4cf3a19-f5c5-4cbd-9267-551b805de765'
+[electron]   ]
+[electron] }
+[electron] 05:43:28.506 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:28.727 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/0daa6016-1e59-4f5f-86ce-95b80d755e9f
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[metro] Using src/app as the root directory for Expo Router.
+[metro] Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+[metro] Waiting on http://localhost:40439
+[metro]
+[metro] Logs for your project will appear below.
+[electron] Debugger listening on ws://127.0.0.1:46645/eafae661-5041-4b36-a826-8d19597a2aae
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 05:43:32.120 › [desktop] app startup {
+[electron]   version: '0.17.0-beta.1',
+[electron]   platform: 'linux',
+[electron]   arch: 'x64',
+[electron]   isPackaged: false
+[electron] }
+[electron] 05:43:32.122 › [dev-user-data] forced userData dir: /tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/electron-user-data
+[electron] 05:43:32.122 › [electron-flags] --remote-debugging-address=127.0.0.1 --remote-debugging-port=36991
+[electron] 05:43:32.122 › [linux-sandbox] { enabled: false, reason: 'Chromium default' }
+[electron] 05:43:32.124 › [login-shell-env] start {
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   attempts: [
+[electron]     { attemptKind: 'interactive', shellArgs: [Array] },
+[electron]     { attemptKind: 'non-interactive', shellArgs: [Array] }
+[electron]   ],
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/url-handler:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin'
+[electron] }
+[electron] 05:43:32.195 › [login-shell-env] attempt applied {
+[electron]   attemptKind: 'interactive',
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   reason: 'success',
+[electron]   durationMs: 70,
+[electron]   timeoutMs: 15000
+[electron] }
+[electron] 05:43:32.196 › [login-shell-env] applied {
+[electron]   attemptKind: 'interactive',
+[electron]   durationMs: 72,
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/url-handler:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin',
+[electron]   afterPath: '/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-ibgJH2/url-handler:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin',
+[electron]   pathChanged: true,
+[electron]   shell: '/bin/bash'
+[electron] }
+[electron] [158858:1122/054332.242206:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron]
+[electron] DevTools listening on ws://127.0.0.1:36991/devtools/browser/90866265-dd01-4701-915b-8d51fc3adf18
+[electron] [158858:1122/054332.275979:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [158858:1122/054332.278614:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [158858:1122/054332.282945:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [158858:1122/054332.359607:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [DevTools] Loaded: React Developer Tools
+[metro] Web Bundled 4385ms packages/app/index.ts (5968 modules)
+[electron] (electron) 'console-message' arguments are deprecated and will be removed. Please use Event<WebContentsConsoleMessageEventParams> object instead.
+[electron] 05:43:38.844 › Running application "main" with appParams:
+[electron]  [object Object] 
+[electron] Development-level warnings: ON.
+[electron] Performance optimizations: OFF.
+[metro] Web  LOG  Running application "main" with appParams:
+[metro]  {"hydrate": undefined, "rootTag": "#root"} 
+[metro] Development-level warnings: ON.
+[metro] Performance optimizations: OFF.
+[electron] 05:43:38.873 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:38.917 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:38.919 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.175 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.176 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.180 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.181 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.184 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.190 › Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.191 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.213 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.257 › Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.262 › Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 05:43:39.327 › Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 05:43:39.503 › props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 05:43:39.701 › [open-project] renderer requested pending path: {
+[electron]   webContentsId: 1,
+[electron]   pendingPath: '/home/exedev/worktrees/browser-profile-selector/packages/desktop'
+[electron] }
+[electron] 05:43:39.705 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 05:43:39.705 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 05:43:39.707 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 05:43:39.708 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 05:43:39.799 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 05:43:39.801 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web Bundled 101ms packages/app/src/desktop/attachments/desktop-attachment-store.ts (1 module)
+[electron] 05:43:40.103 › Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[metro] Web  WARN  Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 05:43:41.520 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:41.993 › [desktop daemon] initial status check before start {
+[electron]   pid: 157876,
+[electron]   status: 'running',
+[electron]   listen: '127.0.0.1:44647',
+[electron]   serverId: 'srv_-6bTVBbf8Q2Z',
+[electron]   error: null,
+[electron]   desktopManaged: false
+[electron] }
+[electron] 05:43:42.121 › [browser-webview] registered {
+[electron]   browserId: 'b854c651-4e4c-423b-8ba8-b6cc370dd175',
+[electron]   webContentsId: 2,
+[electron]   registeredBrowserIds: [ 'b854c651-4e4c-423b-8ba8-b6cc370dd175' ]
+[electron] }
+[metro] Web Bundled 57ms packages/app/src/desktop/attachments/desktop-attachment-bridge.ts (1 module)
+[electron] 05:43:42.219 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 05:43:42.668 › [browser-webview] registered {
+[electron]   browserId: '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]   webContentsId: 3,
+[electron]   registeredBrowserIds: [
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]     'b854c651-4e4c-423b-8ba8-b6cc370dd175'
+[electron]   ]
+[electron] }
+[electron] 05:43:42.677 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 05:43:42.965 › [browser-webview] registered {
+[electron]   browserId: '53210740-766f-46ff-bad7-3b361a20e6f0',
+[electron]   webContentsId: 4,
+[electron]   registeredBrowserIds: [
+[electron]     '53210740-766f-46ff-bad7-3b361a20e6f0',
+[electron]     '6097d688-8888-4bdf-bd70-002007e6557b',
+[electron]     'b854c651-4e4c-423b-8ba8-b6cc370dd175'
+[electron]   ]
+[electron] }
+[electron] 05:43:42.987 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/eafae661-5041-4b36-a826-8d19597a2aae
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:46645/eafae661-5041-4b36-a826-8d19597a2aae
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging

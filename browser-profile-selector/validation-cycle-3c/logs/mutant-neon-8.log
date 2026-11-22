@@ -1,0 +1,44 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/mutant-neon-8 ../../node_modules/.bin/vitest run src/desktop/browser/use-browser-tab-profile.test.tsx --bail=1 --reporter=verbose -t missing\ or\ unreadable 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+(node:161098) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [2m[90m↓[39m[22m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22ma workspace rename relabels a live tab without changing its partition
+ [31m×[39m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22mreports a missing or unreadable browser record as unavailable[32m 24[2mms[22m[39m
+[31m   → expected { selected: null, …(3) } to match object { unavailable: true, …(1) }
+(2 matching properties omitted from actual)[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22mreports a missing or unreadable browser record as unavailable
+[31m[1mAssertionError[22m: expected { selected: null, …(3) } to match object { unavailable: true, …(1) }
+(2 matching properties omitted from actual)[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "partition": undefined,[22m
+[32m-   "unavailable": true,[39m
+[31m+   "unavailable": false,[39m
+[2m  }[22m
+
+[36m [2m❯[22m src/desktop/browser/use-browser-tab-profile.test.tsx:[2m65:34[22m[39m
+    [90m 63|[39m     wrapper[33m,[39m
+    [90m 64|[39m   })[33m;[39m
+    [90m 65|[39m   expect(missing.result.current).toMatchObject({ unavailable: true, pa…
+    [90m   |[39m                                  [31m^[39m
+    [90m 66|[39m
+    [90m 67|[39m   [35mconst[39m browserId [33m=[39m [34mblankTab[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m1 skipped[39m[90m (2)[39m
+[2m   Start at [22m 05:44:55
+[2m   Duration [22m 910ms[2m (transform 327ms, setup 59ms, import 448ms, tests 26ms, environment 255ms)[22m
+
+exit=1

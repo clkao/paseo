@@ -1,0 +1,17 @@
+diff --git a/packages/app/src/desktop/browser/profiles.ts b/packages/app/src/desktop/browser/profiles.ts
+index 47be5ef4c..a236420ce 100644
+--- a/packages/app/src/desktop/browser/profiles.ts
++++ b/packages/app/src/desktop/browser/profiles.ts
+@@ -22,7 +22,7 @@ export function sameProfile(a: BrowserProfileEntry, b: BrowserProfileEntry): boo
+ 
+ // Canonically equivalent spellings (é vs e + U+0301) render identically, so they are one name.
+ function nameKey(name: string): string {
+-  return name.normalize("NFC").trim().toLowerCase();
++  return name.trim().toLowerCase();
+ }
+ 
+ // Catalogs created before automatic names were reserved, and later workspace renames,
+[2m   Duration [22m 209ms[2m (transform 62ms, setup 57ms, import 28ms, tests 15ms, environment 0ms)[22m
+
+exit=1
+restored HEAD blob 47be5ef4cd7d6e2716a95f953fec6f23ca47c401

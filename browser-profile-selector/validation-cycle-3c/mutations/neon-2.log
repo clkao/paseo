@@ -1,0 +1,17 @@
+diff --git a/packages/desktop/src/features/browser-profile.ts b/packages/desktop/src/features/browser-profile.ts
+index 1e137a85e..4d52c8c98 100644
+--- a/packages/desktop/src/features/browser-profile.ts
++++ b/packages/desktop/src/features/browser-profile.ts
+@@ -102,7 +102,7 @@ export function getPaseoBrowserProfileSessions<S extends BrowserProfileSession>(
+       result.add(sessions.fromPartition(`persist:${name}`));
+   }
+   // A new profile's directory may not exist yet while its guest is live.
+-  for (const live of liveSessions) result.add(live);
++  void liveSessions;
+   return [...result];
+ }
+ 
+[2m   Duration [22m 184ms[2m (transform 53ms, setup 0ms, import 68ms, tests 11ms, environment 0ms)[22m
+
+exit=1
+restored HEAD blob 1e137a85e7954b9e303745a8d59f0d02c343919a

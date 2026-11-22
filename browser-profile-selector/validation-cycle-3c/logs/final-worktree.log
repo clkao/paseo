@@ -1,0 +1,8 @@
+$ git rev-parse HEAD
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+$ git status --porcelain=v1 --untracked-files=all
+exit=0
+$ git diff --exit-code HEAD
+exit=0
+     Avail
+2965458944

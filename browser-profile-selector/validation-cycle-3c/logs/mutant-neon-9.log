@@ -1,0 +1,45 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/mutant-neon-9 ../../node_modules/.bin/vitest run src/features/browser-webviews/index.test.ts --bail=1 --reporter=verbose -t closes\ a\ never-navigated 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22maccepts only allowed URLs on the shared profile partition
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22madmits only complete lowercase scoped names on allowed URLs
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mbinds explicit browser identity to the renderer that hosts the guest
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mrejects a guest hosted by another renderer
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mrejects a guest whose session differs from its claimed scoped partition
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mconcurrent windows cannot swap browser identities
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22munregisters the same browser only from its requesting host
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mremoves registration when the guest is destroyed
+ [31m×[39m src/features/browser-webviews/index.test.ts[2m > [22mretiring a pristine guest for a profile change[2m > [22mcloses a never-navigated blank guest and unregisters it before it is destroyed[32m 5[2mms[22m[39m
+[31m   → expected 'browser-retire-701' to be null[39m
+ [2m[90m↓[39m[22m src/features/browser-webviews/index.test.ts[2m > [22mretiring a pristine guest for a profile change[2m > [22mkeeps in-flight, committed and revisited-blank guests
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/features/browser-webviews/index.test.ts[2m > [22mretiring a pristine guest for a profile change[2m > [22mcloses a never-navigated blank guest and unregisters it before it is destroyed
+[31m[1mAssertionError[22m: expected 'browser-retire-701' to be null[39m
+
+[32m- Expected:[39m
+null
+
+[31m+ Received:[39m
+"browser-retire-701"
+
+[36m [2m❯[22m src/features/browser-webviews/index.test.ts:[2m295:52[22m[39m
+    [90m293|[39m     [34mexpect[39m([34mretirePristineGuest[39m(guest))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m294|[39m     [34mexpect[39m(guest[33m.[39mclosed)[33m.[39m[34mtoBe[39m([34m1[39m)[33m;[39m
+    [90m295|[39m     [34mexpect[39m([34mgetPaseoBrowserIdForWebContents[39m(guest))[33m.[39m[34mtoBeNull[39m()[33m;[39m
+    [90m   |[39m                                                    [31m^[39m
+    [90m296|[39m   })[33m;[39m
+    [90m297|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m9 skipped[39m[90m (10)[39m
+[2m   Start at [22m 05:44:56
+[2m   Duration [22m 229ms[2m (transform 85ms, setup 0ms, import 104ms, tests 8ms, environment 0ms)[22m
+
+exit=1

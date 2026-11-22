@@ -1,0 +1,18 @@
+#!/bin/bash
+set -u
+unset ${!PASEO_@}
+D=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c
+T=$(cat /tmp/selector-3c-location)
+if [[ -f "$T/STOP" ]] || (( $(df -B1 --output=avail "$T" | tail -1) < 1610612736 )); then touch "$T/STOP"; exit 99; fi
+name=$1
+shift
+log="$D/logs/$name.log"
+{
+  pwd
+  printf '$ '; printf '%q ' "$D/scripts/isolated" "$T/$name" "$@"; echo
+  "$D/scripts/isolated" "$T/$name" "$@"
+  result=$?
+  echo "exit=$result"
+} > "$log" 2>&1
+tail -3 "$log"
+exit "$result"

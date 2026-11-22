@@ -1,0 +1,52 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/app-menu-overlay ../../node_modules/.bin/vitest run --project browser src/components/ui/menu/menu-overlay.browser.test.tsx --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 400ms after opening
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 400ms after opening
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 400ms after opening
+[22m[39mreact-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {
+  "code": "NO_I18NEXT_INSTANCE",
+}
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 400ms after opening
+[22m[39mprops.pointerEvents is deprecated. Use style.pointerEvents
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 400ms after opening
+[22m[39m"shadow*" style props are deprecated. Use "boxShadow".
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 400ms after opening
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 1000ms after opening
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 1000ms after opening
+[22m[39mThe current testing environment is not configured to support act(...)
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22manchored menu surface on web[2m > [22mstays on its anchor when its content grows 400ms after opening[33m 1697[2mms[22m[39m
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mstays on its anchor when its content grows 1000ms after opening
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mwidens when its content widens after the entering animation
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mwidens when its content widens after the entering animation
+[22m[39mThe current testing environment is not configured to support act(...)
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22manchored menu surface on web[2m > [22mstays on its anchor when its content grows 1000ms after opening[33m 2227[2mms[22m[39m
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2manchored menu surface on web[2m > [22m[2mwidens when its content widens after the entering animation
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2msubmenu flyout on a touch screen[2m > [22m[2mstays open after a tap on its row, and after a tap inside it
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2msubmenu flyout on a touch screen[2m > [22m[2mstays open after a tap on its row, and after a tap inside it
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2msubmenu flyout on a touch screen[2m > [22m[2mstays open after a tap on its row, and after a tap inside it
+[22m[39mThe current testing environment is not configured to support act(...)
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2msubmenu flyout on a touch screen[2m > [22m[2mstays open after a tap on its row, and after a tap inside it
+[22m[39mThe current testing environment is not configured to support act(...)
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22manchored menu surface on web[2m > [22mwidens when its content widens after the entering animation[33m 1636[2mms[22m[39m
+[90mstderr[2m | src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22m[2msubmenu flyout on a touch screen[2m > [22m[2mstays open after a tap on its row, and after a tap inside it
+[22m[39mThe current testing environment is not configured to support act(...)
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/components/ui/menu/menu-overlay.browser.test.tsx[2m > [22msubmenu flyout on a touch screen[2m > [22mstays open after a tap on its row, and after a tap inside it[33m 1254[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 05:41:16
+[2m   Duration [22m 10.36s[2m (transform 0ms, setup 0ms, import 1.78s, tests 6.82s, environment 0ms)[22m
+
+exit=0

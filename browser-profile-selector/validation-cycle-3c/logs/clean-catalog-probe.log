@@ -1,0 +1,5 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/clean-catalog-probe node /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/catalog-probe.cjs 
+{"original":"Café 1","entered":"Café 1","result":{"ok":false,"code":"duplicate"},"saved":[]}
+{"original":"Café 1","entered":"Café 1","result":{"ok":false,"code":"duplicate"},"saved":[]}
+exit=0

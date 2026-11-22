@@ -1,0 +1,34 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/mutant-normalization-3 ../../node_modules/.bin/vitest run src/features/browser-profile-catalog.test.ts --bail=1 --reporter=verbose -t canonically\ equivalent 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mconcurrent creates allocate stable bounded keys inside their group
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mreports a typed code for each rejected create and an unreadable catalog
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mcollisions with the bare project slug ws never allocate a reserved workspace key
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mreserves the project's automatic workspace names without occupying them in Shared
+ [31m×[39m src/features/browser-profile-catalog.test.ts[2m > [22mcanonically equivalent spellings are one name; accented and plain names stay distinct[32m 14[2mms[22m[39m
+[31m   → create failed: duplicate[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/features/browser-profile-catalog.test.ts[2m > [22mcanonically equivalent spellings are one name; accented and plain names stay distinct
+[31m[1mError[22m: create failed: duplicate[39m
+[36m [2m❯[22m created src/features/browser-profile-catalog.test.ts:[2m22:25[22m[39m
+    [90m 20|[39m ) {
+    [90m 21|[39m   [35mconst[39m result [33m=[39m [35mawait[39m promise[33m;[39m
+    [90m 22|[39m   [35mif[39m ([33m![39mresult[33m.[39mok) [35mthrow[39m [35mnew[39m [33mError[39m([32m"create failed: "[39m [33m+[39m result[33m.[39mcode)[33m;[39m
+    [90m   |[39m                         [31m^[39m
+    [90m 23|[39m   [35mreturn[39m result[33m.[39mprofile[33m;[39m
+    [90m 24|[39m }
+[90m [2m❯[22m src/features/browser-profile-catalog.test.ts:[2m101:17[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m4 skipped[39m[90m (5)[39m
+[2m   Start at [22m 05:45:12
+[2m   Duration [22m 242ms[2m (transform 61ms, setup 0ms, import 116ms, tests 16ms, environment 0ms)[22m
+
+exit=1

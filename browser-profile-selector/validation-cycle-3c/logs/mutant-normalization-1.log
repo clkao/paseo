@@ -1,0 +1,51 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/mutant-normalization-1 ../../node_modules/.bin/vitest run src/features/browser-profile-catalog.test.ts --bail=1 --reporter=verbose -t canonically\ equivalent 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mconcurrent creates allocate stable bounded keys inside their group
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mreports a typed code for each rejected create and an unreadable catalog
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mcollisions with the bare project slug ws never allocate a reserved workspace key
+ [2m[90m↓[39m[22m src/features/browser-profile-catalog.test.ts[2m > [22mreserves the project's automatic workspace names without occupying them in Shared
+ [31m×[39m src/features/browser-profile-catalog.test.ts[2m > [22mcanonically equivalent spellings are one name; accented and plain names stay distinct[32m 15[2mms[22m[39m
+[31m   → expected { ok: true, profile: { …(3) } } to deeply equal { ok: false, code: 'duplicate' }[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/features/browser-profile-catalog.test.ts[2m > [22mcanonically equivalent spellings are one name; accented and plain names stay distinct
+[31m[1mAssertionError[22m: expected { ok: true, profile: { …(3) } } to deeply equal { ok: false, code: 'duplicate' }[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[32m-   "code": "duplicate",[39m
+[32m-   "ok": false,[39m
+[31m+   "ok": true,[39m
+[31m+   "profile": {[39m
+[31m+     "group": {[39m
+[31m+       "projectId": "project",[39m
+[31m+       "serverId": "host",[39m
+[31m+     },[39m
+[31m+     "name": "Café 1",[39m
+[31m+     "slug": "cafe-1-2",[39m
+[31m+   },[39m
+[2m  }[22m
+
+[36m [2m❯[22m src/features/browser-profile-catalog.test.ts:[2m90:60[22m[39m
+    [90m 88|[39m     const catalog = createBrowserProfileCatalog(await mkdtemp(path.joi…
+    [90m 89|[39m     [35mawait[39m [34mcreated[39m(catalog[33m.[39m[34mcreate[39m({ group[33m,[39m name[33m:[39m stored }))[33m;[39m
+    [90m 90|[39m     [34mexpect[39m([35mawait[39m catalog[33m.[39m[34mcreate[39m({ group[33m,[39m name[33m:[39m entered }))[33m.[39m[34mtoEqual[39m({
+    [90m   |[39m                                                            [31m^[39m
+    [90m 91|[39m       ok[33m:[39m [35mfalse[39m[33m,[39m
+    [90m 92|[39m       code[33m:[39m [32m"duplicate"[39m[33m,[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m4 skipped[39m[90m (5)[39m
+[2m   Start at [22m 05:45:11
+[2m   Duration [22m 269ms[2m (transform 90ms, setup 0ms, import 140ms, tests 16ms, environment 0ms)[22m
+
+exit=1

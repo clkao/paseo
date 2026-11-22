@@ -349,3 +349,18 @@ E2E: the slow document now waits on a promise that is released after `browser_ne
 ### Summary
 
 Against `cba515ef7`: 44 files, +2,299 −254, **+2,045 net**. Production +938 (28 files, i18n +126 of it), tests +1,104 (13 files; e2e +443, down from +512), docs +3. Net is 324 above the cycle-2 head because the typed results, locale strings, extracted hook and new tests outweigh the e2e trim. Unit coverage is green. The Chromium browser test, the capture harness and the full-app journey still need a validator run on an isolated machine.
+
+## Stage Report: validation (cycle 3)
+
+Run on the VM paseo-acl-prototype (Linux, Xvfb) by Codex agent `8566b41a`, at `5a0bf1449`. Two earlier attempts stopped at a lockfile preflight that the first officer's brief required. The rule was stricter than npm and was withdrawn; those records are on fork branches `evidence/browser-profile-selector-validation-3` and `-3b`. Full report and evidence: [validation-cycle-3c/REPORT.md](browser-profile-selector/validation-cycle-3c/REPORT.md) (imported from fork branch `evidence/browser-profile-selector-validation-3c`, `631ed213`).
+
+- FAILED: Independently reproduce every acceptance criterion at 5a0bf1449 on the VM (Linux, Xvfb): the unit and browser test files one at a time with --bail=1, the Electron capture harness browser-profile group, and npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop, with isolated homes, user data and ports.
+  All 310 tests in 27 files pass, the 18-test resident webview file on real Chromium included, and the capture harness passes 6/6. AC-1 to AC-7 are each reproduced. The unfiltered `test:e2e:browser-tabs` exits 1: the earlier plugin-links regression leaves a loaded browser pane beside the new blank pane, and the profile journey's page-wide `Browser URL` locator matches both (`browser-profiles.electron.mjs:127`, "strict mode violation … resolved to 2 elements"). The profile-only run passes. A cold run also timed out at 90,000 ms waiting for the first workspace row.
+- DONE: For each fixed Neon review finding (1, 2, 3, 8, 9, 10) and for browser-profile-name-normalization AC-1 to AC-3, break the fix, show a committed test fails, and restore it; for findings 4, 11, 13 and 14 inspect the code, and for 4 the screenshots.
+  All nine mutations fail a committed assertion. For finding 10 the handler unit file stays green with the old catalog read restored; the committed Electron check catches it with an unreadable catalog.
+- DONE: Capture fresh screenshots of the selector (the trigger, the open menu with both groups, a long label that keeps its chevron) and of one reproduced error message; run lint, format:check and typecheck; report PASSED or REJECTED with the commands, output and evidence paths.
+  Captures show the trigger, both groups, the long label with its chevron and inline errors. Lint, format and every workspace compiler pass.
+
+### Summary
+
+REJECTED. The product behavior passes every criterion on Linux. The reworked full-app journey fails when it runs after the other desktop regressions, which is how CI runs it. The cold-start timeout of 90 s, restored by polish 15, was too short on a cold VM.

@@ -1,0 +1,32 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/desktop-src_features_browser-automation_ipc.test.ts ../../node_modules/.bin/vitest run src/features/browser-automation/ipc.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22misolates snapshot refs by host window and releases them on destruction[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22msends contained keyboard input directly to the guest[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mcaptures one rendered frame and releases the subscription[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mskips frames with no painted pixels and captures the first painted frame[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mcancels a pending frame subscription when the capture budget expires[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mclosing a guest settles its screenshot and releases the next queued capture[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mcollects console messages until the guest is destroyed[32m 15[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mattaches the debugger before sending a CDP command[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mserializes CDP commands per guest contents[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mhandles JavaScript dialogs through the per-tab CDP queue[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mhandles JavaScript dialogs while the triggering CDP input command is still in flight[32m 3[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mkeeps the prompt shim installed until overlapping captures finish[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mleaves JavaScript dialogs alone when no capture is active[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mtreats prompt shim drain failures after navigation as no dialogs[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mruns the command without dialog capture when CDP setup fails[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mdoes not run the command after the debugger target closes during setup[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mbrowser automation IPC adapter[2m > [22mruns without dialog capture after a live debugger session detaches[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mpixel capture frame production[2m > [22mrestores the prior throttling policy (true) after capture or failure[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mpixel capture frame production[2m > [22mrestores the prior throttling policy (false) after capture or failure[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/ipc.test.ts[2m > [22mpixel capture frame production[2m > [22mdoes not touch a guest destroyed during capture[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m   Start at [22m 05:36:06
+[2m   Duration [22m 797ms[2m (transform 343ms, setup 0ms, import 538ms, tests 69ms, environment 0ms)[22m
+
+exit=0

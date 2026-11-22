@@ -1,0 +1,17 @@
+diff --git a/packages/desktop/src/features/browser-webviews/index.ts b/packages/desktop/src/features/browser-webviews/index.ts
+index f81243c1a..1da7ef2f0 100644
+--- a/packages/desktop/src/features/browser-webviews/index.ts
++++ b/packages/desktop/src/features/browser-webviews/index.ts
+@@ -205,7 +205,7 @@ export function retirePristineGuest(guest: RetirableGuest): boolean {
+   if (committedGuests.has(guest) || guest.isLoadingMainFrame() || guest.getURL() !== "about:blank")
+     return false;
+   // Unregister now so no request reaches the guest between close() and its destroyed event.
+-  browserRegistry.unregisterWebContents(guest.id);
++  // Mutation: only the destruction callback unregisters.
+   guest.close({ waitForBeforeUnload: false });
+   return true;
+ }
+[2m   Duration [22m 229ms[2m (transform 85ms, setup 0ms, import 104ms, tests 8ms, environment 0ms)[22m
+
+exit=1
+restored HEAD blob f81243c1ab131065bea0ea1bf0c0b95f7792eee0

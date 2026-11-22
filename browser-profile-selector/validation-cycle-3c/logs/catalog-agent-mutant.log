@@ -1,0 +1,31 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/catalog-agent-mutant env TMPDIR=/tmp/selector-3c.gH7OCU/e2e-isolated/tmp PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/catalog-agent-mutant node /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/catalog-agent-contract.mjs 
+Running committed checkDelayedRegistration(tool) with an unreadable catalog in /tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/electron-user-data
+Browser desktop browser E2E failed. Artifacts: /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/catalog-agent-mutant
+Error: browser_new_tab failed: {"ok":false,"error":{"code":"browser_unknown_error","message":"Error invoking remote method 'paseo:browser:list-profiles': SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)","retryable":false},"context":{"agentId":"df38ab83-0a54-41cb-a278-8898b94d1e92","cwd":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-1","workspaceId":"desktop-browser-original"}}
+    at assert (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:39:25)
+    at mcpPayload (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:344:3)
+    at callBrowserTool (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:349:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async checkDelayedRegistration (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:49:27)
+    at async runProfileJourney (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:96:17)
+    at async checkProfiles (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1477:16)
+    at async main (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1503:24)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1604:1
+node:internal/modules/run_main:111
+    triggerUncaughtException(
+    ^
+
+Error: browser_new_tab failed: {"ok":false,"error":{"code":"browser_unknown_error","message":"Error invoking remote method 'paseo:browser:list-profiles': SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)","retryable":false},"context":{"agentId":"df38ab83-0a54-41cb-a278-8898b94d1e92","cwd":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-1","workspaceId":"desktop-browser-original"}}
+    at assert (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:39:25)
+    at mcpPayload (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:344:3)
+    at callBrowserTool (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:349:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async checkDelayedRegistration (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:49:27)
+    at async runProfileJourney (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:96:17)
+    at async checkProfiles (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1477:16)
+    at async main (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1503:24)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1604:1
+
+Node.js v26.13.1
+exit=1

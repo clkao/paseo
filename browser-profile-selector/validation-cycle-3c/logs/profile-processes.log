@@ -1,0 +1,10 @@
+05:43:58 159233 /home/exedev/node/bin/node --import tsx /home/exedev/worktrees/browser-profile-selector/packages/server/scripts/dev-runner.ts
+05:43:58 159305 /home/exedev/node/bin/node --import tsx /home/exedev/worktrees/browser-profile-selector/packages/server/scripts/dev-runner.ts
+05:43:58 159383 /bin/sh /usr/bin/xvfb-run -a --server-args=-screen 0 1280x800x24 /home/exedev/node/bin/node /home/exedev/worktrees/browser-profile-selector/packages/desktop/scripts/dev-runner.mjs --inspect=127.0.0.1:45511 --no-sandbox
+05:43:58 159396 /home/exedev/node/bin/node /home/exedev/worktrees/browser-profile-selector/packages/desktop/scripts/dev-runner.mjs --inspect=127.0.0.1:45511 --no-sandbox
+05:43:58 159404 npm exec expo start --port 35321
+05:43:58 159426 node /home/exedev/worktrees/browser-profile-selector/node_modules/.bin/expo start --port 35321
+05:44:30 160300 /bin/sh /usr/bin/xvfb-run -a --server-args=-screen 0 1280x800x24 /home/exedev/node/bin/node /home/exedev/worktrees/browser-profile-selector/packages/desktop/scripts/dev-runner.mjs --inspect=127.0.0.1:45511 --no-sandbox
+05:44:30 160315 /home/exedev/node/bin/node /home/exedev/worktrees/browser-profile-selector/packages/desktop/scripts/dev-runner.mjs --inspect=127.0.0.1:45511 --no-sandbox
+05:44:30 160323 npm exec expo start --port 35321
+05:44:30 160341 node /home/exedev/worktrees/browser-profile-selector/node_modules/.bin/expo start --port 35321

@@ -1,0 +1,41 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/mutant-neon-1 ../../node_modules/.bin/vitest run src/desktop/browser/use-browser-tab-profile.test.tsx --bail=1 --reporter=verbose -t workspace\ rename 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+(node:160857) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [31m×[39m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22ma workspace rename relabels a live tab without changing its partition[32m 86[2mms[22m[39m
+[31m   → expected Set{ …(2) } to deeply equal Set{ 'persist:paseo-project-17000d96…' }[39m
+ [2m[90m↓[39m[22m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22mreports a missing or unreadable browser record as unavailable
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22ma workspace rename relabels a live tab without changing its partition
+[31m[1mAssertionError[22m: expected Set{ …(2) } to deeply equal Set{ 'persist:paseo-project-17000d96…' }[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  Set {[22m
+[2m    "persist:paseo-project-17000d962c582024d649a8dc9250b87d-ws-f2a93e5212c20e46585a37ecc3677c5e",[22m
+[31m+   undefined,[39m
+[2m  }[22m
+
+[36m [2m❯[22m src/desktop/browser/use-browser-tab-profile.test.tsx:[2m53:49[22m[39m
+    [90m 51|[39m
+    [90m 52|[39m   // The pane attaches, and re-parks, its webview whenever this value …
+    [90m 53|[39m   expect(new Set(partitions.slice(attachedAt))).toEqual(new Set([expec…
+    [90m   |[39m                                                 [31m^[39m
+    [90m 54|[39m   [34mexpect[39m(result[33m.[39mcurrent[33m.[39mselected[33m?.[39mslug)[33m.[39m[34mtoBe[39m(automatic[33m.[39mslug)[33m;[39m
+    [90m 55|[39m   [34mexpect[39m(result[33m.[39mcurrent[33m.[39munavailable)[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m1 skipped[39m[90m (2)[39m
+[2m   Start at [22m 05:44:52
+[2m   Duration [22m 1.29s[2m (transform 372ms, setup 48ms, import 584ms, tests 87ms, environment 445ms)[22m
+
+exit=1

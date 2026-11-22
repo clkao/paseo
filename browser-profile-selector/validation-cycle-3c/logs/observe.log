@@ -1,0 +1,238 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/observe node /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/observe.mjs /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/e2e-retry 
+2026-11-22T05:38:45.585Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:38:52.612Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:38:59.617Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:06.626Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:13.636Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:20.639Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:27.642Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:34.653Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:41.659Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:48.665Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:39:55.668Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:40:02.674Z {
+  url: '/',
+  text: '',
+  ready: 'interactive',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:40:09.688Z {
+  url: '/settings/hosts/srv_sWa3PSgwNfpK/providers',
+  text: 'Back\n' +
+    'App\n' +
+    'General\n' +
+    'Appearance\n' +
+    'Sidebar\n' +
+    'Chat\n' +
+    'Terminal\n' +
+    'Browser\n' +
+    'Editor\n' +
+    'Files\n' +
+    'Shortcuts\n' +
+    'Integrations\n' +
+    'Notifications\n' +
+    'Permissions\n' +
+    'Diagnostics\n' +
+    'About\n' +
+    'Host\n' +
+    'paseo-acl-prototype\n' +
+    'Overview\n' +
+    'Projects\n' +
+    'Connections\n' +
+    'Pair device\n' +
+    'Agents\n' +
+    'Metadata\n' +
+    'Voice\n' +
+    'Workspaces\n' +
+    'Providers\n' +
+    'Usage\n' +
+    'Terminals\n' +
+    'Plugins\n' +
+    'Providers\n' +
+    'Providers\n' +
+    'Provider\n' +
+    'Claude\n' +
+    ' \n' +
+    'Codex\n' +
+    ' \n' +
+    'Copilot\n' +
+    ' \n' +
+    'OpenCode\n' +
+    ' \n' +
+    'Pi\n' +
+    ' \n' +
+    'Oh My Pi\n' +
+    'Disabled\n' +
+    'Mock Load Test\n' +
+    ' \n' +
+    'Mock Slow Provider\n' +
+    ' \n' +
+    'Antigravity\n' +
+    ' \n' +
+    'Muse Code\n' +
+    ' \n' +
+    'Add provider',
+  ready: 'complete',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:40:16.753Z {
+  url: '/settings/general',
+  text: 'Back\n' +
+    'App\n' +
+    'General\n' +
+    'Appearance\n' +
+    'Sidebar\n' +
+    'Chat\n' +
+    'Terminal\n' +
+    'Browser\n' +
+    'Editor\n' +
+    'Files\n' +
+    'Shortcuts\n' +
+    'Integrations\n' +
+    'Notifications\n' +
+    'Permissions\n' +
+    'Diagnostics\n' +
+    'About\n' +
+    'Host\n' +
+    'paseo-acl-prototype\n' +
+    'Overview\n' +
+    'Projects\n' +
+    'Connections\n' +
+    'Pair device\n' +
+    'Agents\n' +
+    'Metadata\n' +
+    'Voice\n' +
+    'Workspaces\n' +
+    'Providers\n' +
+    'Usage\n' +
+    'Terminals\n' +
+    'Plugins\n' +
+    'General\n' +
+    'General\n' +
+    'Language\n' +
+    'App language\n' +
+    'System\n' +
+    'First-run setup\n' +
+    'Walk through appearance, providers, projects and phone pairing again\n' +
+    'Show setup again\n' +
+    'Sending\n' +
+    'Send shortcut\n' +
+    'Enter\n' +
+    'Default send\n' +
+    'When the agent is running, Enter steers the active turn. Command/Ctrl+Enter queues.\n' +
+    'Steer\n' +
+    'Open location\n' +
+    'Clicking a file in the Explorer sidebar\n' +
+    'Main panel\n' +
+    'Clicking a change in the Explorer sidebar or a chat\n' +
+    'Main panel\n' +
+    'Clicking a file in an agent chat\n' +
+    'Main panel\n' +
+    'Clicking a file in a diff\n' +
+    'Main panel\n' +
+    'Clicking a subagent in an agent chat\n' +
+    'Main panel\n' +
+    'Clicking a pull request in the Explorer sidebar\n' +
+    'Explorer sidebar\n' +
+    "Clicking a script's service URL\n" +
+    'Ask',
+  ready: 'complete',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+2026-11-22T05:40:23.914Z {
+  url: '/open-project',
+  text: 'New workspace\n' +
+    'Ctrl+N\n' +
+    'History\n' +
+    'Search\n' +
+    'Schedules\n' +
+    'Plugin links QA\n' +
+    'Workspaces\n' +
+    'D\n' +
+    'Desktop browser project 1\n' +
+    'Desktop browser workspace 2\n' +
+    'Jan 1\n' +
+    'Desktop browser workspace 1\n' +
+    'Jan 1\n' +
+    'D\n' +
+    'Desktop browser project 2\n' +
+    'New workspace\n' +
+    'D\n' +
+    'Desktop browser project 3\n' +
+    'Desktop browser workspace 3\n' +
+    'Jan 1\n' +
+    'D\n' +
+    'Desktop browser project 4\n' +
+    'Desktop browser workspace 4\n' +
+    'Jan 1\n' +
+    'Add a project\n' +
+    'Open a folder on your machine\n' +
+    'Import session\n' +
+    'Open a Claude Code, Codex or other session you started in a terminal\n' +
+    'Setup providers\n' +
+    'Configure Claude Code, Codex, and more\n' +
+    'Pair device\n' +
+    'Connect your phone to this daemon\n' +
+    'Star\n' +
+    'Sponsor\n' +
+    'Community',
+  ready: 'complete',
+  scripts: [ 'http://localhost:36645/packages/app/index.ts.bundle' ]
+}
+exit=0

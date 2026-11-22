@@ -1,0 +1,42 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/current-ui node -e require\(\"playwright\"\).chromium.connectOverCDP\(\"http://127.0.0.1:37823\"\).then\(async\ b=\>\{for\(const\ p\ of\ b.contexts\(\)\[0\].pages\(\)\)\{console.log\(p.url\(\)\,\(await\ p.locator\(\"body\"\).innerText\(\)\).slice\(0\,2300\)\)\}await\ b.close\(\)\}\) 
+http://localhost:36645/settings/hosts/srv_sWa3PSgwNfpK/projects Back
+App
+General
+Appearance
+Sidebar
+Chat
+Terminal
+Browser
+Editor
+Files
+Shortcuts
+Integrations
+Notifications
+Permissions
+Diagnostics
+About
+Host
+paseo-acl-prototype
+Overview
+Projects
+Connections
+Pair device
+Agents
+Metadata
+Voice
+Workspaces
+Providers
+Usage
+Terminals
+Plugins
+Projects
+D
+Desktop browser project 1
+D
+Desktop browser project 2
+D
+Desktop browser project 3
+D
+Desktop browser project 4
+exit=0

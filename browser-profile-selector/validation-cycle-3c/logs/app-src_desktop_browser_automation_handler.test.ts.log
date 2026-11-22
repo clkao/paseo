@@ -1,0 +1,39 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/app-src_desktop_browser_automation_handler.test.ts ../../node_modules/.bin/vitest run src/desktop/browser/automation/handler.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+[90mstderr[2m | src/desktop/browser/automation/handler.test.ts
+[22m[39m[DraftStore] Attachment garbage collection failed Error: IndexedDB is unavailable in this runtime.
+    at ensureIndexedDb [90m(/home/exedev/worktrees/browser-profile-selector/packages/app/[39msrc/attachments/web/indexeddb-attachment-store.ts:27:11[90m)[39m
+    at [90m/home/exedev/worktrees/browser-profile-selector/packages/app/[39msrc/attachments/web/indexeddb-attachment-store.ts:34:21
+    at new Promise (<anonymous>)
+    at openAttachmentDb [90m(/home/exedev/worktrees/browser-profile-selector/packages/app/[39msrc/attachments/web/indexeddb-attachment-store.ts:33:10[90m)[39m
+    at Object.garbageCollect [90m(/home/exedev/worktrees/browser-profile-selector/packages/app/[39msrc/attachments/web/indexeddb-attachment-store.ts:192:24[90m)[39m
+    at [90m/home/exedev/worktrees/browser-profile-selector/packages/app/[39msrc/attachments/service.ts:188:17
+[90m    at processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+
+(node:151977) [DEP0151] DeprecationWarning: Package /home/exedev/worktrees/browser-profile-selector/node_modules/react-native-worklets/ has a "main" field set to "./lib/module/index", excluding the full filename and extension to the resolved file at "lib/module/index.js", imported from /home/exedev/worktrees/browser-profile-selector/node_modules/react-native-reanimated/lib/module/initializers.js.
+ Automatic extension resolution of the "main" field is deprecated for ES modules.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_new_tab creates a workspace browser tab without stealing focus[32m 61[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22ma second workspace's no-URL agent tab opens blank in its own partition[32m 55[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_new_tab fails before opening a tab in an unknown workspace[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_new_tab returns a retryable timeout when the resident webview does not register[32m 22[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_new_tab wraps registration bridge errors in a response[32m 53[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_resize updates resident webview dimensions[32m 56[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_resize returns not found for a tab outside the request workspace[32m 54[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_close_tab removes the workspace tab, browser record, resident webview, and registry entry[32m 56[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mbrowser_close_tab returns not found after the tab is gone[32m 56[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mnon-new-tab requests send the desktop bridge response[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mmissing desktop bridge sends browser_unsupported[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22mtyped bridge errors become failure responses[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22munimplemented preload IPC reports browser_unsupported[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/automation/handler.test.ts[2m > [22mmountBrowserAutomationHandler[2m > [22munsubscribe stops handling browser automation requests[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m14 passed[39m[22m[90m (14)[39m
+[2m   Start at [22m 05:35:08
+[2m   Duration [22m 18.65s[2m (transform 15.21s, setup 91ms, import 18.00s, tests 430ms, environment 0ms)[22m
+
+exit=0

@@ -1,0 +1,7 @@
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+4.1.7
+npm error code ELSPROBLEMS
+npm error invalid: react@19.3.1 /home/exedev/worktrees/browser-profile-selector/packages/expo-two-way-audio/node_modules/react
+npm error invalid: react-dom@19.2.6 /home/exedev/worktrees/browser-profile-selector/packages/website/node_modules/react-dom
+npm error invalid: react@19.2.6 /home/exedev/worktrees/browser-profile-selector/packages/website/node_modules/react
+npm error A complete log of this run can be found in: /home/exedev/.npm/_logs/2026-11-22T05_33_41_068Z-debug-0.log

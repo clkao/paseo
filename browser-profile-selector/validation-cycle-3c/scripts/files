@@ -1,0 +1,19 @@
+#!/bin/bash
+set -u
+unset ${!PASEO_@}
+D=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c
+cd /home/exedev/worktrees/browser-profile-selector
+for pkg in app desktop; do
+ pushd "packages/$pkg" >/dev/null
+ if [[ $pkg = app ]]; then
+ files=$(rg --files src/desktop/browser src/i18n | rg '\.test\.tsx?$' | sort)
+ else
+ files=$(rg --files src/features/browser* src/preload-sandbox.test.ts | rg '\.test\.ts$' | sort)
+ fi
+ for file in $files; do
+  opts=()
+  [[ $file = *.browser.test.ts ]] && opts=(--project browser)
+  "$D/scripts/run" "$pkg-${file//\//_}" ../../node_modules/.bin/vitest run "${opts[@]}" "$file" --bail=1 --reporter=verbose
+ done
+ popd >/dev/null
+done

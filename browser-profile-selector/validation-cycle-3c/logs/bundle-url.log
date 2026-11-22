@@ -1,0 +1,6 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/bundle-url node -e require\(\"playwright\"\).chromium.connectOverCDP\(\"http://127.0.0.1:37823\"\).then\(async\ b=\>\{console.log\(await\ b.contexts\(\)\[0\].pages\(\)\[0\].evaluate\(\(\)=\>\[...document.scripts\].map\(x=\>x.src\)\)\)\;await\ b.close\(\)\}\) 
+[
+  'http://localhost:36645/packages/app/index.ts.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=src%2Fapp&transform.reactCompiler=true&unstable_transformProfile=hermes-stable'
+]
+exit=0

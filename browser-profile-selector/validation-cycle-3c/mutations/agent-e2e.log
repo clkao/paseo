@@ -1,0 +1,9 @@
+{"browserId":"3daea473-5082-442f-865e-b7c979842e79","requestedMs":367,"returnedMs":586,"respondedMs":664,"pending":["3daea473-5082-442f-865e-b7c979842e79"],"loaded":["3daea473-5082-442f-865e-b7c979842e79"]}
+Per-tab browser profile journey passed.
+exit=0
+control 0
+
+Node.js v26.13.1
+exit=1
+mutant 1
+Verified restoration 006eb87567ebbd7b0ae8911599057ef03d5f32ee

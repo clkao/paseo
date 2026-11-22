@@ -1,0 +1,18 @@
+[
+  [
+    {
+      "attribute": "partition",
+      "oldValue": null,
+      "partition": "persist:paseo-project-0e7d4363e6a7cda43950e11577799f51-ws-a8af847d5e4363e5e6f603e9042fef26",
+      "src": "http://127.0.0.1:40345/slow",
+      "browserId": "3daea473-5082-442f-865e-b7c979842e79"
+    },
+    {
+      "attribute": "src",
+      "oldValue": null,
+      "partition": "persist:paseo-project-0e7d4363e6a7cda43950e11577799f51-ws-a8af847d5e4363e5e6f603e9042fef26",
+      "src": "http://127.0.0.1:40345/slow",
+      "browserId": "3daea473-5082-442f-865e-b7c979842e79"
+    }
+  ]
+]

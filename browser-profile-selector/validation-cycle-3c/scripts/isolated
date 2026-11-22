@@ -1,0 +1,8 @@
+#!/bin/bash
+set -eu
+unset ${!PASEO_@}
+base=$1
+shift
+mkdir -p "$base"/{home,config,cache,data,tmp,runtime,paseo}
+chmod 700 "$base/runtime"
+exec env -i PATH="/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin" USER=exedev LOGNAME=exedev LANG=C.UTF-8 SHELL=/bin/bash HOME="$base/home" XDG_CONFIG_HOME="$base/config" XDG_CACHE_HOME="$base/cache" XDG_DATA_HOME="$base/data" XDG_RUNTIME_DIR="$base/runtime" TMPDIR="$base/tmp" PASEO_HOME="$base/paseo" PASEO_NODE_INSPECT=--inspect=127.0.0.1:0 PLAYWRIGHT_BROWSERS_PATH=/home/exedev/worktrees/browser-session-scope/.dev/browser-bin ELECTRON_OVERRIDE_DIST_PATH=/home/exedev/worktrees/browser-session-scope/node_modules/electron/dist ELECTRON_DISABLE_SANDBOX=1 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 EXPO_OFFLINE=1 EXPO_NO_TELEMETRY=1 CI=1 npm_config_offline=true npm_config_yes=false "$@"

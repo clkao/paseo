@@ -1,0 +1,12 @@
+diff --git a/packages/app/src/desktop/browser/automation/handler.ts b/packages/app/src/desktop/browser/automation/handler.ts
+index 006eb8756..954b47df3 100644
+--- a/packages/app/src/desktop/browser/automation/handler.ts
++++ b/packages/app/src/desktop/browser/automation/handler.ts
+@@ -380,6 +380,7 @@ async function openBrowserTabForRequest(params: {
+       message: "Cannot resolve the workspace or project for this browser tab.",
+     });
+   }
++  await browserHost?.listProfiles?.();
+   await waitForBrowserHydration();
+   const profile = await workspaceProfile(
+     serverId,

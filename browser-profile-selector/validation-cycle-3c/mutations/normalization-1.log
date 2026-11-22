@@ -1,0 +1,17 @@
+diff --git a/packages/desktop/src/features/browser-profile-catalog.ts b/packages/desktop/src/features/browser-profile-catalog.ts
+index aee2ec57e..f918f8d00 100644
+--- a/packages/desktop/src/features/browser-profile-catalog.ts
++++ b/packages/desktop/src/features/browser-profile-catalog.ts
+@@ -31,7 +31,7 @@ function foldedSlug(name: string): string {
+ 
+ // Canonically equivalent spellings (é vs e + U+0301) name the same profile.
+ function nameKey(name: string): string {
+-  return name.normalize("NFC").trim().toLowerCase();
++  return name.trim().toLowerCase();
+ }
+ 
+ export type BrowserProfileCreateError = "duplicate" | "reserved" | "invalid" | "io";
+[2m   Duration [22m 269ms[2m (transform 90ms, setup 0ms, import 140ms, tests 16ms, environment 0ms)[22m
+
+exit=1
+restored HEAD blob aee2ec57ef5e5b67dc1f41491383a370b00ed7fb
