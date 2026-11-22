@@ -75,7 +75,7 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
 
   These processes do not receive a prompt. A follow-up can wrap them with a wrap for each provider instead of each open.
 - **Requests to the daemon.** Work that the agent asks the daemon to do, for example a host terminal or a new agent, runs as the daemon. The wrap does not apply to it.
-- **A stopped plugin.** If the plugin that returns the wrap stops, later opens run without its hooks, as for every hook today. A separate PR proposes a way for an agent to require its plugin.
+- **A stopped plugin.** If the plugin that returns the wrap stops, later opens run without its hooks, as for every hook today. A later PR will propose a way for an agent to require its plugin.
 
 ### QA
 
