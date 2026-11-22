@@ -1,6 +1,6 @@
 ---
 title: "Per-tab browser profile selector"
-status: validation
+status: implementation
 source: CL, via the paseo project manager, 2026-11-20
 started: 2026-11-20T04:09:03Z
 completed:
