@@ -397,3 +397,19 @@ Each row ran from the file’s package directory as `npx --no-install vitest run
 ### Summary
 
 Return the Windows provider-command check to implementation so an unsupported refresh preserves the running session and returns `launch_wrap_unsupported`. The task worktree was clean at `2dc585c14` after validation.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Apply the authorized fix in the feedback context: remove the Windows command-script check from applyLaunchWrap, add the two simulated-win32 tests, and make the three doc changes; run each changed or added test file on its own with --bail=1, plus lint and format.
+  - Code: `applyLaunchWrap` no longer rejects `.cmd`/`.bat`. I also removed the manager's own win32 `.cmd` admission check in `requireLaunchWrap`, because it contradicts the new contract. This drops AC-5's clause "with the platform set to win32 and a command-script wrap, a supporting client rejects", and its test goes with it; CL should confirm.
+  - Tests, simulated win32:
+    1. `process.test.ts`: a `.cmd` wrapper runs through `spawnProcess` with `shell: true`, the command is quoted, and `"work profile"` stays one quoted element. A delegating spawn spy keeps the two real-spawn tests real.
+    2. `agent-manager.test.ts`: a wrapped refresh of a real `CodexAppServerAgentClient` whose command is `C:\codex\codex.cmd` spawns `C:\Sandbox\run.cmd --profile "work profile" C:\codex\codex.cmd app-server` and does not error. Against the stale plugin dist it failed with "A launch wrap cannot start C:\Sandbox\run.cmd" (falsified).
+  - Docs: the wrap contract in `docs/plugins.md` now reads "no shell, except Windows script launchers, which go through cmd.exe like any provider launcher". Fail closed now reads "before any session harness starts". `public-docs/plugins/hooks.md` gains `wrap` and `requiresPlugins` in the hook table, in the create and open sections, and in two new subsections. Per `docs/website-i18n.md` the same change went into `hooks.zh-CN.md`; headings match in count, level, order and anchor (34/34, checked by script, since `content-translations.test.ts` cannot load without website deps). The open-hook diagnostic now lists `wrap`.
+  - Runs: `process.test.ts` 3/3, `handlers.test.ts` 38/38, `agent-manager.test.ts` 322/322. Plugin and server typecheck clean; lint and format pass.
+- DONE: Commit on task/launch-wrap-hook in .worktrees/launch-wrap-hook (a new commit on top of 2dc585c14, no history rewrite) and report the new head; do not push.
+  New head `e3fd597ff` (parent `2dc585c14`), committed with `LEFTHOOK_EXCLUDE=typecheck` as before; nothing pushed.
+
+### Summary
+
+The Windows script-launcher rejection is gone from both `applyLaunchWrap` and the manager's admission, so a `.cmd` wrapper or provider command starts through `spawnProcess`'s cmd.exe path and a wrapped refresh no longer fails after closing the session. Both behaviors are proven on simulated win32. The public hook reference and its Chinese translation now document `wrap` and `requiresPlugins`. Removing the manager check changes an AC-5 clause, which is flagged for CL.
