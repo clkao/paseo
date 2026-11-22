@@ -1,0 +1,7 @@
+$ git rev-parse HEAD
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+$ git status --porcelain=v1 --untracked-files=all
+clean
+$ git apply --check test-fix.patch (absolute evidence path)
+exit=0
+e76773b0595abc026dd3ffc42c194b4ca026f7dc2e2f2a29b3cc1dec65372e29  /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c-followup/test-fix.patch

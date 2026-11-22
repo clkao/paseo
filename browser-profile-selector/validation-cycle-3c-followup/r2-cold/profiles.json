@@ -1,0 +1,42 @@
+{
+  "before": [
+    {
+      "id": "84526386-72d6-4304-b704-d37624eaa22d",
+      "label": "Shared › Work",
+      "account": "Alice",
+      "cookie": "account=Alice",
+      "storage": "Alice",
+      "url": "http://127.0.0.1:45487/profile-account",
+      "firstCookie": "",
+      "screenshot": "before-alice.png"
+    },
+    {
+      "id": "57d23b1d-e69e-4722-9514-34d658e55454",
+      "label": "Desktop browser project 1 › Customer",
+      "account": "Bob",
+      "cookie": "account=Bob",
+      "storage": "Bob",
+      "url": "http://127.0.0.1:45487/profile-account",
+      "firstCookie": "",
+      "screenshot": "before-bob.png"
+    }
+  ],
+  "after": [],
+  "groups": [],
+  "duplicate": {
+    "error": "A profile with this name already exists in this group.",
+    "automatic": "Desktop browser project 1 › Desktop browser workspace 1"
+  },
+  "delayedRegistration": {
+    "browserId": "2b2427e1-fedb-4ad2-adac-7eec5d5e5f31",
+    "requestedMs": 40,
+    "returnedMs": 212,
+    "respondedMs": 227,
+    "pending": [
+      "2b2427e1-fedb-4ad2-adac-7eec5d5e5f31"
+    ],
+    "loaded": [
+      "2b2427e1-fedb-4ad2-adac-7eec5d5e5f31"
+    ]
+  }
+}
