@@ -9,7 +9,7 @@ verdict:
 score:
 worktree:
 issue:
-pr:
+pr: https://github.com/getpaseo/paseo/pull/10480
 mod-block:
 mandate:
 gates:
