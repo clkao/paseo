@@ -14,6 +14,10 @@ mandate:
 id: hp3car3cqz824bad4ehdk6zf
 ---
 
+## Status
+
+CL, 2026-11-21: folded into the browser-profile-selector delivery rework (Neon review finding 6). Close this task when that rework passes validation.
+
 ## Problem
 
 The desktop browser can show the same profile label for two different sessions in one project. Cycle 2 reproduced this with an automatic workspace profile named Café 1 and a named profile entered with a combining accent. Their toolbar labels rendered identically while one tab showed Alice signed in and the other was signed out.
