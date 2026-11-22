@@ -510,3 +510,19 @@ Local command output and reproducible probe sources are in `/tmp/paseo-wrap-vali
 ### Summary
 
 Recommend REJECTED for the two reproducible gaps in the permanent AC-2 and AC-5 assertions. Independent probes confirmed both production behaviors at the reviewed head. The live Pi contract and plugin-example typecheck remain environment-limited.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: The Antigravity wrapped-launch test uses the registration's command and fails when --disable-telemetry is removed from the registration.
+  The test reads `createAntigravityProvider().command` and checks its executable is `agy`. It builds the launch the daemon would pass (resolved executable, declared arguments), with Node running the fake agent standing in for `agy`. It asserts the exact wrapped argv `[record, node, agent, "acp", "--disable-telemetry"]` and the hook env. Break: with the registration changed to `["agy", "acp"]` it failed (`argv: [ …(4) ]` vs `[ …(5) ]`). Restored, `provider.ts` is unchanged and the file passes 10/10.
+- DONE: The ACP missing-launcher test counts spawn attempts and fails on a second attempt or a bare retry.
+  The test subscribes to Node's built-in `child_process` diagnostics channel for the open only, so the connect probe is excluded. That channel publishes every spawn attempt, including one that fails with ENOENT; this is a real observation point, not a mock. The test asserts exactly one attempt, with spawnargs `[missing, "--profile", "a b", node, agent]`, plus ENOENT and no agent start beyond the probe. Breaks in `openSession`:
+  1. Retrying the same missing wrap once on failure failed the test (two attempts of five args).
+  2. Retrying without the wrap failed it too (a second attempt of two args, the bare command).
+  `connection.ts` was restored byte-for-byte and the test passes.
+- DONE: The daemon-access sentence is gone from docs/plugins.md; changed tests, lint and format pass; one new commit, head reported, nothing pushed.
+  Limit 1 in `docs/plugins.md` now ends at "run outside the wrap." `hooks.md` and `hooks.zh-CN.md` had no equivalent sentence; their limit bullets name only the terminal tools, probes and discovery. `acp.test.ts` 97/97 and Antigravity `provider.test.ts` 10/10 pass, each run alone with `--bail=1`. Lint and format pass, and the plugin (`tsgo --noEmit`) and plugins typechecks pass. One commit, `9f9f39ce1` (26+/9−), on `30a6f4e6c`; head `9f9f39ce1`; nothing pushed; `task/plugin-required-active` is still `2dc585c14`.
+
+### Summary
+
+The AC-2 Antigravity test now depends on the registration's declared command, and the AC-5 ACP test counts real spawn attempts through Node's diagnostics channel. Each was shown to fail on the deliberate break and to pass when restored. The daemon-access sentence is removed. AC-5's two stale phrases from cycle 3 still await CL.
