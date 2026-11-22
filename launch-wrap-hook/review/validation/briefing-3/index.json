@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-3:revision-1",
+  "question": "Validation cycle 3 recommends REJECTED: send launch-wrap-hook back to implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-3:revision-1:item-1",
+      "uri": "git-root://state/cd62d94a6f0d1546ca1678e491c2bf9305d957fb/launch-wrap-hook.md",
+      "rev": "sha256:4bc171995138d935ddef974464987604e02e26f05b8c69d4d9fdca9427b91394",
+      "mediaType": "text/markdown",
+      "summary": "Behavior correct at 30a6f4e6c and through the real daemon wiring; two permanent assertions (AC-2 Antigravity command, AC-5 ACP launch-attempt count) pass when the behavior is broken."
+    }
+  ]
+}

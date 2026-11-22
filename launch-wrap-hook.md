@@ -79,6 +79,19 @@ gates:
               application:
                 target-stage: done
                 state: superseded
+            - id: gate-attempt:86k2tpskkhrpqw7z4z1rrt9w-validation-3
+              briefing:
+                id: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-3:revision-1
+                digest: sha256:53791f1d8ef1994f19009530ccc390a8d5e9c30ad855ca23163f9e04baebe25d
+                room-ref: '@review/validation/briefing-3'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:86k2tpskkhrpqw7z4z1rrt9w:validation:3
+                briefing: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-3:revision-1
+                by: person:captain
+                at: "2026-11-22T02:56:11.448658Z"
+                decision: revise
+                reason: 'CL: send it back. Fix the AC-2 Antigravity assertion (use the registration''s command) and the AC-5 ACP launch-attempt count; remove the daemon-access sentence at docs/plugins.md:497.'
 ---
 
 ## Problem
