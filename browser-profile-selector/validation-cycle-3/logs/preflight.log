@@ -1,0 +1,88 @@
+## task/browser-profile-selector...origin/task/browser-profile-selector
+Filesystem       1B-blocks        Used  Available Use% Mounted on
+/dev/vda       42158374912 31565479936 8428634112  79% /
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                task/browser-profile-selector -> FETCH_HEAD
+HEAD is now at 5a0bf1449 Document browser profile partitions, the catalog and the profile journey
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+## HEAD (no branch)
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                dev-state  -> FETCH_HEAD
+browser-profile-selector/validation-cycle-2/after-alice.png
+browser-profile-selector/validation-cycle-2/after-bob.png
+browser-profile-selector/validation-cycle-2/before-alice.png
+browser-profile-selector/validation-cycle-2/before-bob.png
+browser-profile-selector/validation-cycle-2/catalog-unicode.json
+browser-profile-selector/validation-cycle-2/catalog-unicode.mjs
+browser-profile-selector/validation-cycle-2/cleared-customer.png
+browser-profile-selector/validation-cycle-2/desktop-regression.json
+browser-profile-selector/validation-cycle-2/duplicate-rejected.png
+browser-profile-selector/validation-cycle-2/edge-results.json
+browser-profile-selector/validation-cycle-2/format-check.txt
+browser-profile-selector/validation-cycle-2/format.txt
+browser-profile-selector/validation-cycle-2/harness.json
+browser-profile-selector/validation-cycle-2/harness.txt
+browser-profile-selector/validation-cycle-2/independent-menus.json
+browser-profile-selector/validation-cycle-2/journey.txt
+browser-profile-selector/validation-cycle-2/lint.txt
+browser-profile-selector/validation-cycle-2/menus.mjs
+browser-profile-selector/validation-cycle-2/menus.txt
+browser-profile-selector/validation-cycle-2/pristine-menu.png
+browser-profile-selector/validation-cycle-2/profiles.json
+browser-profile-selector/validation-cycle-2/reload.txt
+browser-profile-selector/validation-cycle-2/replay.txt
+browser-profile-selector/validation-cycle-2/scope.txt
+browser-profile-selector/validation-cycle-2/typecheck.txt
+browser-profile-selector/validation-cycle-2/unicode-automatic.png
+browser-profile-selector/validation-cycle-2/unicode-captions.png
+browser-profile-selector/validation-cycle-2/unicode-captions.txt
+browser-profile-selector/validation-cycle-2/unicode-menu.png
+browser-profile-selector/validation-cycle-2/unicode-named.png
+browser-profile-selector/validation-cycle-2/vitest.txt
+From https://github.int.exe.xyz/clkao/paseo
+ * branch                spacedock-spec -> FETCH_HEAD
+ docs/architecture.md                               |   4 +-
+ docs/browser-capture-harness.md                    |  11 +-
+ docs/testing.md                                    |   2 +
+ .../src/desktop/browser/automation/handler.test.ts |  89 ++++-
+ .../app/src/desktop/browser/automation/handler.ts  |  73 +++-
+ .../src/desktop/browser/pane/index.electron.tsx    | 128 ++++++-
+ packages/app/src/desktop/browser/pane/index.tsx    |   2 +
+ .../app/src/desktop/browser/pane/index.web.tsx     |   2 +
+ .../browser/pane/profile-selector.electron.tsx     | 230 ++++++++++++
+ packages/app/src/desktop/browser/panel.tsx         |  14 +-
+ packages/app/src/desktop/browser/profiles.test.ts  |  54 +++
+ packages/app/src/desktop/browser/profiles.ts       |  60 ++++
+ .../browser/resident-webviews.browser.test.ts      |  79 ++++-
+ .../app/src/desktop/browser/resident-webviews.ts   |  91 ++++-
+ .../browser/settings/browser-data-section.tsx      |   3 +-
+ packages/app/src/desktop/browser/store/index.ts    |  19 +
+ .../app/src/desktop/browser/store/state.test.ts    |  37 ++
+ packages/app/src/desktop/browser/store/state.ts    |  34 +-
+ .../browser/use-browser-tab-profile.test.tsx       |  76 ++++
+ .../src/desktop/browser/use-browser-tab-profile.ts |  73 ++++
+ packages/app/src/desktop/host.ts                   |  23 +-
+ packages/app/src/i18n/resources/ar.ts              |  16 +-
+ packages/app/src/i18n/resources/en.ts              |  16 +-
+ packages/app/src/i18n/resources/es.ts              |  17 +-
+ packages/app/src/i18n/resources/fr.ts              |  17 +-
+ packages/app/src/i18n/resources/ja.ts              |  16 +-
+ packages/app/src/i18n/resources/ko.ts              |  16 +-
+ packages/app/src/i18n/resources/pt-BR.ts           |  16 +-
+ packages/app/src/i18n/resources/ru.ts              |  16 +-
+ packages/app/src/i18n/resources/zh-CN.ts           |  16 +-
+ packages/desktop/capture-harness/index.html        |  15 +-
+ packages/desktop/capture-harness/main.js           |  95 ++++-
+ packages/desktop/e2e/browser-profiles.electron.mjs | 386 +++++++++++++++++++++
+ packages/desktop/e2e/browser-tabs.e2e.mjs          | 115 ++++--
+ .../src/features/browser-profile-catalog.test.ts   | 104 ++++++
+ .../src/features/browser-profile-catalog.ts        |  99 ++++++
+ .../desktop/src/features/browser-profile.test.ts   | 108 +++++-
+ packages/desktop/src/features/browser-profile.ts   |  97 ++++--
+ .../src/features/browser-webviews/index.test.ts    | 123 ++++++-
+ .../desktop/src/features/browser-webviews/index.ts |  40 ++-
+ .../src/features/browser-webviews/window-open.ts   |  22 ++
+ packages/desktop/src/main.ts                       |  73 ++--
+ packages/desktop/src/preload-sandbox.test.ts       |  11 -
+ packages/desktop/src/preload.ts                    |  15 +-
+ 44 files changed, 2299 insertions(+), 254 deletions(-)

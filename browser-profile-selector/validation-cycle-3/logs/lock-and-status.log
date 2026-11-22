@@ -1,0 +1,61 @@
++ git rev-parse HEAD HEAD:package-lock.json
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+6429b4be0d2897f6eccf6b0423622aa4b10d5d94
++ git hash-object package-lock.json
+6429b4be0d2897f6eccf6b0423622aa4b10d5d94
++ python3 /home/exedev/acl-result/browser-profile-selector/validation-cycle-3/logs/check-lock.py
+Missing non-optional lockfile entries: 40
+By workspace: {'app': 16, 'cli': 8, 'desktop': 8, 'relay': 8}
+packages/app/node_modules/@typescript-eslint/scope-manager: locked=8.71.2, package.json absent
+packages/app/node_modules/@typescript-eslint/types: locked=8.71.2, package.json absent
+packages/app/node_modules/@typescript-eslint/visitor-keys: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/eslint-plugin: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/eslint-plugin/node_modules/@typescript-eslint/type-utils: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/eslint-plugin/node_modules/@typescript-eslint/utils: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/parser: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/project-service: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/tsconfig-utils: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/@typescript-eslint/typescript-estree: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-config-expo/node_modules/ignore: locked=7.0.12, package.json absent
+packages/app/node_modules/eslint-plugin-expo/node_modules/@typescript-eslint/project-service: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-plugin-expo/node_modules/@typescript-eslint/tsconfig-utils: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-plugin-expo/node_modules/@typescript-eslint/typescript-estree: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-plugin-expo/node_modules/@typescript-eslint/utils: locked=8.71.2, package.json absent
+packages/app/node_modules/eslint-visitor-keys: locked=5.0.1, package.json absent
+packages/cli/node_modules/@vitest/expect: locked=4.1.6, package.json absent
+packages/cli/node_modules/@vitest/pretty-format: locked=4.1.6, package.json absent
+packages/cli/node_modules/@vitest/runner: locked=4.1.6, package.json absent
+packages/cli/node_modules/@vitest/snapshot: locked=4.1.6, package.json absent
+packages/cli/node_modules/@vitest/spy: locked=4.1.6, package.json absent
+packages/cli/node_modules/@vitest/utils: locked=4.1.6, package.json absent
+packages/cli/node_modules/vitest: locked=4.1.6, package.json absent
+packages/cli/node_modules/vitest/node_modules/@vitest/mocker: locked=4.1.6, package.json absent
+packages/desktop/node_modules/@vitest/expect: locked=4.1.6, package.json absent
+packages/desktop/node_modules/@vitest/pretty-format: locked=4.1.6, package.json absent
+packages/desktop/node_modules/@vitest/runner: locked=4.1.6, package.json absent
+packages/desktop/node_modules/@vitest/snapshot: locked=4.1.6, package.json absent
+packages/desktop/node_modules/@vitest/spy: locked=4.1.6, package.json absent
+packages/desktop/node_modules/@vitest/utils: locked=4.1.6, package.json absent
+packages/desktop/node_modules/vitest: locked=4.1.6, package.json absent
+packages/desktop/node_modules/vitest/node_modules/@vitest/mocker: locked=4.1.6, package.json absent
+packages/relay/node_modules/@vitest/expect: locked=4.1.6, package.json absent
+packages/relay/node_modules/@vitest/pretty-format: locked=4.1.6, package.json absent
+packages/relay/node_modules/@vitest/runner: locked=4.1.6, package.json absent
+packages/relay/node_modules/@vitest/snapshot: locked=4.1.6, package.json absent
+packages/relay/node_modules/@vitest/spy: locked=4.1.6, package.json absent
+packages/relay/node_modules/@vitest/utils: locked=4.1.6, package.json absent
+packages/relay/node_modules/vitest: locked=4.1.6, package.json absent
+packages/relay/node_modules/vitest/node_modules/@vitest/mocker: locked=4.1.6, package.json absent
++ echo 'lock comparison exit=1'
+lock comparison exit=1
++ cd packages/desktop
++ node -e 'const p=require.resolve("vitest/package.json"); console.log(p, require(p).version)'
+/home/exedev/worktrees/browser-profile-selector/node_modules/vitest/package.json 4.1.7
++ cd packages/app
++ node -e 'const p=require.resolve("@typescript-eslint/scope-manager/package.json"); console.log(p, require(p).version)'
+/home/exedev/worktrees/browser-profile-selector/node_modules/@typescript-eslint/scope-manager/package.json 8.72.1
++ git status --short --branch
+## HEAD (no branch)
++ df -B1 .
+Filesystem       1B-blocks        Used  Available Use% Mounted on
+/dev/vda       42158374912 31570923520 8423190528  79% /
