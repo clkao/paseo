@@ -102,6 +102,7 @@ Build the change on a branch named `task/{slug}`, in a worktree on the machine t
 A fresh agent checks the change against the acceptance criteria. It reproduces each `Verified by:` clause and does not trust the implementation report.
 
 - **Inputs:** The branch, the acceptance criteria, the implementation report.
+- **Always run, besides the criteria's own tests:** the existing boundary and contract tests of every changed package (for example `packages/plugin/src/boundaries.test.ts`). For a change to lifecycle hooks or plugin wiring, also run one test through the real daemon wiring, from bootstrap through to the agent manager, not through a hand-built lifecycle object. The launch-wrap-hook review found two defects that tests limited to the criteria could not see.
 - **Outputs:** A report with each criterion, the command that was run, and its output. A recommendation of PASSED or REJECTED.
 - **Good:** Scale the checks to the size of the change.
 - **Bad:** Proving a behavior by reading the code or by a grep of prose.
