@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:xshxezx88m45p23m4rd0vjdr:ideation:attempt-1:revision-1",
+  "question": "Approve the plugin-required-active design and start implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:xshxezx88m45p23m4rd0vjdr:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/cd62d94a6f0d1546ca1678e491c2bf9305d957fb/plugin-required-active.md",
+      "rev": "sha256:c34cf12adf866e8a6221ae38fa52057991628f219675fd6f3c4f0cf7666c3e48",
+      "mediaType": "text/markdown",
+      "summary": "Agents can require the plugin that created them; every open fails closed with required_plugin_inactive while it is inactive. Based on upstream/main, daemon only, about +550 lines, AC-1 through the real PluginService."
+    }
+  ]
+}
