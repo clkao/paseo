@@ -1,9 +1,9 @@
 ---
 id: xshxezx88m45p23m4rd0vjdr
 title: "An agent can require its policy plugin to be active before it opens (fail-closed on plugin loss)"
-status: backlog
+status: ideation
 source: CL, 2026-11-21, split out of launch-wrap-hook after code review
-started:
+started: 2026-11-22T01:09:03Z
 completed:
 verdict:
 score:
