@@ -79,6 +79,19 @@ gates:
               application:
                 target-stage: done
                 state: superseded
+            - id: gate-attempt:vb7f0c31h72remcb4fypyeqg-validation-3
+              briefing:
+                id: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-3:revision-1
+                digest: sha256:af4133fdf5b3f3f94de502163e582d3188cce24227750bad905d2a773a68b54f
+                room-ref: '@review/validation/briefing-3'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:vb7f0c31h72remcb4fypyeqg:validation:3
+                briefing: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-3:revision-1
+                by: person:captain
+                at: "2026-11-22T06:16:46.232115Z"
+                decision: revise
+                reason: 'CL: send back to implementation after the validator''s test-only rerun. Apply evidence/browser-profile-selector-validation-3c-followup test-fix.patch (split pane, cold-start timeout, host chooser); product behavior passed.'
 review-round:
     id: round:vb7f0c31h72remcb4fypyeqg:validation:1
     stage: validation
@@ -180,6 +193,7 @@ From the root, build desktop main with the existing script. Run `PASEO_CAPTURE_H
 
 - Cycle 1: revise — CL, relayed by the paseo project manager, 2026-11-20, ideation briefing 1. Choose the profile on a never-navigated blank tab and show it read-only after the first site loads. The revised design removes switching a loaded tab, its history reset and their tests; it omits the optional new-tab shortcut. The estimate drops from 1,000 net lines ±25% to 840 ±20%. The same ideation ensign revised the design, seven acceptance criteria and file-specific test plan for CL’s review.
 - Validation cycle 1: revise — CL rejected briefing 1 at `ef1a90004`. Material fixes: reject a duplicate display name including the automatic workspace row (AC-2), and register the agent tab before a slow first document responds without leaving an orphan (AC-3). CL narrowed AC-2 group membership to Shared and the current project only; “Select from other project…” is filed as `browser-profile-other-project` in backlog. Keep the full-app journey for now; review trimming before an upstream PR. macOS and Windows runtime coverage is deferred. Implementation returned `91b914567` for independent revalidation.
+- Validation cycle 3: revise — CL, at 5a0bf1449. Product behavior passes on Linux; apply the validator's test-only patch (split pane left open, 240 s cold-start assertion, host chooser after relaunch) and keep the e2e passing in the full run.
 
 ## Out of scope
 
@@ -364,3 +378,13 @@ Run on the VM paseo-acl-prototype (Linux, Xvfb) by Codex agent `8566b41a`, at `5
 ### Summary
 
 REJECTED. The product behavior passes every criterion on Linux. The reworked full-app journey fails when it runs after the other desktop regressions, which is how CI runs it. The cold-start timeout of 90 s, restored by polish 15, was too short on a cold VM.
+
+### Follow-up: full regression with a test-only patch
+
+CL authorized the validator to change test code only and rerun. With the patch [test-fix.patch](browser-profile-selector/validation-cycle-3c-followup/test-fix.patch) (one file, `packages/desktop/e2e/browser-tabs.e2e.mjs`), the unfiltered `npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop` exits 0 cold and warm. Three test setup issues caused the failures, none in product code:
+1. The plugin-links regression leaves a split browser pane open. The patch closes the launcher tab it created in the right pane and checks that one pane remains. The profile journey keeps its strict locators.
+2. The cold start took 141.8 s to workspace readiness (132.3 s in Metro), against the 90 s timeout. The patch raises only the startup assertion to 240 s. The warm start took 14.3 s.
+3. With two hosts registered, the launcher's open-project request shows a host chooser over the restored workspace after relaunch. A one-use handler dismisses it.
+
+The code worktree stayed clean at `5a0bf1449`, and `git apply --check` passes for the patch. Evidence: [FOLLOWUP.md](browser-profile-selector/validation-cycle-3c-followup/FOLLOWUP.md), imported from fork branch `evidence/browser-profile-selector-validation-3c-followup` (`7b054ec2`).
+

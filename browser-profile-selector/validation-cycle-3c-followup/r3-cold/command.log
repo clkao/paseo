@@ -1,0 +1,18 @@
+Working directory /home/exedev/worktrees/browser-profile-selector
+Started 2026-11-22T06:06:12Z, warm Metro source: none
+4.0K	/tmp/p3f.le0Iyi/r3-cold/tmp
+Command: /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c-followup/tools/isolated /tmp/p3f.le0Iyi/r3-cold env NODE_OPTIONS=--require=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c-followup/tools/timing.cjs PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c-followup/r3-cold npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+2026-11-22T06:06:23.886Z launchDesktop started
+2026-11-22T06:08:45.674Z launch to sidebar wait end (ms) 141789 sidebar wait (ms) 135903
+2026-11-22T06:11:26.724Z launchDesktop started
+2026-11-22T06:11:40.456Z launch to sidebar wait end (ms) 13732 sidebar wait (ms) 8247
+Browser desktop browser E2E passed: WebContents 5 remained 5; viewport, inactive capture, focus continuity, list, snapshot, click, local-page selectors passed.
+Finished 2026-11-22T06:11:48Z, exit=0

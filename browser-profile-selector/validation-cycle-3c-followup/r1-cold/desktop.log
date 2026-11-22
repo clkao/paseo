@@ -1,0 +1,52 @@
+[metro] Using src/app as the root directory for Expo Router.
+[metro] Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+[metro] Waiting on http://localhost:45175
+[metro]
+[metro] Logs for your project will appear below.
+[electron] Debugger listening on ws://127.0.0.1:46227/7a5a53b9-eb8c-4187-887a-b2b8e272aa3b
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 05:57:06.909 › [desktop] app startup {
+[electron]   version: '0.17.0-beta.1',
+[electron]   platform: 'linux',
+[electron]   arch: 'x64',
+[electron]   isPackaged: false
+[electron] }
+[electron] 05:57:06.912 › [dev-user-data] forced userData dir: /tmp/p3f.le0Iyi/r1-cold/tmp/paseo-desktop-browser-e2e-13GWVc/electron-user-data
+[electron] 05:57:06.912 › [electron-flags] --remote-debugging-address=127.0.0.1 --remote-debugging-port=38931
+[electron] 05:57:06.913 › [linux-sandbox] { enabled: false, reason: 'Chromium default' }
+[electron] 05:57:06.914 › [login-shell-env] start {
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   attempts: [
+[electron]     { attemptKind: 'interactive', shellArgs: [Array] },
+[electron]     { attemptKind: 'non-interactive', shellArgs: [Array] }
+[electron]   ],
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/p3f.le0Iyi/r1-cold/tmp/paseo-desktop-browser-e2e-13GWVc/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin'
+[electron] }
+[electron] 05:57:06.980 › [login-shell-env] attempt applied {
+[electron]   attemptKind: 'interactive',
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   reason: 'success',
+[electron]   durationMs: 66,
+[electron]   timeoutMs: 15000
+[electron] }
+[electron] 05:57:06.981 › [login-shell-env] applied {
+[electron]   attemptKind: 'interactive',
+[electron]   durationMs: 68,
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/p3f.le0Iyi/r1-cold/tmp/paseo-desktop-browser-e2e-13GWVc/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin',
+[electron]   afterPath: '/tmp/p3f.le0Iyi/r1-cold/tmp/paseo-desktop-browser-e2e-13GWVc/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin',
+[electron]   pathChanged: true,
+[electron]   shell: '/bin/bash'
+[electron] }
+[electron] [164107:1122/055707.015148:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron]
+[electron] DevTools listening on ws://127.0.0.1:38931/devtools/browser/b222a2aa-217b-4f64-a4b8-40e2448a8d85
+[electron] [164107:1122/055707.037753:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [164107:1122/055707.037852:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [164107:1122/055707.098404:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [164107:1122/055707.107953:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [DevTools] Patched React DevTools 8.0.0 content scripts for Electron
+[electron] [DevTools] Loaded: React Developer Tools

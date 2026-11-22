@@ -1,0 +1,189 @@
+http://localhost:40447/h/srv_-vv6DHJDwYqA/workspace/desktop-browser-original New workspace
+History
+Search
+Schedules
+Plugin links QA
+Workspaces
+D
+Desktop browser project 1
+Desktop browser workspace 2
+Jan 1
+Desktop browser workspace 1
+now
+D
+Desktop browser project 2
+New workspace
+D
+Desktop browser project 3
+Desktop browser workspace 3
+Jan 1
+D
+Desktop browser project 4
+Desktop browser workspace 4
+2m
+D
+Desktop browser project 1
+Desktop browser workspace 1
+Jan 1
+Remote browser host
+D
+Desktop browser project 2
+Desktop browser workspace 2
+Jan 1
+Remote browser host
+D
+Desktop browser project 3
+Desktop browser workspace 3
+Jan 1
+Remote browser host
+D
+Desktop browser project 4
+Desktop browser workspace 4
+Jan 1
+Remote browser host
+Desktop browser workspace 1
+Desktop browser project 1
+Browser desktop browser E2E caller
+Desktop browser target
+Desktop browser target
+Browser desktop browser E2E caller
+Account fixture
+Account fixture
+127.0.0.1
+Account fixture
+127.0.0.1
+Account fixture
+Desktop browser target
+about:blank
+Account fixture
+Browser desktop browser E2E caller
+Desktop browser target
+Desktop browser target
+Browser desktop browser E2E caller
+Account fixture
+Account fixture
+127.0.0.1
+Account fixture
+127.0.0.1
+Account fixture
+Desktop browser target
+about:blank
+Account fixture
+Desktop browser project 1 › Customer
+Choose host
+paseo-acl-prototype
+srv_-vv6DHJDwYqA
+Remote browser host
+plugin-links-remote
+UI targets [
+  {
+    id: 'sidebar-workspace-row-srv_-vv6DHJDwYqA:desktop-browser-evict-one',
+    w: 303,
+    label: 'Desktop browser workspace 2'
+  },
+  {
+    id: 'sidebar-workspace-row-srv_-vv6DHJDwYqA:desktop-browser-original',
+    w: 303,
+    label: 'Desktop browser workspace 1, Ready to review'
+  },
+  {
+    id: 'sidebar-workspace-row-srv_-vv6DHJDwYqA:desktop-browser-evict-two',
+    w: 303,
+    label: 'Desktop browser workspace 3'
+  },
+  {
+    id: 'sidebar-workspace-row-srv_-vv6DHJDwYqA:desktop-browser-evict-three',
+    w: 303,
+    label: 'Desktop browser workspace 4'
+  },
+  {
+    id: 'sidebar-workspace-row-plugin-links-remote:desktop-browser-original',
+    w: 303,
+    label: 'Desktop browser workspace 1, Remote browser host'
+  },
+  {
+    id: 'sidebar-workspace-row-plugin-links-remote:desktop-browser-evict-one',
+    w: 303,
+    label: 'Desktop browser workspace 2, Remote browser host'
+  },
+  {
+    id: 'sidebar-workspace-row-plugin-links-remote:desktop-browser-evict-two',
+    w: 303,
+    label: 'Desktop browser workspace 3, Remote browser host'
+  },
+  {
+    id: 'sidebar-workspace-row-plugin-links-remote:desktop-browser-evict-three',
+    w: 303,
+    label: 'Desktop browser workspace 4, Remote browser host'
+  },
+  {
+    id: 'workspace-deck-entry-srv_-vv6DHJDwYqA:desktop-browser-original',
+    w: 960,
+    label: null
+  },
+  {
+    id: 'workspace-tab-agent_15641edb-2417-404b-8e28-c3d8aa93cf8f',
+    w: 65,
+    label: 'Browser desktop browser E2E caller'
+  },
+  {
+    id: 'workspace-tab-browser_1d69a1bf-5f7f-4ebf-84ca-c72812b384c4',
+    w: 65,
+    label: 'http://127.0.0.1:45487/'
+  },
+  {
+    id: 'workspace-tab-browser_6def50d5-9ded-4277-83a9-19ccd8fe169f',
+    w: 65,
+    label: 'http://127.0.0.1:45487/'
+  },
+  {
+    id: 'workspace-tab-agent_96c176fd-bee9-44bb-a048-f9e1ee7cf785',
+    w: 65,
+    label: 'Browser desktop browser E2E caller'
+  },
+  {
+    id: 'workspace-tab-browser_84526386-72d6-4304-b704-d37624eaa22d',
+    w: 65,
+    label: 'http://127.0.0.1:45487/profile-account'
+  },
+  {
+    id: 'workspace-tab-browser_57d23b1d-e69e-4722-9514-34d658e55454',
+    w: 65,
+    label: 'http://127.0.0.1:45487/profile-account'
+  },
+  {
+    id: 'workspace-tab-browser_2b2427e1-fedb-4ad2-adac-7eec5d5e5f31',
+    w: 64,
+    label: 'http://127.0.0.1:32797/slow'
+  },
+  {
+    id: 'workspace-tab-browser_2cc08ec8-1a82-4c5c-909e-2b4f9fbdf82c',
+    w: 65,
+    label: 'http://127.0.0.1:45487/profile-account'
+  },
+  {
+    id: 'workspace-tab-browser_d1148a29-ab5e-4129-90e1-bbd71c9d3d1b',
+    w: 64,
+    label: 'http://127.0.0.1:45487/profile-account'
+  },
+  {
+    id: 'workspace-tab-browser_a004a809-4660-428d-b063-0899417f22a8',
+    w: 65,
+    label: 'http://127.0.0.1:45487/profile-account?link'
+  },
+  {
+    id: 'workspace-tab-browser_dc8f32f6-d09e-4043-a51e-c583d5af28bf',
+    w: 65,
+    label: 'http://127.0.0.1:45487/'
+  },
+  {
+    id: 'workspace-tab-browser_a34a7275-1e8e-4cf4-907d-8150a091c90d',
+    w: 64,
+    label: 'about:blank'
+  },
+  {
+    id: 'workspace-tab-browser_b186a739-4322-4dd5-bd88-f075b958ed51',
+    w: 65,
+    label: 'about:blank'
+  }
+]

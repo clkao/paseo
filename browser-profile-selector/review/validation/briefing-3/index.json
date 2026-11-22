@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-3:revision-1",
+  "question": "Validation cycle 3 recommends REJECTED: send browser-profile-selector back to implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:vb7f0c31h72remcb4fypyeqg:validation:attempt-3:revision-1:item-1",
+      "uri": "git-root://state/67aed11081ff859e90da25156e235131e21fa094/browser-profile-selector.md",
+      "rev": "sha256:0ab352e3f393e633fbce6325287453d81077925d6338e351f85e076414f4ff60",
+      "mediaType": "text/markdown",
+      "summary": "AC-1 to AC-7 and all review mutations pass on Linux at 5a0bf1449; the reworked full-app journey fails after the earlier desktop regressions (page-wide Browser URL locator matches two panes), and the restored 90 s startup timeout timed out on a cold run."
+    }
+  ]
+}
