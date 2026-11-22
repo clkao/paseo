@@ -526,3 +526,36 @@ Recommend REJECTED for the two reproducible gaps in the permanent AC-2 and AC-5 
 ### Summary
 
 The AC-2 Antigravity test now depends on the registration's declared command, and the AC-5 ACP test counts real spawn attempts through Node's diagnostics channel. Each was shown to fail on the deliberate break and to pass when restored. The daemon-access sentence is removed. AC-5's two stale phrases from cycle 3 still await CL.
+
+## Stage Report: validation (cycle 4)
+
+- DONE: Independently reproduce each AC-1 to AC-5 Verified by clause on task/launch-wrap-hook head 9f9f39ce1.
+  On macOS, from each package or plugin directory, `npx --no-install vitest run <file> --bail=1` ran each of the 16 files in the Test plan separately. All 16 exited 0, with 1,209 tests passed and four conditional cases skipped in `plugin-provider.test.ts`. Every dev-tool command started with inherited `PASEO_*` variables cleared.
+- DONE: AC-1. Publish provider support before connection and reject unknown hook fields.
+  Snapshot schema 8 passed, daemon configuration E2E 3, plugin registration 39, snapshot manager 98, registry 53, lifecycle handlers 38. The cold hook saw support at zero connections. Codex and its derived provider opted in, other core providers and the connector did not. Dropping the snapshot field produced `{ launchWrap: null, connects: 0 }` against expected `true`.
+  With production sources restored to `2445adec`, the current handler test filtered by `-t 'can select a launch wrap'` failed with `Unrecognized key: "wrap"`. Replacing the current strict open schema with a stripping schema made the unknown-key test resolve a request when rejection was expected.
+- DONE: AC-2. Wrap the command with the session environment and preserve argv boundaries.
+  ACP 97 passed, SDK provider 8, Antigravity 10. The recording launcher saw arguments containing spaces intact, and only the selected session on a shared connection went through it. Omitting the session environment changed the recorded token from `"one"` to `null`.
+  Removing `--disable-telemetry` **from the Antigravity production registration** failed `provider.test.ts -t 'runs a wrapped session'`. Recorded argv ended in `acp` and the expected final element was missing.
+- DONE: AC-3. Preserve one wrap across handlers and across plugins.
+  Handlers 38 passed, runtime 73. At both levels omission preserved the earlier value, an identical value passed, and a different value rejected. Changing the merge to use only the later value failed both omission tests. In each, the later environment survived but the earlier wrap disappeared.
+- DONE: AC-4. Apply the wrapper to interactive and archived-history resumes.
+  Codex 235 passed. Dropping the wrap only for history produced the bare Codex command in the archived-thread assertion. Deleting the wrap during history stripping separately failed the handler assertion while tools and MCP servers were empty.
+- DONE: AC-5. Reject unsupported opens before session creation and do not retry a missing launcher.
+  Agent manager 321 passed, plugin provider 113 passed with four conditional skips, Codex spawn error 4, process 3. Unsupported create, resume, import and refresh returned `launch_wrap_unsupported` with unchanged client call counts. Refresh kept the existing session. The stored record omitted the wrap. Omitting rejection cleanup left `sandbox_status` attached where the test expected `[]`.
+  The plugin provider tests checked live capability admission, no rejected `session.open` delivery, and the original wrap on reopen. The process resolver exercised Windows quoting with an injected platform. A Codex refresh also passed a Windows-style provider command through a real child on macOS.
+  Adding a second ACP launch attempt after the first launcher's error failed `acp.test.ts -t 'when the launcher is missing'`. The diagnostic channel recorded two identical missing-launcher argv arrays where the assertion expected one. All filtered mutation tests returned to green after restoration.
+- DONE: Run package boundary and contract tests and exercise bootstrap's real PluginService.
+  SDK boundaries 106 passed. Additional individual runs passed for `windows-command` (15), `provider-snapshot-codec` (2), `messages.wire-compat` (19), `messages.plugins` (22), `ws-outbound` (14), `plugin-process` (2), `compiler` (86), `lifecycle.e2e` (18), `session.lifecycle-boundary` (1), `projected-timeline-contract` (3), `timeline-reconnect-contract.e2e` (2) and `hub-cli-contract` (1).
+  A temporary case in `agent-manager.test.ts -t 'validates a directory plugin wrap'` passed. It installed a directory plugin over WebSocket, returned a wrap from `server.addHook("agent.open.before", …)`, and created an agent through the daemon. A real Node child recorded `["validator-codex", "argument with spaces", "app-server"]` as the first three provider arguments. The test supplied discovery and used the Codex session implementation with real process spawning.
+- DONE: Check the diff and documentation.
+  `git diff --check 2445adec..9f9f39ce1` exited 0. Searching the diff found zero occurrences of `requiresPlugins`, `isPluginActive`, `applyLaunchWrap`, `vi.mock`, `vi.hoisted`, chmod or shebangs. The Windows helpers read the platform default and accept an injected platform. The diff contains no platform patch. The launch-wrap section in `docs/plugins.md` describes host tools running outside the wrapper and imposes no daemon-access setting.
+- DONE: Run lint, formatting and package source typechecks.
+  `npm run lint` returned “0 warnings and 0 errors.” `npm run format:check` returned “All matched files use the correct format.” `node_modules/.bin/tsgo -p packages/<package>/<config> --noEmit` exited 0 for protocol, plugin, server and CLI. Server used `tsconfig.server.typecheck.json`, the others used `tsconfig.json`.
+- FAILED: The plugin workspace typecheck, client loader, and live-provider contract could not complete in this checkout.
+  `npm run typecheck -w packages/protocol -w packages/plugin -w packages/server -w packages/cli` exited 2. The plugin examples reported four TS2307 errors for missing `@tanstack/react-query`. The plugin script invoked a nested npm install and reported “up to date.” Running the examples compiler directly against base production sources gave the same four errors.
+  From their packages, `vitest run src/plugins/evaluate.test.ts --bail=1` failed to load `react-i18next`, and `vitest run src/server/daemon-e2e/user-message-contract.real.e2e.test.ts --bail=1` stopped when Pi received EPERM creating its session directory. Both failures reproduced with base production sources.
+
+### Summary
+
+**PASSED** for AC-1 through AC-5 at `9f9f39ce1`. Both specified regression mutations failed committed tests for the intended reason. The broader environment failures reproduced on the base revision. Per-command output and the temporary probe and mutation scripts are in `/tmp/paseo-validate-wrap.vcRsrC` on this machine.
