@@ -1,6 +1,6 @@
 Title: feat(plugins): let an open hook wrap the provider launch, fail-closed
 
-Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (e3fd597f, on 2445adec)
+Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (30a6f4e6, on 2445adec)
 
 ---
 
@@ -48,10 +48,6 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
 - **Providers in this PR.**
   - The command-based ACP providers of the Plugin SDK (`runAcpProvider`): Antigravity, Goose, Fx and Hoplite.
   - Codex (`prepareAppServerSpawn`).
-- **`requiresPlugins`, in a separate commit.**
-  - An `agent.create.before` hook can add its own plugin ID to the agent.
-  - The agent does not open while a plugin in that list is inactive. The error is `required_plugin_inactive`.
-  - Without this rule, a sandbox becomes fail-open when its plugin stops.
 - **Windows.** A `.cmd` or `.bat` launcher starts through `spawnProcess` and its `cmd.exe` quoting, as for each provider launcher.
 
 ### Non-goals
@@ -75,7 +71,7 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
   - the catalog lookup at create when no model is set
   - availability probes and version commands
 - **Requests to the daemon.** Work that the agent asks the daemon to do, for example a host terminal or a new agent, runs as the daemon. The wrap does not apply to it.
-- **A release action for `requiresPlugins`.** To open the agent again, the user enables the plugin again.
+- **A stopped plugin.** If the plugin that returns the wrap stops, later opens run without its hooks, as for every hook today. A separate PR proposes a way for an agent to require its plugin.
 
 ### QA
 
@@ -93,8 +89,7 @@ Result: 1,129 tests passed in 16 files. Four tests are conditional skips. [Comma
 | Codex interactive resume and archived history resume start through the wrap. | `agent/providers/codex-app-server-agent.test.ts` |
 | A provider without support fails create, resume, import and refresh before a provider call. Refresh keeps the current session. | `agent/agent-manager.test.ts`, `agent/plugin-provider.test.ts`, `agent/provider-registry.test.ts` |
 | A missing launcher fails the open, with no start of the bare harness. | `packages/plugin/src/server/acp.test.ts`, `agent/providers/codex-app-server-agent.spawn-error.test.ts` |
-| On simulated `win32`, a `.cmd` wrap starts through `cmd.exe` with quoted arguments. A refresh with a `.cmd` provider command starts a new session. | `packages/plugin/src/server/process.test.ts`, `agent/providers/codex-app-server-agent.test.ts` |
-| Two plugins each add their own ID. A plugin cannot add a different ID. One inactive plugin stops the open. An old agent record without the field loads. | `plugins/runtime.posix.test.ts`, `agent/agent-manager.test.ts`, `agent/agent-storage.test.ts` |
+| With the platform `win32`, a `.cmd` wrap resolves to `cmd.exe` with quoted arguments. A wrapped refresh with a `.cmd` provider command starts a new session through the real `spawnProcess`. | `packages/plugin/src/server/process.test.ts`, `agent/agent-manager.test.ts` |
 
 `npm run lint` and `npm run format` pass. `npm run typecheck` passes for protocol, plugin, server and CLI. I did not run the full root typecheck (app, desktop, website, plugin examples), because the disk did not have space. CI must run it.
 
@@ -102,7 +97,7 @@ Result: 1,129 tests passed in 16 files. Four tests are conditional skips. [Comma
 |---|---|---|
 | iOS, Android, Web | n/a | No client change. The provider list gets one optional field. |
 | Desktop macOS | yes | Unit and e2e tests. |
-| Desktop Windows | simulated | Tests set `win32`. I did not run it on Windows. |
+| Desktop Windows | simulated | Tests give `win32` as the platform. I did not run it on Windows. |
 | Desktop Linux | no | Not run. |
 
 **Compatibility.**
@@ -112,7 +107,7 @@ Result: 1,129 tests passed in 16 files. Four tests are conditional skips. [Comma
 ### Checklist
 
 - [x] Plugin changes follow the SDK import boundaries
-- [x] One focused change (`requiresPlugins` is a separate commit. I can move it to its own PR.)
+- [x] One focused change
 - [ ] `npm run typecheck` passes (protocol, plugin, server and CLI only. CI runs the rest.)
 - [x] `npm run lint` passes
 - [x] `npm run format` passes
