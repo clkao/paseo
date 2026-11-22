@@ -319,8 +319,8 @@ Recommend **REJECTED** on AC-2. The corrected candidate handles the old literal-
 
 - DONE: Review findings 1, 2, 3, 4, 8, 9, 10 and 11 to 15 are fixed with tests; item 5 takes all four suggestions; item 6 renames the text and meets browser-profile-name-normalization AC-1 to AC-3; finding 7 is untouched.
   Fixes are in `0e3f56f87`, the e2e trim in `8f4d30d42` and docs in `5a0bf1449`. Findings 4, 11, 13 and 14 are layout, removal or docs changes with no unit test of their own. Finding 7's files and behaviour are untouched.
-- FAILED: Every changed unit and browser test file passes on its own with --bail=1; lint, format and typecheck pass; the Electron harness and browser-tabs e2e either pass with confirmed isolation or are reported as not run with the reason.
-  All 8 changed or added unit files pass (61 tests), and root lint, format:check and typecheck pass. `resident-webviews.browser.test.ts` did not run: Playwright's Chromium is not installed, installing it is an unapproved download, and macOS blocks this process from reading /Applications/Google Chrome.app. The Electron harness and e2e were not run (reasons below).
+- SKIPPED: Every changed unit and browser test file passes on its own with --bail=1; lint, format and typecheck pass; the Electron harness and browser-tabs e2e either pass with confirmed isolation or are reported as not run with the reason.
+  All 8 changed or added unit files pass (61 tests), and root lint, format:check and typecheck pass. `resident-webviews.browser.test.ts`, the capture harness and the browser-tabs e2e were not run on this Mac: Playwright's Chromium needs an unapproved download, the login-shell environment is not readable from the sandbox, and the harness has no temporary user-data directory. CL moved them to VM validation (Linux, Xvfb).
 - DONE: New commits sit on top of 91b914567 with no history rewrite; nothing pushed; the report gives the head, commits and net line counts.
   Head `5a0bf1449286899f174ef7e1073f37c97cdc5443`: `0e3f56f87` → `8f4d30d42` → `5a0bf1449` on `91b914567`. Nothing pushed.
 
