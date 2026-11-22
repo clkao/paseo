@@ -8,7 +8,7 @@ verdict:
 score:
 worktree: /home/exedev/worktrees/browser-profile-selector
 issue:
-pr:
+pr: https://github.com/getpaseo/paseo/pull/10357
 mod-block:
 mandate:
 id: vb7f0c31h72remcb4fypyeqg
