@@ -1,0 +1,22 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/desktop-src_features_browser-webviews_index.test.ts ../../node_modules/.bin/vitest run src/features/browser-webviews/index.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22maccepts only allowed URLs on the shared profile partition[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22madmits only complete lowercase scoped names on allowed URLs[32m 3[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mbinds explicit browser identity to the renderer that hosts the guest[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mrejects a guest hosted by another renderer[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mrejects a guest whose session differs from its claimed scoped partition[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mconcurrent windows cannot swap browser identities[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22munregisters the same browser only from its requesting host[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mbrowser webview attachment[2m > [22mremoves registration when the guest is destroyed[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mretiring a pristine guest for a profile change[2m > [22mcloses a never-navigated blank guest and unregisters it before it is destroyed[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/index.test.ts[2m > [22mretiring a pristine guest for a profile change[2m > [22mkeeps in-flight, committed and revisited-blank guests[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+[2m   Start at [22m 05:36:14
+[2m   Duration [22m 614ms[2m (transform 241ms, setup 0ms, import 289ms, tests 25ms, environment 1ms)[22m
+
+exit=0

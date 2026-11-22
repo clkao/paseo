@@ -1,0 +1,195 @@
+(node:162274) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:162290) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[DaemonRunner] Starting daemon worker (IPC restart and crash restart enabled)
+Debugger listening on ws://127.0.0.1:46115/9be44c00-fcd4-4e03-923c-c2f00e184db5
+For help, see: https://nodejs.org/learn/getting-started/debugging
+(node:162302) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[05:45:44.942] [32mINFO[39m: [36mSpeech provider reconciliation started[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"speech-runtime","requestedProviders":{"dictationStt":{"provider":"local","enabled":false,"explicit":false},"voiceTurnDetection":{"provider":"local","enabled":false,"explicit":false},"voiceStt":{"provider":"local","enabled":false,"explicit":false},"voiceTts":{"provider":"local","enabled":false,"explicit":false}},"availability":{"openai":{"stt":false,"tts":false,"dictationStt":false}}}[39m
+[05:45:44.944] [32mINFO[39m: [36mSpeech service created[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"4ms"}[39m
+[05:45:44.969] [32mINFO[39m: [36mSaved daemon keypair[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"daemon-keypair","filePath":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/paseo-home/daemon-keypair.json"}[39m
+[05:45:45.544] [32mINFO[39m: [36mLaunched terminal worker[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"terminal-worker","runtime":null}[39m
+[05:45:45.548] [32mINFO[39m: [36mDaemon web UI disabled or missing dist directory[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"web-ui","enabled":false,"hasDistDir":true}[39m
+[05:45:45.621] [32mINFO[39m: [36mAgent storage initialized[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"681ms"}[39m
+[05:45:45.625] [32mINFO[39m: [36mWorkspace registries bootstrapped[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"684ms"}[39m
+[05:45:45.650] [32mINFO[39m: [36mSchedule service initialized[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"710ms"}[39m
+[05:45:45.651] [32mINFO[39m: [36mLoading persisted agent registry[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"711ms"}[39m
+[05:45:45.651] [32mINFO[39m: [36mAgent registry loaded (0 records); agents will initialize on demand[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"711ms"}[39m
+[05:45:45.652] [32mINFO[39m: [36mVoice mode configured for agent-scoped resume flow (no dedicated voice assistant provider)[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap"}[39m
+[05:45:45.652] [32mINFO[39m: [36mPreparing voice and MCP runtime[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"711ms"}[39m
+[05:45:45.663] [32mINFO[39m: [36mAgent MCP route mounted[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","route":"/mcp/agents","enabled":true}[39m
+[05:45:45.664] [32mINFO[39m: [36mBootstrap complete, ready to start listening[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","elapsed":"723ms"}[39m
+[05:45:45.668] [32mINFO[39m: [36mServer listening on http://127.0.0.1:33397[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"bootstrap","host":"127.0.0.1","port":33397,"authRequired":false,"elapsed":"727ms"}[39m
+[05:45:45.671] [32mINFO[39m: [36mWebSocket server initialized on /ws[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server"}[39m
+[05:45:45.672] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"antigravity-provider","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:45.675] [32mINFO[39m: [36mWorkspace reconciliation applied changes[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"workspace-reconciliation","changeCount":4,"durationMs":47,"changes":[{"kind":"project_updated","projectId":"project-desktop-browser-evict-one","directory":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-2","fields":{"projectKey":"host:srv_gye9J5YWkCKY:/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-2"}},{"kind":"project_updated","projectId":"project-desktop-browser-original","directory":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-1","fields":{"projectKey":"host:srv_gye9J5YWkCKY:/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-1"}},{"kind":"project_updated","projectId":"project-desktop-browser-evict-two","directory":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-3","fields":{"projectKey":"host:srv_gye9J5YWkCKY:/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-3"}},{"kind":"project_updated","projectId":"project-desktop-browser-evict-three","directory":"/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-4","fields":{"projectKey":"host:srv_gye9J5YWkCKY:/tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-xzgii9/workspaces/workspace-4"}}]}[39m
+(node:162302) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[05:45:46.436] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_237bd263f9314982bd39ea4a8c2d0ff8","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.450] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_237bd263f9314982bd39ea4a8c2d0ff8","transport":"direct","peer":"local_ipc","clientId":"plugin:antigravity-provider","sessionId":"413cd7d9-caf0-40dd-b652-b46a1a9f3c92","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":1}[39m
+[05:45:46.463] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"antigravity-provider","methods":[],"providers":[{"id":"antigravity","label":"Antigravity","description":"Antigravity CLI on your host","iconPath":"icon.svg","hasCatalogCacheKey":false,"hasStatus":true,"installation":{"installUrl":"https://antigravity.google/docs/getting-started?tab=cli","hasInspect":true,"hasCheckForUpdates":false,"hasUpdate":false},"command":["agy","acp","--disable-telemetry"]}]}[39m
+[05:45:46.464] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"antigravity-provider","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.472] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"claude-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.548] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_cfb3cc9cc0844b51b0c0a303f13c364c","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.550] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_cfb3cc9cc0844b51b0c0a303f13c364c","transport":"direct","peer":"local_ipc","clientId":"plugin:claude-usage-source","sessionId":"83989e6b-e194-46b0-b552-fabc68cb6111","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":2}[39m
+[05:45:46.552] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"claude-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.553] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"claude-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.553] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"codex-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.606] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_b982a92079b64f63b04818179d17fae2","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.608] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_b982a92079b64f63b04818179d17fae2","transport":"direct","peer":"local_ipc","clientId":"plugin:codex-usage-source","sessionId":"b321e03b-803d-475e-aa6d-7476ae7efb18","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":3}[39m
+[05:45:46.628] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"codex-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.629] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"codex-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.629] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"copilot-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.659] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_b58123fd13454202bd9dae1505fbea12","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.662] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_b58123fd13454202bd9dae1505fbea12","transport":"direct","peer":"local_ipc","clientId":"plugin:copilot-usage-source","sessionId":"2c9fdd26-bc52-4896-bafc-0c124ae5c6b6","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":4}[39m
+[05:45:46.666] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"copilot-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.666] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"copilot-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.666] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"cursor-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.726] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_d5c7b3b6092d4b448f5b07cf4a9e3850","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.728] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_d5c7b3b6092d4b448f5b07cf4a9e3850","transport":"direct","peer":"local_ipc","clientId":"plugin:cursor-usage-source","sessionId":"b9e23a5c-9051-4531-b03b-11bfd059b288","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":5}[39m
+[05:45:46.730] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"cursor-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.731] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"cursor-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.731] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"fx-provider","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.759] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_56f079b3ab81439db8675c2434efda85","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.762] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_56f079b3ab81439db8675c2434efda85","transport":"direct","peer":"local_ipc","clientId":"plugin:fx-provider","sessionId":"e6fd8bb7-f6fd-4202-a39a-cd115fff0d6f","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":6}[39m
+[05:45:46.763] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"fx-provider","methods":[],"providers":[{"id":"fx","label":"fx","description":"Vercel Labs' native coding agent through `fx acp`","iconPath":"icon.svg","requiresConfiguration":true,"hasCatalogCacheKey":false,"hasStatus":false,"command":["fx","acp"]}]}[39m
+[05:45:46.763] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"fx-provider","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.771] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"grok-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.800] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_7037418c559c4091bae198ac9f766dea","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.802] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_7037418c559c4091bae198ac9f766dea","transport":"direct","peer":"local_ipc","clientId":"plugin:grok-usage-source","sessionId":"e723c026-3b6f-4434-9eaf-93049a77c90e","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":7}[39m
+[05:45:46.804] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"grok-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.804] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"grok-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.804] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"hoplite-provider","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.829] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_d8afc88ca86044c89284d2dbb48f0fdd","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.831] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_d8afc88ca86044c89284d2dbb48f0fdd","transport":"direct","peer":"local_ipc","clientId":"plugin:hoplite-provider","sessionId":"34a5b5c9-1b23-4769-8517-7f353434d5d7","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":8}[39m
+[05:45:46.832] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"hoplite-provider","methods":[],"providers":[{"id":"hoplite","label":"Hoplite","description":"Hoplite's coding agent through the local `hoplite acp` bridge","iconPath":"icon.svg","requiresConfiguration":true,"hasCatalogCacheKey":false,"hasStatus":false,"installation":{"installUrl":"https://hoplite.sh/docs/cli#install","updateUrl":"https://hoplite.sh/docs/cli#upgrade","hasInspect":true,"hasCheckForUpdates":true,"hasUpdate":false},"command":["hoplite","acp"]}]}[39m
+[05:45:46.832] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"hoplite-provider","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.834] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"kimi-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.868] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4c742f14321147a6b367152ff2cc5629","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.871] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4c742f14321147a6b367152ff2cc5629","transport":"direct","peer":"local_ipc","clientId":"plugin:kimi-usage-source","sessionId":"2b805fa1-b41c-4b56-a8d1-76d40059f667","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":9}[39m
+[05:45:46.874] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"kimi-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.875] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"kimi-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.875] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"minimax-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:46.904] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_1b95590c5c6946dbbaf54a12cb4a4baa","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:46.907] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_1b95590c5c6946dbbaf54a12cb4a4baa","transport":"direct","peer":"local_ipc","clientId":"plugin:minimax-usage-source","sessionId":"e27d95a2-6f03-4009-af1f-be36d085a9f0","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":10}[39m
+[05:45:46.910] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"minimax-usage-source","methods":[],"providers":[]}[39m
+[05:45:46.911] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"minimax-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:46.911] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"muse-provider","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:47.186] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_5e77c11077c54eeb98dd8fc4b7d598da","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:47.188] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_5e77c11077c54eeb98dd8fc4b7d598da","transport":"direct","peer":"local_ipc","clientId":"plugin:muse-provider","sessionId":"ab2c8bb1-c6ef-4126-9b92-dc4a62e0c985","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":11}[39m
+[05:45:47.190] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"muse-provider","methods":[],"providers":[{"id":"muse","label":"Muse Code","iconPath":"icon.svg","hasCatalogCacheKey":true,"hasStatus":true,"installation":{"installUrl":"https://paseo.sh/docs/muse-code","hasInspect":true,"hasCheckForUpdates":true,"hasUpdate":false},"command":["muse"]}]}[39m
+[05:45:47.191] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"muse-provider","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:47.192] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"opencode-go-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:47.215] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_30e34beace90483488a2df1a413e1093","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:47.216] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_30e34beace90483488a2df1a413e1093","transport":"direct","peer":"local_ipc","clientId":"plugin:opencode-go-usage-source","sessionId":"c8dced76-0bfb-4486-a543-cb189ac3aa20","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":12}[39m
+[05:45:47.217] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"opencode-go-usage-source","methods":[],"providers":[]}[39m
+[05:45:47.218] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"opencode-go-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:47.218] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"worktree-include","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:47.237] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_181df2564dd14591af4e541e77f16e54","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:47.238] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_181df2564dd14591af4e541e77f16e54","transport":"direct","peer":"local_ipc","clientId":"plugin:worktree-include","sessionId":"cd5f5a3d-3138-44c2-86c0-2658a4b6245a","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":13}[39m
+[05:45:47.239] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"worktree-include","methods":[],"providers":[]}[39m
+[05:45:47.239] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"worktree-include","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:47.239] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"zai-usage-source","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:47.257] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_938d8301d32f44bd852b6ab4a2519abb","transport":"direct","peer":"local_ipc","totalPendingConnections":1}[39m
+[05:45:47.259] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_938d8301d32f44bd852b6ab4a2519abb","transport":"direct","peer":"local_ipc","clientId":"plugin:zai-usage-source","sessionId":"4a5333fc-402f-4ef2-aa5a-08d68834c484","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":14}[39m
+[05:45:47.260] [32mINFO[39m: [36mLoaded plugin[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"zai-usage-source","methods":[],"providers":[]}[39m
+[05:45:47.261] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"zai-usage-source","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:47.261] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"link-check","sequence":1,"stream":"stdout","message":"[paseo] Loading plugin"}[39m
+[05:45:47.278] [32mINFO[39m: [36mPlugin output[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"plugins","pluginId":"link-check","sequence":2,"stream":"stdout","message":"[paseo] Plugin ready"}[39m
+[05:45:47.283] [32mINFO[39m: [36mSpeech provider reconciliation completed[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"speech-runtime","requestedProviders":{"dictationStt":{"provider":"local","enabled":false,"explicit":false},"voiceTurnDetection":{"provider":"local","enabled":false,"explicit":false},"voiceStt":{"provider":"local","enabled":false,"explicit":false},"voiceTts":{"provider":"local","enabled":false,"explicit":false}},"effectiveProviders":{"dictationStt":"unavailable","voiceTurnDetection":"unavailable","voiceStt":"unavailable","voiceTts":"unavailable"}}[39m
+[05:45:55.029] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4e3028710aa4440ea9676bb3f12ceb1c","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","totalPendingConnections":1}[39m
+[05:45:55.036] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4e3028710aa4440ea9676bb3f12ceb1c","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","sessionId":"1af36c73-97d3-4d68-97d7-9e4ed992520c","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":15}[39m
+[05:45:55.626] [33mWARN[39m: [36mws_slow_request[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4e3028710aa4440ea9676bb3f12ceb1c","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","requestType":"daemon.get_status.request","durationMs":574,"inflightRequests":0}[39m
+[05:45:55.632] [32mINFO[39m: [36mClient disconnected; waiting for reconnect[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4e3028710aa4440ea9676bb3f12ceb1c","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","sessionId":"1af36c73-97d3-4d68-97d7-9e4ed992520c","appVersion":"0.17.0-beta.1","code":1000,"reason":"Client closed","reconnectGraceMs":90000}[39m
+[05:46:02.068] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_86319f58c42e4ce1a0e81ebc5d455074","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","totalPendingConnections":1}[39m
+[05:46:02.073] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_86319f58c42e4ce1a0e81ebc5d455074","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","sessionId":"1af36c73-97d3-4d68-97d7-9e4ed992520c","appVersion":"0.17.0-beta.1","resumed":true,"totalSessions":15}[39m
+[05:46:02.257] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_cee927e2c4974768834db63dc4b35908","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","totalPendingConnections":1}[39m
+[05:46:02.269] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_cee927e2c4974768834db63dc4b35908","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","sessionId":"1af36c73-97d3-4d68-97d7-9e4ed992520c","appVersion":"0.17.0-beta.1","resumed":true,"totalSessions":16}[39m
+[05:46:02.679] [33mWARN[39m: [36mws_slow_request[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4e3028710aa4440ea9676bb3f12ceb1c","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","requestType":"daemon.get_status.request","durationMs":579,"inflightRequests":1}[39m
+[05:46:02.682] [32mINFO[39m: [36mClient socket disconnected; session remains attached[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_86319f58c42e4ce1a0e81ebc5d455074","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","sessionId":"1af36c73-97d3-4d68-97d7-9e4ed992520c","appVersion":"0.17.0-beta.1","remainingSockets":1,"code":1000,"reason":"Client closed"}[39m
+[05:46:02.900] [33mWARN[39m: [36mws_slow_request[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_4e3028710aa4440ea9676bb3f12ceb1c","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","requestType":"daemon.get_status.request","durationMs":603,"inflightRequests":0}[39m
+[05:46:02.904] [32mINFO[39m: [36mClient disconnected; waiting for reconnect[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_cee927e2c4974768834db63dc4b35908","transport":"direct","peer":"loopback","host":"127.0.0.1:33397","remoteAddress":"127.0.0.1","clientId":"cid_046e4a569c764bffa38ef5ede36ca421","sessionId":"1af36c73-97d3-4d68-97d7-9e4ed992520c","appVersion":"0.17.0-beta.1","code":1000,"reason":"Client closed","reconnectGraceMs":90000}[39m
+[05:46:02.968] [32mINFO[39m: [36mClient connected; awaiting hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_aa1560b115ee4cdbbc582c3d336abb0e","transport":"direct","peer":"loopback","host":"localhost:33397","origin":"http://localhost:40257","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Paseo/0.17.0-beta.1 Chrome/152.0.7977.76 Electron/44.2.0 Safari/537.36","remoteAddress":"127.0.0.1","totalPendingConnections":1}[39m
+[05:46:02.973] [32mINFO[39m: [36mClient connected via hello[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_aa1560b115ee4cdbbc582c3d336abb0e","transport":"direct","peer":"loopback","host":"localhost:33397","origin":"http://localhost:40257","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Paseo/0.17.0-beta.1 Chrome/152.0.7977.76 Electron/44.2.0 Safari/537.36","remoteAddress":"127.0.0.1","clientId":"cid_dfd35cb388224190952a5ace0cf0d8b0","sessionId":"f406cbad-dd28-4b65-a005-0c1b9a42aeb8","appVersion":"0.17.0-beta.1","resumed":false,"totalSessions":15}[39m
+[DaemonRunner] supervisor_received_SIGTERM. Stopping worker...
+[05:46:07.074] [32mINFO[39m: [36mSIGTERM received, shutting down gracefully...[39m [90m{"daemonVersion":"0.17.0-beta.1","signal":"SIGTERM","reason":"worker_received_SIGTERM","keepTerminals":false,"ppid":162290,"uptimeSeconds":24.609,"memory":{"rss":647659520,"heapTotal":319619072,"heapUsed":272049104,"external":21026343,"arrayBuffers":3468818}}[39m
+[05:46:07.082] [32mINFO[39m: [36mSupervisor shutdown request received while shutdown is already in progress[39m [90m{"daemonVersion":"0.17.0-beta.1","signal":"Supervisor shutdown request","reason":"supervisor_received_SIGTERM","ppid":162290,"uptimeSeconds":24.615,"memory":{"rss":647659520,"heapTotal":319619072,"heapUsed":272107768,"external":21026479,"arrayBuffers":3468914}}[39m
+[05:46:07.139] [33mWARN[39m: [36mws_send_failed[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server"}[39m
+    err: {
+      "type": "Error",
+      "message": "write EPIPE",
+      "stack":
+          Error: write EPIPE
+              at afterWriteDispatched (node:internal/stream_base_commons:138:10)
+              at writevGeneric (node:internal/stream_base_commons:90:10)
+              at Socket._writeGeneric (node:net:1322:11)
+              at Socket._writev (node:net:1331:8)
+              at doWrite (node:internal/streams/writable:635:12)
+              at clearBuffer (node:internal/streams/writable:814:5)
+              at Writable.uncork (node:internal/streams/writable:533:7)
+              at Sender.sendFrame (/home/exedev/worktrees/browser-profile-selector/node_modules/ws/lib/sender.js:563:20)
+              at Sender.dispatch (/home/exedev/worktrees/browser-profile-selector/node_modules/ws/lib/sender.js:500:12)
+              at Sender.send (/home/exedev/worktrees/browser-profile-selector/node_modules/ws/lib/sender.js:407:12)
+      "errno": -32,
+      "code": "EPIPE",
+      "syscall": "write"
+    }
+[05:46:07.147] [33mWARN[39m: [36mFailed to emit source frame[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"session","connectionId":"conn_aa1560b115ee4cdbbc582c3d336abb0e","transport":"direct","peer":"loopback","host":"localhost:33397","origin":"http://localhost:40257","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Paseo/0.17.0-beta.1 Chrome/152.0.7977.76 Electron/44.2.0 Safari/537.36","remoteAddress":"127.0.0.1","clientId":"cid_dfd35cb388224190952a5ace0cf0d8b0","sessionId":"f406cbad-dd28-4b65-a005-0c1b9a42aeb8"}[39m
+    err: {
+      "type": "Error",
+      "message": "write EPIPE",
+      "stack":
+          Error: write EPIPE
+              at afterWriteDispatched (node:internal/stream_base_commons:138:10)
+              at writevGeneric (node:internal/stream_base_commons:90:10)
+              at Socket._writeGeneric (node:net:1322:11)
+              at Socket._writev (node:net:1331:8)
+              at doWrite (node:internal/streams/writable:635:12)
+              at clearBuffer (node:internal/streams/writable:814:5)
+              at Writable.uncork (node:internal/streams/writable:533:7)
+              at Sender.sendFrame (/home/exedev/worktrees/browser-profile-selector/node_modules/ws/lib/sender.js:563:20)
+              at Sender.dispatch (/home/exedev/worktrees/browser-profile-selector/node_modules/ws/lib/sender.js:500:12)
+              at Sender.send (/home/exedev/worktrees/browser-profile-selector/node_modules/ws/lib/sender.js:407:12)
+      "errno": -32,
+      "code": "EPIPE",
+      "syscall": "write"
+    }
+[05:46:07.147] [33mWARN[39m: [36mws_send_failed[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server"}[39m
+    err: {
+      "type": "Error",
+      "message": "Transport closed",
+      "stack":
+          Error: Transport closed
+              at write (/home/exedev/worktrees/browser-profile-selector/packages/protocol/src/chunked-transport.ts:53:30)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    }
+[05:46:07.162] [33mWARN[39m: [36mFailed to emit source frame[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"session","connectionId":"conn_aa1560b115ee4cdbbc582c3d336abb0e","transport":"direct","peer":"loopback","host":"localhost:33397","origin":"http://localhost:40257","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Paseo/0.17.0-beta.1 Chrome/152.0.7977.76 Electron/44.2.0 Safari/537.36","remoteAddress":"127.0.0.1","clientId":"cid_dfd35cb388224190952a5ace0cf0d8b0","sessionId":"f406cbad-dd28-4b65-a005-0c1b9a42aeb8"}[39m
+    err: {
+      "type": "Error",
+      "message": "Transport closed",
+      "stack":
+          Error: Transport closed
+              at write (/home/exedev/worktrees/browser-profile-selector/packages/protocol/src/chunked-transport.ts:53:30)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    }
+[05:46:07.162] [33mWARN[39m: [36mws_send_failed[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server"}[39m
+    err: {
+      "type": "Error",
+      "message": "Transport closed",
+      "stack":
+          Error: Transport closed
+              at write (/home/exedev/worktrees/browser-profile-selector/packages/protocol/src/chunked-transport.ts:53:30)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    }
+[05:46:07.169] [33mWARN[39m: [36mFailed to emit source frame[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"session","connectionId":"conn_aa1560b115ee4cdbbc582c3d336abb0e","transport":"direct","peer":"loopback","host":"localhost:33397","origin":"http://localhost:40257","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Paseo/0.17.0-beta.1 Chrome/152.0.7977.76 Electron/44.2.0 Safari/537.36","remoteAddress":"127.0.0.1","clientId":"cid_dfd35cb388224190952a5ace0cf0d8b0","sessionId":"f406cbad-dd28-4b65-a005-0c1b9a42aeb8"}[39m
+    err: {
+      "type": "Error",
+      "message": "Transport closed",
+      "stack":
+          Error: Transport closed
+              at write (/home/exedev/worktrees/browser-profile-selector/packages/protocol/src/chunked-transport.ts:53:30)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    }
+[05:46:07.170] [32mINFO[39m: [36mClient disconnected; waiting for reconnect[39m [90m{"daemonVersion":"0.17.0-beta.1","module":"websocket-server","connectionId":"conn_aa1560b115ee4cdbbc582c3d336abb0e","transport":"direct","peer":"loopback","host":"localhost:33397","origin":"http://localhost:40257","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Paseo/0.17.0-beta.1 Chrome/152.0.7977.76 Electron/44.2.0 Safari/537.36","remoteAddress":"127.0.0.1","clientId":"cid_dfd35cb388224190952a5ace0cf0d8b0","sessionId":"f406cbad-dd28-4b65-a005-0c1b9a42aeb8","appVersion":"0.17.0-beta.1","code":1006,"reason":null,"reconnectGraceMs":90000}[39m

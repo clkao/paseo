@@ -1,0 +1,101 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/e2e-isolated env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/e2e npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop 
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Browser desktop browser E2E failed. Artifacts: /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/e2e
+A [Error]: expect(locator).toBeVisible() failed
+
+Locator: getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()
+Expected: visible
+Timeout: 90000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "to.be.visible" with timeout 90000ms
+  - waiting for getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()
+
+    at Proxy.<anonymous> (/home/exedev/worktrees/browser-profile-selector/node_modules/playwright/lib/matchers/expect.js:213:24)
+    at settleDesktopStartup (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:208:5)
+    at launchDesktop (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1468:13)
+    at async main (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1471:30)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1604:1 {
+  matcherResult: {
+    message: 'expect(locator).toBeVisible() failed\n' +
+      '\n' +
+      'Locator: getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()\n' +
+      'Expected: visible\n' +
+      'Timeout: 90000ms\n' +
+      'Error: element(s) not found\n' +
+      '\n' +
+      'Call log:\n' +
+      '  - Expect "to.be.visible" with timeout 90000ms\n' +
+      '  - waiting for getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()\n',
+    pass: false,
+    actual: undefined,
+    name: 'toBeVisible',
+    expected: 'visible',
+    log: [
+      '  - Expect "to.be.visible" with timeout 90000ms',
+      '  - waiting for getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()'
+    ],
+    timeout: 90000
+  }
+}
+node:internal/modules/run_main:111
+    triggerUncaughtException(
+    ^
+
+A [Error]: expect(locator).toBeVisible() failed
+
+Locator: getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()
+Expected: visible
+Timeout: 90000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "to.be.visible" with timeout 90000ms
+  - waiting for getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()
+
+    at Proxy.<anonymous> (/home/exedev/worktrees/browser-profile-selector/node_modules/playwright/lib/matchers/expect.js:213:24)
+    at settleDesktopStartup (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:208:5)
+    at launchDesktop (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1468:13)
+    at async main (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1471:30)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1604:1 {
+  matcherResult: {
+    message: 'expect(locator).toBeVisible() failed\n' +
+      '\n' +
+      'Locator: getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()\n' +
+      'Expected: visible\n' +
+      'Timeout: 90000ms\n' +
+      'Error: element(s) not found\n' +
+      '\n' +
+      'Call log:\n' +
+      '  - Expect "to.be.visible" with timeout 90000ms\n' +
+      '  - waiting for getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()\n',
+    pass: false,
+    actual: undefined,
+    name: 'toBeVisible',
+    expected: 'visible',
+    log: [
+      '  - Expect "to.be.visible" with timeout 90000ms',
+      '  - waiting for getByTestId(/^sidebar-workspace-row-.*:desktop-browser-original$/).first()'
+    ],
+    timeout: 90000
+  }
+}
+
+Node.js v26.13.1
+npm error Lifecycle script `test:e2e:browser-tabs` failed with error:
+npm error code 1
+npm error path /home/exedev/worktrees/browser-profile-selector/packages/desktop
+npm error workspace @getpaseo/desktop@0.17.0-beta.1
+npm error location /home/exedev/worktrees/browser-profile-selector/packages/desktop
+npm error command failed
+npm error command sh -c npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+exit=1

@@ -1,0 +1,35 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/mutant-normalization-2 ../../node_modules/.bin/vitest run src/desktop/browser/profiles.test.ts --bail=1 --reporter=verbose -t canonically\ equivalent 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [2m[90m↓[39m[22m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22muses stable, server-qualified scope keys and the existing shared default
+ [2m[90m↓[39m[22m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22mdistinguishes a previously saved or renamed workspace collision without changing either identity
+ [31m×[39m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22mqualifies the automatic label against a canonically equivalent named profile[32m 12[2mms[22m[39m
+[31m   → expected 'Café 1' to be 'Café 1 (Workspace)' // Object.is equality[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22mqualifies the automatic label against a canonically equivalent named profile
+[31m[1mAssertionError[22m: expected 'Café 1' to be 'Café 1 (Workspace)' // Object.is equality[39m
+
+Expected: [32m"Café 1[7m (Workspace)[27m"[39m
+Received: [31m"Café 1"[39m
+
+[36m [2m❯[22m src/desktop/browser/profiles.test.ts:[2m47:19[22m[39m
+    [90m 45|[39m     [35mconst[39m entry [33m=[39m { [33m...[39mautomatic[33m,[39m slug[33m:[39m [32m"cafe-1"[39m[33m,[39m name[33m:[39m named }[33m;[39m
+    [90m 46|[39m     const label = automaticProfileLabel(automatic, [entry], "Workspace…
+    [90m 47|[39m     [34mexpect[39m(label)[33m.[39m[34mtoBe[39m(workspace [33m+[39m [32m" (Workspace)"[39m)[33m;[39m
+    [90m   |[39m                   [31m^[39m
+    [90m 48|[39m     [34mexpect[39m(label[33m.[39m[34mnormalize[39m([32m"NFC"[39m))[33m.[39mnot[33m.[39m[34mtoBe[39m(named[33m.[39m[34mnormalize[39m([32m"NFC"[39m))[33m;[39m
+    [90m 49|[39m     expect(await profilePartition(automatic)).not.toBe(await profilePa…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m2 skipped[39m[90m (3)[39m
+[2m   Start at [22m 05:45:12
+[2m   Duration [22m 209ms[2m (transform 62ms, setup 57ms, import 28ms, tests 15ms, environment 0ms)[22m
+
+exit=1

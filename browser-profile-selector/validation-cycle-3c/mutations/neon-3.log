@@ -1,0 +1,17 @@
+diff --git a/packages/desktop/src/features/browser-profile-catalog.ts b/packages/desktop/src/features/browser-profile-catalog.ts
+index aee2ec57e..e6580941e 100644
+--- a/packages/desktop/src/features/browser-profile-catalog.ts
++++ b/packages/desktop/src/features/browser-profile-catalog.ts
+@@ -64,7 +64,7 @@ export function createBrowserProfileCatalog(userData: string) {
+       return { ok: false, code: "duplicate" };
+     const base = foldedSlug(name) || `profile-${randomUUID().slice(0, 8)}`;
+     if (!isNamedBrowserSlug(base, group === null) || (group && /^ws-/i.test(name)))
+-      return { ok: false, code: "reserved" };
++      return { ok: false, code: "invalid" };
+     let slug = base;
+     for (let n = 2; siblings.some((row) => row.slug === slug); n++) {
+       const suffix = `-${n}`;
+[2m   Duration [22m 231ms[2m (transform 63ms, setup 0ms, import 115ms, tests 14ms, environment 0ms)[22m
+
+exit=1
+restored HEAD blob aee2ec57ef5e5b67dc1f41491383a370b00ed7fb

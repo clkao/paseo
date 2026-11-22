@@ -1,0 +1,15 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/app-src_desktop_browser_profiles.test.ts ../../node_modules/.bin/vitest run src/desktop/browser/profiles.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22muses stable, server-qualified scope keys and the existing shared default[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22mdistinguishes a previously saved or renamed workspace collision without changing either identity[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/profiles.test.ts[2m > [22mqualifies the automatic label against a canonically equivalent named profile[32m 1[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 05:35:49
+[2m   Duration [22m 238ms[2m (transform 67ms, setup 59ms, import 36ms, tests 18ms, environment 0ms)[22m
+
+exit=0

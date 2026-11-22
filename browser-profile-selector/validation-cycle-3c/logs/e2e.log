@@ -1,0 +1,12 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/e2e env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/e2e npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop 
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Terminated
+exit=143

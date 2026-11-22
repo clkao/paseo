@@ -1,0 +1,16 @@
+diff --git a/packages/app/src/desktop/browser/use-browser-tab-profile.ts b/packages/app/src/desktop/browser/use-browser-tab-profile.ts
+index aa2986f4a..5dfab7673 100644
+--- a/packages/app/src/desktop/browser/use-browser-tab-profile.ts
++++ b/packages/app/src/desktop/browser/use-browser-tab-profile.ts
+@@ -68,6 +68,6 @@ export function useBrowserTabProfile(input: {
+     automatic,
+     partition: selected ? partition : undefined,
+     unavailable:
+-      (browserHydrated && !hasRecord) || (workspacesHydrated && !projectId) || stored === "invalid",
++      (workspacesHydrated && !projectId) || stored === "invalid",
+   };
+ }
+[2m   Duration [22m 910ms[2m (transform 327ms, setup 59ms, import 448ms, tests 26ms, environment 255ms)[22m
+
+exit=1
+restored HEAD blob aa2986f4aaf1c4fc8e60abf2b7ab6734842b0e83

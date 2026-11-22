@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "browserId": "3daea473-5082-442f-865e-b7c979842e79",
+    "requestedMs": 367,
+    "returnedMs": 586,
+    "respondedMs": 664,
+    "pending": [
+      "3daea473-5082-442f-865e-b7c979842e79"
+    ],
+    "loaded": [
+      "3daea473-5082-442f-865e-b7c979842e79"
+    ]
+  }
+}

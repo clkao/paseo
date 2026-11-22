@@ -1,0 +1,45 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/app-rename-modal ../../node_modules/.bin/vitest run src/components/rename-modal.test.tsx --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+[90mstderr[2m | src/components/rename-modal.test.tsx[2m > [22m[2mRenameModal[2m > [22m[2mrenders with the initial value pre-filled and selects it after open
+[22m[39mreact-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next { code: [32m'NO_I18NEXT_INSTANCE'[39m }
+
+[90mstderr[2m | src/components/rename-modal.test.tsx[2m > [22m[2mRenameModal[2m > [22m[2mrenders with the initial value pre-filled and selects it after open
+[22m[39mError: Uncaught [TypeError: activeElement$1.attachEvent is not a function]
+    at reportException (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+    at invokeEventListeners (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLInputElementImpl._dispatch (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+    at Object.exports.fireFocusEventWithTargetAdjustment (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/helpers/focusing.js:103:10)
+    at HTMLInputElementImpl.focus (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/nodes/HTMLOrSVGElement-impl.js:69:14)
+    at HTMLInputElement.focus (/home/exedev/worktrees/browser-profile-selector/node_modules/jsdom/lib/jsdom/living/generated/HTMLElement.js:117:34)
+    at /home/exedev/worktrees/browser-profile-selector/packages/app/src/components/rename-modal.tsx:58:12
+    at callTimer (file:///home/exedev/worktrees/browser-profile-selector/node_modules/vitest/dist/chunks/test.DNmyFkvJ.js:1773:25)
+    at doTickInner (file:///home/exedev/worktrees/browser-profile-selector/node_modules/vitest/dist/chunks/test.DNmyFkvJ.js:2444:30) TypeError: activeElement$1.attachEvent is not a function
+    at handleEventsForInputEventPolyfill (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:3573:27)
+    at /home/exedev/worktrees/browser-profile-selector/node_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:19638:15
+    at batchedUpdates$1 (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:3255:40)
+    at dispatchEventForPluginEventSystem (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:19320:7)
+    at dispatchEvent (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:23585:11)
+    at dispatchDiscreteEvent (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:23553:11)
+    at HTMLDivElement.callTheUserObjectsOperation (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mjsdom[24m/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mjsdom[24m/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+    at invokeEventListeners (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mjsdom[24m/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLInputElementImpl._dispatch (/home/exedev/worktrees/browser-profile-selector/node_modules/[4mjsdom[24m/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22mrenders with the initial value pre-filled and selects it after open[32m 155[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22msubmits on Enter keypress in the input when the value has changed[32m 43[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22mcalls onClose when AdaptiveModalSheet's close prop fires (cancel button / backdrop delegated)[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22mdisables submit when draft equals initialValue and re-enables after a change[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22msurfaces validate errors inline and blocks submission[32m 10[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22mdisables the submit button while onSubmit is pending[32m 11[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/components/rename-modal.test.tsx[2m > [22mRenameModal[2m > [22mkeeps the modal open with an error when onSubmit rejects[32m 11[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 05:41:14
+[2m   Duration [22m 1.87s[2m (transform 815ms, setup 57ms, import 1.44s, tests 250ms, environment 0ms)[22m
+
+exit=0

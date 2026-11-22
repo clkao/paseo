@@ -1,0 +1,4 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/current-ui-2 node -e require\(\"playwright\"\).chromium.connectOverCDP\(\"http://127.0.0.1:37823\"\).then\(async\ b=\>\{const\ p=b.contexts\(\)\[0\].pages\(\)\[0\]\;console.log\(p.url\(\)\,\(await\ p.locator\(\"\[data-testid=settings-detail-header-title\]:visible\"\).allTextContents\(\)\)\)\;await\ b.close\(\)\}\) 
+http://localhost:36645/h/srv_sWa3PSgwNfpK/workspace/desktop-browser-original []
+exit=0

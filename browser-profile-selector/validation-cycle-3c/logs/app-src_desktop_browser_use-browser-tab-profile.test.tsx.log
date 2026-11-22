@@ -1,0 +1,16 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/app-src_desktop_browser_use-browser-tab-profile.test.tsx ../../node_modules/.bin/vitest run src/desktop/browser/use-browser-tab-profile.test.tsx --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+(node:153060) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22ma workspace rename relabels a live tab without changing its partition[32m 87[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/desktop/browser/use-browser-tab-profile.test.tsx[2m > [22mreports a missing or unreadable browser record as unavailable[32m 6[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 05:35:57
+[2m   Duration [22m 1.77s[2m (transform 526ms, setup 95ms, import 742ms, tests 93ms, environment 689ms)[22m
+
+exit=0

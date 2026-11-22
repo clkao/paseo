@@ -1,0 +1,30 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/desktop-src_features_browser-webviews_window-open.test.ts ../../node_modules/.bin/vitest run src/features/browser-webviews/window-open.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes foreground tabs to a Paseo workspace tab[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mkeeps script-opened windows as real popups[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mkeeps named windows as real popups without a feature string[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes a named target with noopener to a Paseo workspace tab[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes a named target with noreferrer to a Paseo workspace tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes Shift-clicked links to a Paseo workspace tab[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes non-popup feature noopener to a Paseo workspace tab[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes non-popup feature noreferrer to a Paseo workspace tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes non-popup feature attributionsrc=https://example.com/register to a Paseo workspace tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes non-popup feature popup=false to a Paseo workspace tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mkeeps an explicitly requested popup as a real popup[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mkeeps legacy browser-chrome features as a real popup[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mkeeps unknown window features as a real popup[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mroutes an all-enabled browser-chrome request to a Paseo workspace tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mkeeps POST-backed foreground tabs as real popups[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mbrowser webview window-open requests[2m > [22mdenies unsupported window-open requests[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mpending browser window-open requests[2m > [22mholds early workspace-tab requests until browser identity registration[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-webviews/window-open.test.ts[2m > [22mpending browser window-open requests[2m > [22mdrops pending workspace-tab requests when an unregistered guest is destroyed[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
+[2m   Start at [22m 05:36:17
+[2m   Duration [22m 542ms[2m (transform 152ms, setup 0ms, import 209ms, tests 19ms, environment 0ms)[22m
+
+exit=0

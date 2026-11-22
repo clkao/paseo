@@ -1,0 +1,30 @@
+/home/exedev/worktrees/browser-profile-selector/packages/app
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/app-src_desktop_browser_resident-webviews.browser.test.ts ../../node_modules/.bin/vitest run --project browser src/desktop/browser/resident-webviews.browser.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mparks a browser webview in the permanent paintable 1x1 host[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mpresents and parks a browser without changing its webview parent[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mclips an oversized fixed viewport to its pane without resizing the webview[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mcreates a resident webview for an agent-created unfocused tab[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mkeeps the partition of a resident browser when the setting changes[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mregisters each attached guest when its ID becomes readable before DOM readiness[32m 53[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mnormalizes an existing resident host back to permanent parking[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mnormalizes an existing resident webview and its stale host before reusing them[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mparks resident webviews as an overlapping stack[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mreturns a resident webview without detaching it from its permanent surface[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mapplies an exact fixed viewport without a flex width override[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mparks a browser at its last resolved viewport dimensions[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mkeeps an inactive in-place browser at its last resolved viewport dimensions[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mparks a cold inactive browser at its canonical fixed viewport[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mreturns an existing visible pane webview instead of creating a resident duplicate[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mfinds the originating browser webview for focus restoration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mremoves a resident webview when its browser tab closes[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m browser (chromium) [49m[39m src/desktop/browser/resident-webviews.browser.test.ts[2m > [22mresident browser webviews[2m > [22mpersists first top-level navigation while parked and keeps a committed tab locked[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
+[2m   Start at [22m 05:35:50
+[2m   Duration [22m 5.32s[2m (transform 0ms, setup 0ms, import 554ms, tests 75ms, environment 0ms)[22m
+
+exit=0

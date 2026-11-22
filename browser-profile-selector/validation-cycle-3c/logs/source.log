@@ -1,0 +1,14 @@
+$ git rev-parse HEAD
+5a0bf1449286899f174ef7e1073f37c97cdc5443
+$ git status --porcelain=v1
+$ git diff --shortstat cba515ef7 HEAD
+ 44 files changed, 2299 insertions(+), 254 deletions(-)
+$ git diff --shortstat 91b914567 HEAD -- packages/desktop/e2e
+ 2 files changed, 74 insertions(+), 143 deletions(-)
+$ git ls-remote fork refs/heads/task/browser-profile-selector refs/heads/evidence/browser-profile-selector-validation-3c
+5a0bf1449286899f174ef7e1073f37c97cdc5443	refs/heads/task/browser-profile-selector
+$ node --version; npm --version
+v26.13.1
+11.20.0
+$ cat installed Electron dist/version
+44.2.0

@@ -1,0 +1,57 @@
+New workspace
+History
+Search
+Schedules
+Plugin links QA
+Workspaces
+D
+Desktop browser project 1
+Desktop browser workspace 2
+Jan 1
+Desktop browser workspace 1
+now
+D
+Desktop browser project 2
+New workspace
+D
+Desktop browser project 3
+Desktop browser workspace 3
+Jan 1
+D
+Desktop browser project 4
+Desktop browser workspace 4
+now
+D
+Desktop browser project 1
+Desktop browser workspace 1
+Jan 1
+Remote browser host
+D
+Desktop browser project 2
+Desktop browser workspace 2
+Jan 1
+Remote browser host
+D
+Desktop browser project 3
+Desktop browser workspace 3
+Jan 1
+Remote browser host
+D
+Desktop browser project 4
+Desktop browser workspace 4
+Jan 1
+Remote browser host
+Desktop browser workspace 1
+Desktop browser project 1
+Browser desktop browser E2E caller
+Desktop browser target
+Desktop browser target
+Browser desktop browser E2E caller
+Browser desktop browser E2E caller
+Desktop browser target
+Desktop browser target
+Browser desktop browser E2E caller
+Desktop browser project 1 › Desktop browser workspace 1
+about:blank
+about:blank
+Desktop browser project 1 › Desktop browser workspace 1

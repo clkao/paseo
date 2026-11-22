@@ -1,0 +1,13 @@
+/home/exedev/worktrees/browser-profile-selector/packages/desktop
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/desktop-src_preload-sandbox.test.ts ../../node_modules/.bin/vitest run src/preload-sandbox.test.ts --bail=1 --reporter=verbose 
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/preload-sandbox.test.ts[2m > [22mpreload sandbox safety[2m > [22monly loads Electron's sandbox allowlist at runtime[32m 38[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 05:36:19
+[2m   Duration [22m 1.53s[2m (transform 443ms, setup 0ms, import 1.17s, tests 39ms, environment 0ms)[22m
+
+exit=0

@@ -1,0 +1,6 @@
+/home/exedev/worktrees/browser-profile-selector
+$ /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/isolated /tmp/selector-3c.gH7OCU/catalog-agent-control env TMPDIR=/tmp/selector-3c.gH7OCU/e2e-isolated/tmp PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/catalog-agent-control node /home/exedev/acl-result/browser-profile-selector/validation-cycle-3c/scripts/catalog-agent-contract.mjs 
+Running committed checkDelayedRegistration(tool) with an unreadable catalog in /tmp/selector-3c.gH7OCU/e2e-isolated/tmp/paseo-desktop-browser-e2e-uHpoev/electron-user-data
+{"browserId":"3daea473-5082-442f-865e-b7c979842e79","requestedMs":367,"returnedMs":586,"respondedMs":664,"pending":["3daea473-5082-442f-865e-b7c979842e79"],"loaded":["3daea473-5082-442f-865e-b7c979842e79"]}
+Per-tab browser profile journey passed.
+exit=0
