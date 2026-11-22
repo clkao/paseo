@@ -1,12 +1,12 @@
 ---
 title: "Per-tab browser profile selector"
-status: validation
+status: implementation
 source: CL, via the paseo project manager, 2026-11-20
 started: 2026-11-20T04:09:03Z
 completed:
 verdict:
 score:
-worktree: /home/exedev/worktrees/browser-profile-selector
+worktree: /Users/clkao/git/spacedock-research/paseo/.worktrees/browser-profile-selector
 issue:
 pr: https://github.com/getpaseo/paseo/pull/10357
 mod-block:
@@ -78,7 +78,7 @@ gates:
                 reason: CL approved validation cycle 2, relayed by the paseo project manager. Six of seven criteria pass. CL accepts the remaining AC-2 Unicode-normalization case as follow-up browser-profile-name-normalization. The full-app journey trim is deferred to pre-upstream review. macOS and Windows runtime coverage is deferred. Delivery through a fork or upstream PR is pending CL’s separate decision; hold at approved-awaiting-merge.
               application:
                 target-stage: done
-                state: pending
+                state: superseded
 review-round:
     id: round:vb7f0c31h72remcb4fypyeqg:validation:1
     stage: validation
