@@ -92,6 +92,22 @@ gates:
                 at: "2026-11-22T02:56:11.448658Z"
                 decision: revise
                 reason: 'CL: send it back. Fix the AC-2 Antigravity assertion (use the registration''s command) and the AC-5 ACP launch-attempt count; remove the daemon-access sentence at docs/plugins.md:497.'
+            - id: gate-attempt:86k2tpskkhrpqw7z4z1rrt9w-validation-4
+              briefing:
+                id: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-4:revision-1
+                digest: sha256:1c1024759e8f58355d2f3ccc0cf82145efd36a00e30dc8a805b2fa81859a6a89
+                room-ref: '@review/validation/briefing-4'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:86k2tpskkhrpqw7z4z1rrt9w:validation:4
+                briefing: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-4:revision-1
+                by: person:captain
+                at: "2026-11-22T03:15:54.907209Z"
+                decision: approve
+                reason: 'CL: approve the wrap validation (cycle 4, 9f9f39ce1).'
+              application:
+                target-stage: done
+                state: pending
 ---
 
 ## Problem

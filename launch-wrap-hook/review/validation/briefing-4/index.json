@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-4:revision-1",
+  "question": "Validation cycle 4 recommends PASSED: approve launch-wrap-hook to done?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-4:revision-1:item-1",
+      "uri": "git-root://state/d6d4a1987e86eb18036f0fe98e91bd9fd54faacf/launch-wrap-hook.md",
+      "rev": "sha256:0448ade5f6e44f913e48996c51328eb192438d8ac93ef5a68a1b347a272c3881",
+      "mediaType": "text/markdown",
+      "summary": "AC-1 to AC-5 pass at 9f9f39ce1 with each break caught, including the two cycle-3 gaps; real PluginService wiring delivers the wrap; lint, format and package typechecks pass."
+    }
+  ]
+}
