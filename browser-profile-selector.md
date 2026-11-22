@@ -314,3 +314,38 @@ The diff against `cba515ef7` is 40 files, 1,934 insertions and 213 deletions, **
 ### Summary
 
 Recommend **REJECTED** on AC-2. The corrected candidate handles the old literal-name collision and slow-first-response case, but two Unicode spellings of the same display name still produce identical toolbar captions for different accounts. The other six criteria passed on Linux.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Review findings 1, 2, 3, 4, 8, 9, 10 and 11 to 15 are fixed with tests; item 5 takes all four suggestions; item 6 renames the text and meets browser-profile-name-normalization AC-1 to AC-3; finding 7 is untouched.
+  Fixes are in `0e3f56f87`, the e2e trim in `8f4d30d42` and docs in `5a0bf1449`. Findings 4, 11, 13 and 14 are layout, removal or docs changes with no unit test of their own. Finding 7's files and behaviour are untouched.
+- FAILED: Every changed unit and browser test file passes on its own with --bail=1; lint, format and typecheck pass; the Electron harness and browser-tabs e2e either pass with confirmed isolation or are reported as not run with the reason.
+  All 8 changed or added unit files pass (61 tests), and root lint, format:check and typecheck pass. `resident-webviews.browser.test.ts` did not run: Playwright's Chromium is not installed, installing it is an unapproved download, and macOS blocks this process from reading /Applications/Google Chrome.app. The Electron harness and e2e were not run (reasons below).
+- DONE: New commits sit on top of 91b914567 with no history rewrite; nothing pushed; the report gives the head, commits and net line counts.
+  Head `5a0bf1449286899f174ef7e1073f37c97cdc5443`: `0e3f56f87` → `8f4d30d42` → `5a0bf1449` on `91b914567`. Nothing pushed.
+
+### What each test proves (claim → test → change that would fail it)
+
+- **Rename keeps the webview (1).** `use-browser-tab-profile.test.tsx` renames the workspace twice on a live tab and asserts the partition never changes or drops to undefined. The pane re-parks only when the partition changes. Putting `workspaceName` back into the partition key fails it (checked).
+- **Pending resolves without the catalog (1).** The same test has no desktop bridge, yet the stored profile becomes the automatic entry. Any dependency on `listProfiles()` would leave it pending. Panes share one `["browser-profiles"]` query, and a catalog error shows Retry without touching the partition.
+- **Explicit unavailable state (8).** The second hook test treats a missing record and an `"invalid"` profile as unavailable with no partition. Dropping either condition fails it. The missing-project case uses `useHasHydratedWorkspaces` and has no test.
+- **Clear browser data (2).** `browser-profile.test.ts` opens a legacy partition only when its directory is listed, with no partition for a modern tab ID. It clears and reloads a live guest whose profile is not on disk. The tab-close legacy path needs the directory too. Opening by renderer ID, or ignoring live sessions, fails it. The renderer no longer sends tab IDs, and `readLegacyPaseoBrowserIds` was removed.
+- **Typed create errors (3).** `browser-profile-catalog.test.ts` asserts `invalid`, `reserved`, `duplicate` and `io` (unreadable catalog). The selector maps each code to its own key in all 9 locales, as do the catalog load and attach failures. Remapping any code fails it.
+- **NFC (6, normalization AC-1 to AC-3).** The catalog test tries both spellings against a stored name and against the workspace names, and accepts Café beside Cafe. `profiles.test.ts` qualifies the automatic label against an equivalent named profile, in both directions. Removing `.normalize("NFC")` fails both files (checked).
+- **retire-pristine (9).** `browser-webviews/index.test.ts` closes a blank guest and finds it unregistered before any `destroyed` event, and keeps in-flight, committed and revisited-blank guests. Removing the synchronous unregister, or the commit tracking, fails it. IPC now rejects a non-string browser ID or a non-positive guest ID.
+- **Agent tabs (10).** `handler.test.ts` (14 tests) passes without the `listProfiles()` await.
+
+### Item 5, item 6 copy and polish
+
+E2E: the slow document now waits on a promise that is released after `browser_new_tab` returns. Clear runs on launch 2, with Work and Customer live and the automatic profile only on disk, so the third launch is gone. The file://, keyboard-navigation and legacy-record checks are gone, as is `toBitmap()` matching. The journey is the last step of the single `main()` boot, and `PASEO_DESKTOP_BROWSER_PROFILES_ONLY=1` still runs it alone. Under the project group the action now reads "Create new project profile…" in every locale. Polish: `profilePartition` is removed (with its preload drift test), `rename-modal.tsx` is reverted, the error row is inline with a `sm` Retry, and the stray test sits inside `describe` with `finally`. The 90 s startup timeout is back, and `launchDesktop()` returns `{ page, status }`. The architecture doc restores the reparenting gotcha and documents the partition grammar and `<userData>/browser-profiles.json`. The journey command moved to `docs/testing.md`.
+
+### Not run, and risks for validation
+
+- **browser-tabs e2e:** the script uses a temp PASEO_HOME and user data and ephemeral ports. But desktop main merges the login shell's environment wholesale (`login-shell-env.ts`, `Object.assign`). From this sandbox I cannot read ~/.zshrc or ~/.zprofile to rule out an exported PASEO_HOME pointing at ~/.paseo.
+- **Capture harness:** `capture-harness/main.js` never sets `userData`, so it writes to Electron's default Application Support directory, not a temp dir. Neither file changed in this cycle.
+- The restructured journey is syntax- and lint-checked only. It now runs after the plugin-links regression, which adds a second host with the same workspace IDs. I scoped the startup row locator to `.first()` for that; other interactions are unverified.
+- The required typecheck (commit hook and root script) runs `typecheck:examples`, which does `npm --prefix plugin-examples/markdown-panel install`.
+
+### Summary
+
+Against `cba515ef7`: 44 files, +2,299 −254, **+2,045 net**. Production +938 (28 files, i18n +126 of it), tests +1,104 (13 files; e2e +443, down from +512), docs +3. Net is 324 above the cycle-2 head because the typed results, locale strings, extracted hook and new tests outweigh the e2e trim. Unit coverage is green. The Chromium browser test, the capture harness and the full-app journey still need a validator run on an isolated machine.
