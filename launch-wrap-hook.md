@@ -63,6 +63,11 @@ gates:
                 at: "2026-11-21T23:56:18.039707Z"
                 decision: revise
                 reason: 'CL rejects validation at 2dc585c14; back to implementation. Material: applyLaunchWrap (packages/plugin/src/server/process.ts:55-59) throws for a Windows .cmd/.bat wrapper or provider command, after refresh has closed the session. Both wrapped paths already spawn through spawnProcess, which handles Windows command scripts through cmd.exe with tested quoting, and the provider command is only an argument to the wrapper. Remove the check; add simulated-win32 tests that a .cmd wrapper takes the shell path with quoted args and that a wrapped refresh with a .cmd provider command does not fail. Docs: no shell except Windows script launchers through cmd.exe like any provider launcher; docs/plugins.md:485 ''before any session harness starts''; add wrap and requiresPlugins to public-docs/plugins/hooks.md and wrap to the lifecycle/index.ts:291 diagnostic list. Deferred: full typecheck to CI; activity sampled before async hooks. Test size accepted.'
+            - id: gate-attempt:86k2tpskkhrpqw7z4z1rrt9w-validation-2
+              briefing:
+                id: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-2:revision-1
+                digest: sha256:177f8b777b18287133b6ac7a6087453c98e41bfd32d85dcca4e9cf27ed6e04b9
+                room-ref: '@review/validation/briefing-2'
 ---
 
 ## Problem

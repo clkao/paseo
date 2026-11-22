@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-2:revision-1",
+  "question": "Validation cycle 2 of launch-wrap-hook at e3fd597ff: approve for delivery?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/860719cb38283970f8f8d88402ab5d9ded1916ea/launch-wrap-hook.md",
+      "rev": "sha256:48dab1e8aa85caf956e04f9923a5001af9cdab2fb94fd3056d70666f9bfa167c",
+      "mediaType": "text/markdown",
+      "summary": "PASSED: Windows script launchers now go through spawnProcess; simulated-win32 refresh with a .cmd provider installs a replacement session; .cmd wrapper takes the shell path with quoted args; 1,129 tests across 16 files pass (4 conditional skips); docs (plugins.md, hooks.md en+zh-CN, diagnostic) checked; the dropped AC-5 .cmd-rejection clause had no dependents. Deferred: full typecheck in CI; activity sampled before async hooks."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-2:revision-1:item-2",
+      "uri": "git-root://state/930b55d9c582579236035f45ccc4deda43f09d80/handoff/launch-wrap/README.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:8fd902da5d6ef41f313b3b58f5385598d8363a28d844f2e74ffac261846f654b"
+    }
+  ]
+}
