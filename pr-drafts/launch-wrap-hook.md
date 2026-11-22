@@ -56,7 +56,20 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
 
 ### Non-goals
 
-- **Other providers.** Claude, Pi, OMP, core ACP, OpenCode and Muse reject an open with a wrap. Each provider gets support in a separate PR, after all of its session paths use the wrap.
+- **Other providers.** Claude, Pi, OMP, core ACP, OpenCode and Muse show `launchWrap: false`. A plugin reads this value and keeps its current launch path for these providers. If a plugin returns a wrap for one of them, the open fails before a process starts.
+
+  A provider can show `launchWrap: true` only when all of its harness launches use the wrap. In this PR, one spawn point covers each of Codex and the ACP command branch. The other providers have more launch paths. Each provider gets a follow-up PR that wraps these paths and tests them:
+
+  | Provider | Launch paths that the follow-up must wrap |
+  |---|---|
+  | Claude | The lazy query start on the first prompt (`providers/claude/query.ts:85`), with the substitution that uses the Node of Paseo |
+  | Pi | The MCP support probe, which starts a second harness (`providers/pi/agent.ts:2897-2929`) |
+  | OMP | The restart after a mode change |
+  | Core ACP | The session spawn, and the terminal commands that the agent requests (`providers/acp-agent.ts:3018-3039`) |
+  | OpenCode | A wrapped open needs a new dedicated server. An open that reuses a shared server or an external server must fail. |
+  | Muse | The launch for each `MuseSession` connection |
+
+  This list comes from a read of the source. Each follow-up PR verifies its own paths.
 - **Processes before the hook and host processes.** The wrap applies to the session harness only. These run without the wrap:
   - draft command discovery
   - the catalog lookup at create when no model is set
