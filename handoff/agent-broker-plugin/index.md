@@ -1,7 +1,7 @@
 ---
 id: pxtsensqs4cvrks95q1regca
 title: "Agents act under a verified identity, and the user grants what they may do (broker plugin)"
-status: ideation  # handoff: not a task of the paseo workflow; to be filed by the plugin's owner project
+status: ideation  # handoff: given to paseo-safehouse on 2026-11-22; not a task of the paseo workflow
 source: CL, 2026-11-19
 started: 2026-11-19
 completed:
@@ -13,6 +13,8 @@ pr:
 mod-block:
 mandate: agent-broker-plugin (ideation prototype)
 ---
+
+**Given to paseo-safehouse on 2026-11-22.** CL decided that the paseo-safehouse project owns the agent broker, in `broker/` of its repository. Its questions come through MetaFO. This project keeps the changes that go upstream, such as the launch wrap (getpaseo/paseo#10480).
 
 ## Problem
 
