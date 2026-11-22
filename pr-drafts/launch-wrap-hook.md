@@ -1,4 +1,4 @@
-Title: feat(plugins): let an open hook wrap the provider's launch command, fail-closed
+Title: feat(plugins): let an open hook wrap the provider launch, fail-closed
 
 Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (e3fd597f, on 2445adec)
 
@@ -6,7 +6,7 @@ Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (e3fd597f, on 244
 
 ### Linked issue
 
-{LINK: a Discussion that shows demand for per-session sandboxing or launch wrapping by plugins. CONTRIBUTING asks for one for a core feature. If none exists, open one first.}
+{LINK: the Discussion that shows demand for per-session sandboxing by plugins.}
 
 ### Type of change
 
@@ -18,91 +18,89 @@ Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (e3fd597f, on 244
 
 ### Reasoning
 
-A sandbox or container plugin needs to start each agent session through its own launcher. One example is a plugin that runs sessions under macOS Seatbelt.
+This PR adds one extension point. It does not add a sandbox to core.
 
-Today the only ways to do that are the following, and neither is per session:
-- a derived provider (`extends` with a replaced `command`), which works only for built-in providers;
-- a `command` override on the provider's own ID, which applies to every session and has to repeat the provider's full invocation.
+A sandbox plugin or a container plugin must start each agent session with its own launcher. Today a plugin can do this only in two ways:
+- A derived provider (`extends` with a new `command`). This works only for built-in providers.
+- A `command` override on the provider ID. This applies to all sessions of that provider. The override must also repeat the full invocation of the provider.
 
-This PR lets an `agent.open.before` hook return a launch prefix, `wrap: [executable, ...args]`. Paseo then runs that session's harness as `[...wrap, command, ...args]`.
+Neither way is a choice for one session. So each sandbox plugin keeps a copy of each provider that it wraps.
 
-It fails closed in the same way that injected MCP servers already fail on a provider without MCP support:
-- a provider that has not implemented the prefix rejects a wrapped open before it starts any process;
-- an older host rejects the unknown `wrap` key, because the hook result schema is strict.
+With this PR, an `agent.open.before` hook can return `wrap: [executable, ...args]`. Paseo then starts the session harness as `[...wrap, command, ...args]`. One plugin can wrap all providers that support the wrap. The plugin does not need a copy of each provider.
+
+The hook fails closed. Injected MCP servers already use this rule on a provider without MCP support. A provider that does not support the wrap rejects the open before it starts a process. An older host rejects the unknown `wrap` key, because the hook result schema is strict.
 
 ### Goals
 
-- **`wrap` on the `agent.open.before` result.**
-  - The executable is an absolute path on the daemon host, followed by literal args.
-  - It is launch-only: it is never stored in the agent's config.
-  - One selection per open. A later hook that omits `wrap` keeps it, an identical value passes, and a different value fails the open, within one plugin and across plugins.
-  - It applies to interactive and history opens.
-- **Support is visible before the first open.** `launchWrap` on each provider-list entry is declared statically: core providers opt in, and plugin providers set `ProviderRegistration.launchWrap`. A fresh daemon's first `agent.create.before` already sees it, with no provider connection.
-- **Admission before any spawn.**
-  - Core providers are default-deny.
-  - Plugin providers need the `session.launch_wrap` connection capability.
-  - An unsupported provider fails with `launch_wrap_unsupported` before create, resume or import, and before a refresh closes the current session.
-  - A missing launcher is never retried without the prefix.
-- **Two providers implement it:**
-  - the Plugin SDK's command-based ACP providers (`runAcpProvider`, command branch: Antigravity, Goose, Fx, Hoplite);
-  - Codex (`prepareAppServerSpawn`: create, resume, history, reconnect, import).
-- **Separate commit, `requiresPlugins`.** An `agent.create.before` hook may add its own plugin ID. The agent then refuses to open while any listed plugin is inactive (`required_plugin_inactive`). This keeps a sandbox fail-closed if its plugin exits.
-- **Windows.** Script launchers (`.cmd`/`.bat`) start through `spawnProcess` and its `cmd.exe` quoting, like any provider launcher.
+- **The hook result.** `agent.open.before` can return `wrap`.
+  - The first element is an absolute path on the daemon host. The other elements are literal arguments.
+  - Paseo uses the wrap for the launch only. Paseo does not store it in the agent configuration.
+  - One wrap applies to one open. A later hook can keep it or repeat it. A different wrap fails the open.
+  - The wrap applies to interactive opens and to history opens.
+- **Support is visible before the first open.** Each provider in the provider list has an optional `launchWrap` field.
+  - Core providers set it in the registry.
+  - Plugin providers set it in `ProviderRegistration.launchWrap`.
+  - A plugin can read it in `agent.create.before`, before the first connection to the provider.
+- **Admission before any process starts.**
+  - An open with a wrap for a provider without support fails with `launch_wrap_unsupported`.
+  - This check occurs before create, resume and import. It also occurs before a refresh closes the current session.
+  - Paseo does not start the harness without the wrap after a launcher failure.
+- **Providers in this PR.**
+  - The command-based ACP providers of the Plugin SDK (`runAcpProvider`): Antigravity, Goose, Fx and Hoplite.
+  - Codex (`prepareAppServerSpawn`).
+- **`requiresPlugins`, in a separate commit.**
+  - An `agent.create.before` hook can add its own plugin ID to the agent.
+  - The agent does not open while a plugin in that list is inactive. The error is `required_plugin_inactive`.
+  - Without this rule, a sandbox becomes fail-open when its plugin stops.
+- **Windows.** A `.cmd` or `.bat` launcher starts through `spawnProcess` and its `cmd.exe` quoting, as for each provider launcher.
 
 ### Non-goals
 
-- **Other providers** (Claude, Pi, OMP, core ACP, OpenCode, Muse). Each one rejects a wrapped open until a follow-up PR covers all of its session paths.
-- **The `runAcpProvider` connector branch,** which starts no process.
-- **Work before the hook.** Draft command and control discovery, and the catalog lookup at create with no model set, still start unwrapped. This is a known follow-up.
-- **Host-side probes,** version commands and diagnostics.
-- **Paseo's host terminal tools.** A sandbox plugin must also keep sandboxed agents away from the daemon.
-- **A user-facing "open without the required plugin" action.**
-- **A plugin being removed while an open is already in flight.**
+- **Other providers.** Claude, Pi, OMP, core ACP, OpenCode and Muse reject an open with a wrap. Each provider gets support in a separate PR, after all of its session paths use the wrap.
+- **Processes before the hook and host processes.** The wrap applies to the session harness only. These run without the wrap:
+  - draft command discovery;
+  - the catalog lookup at create when no model is set;
+  - availability probes and version commands.
+- **Requests to the daemon.** Work that the agent asks the daemon to do, for example a host terminal or a new agent, runs as the daemon. The wrap does not apply to it.
+- **A release action for `requiresPlugins`.** To open the agent again, the user enables the plugin again.
 
 ### QA
 
-Each test file ran on its own from its package directory, as `vitest run <file> --bail=1`, on macOS with inherited `PASEO_*` variables cleared and an isolated test home. An independent validation then reran all of them at `e3fd597f`. For each criterion it made one deliberate break, which the tests caught, and then reverted it. Result: 1,129 passing tests across 16 files, plus 4 conditional skips (controls-only cases in `plugin-provider.test.ts`). [Validation report](https://github.com/clkao/paseo/blob/c31b2b8b435c59b5067e9108e3015d9ae3e694bf/launch-wrap-hook.md#stage-report-validation-cycle-2)
+Each test file ran separately on macOS, with `vitest run <file> --bail=1`. A second agent did an independent validation at `e3fd597f`. For each acceptance criterion, it changed the code to break the behavior, saw the test fail, and restored the code.
 
-| Check | What it shows |
+Result: 1,129 tests passed in 16 files. Four tests are conditional skips. [Commands and output for each file](https://github.com/clkao/paseo/blob/c31b2b8b435c59b5067e9108e3015d9ae3e694bf/launch-wrap-hook.md#stage-report-validation-cycle-2)
+
+| Behavior | Test files |
 |---|---|
-| **Old hosts fail closed:** `lifecycle/handlers.test.ts` | The test that a hook returns `wrap`, run against unmodified `2445adec`, fails with `unrecognized_keys ["wrap"]`. On this branch it passes. |
-| **Cold daemon:** `agent-configuration.e2e.test.ts`, `index.posix.test.ts`, `provider-snapshot-manager.test.ts` | A never-connected plugin provider reports `launchWrap: true` to the first create hook, with zero connections. |
-| **ACP argv:** `acp.test.ts` | Argv is `[...wrap, command, ...args]`, and arguments containing spaces stay single argv elements. Two opens on one connection give one wrapped launch and one bare launch, both with `shell: false`. |
-| **Antigravity:** `plugins/antigravity-provider/server/provider.test.ts` | The wrapped argv ends with `agy acp --disable-telemetry` and carries the final hook env. |
-| **One wrap per open:** `handlers.test.ts`, `runtime.posix.test.ts` | Across handlers and across plugins: an omitted `wrap` is kept, an equal one passes, a different one is rejected. |
-| **History and Codex:** `codex-app-server-agent.test.ts` | Interactive and archived-history resume both spawn through the wrap. |
-| **Admission:** `agent-manager.test.ts`, `plugin-provider.test.ts`, `provider-registry.test.ts` | Create, resume, import and refresh reject unsupported wrapping with no provider call. Refresh keeps its session, and tools detach. A missing capability sends no `session.open`. |
-| **Missing launcher:** `acp.test.ts`, `codex-app-server-agent.spawn-error.test.ts` | The open fails, and there is no bare retry. |
-| **Windows:** `process.test.ts`, `codex-app-server-agent.test.ts` | A `.cmd` wrapper takes the `cmd.exe` path with quoted args. A wrapped refresh with a `.cmd` provider command installs a replacement session. Both run on simulated `win32`. |
-| **`requiresPlugins`:** `runtime.posix.test.ts`, `agent-manager.test.ts`, `agent-storage.test.ts` | Two plugins add their own IDs, and a foreign ID is rejected. Either plugin inactive blocks resume and refresh before any provider call. A legacy record loads. |
+| A host without this change rejects a hook result with `wrap` (`unrecognized_keys ["wrap"]` on `2445adec`). | `plugins/lifecycle/handlers.test.ts` |
+| A provider that never connected shows `launchWrap: true` to the first `agent.create.before`. | `plugins/agent-configuration.e2e.test.ts`, `plugins/index.posix.test.ts`, `agent/provider-snapshot-manager.test.ts` |
+| ACP starts `[...wrap, command, ...args]` without a shell. An argument with spaces stays one argument. Two opens on one connection, with one wrap, start one wrapped and one bare harness. | `packages/plugin/src/server/acp.test.ts` |
+| Antigravity starts `[...wrap, agy, acp, --disable-telemetry]` with the final hook environment. | `plugins/antigravity-provider/server/provider.test.ts` |
+| A later hook keeps or repeats a wrap. A different wrap fails the open, in one plugin and across two plugins. | `plugins/lifecycle/handlers.test.ts`, `plugins/runtime.posix.test.ts` |
+| Codex interactive resume and archived history resume start through the wrap. | `agent/providers/codex-app-server-agent.test.ts` |
+| A provider without support fails create, resume, import and refresh before a provider call. Refresh keeps the current session. | `agent/agent-manager.test.ts`, `agent/plugin-provider.test.ts`, `agent/provider-registry.test.ts` |
+| A missing launcher fails the open, with no start of the bare harness. | `packages/plugin/src/server/acp.test.ts`, `agent/providers/codex-app-server-agent.spawn-error.test.ts` |
+| On simulated `win32`, a `.cmd` wrap starts through `cmd.exe` with quoted arguments. A refresh with a `.cmd` provider command starts a new session. | `packages/plugin/src/server/process.test.ts`, `agent/providers/codex-app-server-agent.test.ts` |
+| Two plugins each add their own ID. A plugin cannot add a different ID. One inactive plugin stops the open. An old agent record without the field loads. | `plugins/runtime.posix.test.ts`, `agent/agent-manager.test.ts`, `agent/agent-storage.test.ts` |
 
-`npm run lint` and `npm run format` pass. `typecheck` passes for protocol, plugin, server and CLI. **The full root typecheck (app, desktop, website, plugin examples) was not run locally, for disk reasons. Please rely on CI for it.**
-
-Platforms. This change is daemon-side and in the Plugin SDK. It has no UI.
+`npm run lint` and `npm run format` pass. `npm run typecheck` passes for protocol, plugin, server and CLI. I did not run the full root typecheck (app, desktop, website, plugin examples), because the disk did not have space. CI must run it.
 
 | Platform | Tested | Notes |
 |---|---|---|
-| iOS / Android / Web | n/a | No client change. The protocol gains only an optional `launchWrap` field on provider-list entries. |
-| Desktop macOS | yes | Unit and e2e tests on macOS. |
-| Desktop Windows | simulated | `win32` behavior covered by tests. No real Windows run. |
+| iOS, Android, Web | n/a | No client change. The provider list gets one optional field. |
+| Desktop macOS | yes | Unit and e2e tests. |
+| Desktop Windows | simulated | Tests set `win32`. I did not run it on Windows. |
 | Desktop Linux | no | Not run. |
 
 **Compatibility.**
-- `ProviderSnapshotEntry` gains an optional `launchWrap?: boolean`. Old apps keep parsing new daemons.
-- Hook results stay strict, so a plugin that returns `wrap` against an older host gets a failed open, not a silent unwrapped session.
-
-**Size.** There are three commits:
-- launch wrap: 34 files, +1,137/−15;
-- `requiresPlugins`: 13 files, +283/−30;
-- the Windows launcher fix: 9 files, +239/−111.
-
-Production code is 154 lines in commit 1 and 96 lines in commit 2, before the Windows fix. Most of the rest is tests and fixture launchers.
+- An old app reads the provider list of a new daemon, because `launchWrap` is optional.
+- A plugin that returns `wrap` to an old host gets a failed open, not a session without the wrap.
 
 ### Checklist
 
 - [x] Plugin changes follow the SDK import boundaries
-- [x] One focused change (`requiresPlugins` is a separate commit and can be split into its own PR on request)
-- [ ] `npm run typecheck` passes (protocol, plugin, server and CLI only; the full run is left to CI)
+- [x] One focused change (`requiresPlugins` is a separate commit. I can move it to its own PR.)
+- [ ] `npm run typecheck` passes (protocol, plugin, server and CLI only. CI runs the rest.)
 - [x] `npm run lint` passes
 - [x] `npm run format` passes
 - [x] QA evidence
