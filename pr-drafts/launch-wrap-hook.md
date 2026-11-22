@@ -1,6 +1,6 @@
 Title: feat(plugins): let an open hook wrap the provider launch, fail-closed
 
-Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (30a6f4e6, on 2445adec)
+Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (9f9f39ce, on 2445adec)
 
 ---
 
@@ -75,23 +75,23 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
 
 ### QA
 
-Each test file ran separately on macOS, with `vitest run <file> --bail=1`. A second agent did an independent validation at `e3fd597f`. For each acceptance criterion, it changed the code to break the behavior, saw the test fail, and restored the code.
+Each test file ran separately on macOS, with `vitest run <file> --bail=1`. A second agent did an independent validation at `9f9f39ce`. For each acceptance criterion, it changed the code to break the behavior, saw the test fail, and restored the code.
 
-Result: 1,129 tests passed in 16 files. Four tests are conditional skips. [Commands and output for each file](https://github.com/clkao/paseo/blob/c31b2b8b435c59b5067e9108e3015d9ae3e694bf/launch-wrap-hook.md#stage-report-validation-cycle-2)
+Result: 1,209 tests passed in 16 files. Four tests are conditional skips. The validator also installed a directory plugin on a real daemon, and a real child process received the wrapped launch. [Commands and output for each file](https://github.com/clkao/paseo/blob/7b06de28d99abacc12c9b1eb0ac095cca5cd1cca/launch-wrap-hook.md#stage-report-validation-cycle-4)
 
 | Behavior | Test files |
 |---|---|
 | A host without this change rejects a hook result with `wrap` (`unrecognized_keys ["wrap"]` on `2445adec`). | `plugins/lifecycle/handlers.test.ts` |
 | A provider that never connected shows `launchWrap: true` to the first `agent.create.before`. | `plugins/agent-configuration.e2e.test.ts`, `plugins/index.posix.test.ts`, `agent/provider-snapshot-manager.test.ts` |
 | ACP starts `[...wrap, command, ...args]` without a shell. An argument with spaces stays one argument. Two opens on one connection, with one wrap, start one wrapped and one bare harness. | `packages/plugin/src/server/acp.test.ts` |
-| Antigravity starts `[...wrap, agy, acp, --disable-telemetry]` with the final hook environment. | `plugins/antigravity-provider/server/provider.test.ts` |
+| Antigravity starts `[...wrap, agy, acp, --disable-telemetry]`, from its own registration, with the final hook environment. | `plugins/antigravity-provider/server/provider.test.ts` |
 | A later hook keeps or repeats a wrap. A different wrap fails the open, in one plugin and across two plugins. | `plugins/lifecycle/handlers.test.ts`, `plugins/runtime.posix.test.ts` |
 | Codex interactive resume and archived history resume start through the wrap. | `agent/providers/codex-app-server-agent.test.ts` |
 | A provider without support fails create, resume, import and refresh before a provider call. Refresh keeps the current session. | `agent/agent-manager.test.ts`, `agent/plugin-provider.test.ts`, `agent/provider-registry.test.ts` |
-| A missing launcher fails the open, with no start of the bare harness. | `packages/plugin/src/server/acp.test.ts`, `agent/providers/codex-app-server-agent.spawn-error.test.ts` |
+| A missing launcher fails the open after one launch attempt, with no start of the bare harness. | `packages/plugin/src/server/acp.test.ts`, `agent/providers/codex-app-server-agent.spawn-error.test.ts` |
 | With the platform `win32`, a `.cmd` wrap resolves to `cmd.exe` with quoted arguments. A wrapped refresh with a `.cmd` provider command starts a new session through the real `spawnProcess`. | `packages/plugin/src/server/process.test.ts`, `agent/agent-manager.test.ts` |
 
-`npm run lint` and `npm run format` pass. `npm run typecheck` passes for protocol, plugin, server and CLI. I did not run the full root typecheck (app, desktop, website, plugin examples), because the disk did not have space. CI must run it.
+`npm run lint` and `npm run format` pass. The typecheck passes for protocol, plugin, server and CLI. I did not run the full root typecheck (app, desktop, website). The plugin examples typecheck fails in my checkout because `@tanstack/react-query` is not installed, and it fails in the same way on `2445adec`. CI must run these.
 
 | Platform | Tested | Notes |
 |---|---|---|
