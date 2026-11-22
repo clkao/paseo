@@ -103,7 +103,7 @@ A sandbox plugin picks the provider in `agent.create.before`, so it must know th
 
 **Hook result (`agent.open.before`)**
 
-- The result may carry `wrap?: readonly [executable: string, ...args: string[]]`. The daemon accepts it only when `executable` is an absolute path. The provider spawns `[...wrap, <provider command>, ...<provider args>]` as a direct argv exec with `shell: false` and the final merged hook env. Each element stays one argv element, so an argument with spaces is passed whole.
+- The result may carry `wrap?: readonly [executable: string, ...args: string[]]`. The daemon accepts it only when `executable` is an absolute path. The provider spawns `[...wrap, <provider command>, ...<provider args>]` through `spawnProcess` with the final merged hook env: no shell, except Windows script launchers, which go through cmd.exe like any provider launcher, with each argument quoted. Each element stays one argv element, so an argument with spaces is passed whole. The provider command is only an argument to the wrapper.
 - One selection per open. `validateBeforeResult` applies the rule, so it holds for both merges, which both go through that function: hooks inside one plugin (`PluginHookHandlers.openSession`) and hooks across plugins (`PluginRuntime.before`).
   - A later result with no `wrap` keeps the earlier one.
   - A deep-equal `wrap` passes.
@@ -117,7 +117,6 @@ The default is deny. `buildLaunchContext` is the single admission point: all fou
 
 - For a core provider it requires `client.supportsLaunchWrap === true`.
 - For a plugin provider it requires the registration's declaration and the capability `session.launch_wrap` on the live connection. The daemon connects to learn this; it does not treat a provider that has not connected yet as unsupported.
-- On Windows it rejects a wrap when the wrap executable or the provider command needs a shell to start (a command script).
 - On rejection it detaches plugin tools and throws `LaunchWrapUnsupportedError`. A wrap returned for an unsupported provider always rejects; there is no "wrap if possible".
 
 The wrap crosses to the plugin as `ProviderSessionConfig.wrap`, and `requiredProviderCapabilities` adds `session.launch_wrap` for a `session.open` that has one. The two existing capability gates then reject an unsupported wrapped open as a second line: the daemon adapter (`plugin-provider.ts:299`) and the process boundary (`runtime.ts:1490`).
@@ -133,16 +132,7 @@ A plugin session can reopen its provider session without running hooks (`plugin-
 **Errors**
 
 - `LaunchWrapUnsupportedError`, `code: "launch_wrap_unsupported"`, with `provider`. It follows `ToolPolicyUnsupportedError` (`provider-options.ts:25`).
-- `RequiredPluginInactiveError`, `code: "required_plugin_inactive"`, with `pluginIds`.
-- These are daemon-side typed errors. Nothing requires the code to be readable through `paseo.agents`; a plugin learns support from the provider snapshot.
-
-**Separate commit: `requiresPlugins`**
-
-- An `agent.create.before` result may carry `requiresPlugins?: string[]`.
-- `PluginRuntime.before` compares what each plugin received with what it returned. The plugin may add its own id and nothing else. It may not remove an id. The merged value is the union, so two policy plugins each add themselves and neither conflicts with the other.
-- The list is saved on the agent record as an optional field and held on the managed agent. Nothing releases it in this version.
-- `buildLaunchContext` checks it before the hooks run, for every reason and purpose. A plugin counts as active when it is loaded, its server process is running, and it has an `agent.open.before` hook registered. If any listed plugin is inactive, the open throws `RequiredPluginInactiveError` naming the inactive ones.
-- `PluginLifecycle` gains one query for that check.
+- It is a daemon-side typed error. Nothing requires the code to be readable through `paseo.agents`; a plugin learns support from the provider snapshot.
 
 ### Protocol compatibility
 
@@ -163,13 +153,12 @@ The guarantee: once an open selects a wrapper, a supported provider runs that se
 1. It covers the harness process only. Paseo's host terminal tools (`create_terminal`, `send_terminal_keys`) run outside the wrapper, so the guarantee requires Safehouse daemon access to be Off. With it on, the agent can reach those tools.
 2. Work before the open hook is not wrapped: draft command and control discovery (`agent-manager.ts:1349`, `:1390`), and the catalog lookup during create when no model is set (`agent-manager.ts:1607-1617`, through `resolveDefaultModelId` at `:6251-6257`). These are the scope of the follow-up task **launch-wrap-discovery-coverage**.
 3. Host-side operations are not wrapped: availability and capability probes, catalog and session listing, version and update commands, usage queries, and Codex native archive and unarchive.
-4. On Windows, a prefix that needs a shell is rejected in this version.
-5. Plugin loss is covered by `requiresPlugins`, not by `wrap`.
+4. Losing the plugin that chose the wrap is not covered: a later open without it runs unwrapped. Task **plugin-required-active** addresses it.
 
 ### Mechanisms confirmed against upstream
 
 1. **Hook path.** `buildLaunchContext` builds the request and calls `pluginLifecycle.before("agent.open.before")` (`agent-manager.ts:6341-6378`). `PluginRuntime.before` runs plugins in id order (`localeCompare`, `runtime.ts:760`) and feeds each validated result to the next (`runtime.ts:771-777`). Within a plugin, `PluginHookHandlers.openSession` does the same per handler (`plugins/lifecycle/index.ts:388-417`). `paseo-safehouse` sorts before `zerosub`.
-2. **Old hosts fail closed already.** The `agent.open.before` schema is `.strict()` (`plugins/lifecycle/index.ts:102-121`) and validates each result both in the plugin process, which runs host code (`plugin-process.ts:115`), and in the daemon. An old host rejects a result with an unknown `wrap` key and the open fails. This is from reading; the checkout has no `node_modules`, so AC-1 proves it by test. The `agent.create.before` schema is strict as well (`:97-101`), so `requiresPlugins` has the same property.
+2. **Old hosts fail closed already.** The `agent.open.before` schema is `.strict()` (`plugins/lifecycle/index.ts:102-121`) and validates each result both in the plugin process, which runs host code (`plugin-process.ts:115`), and in the daemon. An old host rejects a result with an unknown `wrap` key and the open fails. This is from reading; the checkout has no `node_modules`, so AC-1 proves it by test.
 3. **Manager opens.** Create (`agent-manager.ts:1617`), resume (`:1752`), import (`:1828`) and refresh (`:1937`) each call `buildLaunchContext` before the provider call. Refresh calls it before `closeReloadedSession` (`:1966`) and outside the `try`, so a rejection leaves the running session in place.
 4. **`runAcpProvider` command branch.** Each session spawns its own process: `openSession` calls `AcpRuntime.start` with `input.config.env` (`acp-internal/connection.ts:321-335`), and the command branch spawns `launch.command` with `{...launch.env, ...options.env}` (`:486-498`). Two concurrent opens on one connection are independent spawns. Antigravity registers `["agy", "acp", "--disable-telemetry"]` (`plugins/antigravity-provider/server/provider.ts:95`).
 5. **Codex.** `prepareAppServerSpawn` (`codex-app-server-agent.ts:8201-8234`) returns a spawn closure. `createSession` (`:8268`) and `resumeSession` (`:8305`) hand it to the session, which uses it for interactive start (`:3996`) and archived history reads (`:4392`). Reconnect reuses the closure. `importSession` delegates to `resumeSession` with the launch context (`:8389`, `provider-session-import.ts:35`). The startup coordinator retries only a SQLite initialization exit, through the same closure (`codex/app-server-startup.ts:100-118`), so a retry is never bare.
@@ -184,7 +173,7 @@ The guarantee: once an open selects a wrapper, a supported provider runs that se
 
 ### Expected surface
 
-Commit 1, launch wrap. About 215 production lines and 420 test lines, ±30%. No new dependency.
+One change, launch wrap. About 215 production lines and 420 test lines, ±30%. No new dependency. The prepend stays inside the ACP shim and Codex; `@getpaseo/plugin/server` exports nothing new.
 
 | File | Change | Lines |
 | --- | --- | --- |
@@ -193,28 +182,17 @@ Commit 1, launch wrap. About 215 production lines and 420 test lines, ±30%. No 
 | `packages/plugin/src/server/provider.ts` | `ProviderRegistration.launchWrap`, `session.launch_wrap`, `ProviderSessionConfig.wrap`, schema, required capability | 18 |
 | `packages/plugin/src/server/acp.ts` | declare `launchWrap` for the command branch | 2 |
 | `packages/plugin/src/server/acp-internal/connection.ts` | advertise in the command branch, prepend at spawn | 20 |
+| `packages/plugin/src/server/process.ts`, `process-internal/windows-command.ts` | `resolveSpawnInvocation` with an explicit platform, the seam for the Windows launcher test | 20 |
 | `packages/server/src/server/plugins/plugin-process-protocol.ts`, `plugin-process.ts`, `index.ts` | carry `launchWrap` in registration metadata | 4 |
 | `packages/server/src/server/plugins/lifecycle/index.ts` | schema, selection rule, absolute path | 30 |
 | `packages/server/src/server/agent/agent-sdk-types.ts` | `AgentLaunchContext.wrap`, `AgentClient.supportsLaunchWrap`, snapshot entry field | 10 |
 | `packages/server/src/server/agent/provider-registry.ts` | contract field, definition field, stamp on the client | 12 |
 | `packages/server/src/server/agent/provider-snapshot-manager.ts` | copy the field into the initial entry | 1 |
-| `packages/server/src/server/agent/agent-manager.ts` | admission, Windows shell rejection, detach on failure | 40 |
+| `packages/server/src/server/agent/agent-manager.ts` | admission, detach on failure | 30 |
 | `packages/server/src/server/agent/plugin-provider.ts` | definition field, live capability check, map the wrap into the session config | 20 |
 | `packages/server/src/server/agent/providers/codex-app-server-agent.ts` | prepend in `prepareAppServerSpawn` | 12 |
 | `packages/server/src/server/agent/provider-options.ts` | `LaunchWrapUnsupportedError` | 14 |
 | `docs/plugins.md` | the `wrap` contract, the provider property and the limits, in the section that owns `agent.open.before` | 28 |
-
-Commit 2, `requiresPlugins`. About 105 production lines and 190 test lines, ±30%.
-
-| File | Change | Lines |
-| --- | --- | --- |
-| `packages/plugin/src/server/lifecycle.ts` | `requiresPlugins` on the create request and result | 4 |
-| `packages/server/src/server/plugins/lifecycle/index.ts` | array schema, `PluginLifecycle` query | 12 |
-| `packages/server/src/server/plugins/runtime.ts` | own-id append check, union, active query | 28 |
-| `packages/server/src/server/agent/agent-storage.ts` | optional record field | 2 |
-| `packages/server/src/server/agent/agent-manager.ts` | carry on create, persist, check every listed plugin on every open | 34 |
-| `packages/server/src/server/agent/provider-options.ts` | `RequiredPluginInactiveError` | 13 |
-| `docs/plugins.md`, `docs/data-model.md` | the field and its rule | 12 |
 
 Platforms: daemon, plus one optional field in `packages/protocol`. The Plugin SDK types change. The app, CLI, relay and desktop need no change.
 
@@ -248,12 +226,6 @@ Verified by:
 - `packages/server/src/server/agent/plugin-provider.test.ts`: a registration that declares `launchWrap` but whose connection lacks `session.launch_wrap` rejects a wrapped open and receives no `session.open`; a `runAcpProvider({ connector })` connection does not list the capability; a session reopen sends the original wrap.
 - `acp.test.ts` and `packages/server/src/server/agent/providers/codex-app-server-agent.spawn-error.test.ts`: with a wrap whose executable does not exist, the open rejects, the spawn count is one, and no spawn uses the bare provider command.
 
-**AC-6. An agent does not open while any plugin it requires is inactive.**
-Verified by:
-- `packages/server/src/server/plugins/runtime.posix.test.ts`: two plugins each add their own id in `agent.create.before` and the merged `requiresPlugins` holds both; a plugin that adds another plugin's id fails the create; a plugin that removes an id fails the create.
-- `packages/server/src/server/agent/agent-manager.test.ts`: an agent requires two plugins. With both active it opens. With either one reported inactive, resume and refresh reject with `code === "required_plugin_inactive"` before the client is called, and the error names that plugin. The second case fails if the check tests only the first id.
-- `packages/server/src/server/agent/agent-storage.test.ts` round-trips the list and loads a record without it.
-
 ## References
 
 The contract was agreed between the spacedock-v1 first officer (`846d9a2c`) and the paseo-safehouse manager (`7d469e54`). Its source documents live in the paseo-safehouse project and are not readable from this project:
@@ -276,21 +248,22 @@ Run each file alone, from its package, with `npx vitest run <file> --bail=1`. Do
 | `packages/server/src/server/agent/provider-snapshot-manager.test.ts` | AC-1 |
 | `packages/server/src/server/agent/provider-registry.test.ts` | AC-1 |
 | `packages/server/src/server/plugins/lifecycle/handlers.test.ts` | AC-1, AC-3, AC-4 |
-| `packages/server/src/server/plugins/runtime.posix.test.ts` | AC-3, AC-6 |
+| `packages/server/src/server/plugins/runtime.posix.test.ts` | AC-3 |
 | `packages/plugin/src/server/acp.test.ts` | AC-2, AC-5 |
 | `packages/plugin/src/server/provider.test.ts` | `session.launch_wrap` is required for a `session.open` with a wrap |
 | `plugins/antigravity-provider/server/provider.test.ts` | AC-2 |
-| `packages/server/src/server/agent/agent-manager.test.ts` | AC-5, AC-6 |
+| `packages/server/src/server/agent/agent-manager.test.ts` | AC-5; a wrapped refresh with a Windows script provider command spawns through the real `spawnProcess` |
 | `packages/server/src/server/agent/plugin-provider.test.ts` | AC-5 |
 | `packages/server/src/server/agent/providers/codex-app-server-agent.test.ts` | AC-4 |
 | `packages/server/src/server/agent/providers/codex-app-server-agent.spawn-error.test.ts` | AC-5 |
-| `packages/server/src/server/agent/agent-storage.test.ts` | AC-6 |
+| `packages/plugin/src/server/process.test.ts` | a Windows script wrapper resolves to cmd.exe with each argument quoted, through an injected platform |
+| `packages/plugin/src/boundaries.test.ts` | the `@getpaseo/plugin/server` surface is unchanged |
 
-Order of work: write the AC-1 strict-schema test first and run it on unmodified upstream main to record the old-host failure. Then the provider property through to the snapshot, the hook schema and selection rule, the manager admission, the ACP branch, Codex, and last the `requiresPlugins` commit.
+Order of work: write the AC-1 strict-schema test first and run it on unmodified upstream main to record the old-host failure. Then the provider property through to the snapshot, the hook schema and selection rule, the manager admission, the ACP branch, and Codex.
 
 After each change run `npm run typecheck` and `npm run lint`. Run `npm run build:client` after the protocol change and `npm run build:server` when a server typecheck reports a stale `@getpaseo/plugin` declaration. Run `npm run format` before each commit. The full suites run in CI on the pull request.
 
-Tests use fixture launcher scripts and the existing Codex `appServerProcess` port. They need no real provider CLI and no sandbox tool.
+Tests use fixture launcher scripts run as Node through `process.execPath`, and the existing Codex `appServerProcess` port. They need no real provider CLI and no sandbox tool, and use no `vi.mock` or patched `process.platform`.
 
 ### Feedback Cycles
 
@@ -303,7 +276,7 @@ Tests use fixture launcher scripts and the existing Codex `appServerProcess` por
 - Wrapping for providers other than ACP command-based and Codex. Each gets its own follow-up pull request.
 - The `runAcpProvider` connector branch.
 - Draft command and control discovery and the create-time catalog lookup. They belong to the follow-up task launch-wrap-discovery-coverage.
-- A way to release `requiresPlugins` from an agent.
+- `requiresPlugins`, which moved to task plugin-required-active.
 - Safehouse's own changes that adopt `wrap`. Those belong to the paseo-safehouse project.
 
 ## Stage Report: ideation
@@ -459,3 +432,29 @@ From each package directory, the command was `<worktree>/node_modules/.bin/vites
 ### Summary
 
 The cycle-1 Windows refresh regression is resolved at `e3fd597ff`. The task worktree is clean at that commit. Native Windows execution was outside the simulated checks, and the full repository typecheck remains deferred to CI.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: task/launch-wrap-hook carries only launch wrap (with the Windows launcher handling) on 2445adec: no requiresPlugins code, tests or docs; task/plugin-required-active is untouched.
+  Rebuilt with `git rebase --onto 14238df28 2dc585c14`. The one conflict, in `agent-manager.test.ts`, dropped the old win32 rejection test, the requiresPlugins test and the monkey-patched refresh test. The replayed Windows commit also dropped the requiresPlugins sections from `hooks.md` and its zh-CN pair, with the message reworded. Head `30a6f4e6c`: `14238df28` launch wrap, `a503685dc` Windows launchers (was e3fd597ff), `30a6f4e6c` review fixes. `git diff 2445adec` adds no `requiresPlugins`, `isPluginActive`, `applyLaunchWrap`, `vi.mock`, `chmod` or `#!`, and `docs/data-model.md` matches upstream. `task/plugin-required-active` is still `2dc585c14`; nothing pushed.
+- DONE: Review findings 2, 3, 4, 9, 11, 12 and 13 are fixed; boundaries.test.ts passes unchanged; every changed test file passes on its own with --bail=1; lint, format and the protocol/plugin/server/CLI typecheck pass.
+  - 2: the prepend is inlined in `acp-internal/connection.ts` and `prepareAppServerSpawn`; `@getpaseo/plugin/server` `index.ts` matches upstream, and `boundaries.test.ts` passes 106/106 unchanged.
+  - 3: the ACP and Antigravity wrap fixtures run as `[process.execPath, script, …]`, with no shebang or chmod. Antigravity reuses `launchAgent`, and the recorded argv ends `acp --disable-telemetry`.
+  - 4: `spawnProcess` and `execCommand` share an internal `resolveSpawnInvocation(command, args, shell, platform)`, and the Windows quoting helpers take a platform with a `process.platform` default. Behavior is unchanged: windows-command 15/15 and the spawn regression tests pass.
+    - `process.test.ts` asserts that a `.cmd` wrapper with `"work profile"` resolves to `shell: true`, a quoted command and one quoted argument on `win32`, and to a direct exec on linux.
+    - `agent-manager.test.ts` refreshes a real `CodexAppServerAgentClient` whose provider command is `C:\codex\codex.cmd`, through the production `spawnProcess`. The wrap `[process.execPath, recording-app-server.cjs, log]` records each launch and then answers as the app server. Create and refresh each record `["C:\codex\codex.cmd", "app-server", …]`, and the agent is not in error. No mocks, no patched globals.
+  - 9: `sessionConfigSchema.wrap` requires a non-empty executable; handlers covers the empty and relative cases.
+  - 11: `wrapClientProvider` sets `supportsLaunchWrap` in its returned literal, and `PluginAgentClient` sets it from the registration (tested).
+  - 12: the duplicate connector test in `plugin-provider.test.ts` is gone (the case stays in `acp.test.ts`); handlers uses an `invokeOpen` helper and `test.each`.
+  - 13: the summaries in `docs/plugins.md`, `hooks.md` and `hooks.zh-CN.md` name the launch wrap, and "Contribute a provider" points to `ProviderRegistration.launchWrap`. The other two doc gaps were in requiresPlugins text, which has gone. The hook-doc pair has 33/33 matching headings.
+  - Runs, one file at a time with `--bail=1`, all green across 19 files, e.g. boundaries 106, acp 97, handlers 38, agent-manager 321, codex 235, plugin-provider 113. Lint and format pass.
+  - Typecheck: protocol, server and cli pass with `npm run typecheck`; the plugin package passes with `tsgo --noEmit`, because its npm script runs `npm install` for the examples; plugins passes too.
+  - Branch diff against 2445adec: production 164, docs 77, test 953 net lines.
+- DONE: The entity's approach, surface and test plan no longer mention requiresPlugins, AC-6 is removed, and the report gives the new head and commits; nothing is pushed.
+  The design, errors, documented limits, mechanism 2, the single-change surface table, the test plan and out-of-scope are rewritten, and AC-6 is deleted. The Windows passages now state the approved cmd.exe behavior. Two stale AC-5 phrases need CL to change them:
+  1. "With the platform set to win32 and a command-script wrap, a supporting client rejects the same way" contradicts the approved cycle-2 behavior.
+  2. AC-5 places the connector check in `plugin-provider.test.ts`; it now lives in `acp.test.ts`.
+
+### Summary
+
+The branch now holds only the launch wrap: the original commit, the Windows launcher fix with its requiresPlugins material removed, and one review-fix commit. The wrap prepend no longer widens the SDK surface. Windows launcher behavior is tested through an injected platform and a refresh that uses the real spawn path, with Node fixtures that also run on Windows. AC-5 still carries two stale phrases (the win32 rejection and where the connector check lives) that only CL can change.
