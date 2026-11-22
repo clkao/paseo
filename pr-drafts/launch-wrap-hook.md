@@ -58,9 +58,9 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
 
 - **Other providers.** Claude, Pi, OMP, core ACP, OpenCode and Muse reject an open with a wrap. Each provider gets support in a separate PR, after all of its session paths use the wrap.
 - **Processes before the hook and host processes.** The wrap applies to the session harness only. These run without the wrap:
-  - draft command discovery;
-  - the catalog lookup at create when no model is set;
-  - availability probes and version commands.
+  - draft command discovery
+  - the catalog lookup at create when no model is set
+  - availability probes and version commands
 - **Requests to the daemon.** Work that the agent asks the daemon to do, for example a host terminal or a new agent, runs as the daemon. The wrap does not apply to it.
 - **A release action for `requiresPlugins`.** To open the agent again, the user enables the plugin again.
 
