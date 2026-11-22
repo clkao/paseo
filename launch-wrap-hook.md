@@ -413,3 +413,32 @@ Return the Windows provider-command check to implementation so an unsupported re
 ### Summary
 
 The Windows script-launcher rejection is gone from both `applyLaunchWrap` and the manager's admission, so a `.cmd` wrapper or provider command starts through `spawnProcess`'s cmd.exe path and a wrapped refresh no longer fails after closing the session. Both behaviors are proven on simulated win32. The public hook reference and its Chinese translation now document `wrap` and `requiresPlugins`. Removing the manager check changes an AC-5 clause, which is flagged for CL.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Check the simulated Windows refresh and script-wrapper spawn at `e3fd597ff`. Make and revert one deliberate break per new test.
+  1. A wrapped Codex refresh with a `.cmd` provider command completed and issued the expected replacement spawn through `C:\Sandbox\run.cmd`. Temporarily reinstating provider-command rejection in Codex spawn preparation made that test exit 1 with `validator: rejected provider command script`. A separate check of the original cycle-1 combination, an `.exe` wrapper around `codex.cmd`, observed exactly one replacement spawn and a new session registered as `idle` on the same agent.
+  2. The process test recorded exactly one Node spawn with `shell: true`, the quoted `.cmd` launcher path, and `"work profile"` as one quoted argument. Forcing script launchers to select `shell: false` made it exit 1 with `expected false to be true`. Both production edits and the temporary test variant were restored byte-for-byte. These are simulated Windows observations at the spawn boundary.
+- DONE: Re-run the AC-1 to AC-6 files individually with `--bail=1` using the worktree’s installed dependencies.
+  All 15 acceptance-plan files plus `process.test.ts` exited 0. The 16 complete-file runs had 1,129 passing tests and four conditional skips. The skips are controls-only cases under the settings variant of `plugin-provider.test.ts`.
+- DONE: Check `docs/plugins.md`, both public hook references, and the lifecycle diagnostic.
+  The internal guide scopes admission to session harnesses and describes the Windows script-launcher exception. The English and zh-CN hook tables, sections and examples document launch-only `wrap` and persistent, own-ID `requiresPlugins`. All 34 headings match in level, order and anchor. Both new links resolve in each locale and the two example snippets match. The handler tests exercised the immutable-field diagnostic listing `wrap`.
+- DONE: Record the cycle-2 recommendation and the effect of dropping the former AC-5 clause.
+  **PASSED.** Removing the manager’s extension check lets a supported provider use the Windows script launcher as CL directed. No other acceptance criterion depended on that check. The independent static support and live capability checks still reject before session dispatch. Existing tests also confirm that an unsupported refresh preserves its current session, a missing launcher never retries bare, and an inactive required plugin blocks opening.
+
+### Test results
+
+From each package directory, the command was `<worktree>/node_modules/.bin/vitest run <file> --bail=1` with inherited `PASEO_*` variables cleared and an isolated test home. Each file below ran separately, without a name filter. The two mutation runs selected the individual Windows tests with `-t`.
+
+| Package and directory | Files and passing test counts |
+| --- | --- |
+| `packages/protocol/src` | `messages.providers-snapshot.test.ts` 8 |
+| `packages/server/src/server/plugins` | `agent-configuration.e2e.test.ts` 3, `index.posix.test.ts` 39, `lifecycle/handlers.test.ts` 38, `runtime.posix.test.ts` 77 |
+| `packages/plugin/src/server` | `acp.test.ts` 97, `provider.test.ts` 8, `process.test.ts` 3 |
+| `plugins/antigravity-provider/server` | `provider.test.ts` 10 |
+| `packages/server/src/server/agent` | `provider-snapshot-manager.test.ts` 98, `provider-registry.test.ts` 53, `agent-manager.test.ts` 322, `plugin-provider.test.ts` 114, `agent-storage.test.ts` 20 |
+| `packages/server/src/server/agent/providers` | `codex-app-server-agent.test.ts` 235, `codex-app-server-agent.spawn-error.test.ts` 4 |
+
+### Summary
+
+The cycle-1 Windows refresh regression is resolved at `e3fd597ff`. The task worktree is clean at that commit. Native Windows execution was outside the simulated checks, and the full repository typecheck remains deferred to CI.
