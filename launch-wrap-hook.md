@@ -1,7 +1,7 @@
 ---
 id: 86k2tpskkhrpqw7z4z1rrt9w
 title: "Plugins can wrap an agent's launch command (agent.open.before wrap), fail-closed"
-status: implementation
+status: validation
 source: CL, 2026-11-21, contract agreed by the spacedock-v1 first officer and the paseo-safehouse manager
 started: 2026-11-21T19:22:06Z
 completed:
@@ -222,8 +222,10 @@ Verified by: `packages/server/src/server/agent/providers/codex-app-server-agent.
 
 **AC-5. An unsupported provider rejects before any spawn, and a missing launcher is never retried bare.**
 Verified by:
-- `packages/server/src/server/agent/agent-manager.test.ts`: with a client that does not opt in and a hook that returns `wrap`, create, resume, import and refresh each reject with `code === "launch_wrap_unsupported"`; the client's `createSession`, `resumeSession` and `importSession` are never called; plugin tools are detached; on refresh the existing session is not closed. The persisted record has no `wrap`. With the platform set to `win32` and a command-script wrap, a supporting client rejects the same way.
-- `packages/server/src/server/agent/plugin-provider.test.ts`: a registration that declares `launchWrap` but whose connection lacks `session.launch_wrap` rejects a wrapped open and receives no `session.open`; a `runAcpProvider({ connector })` connection does not list the capability; a session reopen sends the original wrap.
+- `packages/server/src/server/agent/agent-manager.test.ts`: with a client that does not opt in and a hook that returns `wrap`, create, resume, import and refresh each reject with `code === "launch_wrap_unsupported"`; the client's `createSession`, `resumeSession` and `importSession` are never called; plugin tools are detached; on refresh the existing session is not closed. The persisted record has no `wrap`.
+- Windows script launchers are not rejected. On `win32`, a `.cmd` wrap resolves to the `cmd.exe` path of `spawnProcess` with quoted arguments (`packages/plugin/src/server/process.test.ts`). A wrapped refresh of a Codex client whose provider command is a `.cmd` starts a new session through the real `spawnProcess` (`agent-manager.test.ts`).
+- `packages/server/src/server/agent/plugin-provider.test.ts`: a registration that declares `launchWrap` but whose connection lacks `session.launch_wrap` rejects a wrapped open and receives no `session.open`; a session reopen sends the original wrap.
+- `acp.test.ts`: a `runAcpProvider({ connector })` connection does not list the capability.
 - `acp.test.ts` and `packages/server/src/server/agent/providers/codex-app-server-agent.spawn-error.test.ts`: with a wrap whose executable does not exist, the open rejects, the spawn count is one, and no spawn uses the bare provider command.
 
 ## References
