@@ -388,3 +388,18 @@ CL authorized the validator to change test code only and rerun. With the patch [
 
 The code worktree stayed clean at `5a0bf1449`, and `git apply --check` passes for the patch. Evidence: [FOLLOWUP.md](browser-profile-selector/validation-cycle-3c-followup/FOLLOWUP.md), imported from fork branch `evidence/browser-profile-selector-validation-3c-followup` (`7b054ec2`).
 
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: The validator's test-only patch is applied to packages/desktop/e2e/browser-tabs.e2e.mjs, with the 240 s cold-start assertion as a named constant that cites the measured cold start; no product code changes.
+  `1618e78ff` touches only that file (+20/−2). `git apply --check` passed and the patch applied verbatim. `desktopStartupTimeoutMs = 240_000` is used only by the startup assertion in `settleDesktopStartup`. Its comment gives 141.8 s to the workspace row, 132.3 s of it in Metro (empty cache, Linux/Xvfb). The comment wraps at the repo's 100-column printWidth. The split cleanup, the one-use host-chooser handler and the profile journey's strict locators are unchanged from the validator's patch.
+- DONE: Lint, format and node --check pass; the Electron e2e and capture harness are left to the VM validator and reported as SKIPPED with that reason.
+  `npm run lint -- <file>`: 0 warnings, 0 errors. `npm run format:check -- <file>`: correct format. `node --check`: OK. PASEO_* variables were cleared first. The lefthook pre-commit hook also ran the full workspace typecheck, which passed.
+- SKIPPED: Electron e2e (`npm run test:e2e:browser-tabs`) and the browser capture harness
+  The dispatch forbids running them on this Mac. The next validator runs them on the VM.
+- DONE: One new commit on top of 5a0bf1449; nothing pushed; the report gives the new head.
+  New head `1618e78ff`, parent `5a0bf1449`, on task/browser-profile-selector. Nothing pushed.
+
+### Summary
+
+I applied the validator's three test-setup fixes to the desktop browser-tabs E2E. They close the annotation regression's right split, give cold startup a named 240 s budget and dismiss the host chooser after relaunch. My only change to the patch is the measured cold-start figures in the constant's comment. The lefthook pre-commit typecheck triggered the plugin package's `typecheck:examples`, which runs `npm install --ignore-scripts` for `plugin-examples/markdown-panel`. npm printed "up to date". Nothing was downloaded, `node_modules` still dates from Nov 21, and the tracked lockfile's content is unchanged. Future commits in this worktree will trigger the same step unless they use `--no-verify` or `LEFTHOOK=0`.
