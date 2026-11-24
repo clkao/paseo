@@ -1,7 +1,7 @@
 ---
 id: 86k2tpskkhrpqw7z4z1rrt9w
 title: "Plugins can wrap an agent's launch command (agent.open.before wrap), fail-closed"
-status: validation
+status: implementation
 source: CL, 2026-11-21, contract agreed by the spacedock-v1 first officer and the paseo-safehouse manager
 started: 2026-11-21T19:22:06Z
 completed:
@@ -107,7 +107,7 @@ gates:
                 reason: 'CL: approve the wrap validation (cycle 4, 9f9f39ce1).'
               application:
                 target-stage: done
-                state: pending
+                state: superseded
 ---
 
 ## Problem
