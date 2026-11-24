@@ -108,6 +108,22 @@ gates:
               application:
                 target-stage: done
                 state: superseded
+            - id: gate-attempt:86k2tpskkhrpqw7z4z1rrt9w-validation-5
+              briefing:
+                id: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-5:revision-1
+                digest: sha256:5232c5e21a5f906edc3c5073d9716331eb016c8972d17893cc53abf575b6c87c
+                room-ref: '@review/validation/briefing-5'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:86k2tpskkhrpqw7z4z1rrt9w:validation:5
+                briefing: briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-5:revision-1
+                by: person:captain
+                at: "2026-11-24T05:11:29.914492Z"
+                decision: approve
+                reason: 'CL: approve validation cycle 5 (rebase onto v0.17.4, c027b0141).'
+              application:
+                target-stage: done
+                state: pending
 ---
 
 ## Problem

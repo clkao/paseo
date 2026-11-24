@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-5:revision-1",
+  "question": "Validation cycle 5 (rebase onto v0.17.4) recommends PASSED: approve launch-wrap-hook at c027b0141?",
+  "artifacts": [
+    {
+      "id": "artifact:86k2tpskkhrpqw7z4z1rrt9w:validation:attempt-5:revision-1:item-1",
+      "uri": "git-root://state/6e6c9fa821ea73a88000bd6b4106940c3de4b914/launch-wrap-hook.md",
+      "rev": "sha256:ea7f60728ee74922f1affd9b278a0a4e0c70d929b6c43e921bf73037a64cfccf",
+      "mediaType": "text/markdown",
+      "summary": "AC-1 to AC-5 reproduced with eight induced failures at c027b0141; the rebased diff matches the validated one on 36 of 37 paths, the last differing only by an import upstream already added; all five conflicts keep both sides; real PluginService wiring delivers the wrap; lint, format and typechecks pass."
+    }
+  ]
+}
