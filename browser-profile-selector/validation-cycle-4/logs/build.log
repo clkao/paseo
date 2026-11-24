@@ -1,0 +1,9 @@
+Mon Nov 23 23:56:56 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/build npm run build:main --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+exit=0
+Mon Nov 23 23:56:58 UTC 2026

@@ -1,0 +1,19 @@
+diff --git a/packages/desktop/e2e/browser-tabs.e2e.mjs b/packages/desktop/e2e/browser-tabs.e2e.mjs
+index 1ad367c57..cba207cdc 100644
+--- a/packages/desktop/e2e/browser-tabs.e2e.mjs
++++ b/packages/desktop/e2e/browser-tabs.e2e.mjs
+@@ -1326,14 +1326,6 @@ async function runRegression({
+     "Element annotation comment box did not paint or receive input above the browser surface",
+   );
+ 
+-  // Close the launcher's only tab to undo this regression's right split.
+-  const paneRails = originalDeck.getByTestId("workspace-tabs-row").filter({ visible: true });
+-  await paneRails
+-    .last()
+-    .getByTestId(/^workspace-tab-tab_/)
+-    .click({ button: "middle", timeout: timeoutMs });
+-  await expect(paneRails).toHaveCount(1);
+-
+   if (failures.length > 0) {
+     throw new Error(`Browser viewport regressions:\n- ${failures.join("\n- ")}`);
+   }

@@ -1,0 +1,54 @@
+Mon Nov 23 23:56:43 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-app ../../node_modules/.bin/vitest run src/i18n/resources.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mkeeps all supported language keys in sync with English[32m 38[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes every Arabic form for provider-usage durations[32m 25[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mkeeps non-English supported languages translated beyond fallback labels[33m 343[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mlocalizes the pull request empty state in every supported language[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mpreserves interpolation placeholders in every language[33m 339[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mkeeps reported Spanish settings and scripts labels clean[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22muses the Russian term for continuing a session in copied commands[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mkeeps model count labels spaced around the count[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mpreserves reviewed Korean status labels[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22muses the French navigation and Git meanings for reported labels[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mseparates French interpolation placeholders from neighboring words[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mlabels the immediate add-to-chat action without an ellipsis[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mkeeps pull request panel and sidebar status group labels translated[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mkeeps local connection fallback errors translated[32m 106[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes shared shell keys for the Batch 1 migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes composer and agent workflow keys for the Batch 2 migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes Settings expansion keys for the Batch 3A migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes Settings expansion keys for the Batch 3B migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes workspace and panel keys for the Batch 4A migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes workspace Git and review keys for the Batch 4B migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes sidebar and workspace creation keys for the Batch 4C migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes provider selector and pairing keys for the Batch 4D migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes onboarding and direct connection keys for the Batch 4E migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes shared utility chrome keys for the Batch 4F migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes keyboard shortcut help keys for the Batch 4G migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes sessions and agent list keys for the Batch 4H migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes message utility keys for the Batch 4I migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes workspace tab toast keys for the Batch 4J migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes sidebar project list keys for the Batch 4K migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes picker, file pane, and tool detail keys for the Batch 4L migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes hook and modal utility keys for the Batch 4M migration[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes view-model and policy utility keys for the Batch 4N migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes remaining small utility chrome keys for the Batch 4O migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes provider selection utility keys for the Batch 4P migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes desktop update utility keys for the Batch 4Q migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes desktop permission utility keys for the Batch 4R migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes desktop daemon settings keys for the Batch 4S migration[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes remaining utility chrome keys for the Batch 4T migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes shared default utility keys for the Batch 4U migration[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/resources.test.ts[2m > [22mtranslation resources[2m > [22mincludes remaining local wrapper keys for the Batch 4W migration[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m40 passed[39m[22m[90m (40)[39m
+[2m   Start at [22m 23:56:43
+[2m   Duration [22m 1.71s[2m (transform 600ms, setup 54ms, import 644ms, tests 900ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:45 UTC 2026

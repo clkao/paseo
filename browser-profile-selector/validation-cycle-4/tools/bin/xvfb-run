@@ -1,0 +1,17 @@
+#!/bin/bash
+set -eu
+if [[ -n ${PASEO_ELECTRON_USER_DATA_DIR:-} ]]; then
+  case "$PASEO_ELECTRON_USER_DATA_DIR" in
+    "$TMPDIR"/paseo-desktop-browser-e2e-*/electron-user-data) ;;
+    *) echo "Unexpected fixture user data path" >&2; exit 2 ;;
+  esac
+  id=fmkadmapgofadopljbjfkapdkoienihi
+  cache=$(cat /tmp/profile-val4-current)/existing-devtools
+  test -r "$cache/manifest.json"
+  mkdir -p "$PASEO_ELECTRON_USER_DATA_DIR/extensions"
+  dest="$PASEO_ELECTRON_USER_DATA_DIR/extensions/$id"
+  if [[ ! -e $dest ]]; then ln -s "$cache" "$dest"; fi
+  test "$(readlink "$dest")" = "$cache"
+  echo "Using existing local React DevTools at $cache in $PASEO_ELECTRON_USER_DATA_DIR" >&2
+fi
+exec /usr/bin/xvfb-run "$@"

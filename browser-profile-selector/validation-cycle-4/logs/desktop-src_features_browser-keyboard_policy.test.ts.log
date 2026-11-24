@@ -1,0 +1,21 @@
+Mon Nov 23 23:56:51 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-desktop ../../node_modules/.bin/vitest run src/features/browser-keyboard/policy.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22mclassifies shell-owned browser shortcuts for the current platform modifier[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22mrejects the wrong or ambiguous command modifier for reserved shortcuts[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22maccepts only complete modifier prefixes from the host renderer[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22mrejects a false code fallback instead of treating it as absent[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22mpreserves editable exclusions and rejects permissive values[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22mkeeps browser identities exact[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-keyboard/policy.test.ts[2m > [22mbrowser keyboard policy[2m > [22mmatches digit shortcuts for the top row and numeric keypad[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 23:56:51
+[2m   Duration [22m 192ms[2m (transform 49ms, setup 0ms, import 67ms, tests 8ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:51 UTC 2026

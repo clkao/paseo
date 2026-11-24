@@ -1,0 +1,20 @@
+Mon Nov 23 23:56:46 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-app ../../node_modules/.bin/vitest run src/screens/settings/browser-tools-config.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/screens/settings/browser-tools-config.test.ts[2m > [22mbrowser tools opt-in config[2m > [22mshows the card with the logged-in browser state warning when connected[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/screens/settings/browser-tools-config.test.ts[2m > [22mbrowser tools opt-in config[2m > [22mreads enabled state from daemon config[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/screens/settings/browser-tools-config.test.ts[2m > [22mbrowser tools opt-in config[2m > [22mhides the card when the host is disconnected[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/screens/settings/browser-tools-config.test.ts[2m > [22mbrowser tools opt-in config[2m > [22mwrites daemon.browserTools.enabled when toggled[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/screens/settings/browser-tools-config.test.ts[2m > [22mbrowser tools opt-in config[2m > [22mshows loading and disables the toggle while browser tool settings save[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/screens/settings/browser-tools-config.test.ts[2m > [22mbrowser tools opt-in config[2m > [22mshows the save error when browser tool settings fail[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+[2m   Start at [22m 23:56:47
+[2m   Duration [22m 244ms[2m (transform 62ms, setup 53ms, import 28ms, tests 49ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:47 UTC 2026

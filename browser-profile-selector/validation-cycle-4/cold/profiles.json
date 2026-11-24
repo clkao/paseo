@@ -1,0 +1,125 @@
+{
+  "before": [
+    {
+      "id": "d1e58c36-a438-488e-969f-0216a98377df",
+      "label": "Shared › Work",
+      "account": "Alice",
+      "cookie": "account=Alice",
+      "storage": "Alice",
+      "url": "http://127.0.0.1:45815/profile-account",
+      "firstCookie": "",
+      "screenshot": "before-alice.png"
+    },
+    {
+      "id": "f9f91c82-ed3e-4309-8165-d5a36a11e350",
+      "label": "Desktop browser project 1 › Customer",
+      "account": "Bob",
+      "cookie": "account=Bob",
+      "storage": "Bob",
+      "url": "http://127.0.0.1:45815/profile-account",
+      "firstCookie": "",
+      "screenshot": "before-bob.png"
+    }
+  ],
+  "after": [
+    {
+      "id": "d1e58c36-a438-488e-969f-0216a98377df",
+      "label": "Shared › Work",
+      "account": "Alice",
+      "cookie": "account=Alice",
+      "storage": "Alice",
+      "url": "http://127.0.0.1:45815/profile-account",
+      "firstCookie": "account=Alice",
+      "screenshot": "after-alice.png"
+    },
+    {
+      "id": "f9f91c82-ed3e-4309-8165-d5a36a11e350",
+      "label": "Desktop browser project 1 › Customer",
+      "account": "Bob",
+      "cookie": "account=Bob",
+      "storage": "Bob",
+      "url": "http://127.0.0.1:45815/profile-account",
+      "firstCookie": "account=Bob",
+      "screenshot": "after-bob.png"
+    }
+  ],
+  "groups": [
+    {
+      "workspace": "desktop-browser-evict-one",
+      "selected": "Browser profile Desktop browser project 1 › Desktop browser workspace 2",
+      "shared": "Shared\ndefault\nWork\nCreate new shared profile…",
+      "groupLabels": [
+        "Shared",
+        "Desktop browser project 1"
+      ],
+      "project": "Desktop browser project 1\nDesktop browser workspace 2\nCustomer\nCreate new project profile…",
+      "checked": "Desktop browser workspace 2"
+    },
+    {
+      "workspace": "desktop-browser-evict-two",
+      "selected": "Browser profile Desktop browser project 3 › Desktop browser workspace 3",
+      "shared": "Shared\ndefault\nWork\nCreate new shared profile…",
+      "groupLabels": [
+        "Shared",
+        "Desktop browser project 3"
+      ],
+      "project": "Desktop browser project 3\nDesktop browser workspace 3\nCreate new project profile…",
+      "checked": "Desktop browser workspace 3"
+    }
+  ],
+  "duplicate": {
+    "error": "A profile with this name already exists in this group.",
+    "automatic": "Desktop browser project 1 › Desktop browser workspace 1"
+  },
+  "delayedRegistration": {
+    "browserId": "dbda125b-93bf-4908-8184-41566af20b17",
+    "requestedMs": 49,
+    "returnedMs": 237,
+    "respondedMs": 249,
+    "pending": [
+      "dbda125b-93bf-4908-8184-41566af20b17"
+    ],
+    "loaded": [
+      "dbda125b-93bf-4908-8184-41566af20b17"
+    ]
+  },
+  "defaults": {
+    "parked": "c4b98bf0-15a0-4141-9649-d201438d38af",
+    "supplied": "382e5408-6787-4565-8fa1-453e0c0cc8a4",
+    "link": "61cad562-3105-4657-96e5-d992be34e446",
+    "firstRequest": "account=Workspace",
+    "plugin": {
+      "id": "176555d3-a245-44f2-9e2e-a0e3e683eb81",
+      "label": "Desktop browser project 1 › Desktop browser workspace 1",
+      "firstRequest": "account=Workspace"
+    },
+    "exampleRequests": []
+  },
+  "processes": [
+    198958,
+    201780
+  ],
+  "restored": {
+    "revisited": "190f19f6-5ad4-4fe0-8f26-cc10c9c6af77",
+    "untouched": "c0772990-37c5-45fc-89f1-86cb0542e29a"
+  },
+  "clear": {
+    "open": [
+      "d1e58c36-a438-488e-969f-0216a98377df",
+      "f9f91c82-ed3e-4309-8165-d5a36a11e350"
+    ],
+    "closed": "382e5408-6787-4565-8fa1-453e0c0cc8a4",
+    "closedPartition": "persist:paseo-project-4d247c4894033abc09143cac4fc3b739-ws-f96a5b67ea27e9e2e0ad7362446d8267",
+    "liveBefore": [
+      "paseo-shared-work",
+      "paseo-project-4d247c4894033abc09143cac4fc3b739-customer",
+      "paseo-shared-work",
+      "paseo-project-4d247c4894033abc09143cac4fc3b739-customer"
+    ],
+    "openLabel": "Shared › Work",
+    "reopenedLabel": "Desktop browser project 1 › Customer",
+    "cookie": "",
+    "storage": null,
+    "unrelated": "retained"
+  }
+}

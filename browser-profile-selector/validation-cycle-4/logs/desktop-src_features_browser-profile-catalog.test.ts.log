@@ -1,0 +1,19 @@
+Mon Nov 23 23:56:51 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-desktop ../../node_modules/.bin/vitest run src/features/browser-profile-catalog.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-profile-catalog.test.ts[2m > [22mconcurrent creates allocate stable bounded keys inside their group[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/browser-profile-catalog.test.ts[2m > [22mreports a typed code for each rejected create and an unreadable catalog[32m 3[2mms[22m[39m
+ [32m✓[39m src/features/browser-profile-catalog.test.ts[2m > [22mcollisions with the bare project slug ws never allocate a reserved workspace key[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-profile-catalog.test.ts[2m > [22mreserves the project's automatic workspace names without occupying them in Shared[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-profile-catalog.test.ts[2m > [22mcanonically equivalent spellings are one name; accented and plain names stay distinct[32m 3[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 23:56:52
+[2m   Duration [22m 233ms[2m (transform 63ms, setup 0ms, import 116ms, tests 22ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:52 UTC 2026

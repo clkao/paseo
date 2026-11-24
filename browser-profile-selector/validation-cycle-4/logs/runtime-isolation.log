@@ -1,0 +1,33 @@
+cold
+Debugger listening on ws://127.0.0.1:34963/cf33c9b9-b164-4a47-a7f2-7b63c3f25575
+Debugger listening on ws://127.0.0.1:46411/3d6f24cc-6f9b-45ae-894e-c3dedbcd3207
+[electron] 23:45:49.485 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/cold/tmp/paseo-desktop-browser-e2e-rvhWN2/electron-user-data
+[electron] 23:51:05.683 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/cold/tmp/paseo-desktop-browser-e2e-rvhWN2/electron-user-data
+[electron] Debugger listening on ws://127.0.0.1:43989/29932132-9fc2-461d-92f9-c3996fc3b219
+[electron] Debugger listening on ws://127.0.0.1:43989/7e810361-1b7e-4744-8159-05f047f4060d
+[electron] DevTools listening on ws://127.0.0.1:46733/devtools/browser/159169da-b0d3-4af4-bd71-1eb12d4e8f38
+[electron] DevTools listening on ws://127.0.0.1:46733/devtools/browser/a6bfba9d-d7f6-4f03-965d-0ea92748b08c
+[metro] Waiting on http://localhost:41669
+warm
+Debugger listening on ws://127.0.0.1:32949/f43c0580-0853-43be-b4e5-f7fad6f507e1
+Debugger listening on ws://127.0.0.1:36697/9b76e2eb-c58e-4a96-ade0-efbb256b6950
+[electron] 23:51:41.925 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/warm/tmp/paseo-desktop-browser-e2e-PIaoy0/electron-user-data
+[electron] 23:54:34.854 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/warm/tmp/paseo-desktop-browser-e2e-PIaoy0/electron-user-data
+[electron] Debugger listening on ws://127.0.0.1:33659/04ebbe8f-702e-409b-8df1-4e69d99c5a90
+[electron] Debugger listening on ws://127.0.0.1:33659/1d8b6ea8-5713-4ee1-8851-42f97d2b29a5
+[electron] DevTools listening on ws://127.0.0.1:40141/devtools/browser/0c890c01-2208-4e59-85f5-583ecbc1d225
+[electron] DevTools listening on ws://127.0.0.1:40141/devtools/browser/dc359ffa-e84b-4608-ae57-7ca1b65b8e32
+[metro] Waiting on http://localhost:34821
+supplemental
+Debugger listening on ws://127.0.0.1:36345/51f0539c-534d-4c42-ba71-05bfdc6d1ce1
+Debugger listening on ws://127.0.0.1:42051/c1856ab6-f65b-4b37-84df-87f2481129e6
+[electron] 23:55:06.361 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/supplemental/tmp/paseo-desktop-browser-e2e-zdpTeT/electron-user-data
+[electron] 23:55:42.267 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/supplemental/tmp/paseo-desktop-browser-e2e-zdpTeT/electron-user-data
+[electron] Debugger listening on ws://127.0.0.1:43171/03171e93-3fc4-4bde-8be9-0bd16a73ca05
+[electron] Debugger listening on ws://127.0.0.1:43171/84c352fc-0673-474d-b1f0-951d8b0680f6
+[electron] DevTools listening on ws://127.0.0.1:42407/devtools/browser/3bfd9669-d9f4-45cc-9438-6a8b9ae1a2ea
+[electron] DevTools listening on ws://127.0.0.1:42407/devtools/browser/d2c96919-8d9e-4a9a-8f4e-3794d6d26623
+[metro] Waiting on http://localhost:35137
+paseo-browser-profile-harness-restart
+paseo-project-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb-customer
+paseo-shared-work

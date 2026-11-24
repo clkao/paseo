@@ -1,0 +1,55 @@
+Using existing local React DevTools at /tmp/profile-val4.2hk4vk/existing-devtools in /tmp/profile-val4.2hk4vk/mutant-timeout/tmp/paseo-desktop-browser-e2e-8YvEFt/electron-user-data
+[metro] Using src/app as the root directory for Expo Router.
+[metro] Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+[metro] Waiting on http://localhost:40845
+[metro]
+[metro] Logs for your project will appear below.
+[electron] Debugger listening on ws://127.0.0.1:41221/2d610134-b829-4552-8e68-af30414a41d3
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 23:57:21.001 › [desktop] app startup {
+[electron]   version: '0.17.0-beta.1',
+[electron]   platform: 'linux',
+[electron]   arch: 'x64',
+[electron]   isPackaged: false
+[electron] }
+[electron] 23:57:21.003 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/mutant-timeout/tmp/paseo-desktop-browser-e2e-8YvEFt/electron-user-data
+[electron] 23:57:21.004 › [electron-flags] --remote-debugging-address=127.0.0.1 --remote-debugging-port=32959
+[electron] 23:57:21.004 › [linux-sandbox] { enabled: false, reason: 'Chromium default' }
+[electron] 23:57:21.005 › [login-shell-env] start {
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   attempts: [
+[electron]     { attemptKind: 'interactive', shellArgs: [Array] },
+[electron]     { attemptKind: 'non-interactive', shellArgs: [Array] }
+[electron]   ],
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/profile-val4.2hk4vk/mutant-timeout/tmp/paseo-desktop-browser-e2e-8YvEFt/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin'
+[electron] }
+[electron] 23:57:21.074 › [login-shell-env] attempt applied {
+[electron]   attemptKind: 'interactive',
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   reason: 'success',
+[electron]   durationMs: 68,
+[electron]   timeoutMs: 15000
+[electron] }
+[electron] 23:57:21.075 › [login-shell-env] applied {
+[electron]   attemptKind: 'interactive',
+[electron]   durationMs: 71,
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/profile-val4.2hk4vk/mutant-timeout/tmp/paseo-desktop-browser-e2e-8YvEFt/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin',
+[electron]   afterPath: '/tmp/profile-val4.2hk4vk/mutant-timeout/tmp/paseo-desktop-browser-e2e-8YvEFt/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin',
+[electron]   pathChanged: true,
+[electron]   shell: '/bin/bash'
+[electron] }
+[electron] [209138:1123/235721.126551:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron]
+[electron] DevTools listening on ws://127.0.0.1:32959/devtools/browser/8fbe55e6-b2e8-4dc2-b96c-2dd30980f564
+[electron] [209138:1123/235721.169688:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209138:1123/235721.172333:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209138:1123/235721.278869:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209138:1123/235721.290031:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [DevTools] Loaded: React Developer Tools
+[electron] (electron) 'console-message' arguments are deprecated and will be removed. Please use Event<WebContentsConsoleMessageEventParams> object instead.
+[electron] 23:57:21.364 › Electron sandboxed_renderer.bundle.js script failed to run
+[electron] 23:57:21.365 › TypeError: Cannot destructure property 'preloadScripts' of 'binding.startupData' as it is null.

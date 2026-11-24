@@ -1,0 +1,18 @@
+#!/bin/bash
+set -eu
+unset ${!PASEO_@}
+e=$(cd "$(dirname "$0")/.." && pwd)
+w=/home/exedev/worktrees/browser-profile-selector
+for pkg in app desktop; do
+  cd "$w/packages/$pkg"
+  if [[ $pkg = app ]]; then
+    roots=(src/desktop/browser src/i18n src/components/rename-modal.test.tsx src/components/ui/menu/menu-overlay.browser.test.tsx src/hooks/use-open-project.test.ts src/screens/settings/browser-tools-config.test.ts src/keyboard/internal/sources/electron-browser.test.ts)
+  else
+    roots=(src/features/browser* src/preload-sandbox.test.ts src/desktop-startup.test.ts src/open-project-routing.test.ts src/pending-open-project-store.test.ts src/features/opener.test.ts)
+  fi
+  while read -r file; do
+    args=()
+    [[ $file != *.browser.test.* ]] || args=(--project browser)
+    "$e/tools/run" "logs/$pkg-${file//\//_}" "unit-$pkg" ../../node_modules/.bin/vitest run "${args[@]}" "$file" --bail=1 --reporter=verbose || { echo "Failure $pkg/$file"; test ! -e "$(cat /tmp/profile-val4-current)/STOP"; }
+  done < <(rg --files "${roots[@]}" | rg '\.test\.tsx?$' | sort -u)
+done

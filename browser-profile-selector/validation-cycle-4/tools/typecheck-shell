@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+if [ "$1" = "-c" ] && [ "$2" = "npm --prefix ../../plugin-examples/markdown-panel install --ignore-scripts --no-audit --no-fund && tsgo -p tsconfig.examples.json --noEmit" ]; then
+  echo '[validator] Skipping the install subcommand per assignment. Running the example compiler against the existing tree.'
+  exec tsgo -p tsconfig.examples.json --noEmit
+fi
+exec /bin/sh "$@"

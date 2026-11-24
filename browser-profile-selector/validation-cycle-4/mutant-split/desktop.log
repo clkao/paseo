@@ -1,0 +1,915 @@
+Using existing local React DevTools at /tmp/profile-val4.2hk4vk/existing-devtools in /tmp/profile-val4.2hk4vk/mutant-split/tmp/paseo-desktop-browser-e2e-39CWPk/electron-user-data
+[metro] Using src/app as the root directory for Expo Router.
+[metro] Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+[metro] Waiting on http://localhost:38263
+[metro]
+[metro] Logs for your project will appear below.
+[electron] [209711:1123/235910.645229:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] Debugger listening on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 23:59:10.869 › [desktop] app startup {
+[electron]   version: '0.17.0-beta.1',
+[electron]   platform: 'linux',
+[electron]   arch: 'x64',
+[electron]   isPackaged: false
+[electron] }
+[electron] 23:59:10.871 › [dev-user-data] forced userData dir: /tmp/profile-val4.2hk4vk/mutant-split/tmp/paseo-desktop-browser-e2e-39CWPk/electron-user-data
+[electron] 23:59:10.871 › [electron-flags] --remote-debugging-address=127.0.0.1 --remote-debugging-port=35093
+[electron] 23:59:10.872 › [linux-sandbox] { enabled: false, reason: 'Chromium default' }
+[electron] 23:59:10.873 › [login-shell-env] start {
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   attempts: [
+[electron]     { attemptKind: 'interactive', shellArgs: [Array] },
+[electron]     { attemptKind: 'non-interactive', shellArgs: [Array] }
+[electron]   ],
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/profile-val4.2hk4vk/mutant-split/tmp/paseo-desktop-browser-e2e-39CWPk/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin'
+[electron] }
+[electron] 23:59:10.954 › [login-shell-env] attempt applied {
+[electron]   attemptKind: 'interactive',
+[electron]   shell: '/bin/bash',
+[electron]   shellArgs: [ '-i', '-l', '-c' ],
+[electron]   reason: 'success',
+[electron]   durationMs: 81,
+[electron]   timeoutMs: 15000
+[electron] }
+[electron] 23:59:10.955 › [login-shell-env] applied {
+[electron]   attemptKind: 'interactive',
+[electron]   durationMs: 83,
+[electron]   timeoutMs: 30000,
+[electron]   beforePath: '/tmp/profile-val4.2hk4vk/mutant-split/tmp/paseo-desktop-browser-e2e-39CWPk/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin',
+[electron]   afterPath: '/tmp/profile-val4.2hk4vk/mutant-split/tmp/paseo-desktop-browser-e2e-39CWPk/url-handler:/home/exedev/worktrees/browser-profile-selector/packages/desktop/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/packages/node_modules/.bin:/home/exedev/worktrees/browser-profile-selector/node_modules/.bin:/home/exedev/worktrees/node_modules/.bin:/home/exedev/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/exedev/node/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/bin:/home/exedev/.local/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin',
+[electron]   pathChanged: true,
+[electron]   shell: '/bin/bash'
+[electron] }
+[electron]
+[electron] DevTools listening on ws://127.0.0.1:35093/devtools/browser/d8d4631d-cede-418b-937b-ab3fac637ac1
+[electron] [209711:1123/235911.035147:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1123/235911.036056:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1123/235911.124591:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1123/235911.147465:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [DevTools] Loaded: React Developer Tools
+[metro] Web Bundled 4327ms packages/app/index.ts (5968 modules)
+[electron] (electron) 'console-message' arguments are deprecated and will be removed. Please use Event<WebContentsConsoleMessageEventParams> object instead.
+[electron] 23:59:17.338 › Running application "main" with appParams:
+[electron]  [object Object] 
+[electron] Development-level warnings: ON.
+[electron] Performance optimizations: OFF.
+[metro] Web  LOG  Running application "main" with appParams:
+[metro]  {"hydrate": undefined, "rootTag": "#root"} 
+[metro] Development-level warnings: ON.
+[metro] Performance optimizations: OFF.
+[electron] 23:59:17.398 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.402 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.619 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.621 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.624 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.626 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.627 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.632 › Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.634 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.654 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.694 › Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.698 › Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.760 › Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 23:59:17.920 › props.pointerEvents is deprecated. Use style.pointerEvents
+[metro] Web  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 23:59:18.108 › [open-project] renderer requested pending path: {
+[electron]   webContentsId: 1,
+[electron]   pendingPath: '/home/exedev/worktrees/browser-profile-selector/packages/desktop'
+[electron] }
+[electron] 23:59:18.109 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:18.110 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:18.113 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:18.113 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:18.160 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 23:59:18.191 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 23:59:18.196 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web Bundled 92ms packages/app/src/desktop/attachments/desktop-attachment-store.ts (1 module)
+[metro] Web Bundled 78ms packages/app/src/desktop/attachments/desktop-attachment-bridge.ts (1 module)
+[electron] 23:59:19.470 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 23:59:19.580 › [desktop daemon] initial status check before start {
+[electron]   pid: 209497,
+[electron]   status: 'running',
+[electron]   listen: '127.0.0.1:36163',
+[electron]   serverId: 'srv_99L8u_4KfVja',
+[electron]   error: null,
+[electron]   desktopManaged: false
+[electron] }
+[electron] 23:59:19.593 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web  WARN  Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 23:59:19.964 › Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 23:59:31.091 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:31.091 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:31.091 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:31.092 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:54.407 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:54.410 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:54.410 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:54.410 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:59.740 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:59.741 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 23:59:59.742 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 23:59:59.742 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:04.724 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:04.726 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:04.727 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:04.727 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:09.591 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:09.591 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:09.591 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:09.592 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:31.347 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:31.347 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:31.348 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:31.348 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:31.682 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:31.683 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:31.683 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:00:31.683 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:00:34.863 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:00:34.876 › [browser-webview] registered {
+[electron]   browserId: 'b5d15566-00bf-4a0a-86fb-59113afc4b5f',
+[electron]   webContentsId: 2,
+[electron]   registeredBrowserIds: [ 'b5d15566-00bf-4a0a-86fb-59113afc4b5f' ]
+[electron] }
+[electron] (electron) 'webContents.canGoBack' is deprecated and will be removed. Please use 'webContents.navigationHistory.canGoBack' instead.
+[electron] (electron) 'webContents.canGoForward' is deprecated and will be removed. Please use 'webContents.navigationHistory.canGoForward' instead.
+[electron] 00:00:36.980 › [browser-webview] registered {
+[electron]   browserId: '298877ea-1fad-4f46-84b5-a2da992b90ca',
+[electron]   webContentsId: 3,
+[electron]   registeredBrowserIds: [ '298877ea-1fad-4f46-84b5-a2da992b90ca' ]
+[electron] }
+[electron] 00:00:37.356 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:00:37.399 › [browser-webview] registered {
+[electron]   browserId: '4ad27a9c-805a-4603-af45-9171a817f325',
+[electron]   webContentsId: 4,
+[electron]   registeredBrowserIds: [ '4ad27a9c-805a-4603-af45-9171a817f325' ]
+[electron] }
+[electron] [209711:1124/000038.689068:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 2 rejected by interface blink.mojom.Widget
+[electron] 00:00:38.707 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:00:38.755 › [browser-webview] registered {
+[electron]   browserId: '51f90ba4-f790-43a4-a397-37b29475f11b',
+[electron]   webContentsId: 5,
+[electron]   registeredBrowserIds: [ '51f90ba4-f790-43a4-a397-37b29475f11b' ]
+[electron] }
+[electron] [209711:1124/000039.434697:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000039.435969:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000039.436013:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000039.436929:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000039.583448:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000039.583810:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000039.583857:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000039.583946:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000040.284842:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000040.285192:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000040.285283:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000040.285353:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000040.404251:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000040.404548:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000040.404951:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000040.405305:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron]
+[electron] (electron:209711): libnotify-WARNING **: 00:00:42.254: Failed to connect to proxy
+[electron]
+[electron] (electron:209711): libnotify-WARNING **: 00:00:42.254: Failed to connect to proxy
+[electron]
+[electron] (electron:209711): libnotify-WARNING **: 00:00:42.254: Failed to connect to proxy
+[electron] [209711:1124/000042.254124:ERROR:electron/shell/browser/notifications/linux/libnotify_notification.cc:61] notify_notification_show: domain=1083 code=13 message="Unknown or unsupported transport “disabled” for address “disabled:”"
+[electron]
+[electron] (electron:209711): libnotify-WARNING **: 00:00:42.613: Failed to connect to proxy
+[electron]
+[electron] (electron:209711): libnotify-WARNING **: 00:00:42.614: Failed to connect to proxy
+[electron]
+[electron] (electron:209711): libnotify-WARNING **: 00:00:42.614: Failed to connect to proxy
+[electron] [209711:1124/000042.614085:ERROR:electron/shell/browser/notifications/linux/libnotify_notification.cc:61] notify_notification_show: domain=1083 code=13 message="Unknown or unsupported transport “disabled” for address “disabled:”"
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 00:00:50.974 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:00:50.981 › [browser-webview] registered {
+[electron]   browserId: '0cd7e146-e16b-4a24-8201-62c79244bfa1',
+[electron]   webContentsId: 6,
+[electron]   registeredBrowserIds: [
+[electron]     '0cd7e146-e16b-4a24-8201-62c79244bfa1',
+[electron]     '51f90ba4-f790-43a4-a397-37b29475f11b'
+[electron]   ]
+[electron] }
+[electron] [209711:1124/000051.335805:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000051.336534:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000051.336743:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000051.336931:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000122.218812:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000122.219665:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000122.220202:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000122.220244:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] [209711:1124/000124.303898:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000124.303963:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000124.303998:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000124.304039:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000124.403637:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000124.404021:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000124.404057:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000124.404252:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[metro] Web Bundled 176ms packages/app/index.ts (1 module)
+[electron] 00:01:26.413 › Running application "main" with appParams:
+[electron]  [object Object] 
+[electron] Development-level warnings: ON.
+[electron] Performance optimizations: OFF.
+[metro] Web  LOG  Running application "main" with appParams:
+[metro]  {"hydrate": undefined, "rootTag": "#root"} 
+[metro] Development-level warnings: ON.
+[metro] Performance optimizations: OFF.
+[electron] 00:01:26.442 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.485 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.488 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.703 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.706 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.708 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.710 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.711 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.716 › Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.717 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.735 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.773 › Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.777 › Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:26.840 › Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 00:01:27.026 › props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 00:01:27.191 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 00:01:27.193 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:01:27.194 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:01:27.195 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:01:27.197 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[metro] Web Bundled 23ms packages/app/src/desktop/attachments/desktop-attachment-store.ts (1 module)
+[electron] 00:01:27.366 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 00:01:27.375 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[metro] Web Bundled 11ms packages/app/src/desktop/attachments/desktop-attachment-bridge.ts (1 module)
+[electron] 00:01:27.742 › Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[metro] Web  WARN  Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 00:01:29.696 › [desktop daemon] initial status check before start {
+[electron]   pid: 209497,
+[electron]   status: 'running',
+[electron]   listen: '127.0.0.1:36163',
+[electron]   serverId: 'srv_99L8u_4KfVja',
+[electron]   error: null,
+[electron]   desktopManaged: false
+[electron] }
+[electron] 00:01:29.859 › [open-project] renderer requested pending path: { webContentsId: 1, pendingPath: null }
+[electron] 00:01:29.885 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:01:30.087 › [browser-webview] registered {
+[electron]   browserId: '51f90ba4-f790-43a4-a397-37b29475f11b',
+[electron]   webContentsId: 7,
+[electron]   registeredBrowserIds: [ '51f90ba4-f790-43a4-a397-37b29475f11b' ]
+[electron] }
+[electron] [209711:1124/000130.939911:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] 00:01:31.031 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] [209711:1124/000131.062920:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000131.063237:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000131.063322:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000131.063348:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] 00:01:31.473 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:01:31.533 › [browser-webview] registered {
+[electron]   browserId: '7042171f-e63b-4190-8558-41bd45ff05bb',
+[electron]   webContentsId: 9,
+[electron]   registeredBrowserIds: [
+[electron]     '51f90ba4-f790-43a4-a397-37b29475f11b',
+[electron]     '7042171f-e63b-4190-8558-41bd45ff05bb'
+[electron]   ]
+[electron] }
+[electron] [209711:1124/000131.718792:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000131.718930:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000131.719110:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000131.719133:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] 00:01:32.335 › [browser-webview] registered {
+[electron]   browserId: '72576251-e789-4fb6-bb12-bb6f4220f638',
+[electron]   webContentsId: 10,
+[electron]   registeredBrowserIds: [
+[electron]     '51f90ba4-f790-43a4-a397-37b29475f11b',
+[electron]     '7042171f-e63b-4190-8558-41bd45ff05bb',
+[electron]     '72576251-e789-4fb6-bb12-bb6f4220f638'
+[electron]   ]
+[electron] }
+[electron] 00:01:32.475 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] [209711:1124/000132.842318:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000132.842378:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000132.842543:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000132.842604:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000135.844708:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [DevTools] Loaded: React Developer Tools
+[metro] Web Bundled 382ms packages/app/index.ts (1 module)
+[electron] 00:01:38.689 › Running application "main" with appParams:
+[electron]  [object Object] 
+[electron] Development-level warnings: ON.
+[electron] Performance optimizations: OFF.
+[metro] Web  LOG  Running application "main" with appParams:
+[metro]  {"hydrate": undefined, "rootTag": "#root"} 
+[metro] Development-level warnings: ON.
+[metro] Performance optimizations: OFF.
+[electron] 00:01:38.749 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:38.821 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:38.825 › Require cycle: src/components/adaptive-modal-sheet.tsx -> src/components/ui/pane-content-toolbar.tsx -> src/components/ui/dropdown-menu.tsx -> src/components/ui/menu/index.ts -> src/components/ui/menu/menu-surface.tsx -> src/components/ui/menu/menu-item.tsx -> src/components/adaptive-modal-sheet.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.118 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.125 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/workspace-tabs/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.128 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/stores/navigation-active-workspace-store/index.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.129 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/connected-hosts.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.129 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/client-state/api.ts -> src/plugins/client-state/source.ts -> src/plugins/client-state/terminals.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.139 › Require cycle: src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/actions.ts -> src/plugins/workspace-panels/locations.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.143 › Require cycle: src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/client-runtime.ts -> src/plugins/navigation.ts -> src/stores/workspace-layout-store.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.168 › Require cycle: src/runtime/host-runtime.ts -> src/desktop/browser/automation/handler.ts -> src/stores/workspace-layout-store.ts -> src/plugins/workspace-panels/locations.ts -> src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/react-native/ui.ts -> src/plugins/react-native/markdown.tsx -> src/components/markdown/renderer.tsx -> src/agent-commands/index.tsx -> src/agent-commands/use-query.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.219 › Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/plugins/registry.ts -> src/plugins/evaluate.ts -> src/plugins/themes/index.ts -> src/plugins/registry.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.223 › Require cycle: src/runtime/host-runtime.ts -> src/runtime/directory-sync/index.ts -> src/runtime/directory-sync/agent-replica.ts -> src/hooks/use-archive-agent.ts -> src/runtime/host-runtime.ts
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[metro]
+[metro] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[electron] 00:01:39.307 › Require cycle: src/components/sidebar-workspace-list.tsx -> src/components/sidebar/sidebar-status-list.tsx -> src/components/sidebar/sidebar-workspace-row-content.tsx -> src/components/workspace-hover-card.tsx -> src/components/sidebar-workspace-list.tsx
+[electron]
+[electron] Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+[metro] Web  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 00:01:39.504 › props.pointerEvents is deprecated. Use style.pointerEvents
+[electron] 00:01:39.752 › [open-project] renderer requested pending path: { webContentsId: 11, pendingPath: null }
+[electron] 00:01:39.758 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:01:39.759 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[electron] 00:01:39.759 › [auto-updater] check started {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic'
+[electron] }
+[electron] 00:01:39.760 › [auto-updater] check completed {
+[electron]   currentVersion: '0.17.0-beta.1',
+[electron]   targetVersion: '0.17.0-beta.1',
+[electron]   releaseChannel: 'stable',
+[electron]   intent: 'automatic',
+[electron]   hasUpdate: false,
+[electron]   readyToInstall: false,
+[electron]   errorMessage: null
+[electron] }
+[metro] Web Bundled 24ms packages/app/src/desktop/attachments/desktop-attachment-store.ts (1 module)
+[electron] 00:01:39.918 › [open-project] renderer requested pending path: { webContentsId: 11, pendingPath: null }
+[electron] 00:01:39.925 › [open-project] renderer requested pending path: { webContentsId: 11, pendingPath: null }
+[metro] Web Bundled 26ms packages/app/src/desktop/attachments/desktop-attachment-bridge.ts (1 module)
+[metro] Web  WARN  Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 00:01:40.361 › Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+[electron] 00:01:42.786 › [open-project] renderer requested pending path: { webContentsId: 11, pendingPath: null }
+[electron] 00:01:42.813 › [desktop daemon] initial status check before start {
+[electron]   pid: 209497,
+[electron]   status: 'running',
+[electron]   listen: '127.0.0.1:36163',
+[electron]   serverId: 'srv_99L8u_4KfVja',
+[electron]   error: null,
+[electron]   desktopManaged: false
+[electron] }
+[electron] 00:01:44.466 › [browser-webview] registered {
+[electron]   browserId: '76bad575-ac13-4683-b503-26de2abcccf8',
+[electron]   webContentsId: 12,
+[electron]   registeredBrowserIds: [
+[electron]     '51f90ba4-f790-43a4-a397-37b29475f11b',
+[electron]     '7042171f-e63b-4190-8558-41bd45ff05bb',
+[electron]     '72576251-e789-4fb6-bb12-bb6f4220f638',
+[electron]     '76bad575-ac13-4683-b503-26de2abcccf8'
+[electron]   ]
+[electron] }
+[electron] 00:01:44.473 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] Debugger attached.
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging
+[electron] 00:01:46.169 › %cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+[electron]   Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+[electron]   this app to unnecessary security risks.
+[electron]
+[electron] For more information and help, consult
+[electron] https://electronjs.org/docs/tutorial/security.
+[electron] This warning will not show up
+[electron] once the app is packaged.
+[electron] 00:01:46.211 › [browser-webview] registered {
+[electron]   browserId: '7f150989-549e-4679-b41c-f10f4779a041',
+[electron]   webContentsId: 13,
+[electron]   registeredBrowserIds: [
+[electron]     '51f90ba4-f790-43a4-a397-37b29475f11b',
+[electron]     '7042171f-e63b-4190-8558-41bd45ff05bb',
+[electron]     '72576251-e789-4fb6-bb12-bb6f4220f638',
+[electron]     '7f150989-549e-4679-b41c-f10f4779a041'
+[electron]   ]
+[electron] }
+[electron] Debugger attached.
+[electron] [209711:1124/000146.458947:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000146.458994:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] [209711:1124/000146.459107:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[electron] [209711:1124/000146.459127:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[electron] Debugger ending on ws://127.0.0.1:39175/0b974ef6-09b1-4a53-894d-4acaa3275716
+[electron] For help, see: https://nodejs.org/learn/getting-started/debugging

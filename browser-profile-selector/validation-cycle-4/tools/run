@@ -1,0 +1,21 @@
+#!/bin/bash
+set -eu
+unset ${!PASEO_@}
+s=$(cat /tmp/profile-val4-current)
+e=$(cd "$(dirname "$0")/.." && pwd)
+name=$1; base=$2; shift 2
+test ! -e "$s/STOP"
+log="$e/$name.log"
+{
+date -u
+echo "cwd=$PWD"
+printf 'command='
+printf ' %q' "$e/tools/isolated" "$s/$base" "$@"
+echo
+set +e
+"$e/tools/isolated" "$s/$base" "$@"
+rc=$?
+echo "exit=$rc"
+date -u
+exit "$rc"
+} > "$log" 2>&1

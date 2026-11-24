@@ -1,0 +1,14 @@
+Mon Nov 23 23:42:02 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/cold env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/cold npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Terminated
+exit=143
+Mon Nov 23 23:44:38 UTC 2026

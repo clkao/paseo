@@ -1,0 +1,12 @@
++ git rev-parse HEAD
+1618e78ffee8806b55537a9dda2394dc89edc9ae
++ git status --porcelain=v1 --untracked-files=all
+++ git status --porcelain=v1 --untracked-files=all
++ test -z ''
++ git diff --quiet 5a0bf1449 HEAD -- package-lock.json
++ git hash-object packages/desktop/e2e/browser-tabs.e2e.mjs
+1ad367c574ac3098d5ebd32d68b96b1278b80247
++ git rev-parse HEAD:packages/desktop/e2e/browser-tabs.e2e.mjs
+1ad367c574ac3098d5ebd32d68b96b1278b80247
++ git status --porcelain=v1 --branch
+## HEAD (no branch)

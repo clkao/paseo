@@ -1,0 +1,7 @@
+Mon Nov 23 23:57:06 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/probe node /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/catalog-probe.cjs
+{"original":"Café 1","entered":"Café 1","result":{"ok":false,"code":"duplicate"},"saved":[]}
+{"original":"Café 1","entered":"Café 1","result":{"ok":false,"code":"duplicate"},"saved":[]}
+exit=0
+Mon Nov 23 23:57:06 UTC 2026

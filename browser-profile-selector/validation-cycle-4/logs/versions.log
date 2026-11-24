@@ -1,0 +1,18 @@
+Mon Nov 23 23:42:01 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/preflight bash -c git\ rev-parse\ HEAD\;\ node_modules/.bin/vitest\ --version\;\ set\ -o\ pipefail\;\ npm\ ls\ --depth=0\ 2\>\&1\ \|\ tail\ -5\;\ echo\ npm_ls_exit=\$\?\;\ node\ -v\;\ npm\ -v\;\ uname\ -sm\;\ hostname\;\ git\ status\ --porcelain=v1\ --branch
+1618e78ffee8806b55537a9dda2394dc89edc9ae
+vitest/4.1.7 linux-x64 node-v26.13.1
+npm error code ELSPROBLEMS
+npm error invalid: react@19.3.1 /home/exedev/worktrees/browser-profile-selector/packages/expo-two-way-audio/node_modules/react
+npm error invalid: react-dom@19.2.6 /home/exedev/worktrees/browser-profile-selector/packages/website/node_modules/react-dom
+npm error invalid: react@19.2.6 /home/exedev/worktrees/browser-profile-selector/packages/website/node_modules/react
+npm error A complete log of this run can be found in: /tmp/profile-val4.2hk4vk/preflight/home/.npm/_logs/2026-11-23T23_42_01_234Z-debug-0.log
+npm_ls_exit=1
+v26.13.1
+11.20.0
+Linux x86_64
+paseo-acl-prototype
+## HEAD (no branch)
+exit=0
+Mon Nov 23 23:42:02 UTC 2026

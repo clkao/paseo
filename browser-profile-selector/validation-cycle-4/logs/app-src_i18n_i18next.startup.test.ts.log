@@ -1,0 +1,23 @@
+Mon Nov 23 23:56:40 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-app ../../node_modules/.bin/vitest run src/i18n/i18next.startup.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mevaluates and registers only English before a language is selected[32m 79[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads ar synchronously on selection and reuses it[32m 77[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads es synchronously on selection and reuses it[32m 91[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads fr synchronously on selection and reuses it[32m 80[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads ja synchronously on selection and reuses it[32m 88[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads ko synchronously on selection and reuses it[32m 78[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads pt-BR synchronously on selection and reuses it[32m 84[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads ru synchronously on selection and reuses it[32m 87[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/i18next.startup.test.ts[2m > [22mbundled translation startup[2m > [22mloads zh-CN synchronously on selection and reuses it[32m 87[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 23:56:40
+[2m   Duration [22m 1.04s[2m (transform 77ms, setup 73ms, import 33ms, tests 821ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:41 UTC 2026

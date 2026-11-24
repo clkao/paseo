@@ -1,0 +1,11 @@
+Mon Nov 23 23:45:34 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/probe-net bash -c id\;\ ip\ -brief\ addr\;\ ip\ route\ list\;\ ip\ -6\ route\ list\;\ ip\ route\ get\ 1.1.1.1\;\ test\ \$\?\ -ne\ 0
+uid=1000(exedev) gid=1000(exedev) groups=1000(exedev),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),107(docker)
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+gre0@NONE        DOWN           
+gretap0@NONE     DOWN           
+erspan0@NONE     DOWN           
+RTNETLINK answers: Network is unreachable
+exit=0
+Mon Nov 23 23:45:34 UTC 2026

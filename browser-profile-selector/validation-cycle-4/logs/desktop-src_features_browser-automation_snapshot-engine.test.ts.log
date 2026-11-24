@@ -1,0 +1,19 @@
+Mon Nov 23 23:56:49 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-desktop ../../node_modules/.bin/vitest run src/features/browser-automation/snapshot-engine.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-automation/snapshot-engine.test.ts[2m > [22mBrowserSnapshotEngine[2m > [22mrenders a hierarchical ARIA YAML snapshot with static text and actionable refs[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/snapshot-engine.test.ts[2m > [22mBrowserSnapshotEngine[2m > [22mbuilds a runtime ref expression with the snapshot fingerprint[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/snapshot-engine.test.ts[2m > [22mBrowserSnapshotEngine[2m > [22mtreats missing host-side ref metadata as a stale ref[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/snapshot-engine.test.ts[2m > [22mBrowserSnapshotEngine[2m > [22mmarks rendered output truncation explicitly and deterministically[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/snapshot-engine.test.ts[2m > [22mBrowserSnapshotEngine[2m > [22mkeeps the last rendered node when a short snapshot was capped by node count[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 23:56:49
+[2m   Duration [22m 207ms[2m (transform 74ms, setup 0ms, import 92ms, tests 6ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:49 UTC 2026

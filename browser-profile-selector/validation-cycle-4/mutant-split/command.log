@@ -1,0 +1,109 @@
+Mon Nov 23 23:58:54 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/mutant-split env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/mutant-split npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Browser desktop browser E2E failed. Artifacts: /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/mutant-split
+A [Error]: expect(locator).toHaveValue(expected) failed
+
+Locator: getByRole('textbox', { name: 'Browser URL' })
+Expected: ""
+Error: strict mode violation: getByRole('textbox', { name: 'Browser URL' }) resolved to 2 elements:
+    1) <input rows="1" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" value="http://127.0.0.1:45691/" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByRole('textbox', { name: 'Browser URL' }).first()
+    2) <input rows="1" value="" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByTestId('workspace-pane-pane_169b9323-c75a-4bbe-80bd-a2951961eca4').getByRole('textbox', { name: 'Browser URL' })
+
+Call log:
+  - Expect "to.have.value" with timeout 5000ms
+  - waiting for getByRole('textbox', { name: 'Browser URL' })
+
+    at Proxy.<anonymous> (/home/exedev/worktrees/browser-profile-selector/node_modules/playwright/lib/matchers/expect.js:213:24)
+    at blank (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:127:29)
+    at async runProfileJourney (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:179:19)
+    at async checkProfiles (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1480:16)
+    at async main (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1584:22)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1614:1 {
+  matcherResult: {
+    name: 'toHaveValue',
+    expected: '',
+    message: 'expect(locator).toHaveValue(expected) failed\n' +
+      '\n' +
+      "Locator: getByRole('textbox', { name: 'Browser URL' })\n" +
+      'Expected: ""\n' +
+      "Error: strict mode violation: getByRole('textbox', { name: 'Browser URL' }) resolved to 2 elements:\n" +
+      `    1) <input rows="1" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" value="http://127.0.0.1:45691/" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByRole('textbox', { name: 'Browser URL' }).first()\n` +
+      `    2) <input rows="1" value="" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByTestId('workspace-pane-pane_169b9323-c75a-4bbe-80bd-a2951961eca4').getByRole('textbox', { name: 'Browser URL' })\n` +
+      '\n' +
+      'Call log:\n' +
+      '  - Expect "to.have.value" with timeout 5000ms\n' +
+      "  - waiting for getByRole('textbox', { name: 'Browser URL' })\n",
+    pass: false,
+    actual: undefined,
+    log: [
+      '  - Expect "to.have.value" with timeout 5000ms',
+      "  - waiting for getByRole('textbox', { name: 'Browser URL' })"
+    ],
+    timeout: undefined
+  }
+}
+node:internal/modules/run_main:111
+    triggerUncaughtException(
+    ^
+
+A [Error]: expect(locator).toHaveValue(expected) failed
+
+Locator: getByRole('textbox', { name: 'Browser URL' })
+Expected: ""
+Error: strict mode violation: getByRole('textbox', { name: 'Browser URL' }) resolved to 2 elements:
+    1) <input rows="1" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" value="http://127.0.0.1:45691/" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByRole('textbox', { name: 'Browser URL' }).first()
+    2) <input rows="1" value="" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByTestId('workspace-pane-pane_169b9323-c75a-4bbe-80bd-a2951961eca4').getByRole('textbox', { name: 'Browser URL' })
+
+Call log:
+  - Expect "to.have.value" with timeout 5000ms
+  - waiting for getByRole('textbox', { name: 'Browser URL' })
+
+    at Proxy.<anonymous> (/home/exedev/worktrees/browser-profile-selector/node_modules/playwright/lib/matchers/expect.js:213:24)
+    at blank (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:127:29)
+    at async runProfileJourney (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:179:19)
+    at async checkProfiles (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1480:16)
+    at async main (file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1584:22)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1614:1 {
+  matcherResult: {
+    name: 'toHaveValue',
+    expected: '',
+    message: 'expect(locator).toHaveValue(expected) failed\n' +
+      '\n' +
+      "Locator: getByRole('textbox', { name: 'Browser URL' })\n" +
+      'Expected: ""\n' +
+      "Error: strict mode violation: getByRole('textbox', { name: 'Browser URL' }) resolved to 2 elements:\n" +
+      `    1) <input rows="1" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" value="http://127.0.0.1:45691/" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByRole('textbox', { name: 'Browser URL' }).first()\n` +
+      `    2) <input rows="1" value="" dir="auto" autocorrect="off" autocomplete="on" spellcheck="false" autocapitalize="none" placeholder="Enter URL" aria-label="Browser URL" virtualkeyboardpolicy="auto" class="css-textinput-11aywtz r-placeholderTextColor-6taxm2 unistyles_1di0nln5skg "/> aka getByTestId('workspace-pane-pane_169b9323-c75a-4bbe-80bd-a2951961eca4').getByRole('textbox', { name: 'Browser URL' })\n` +
+      '\n' +
+      'Call log:\n' +
+      '  - Expect "to.have.value" with timeout 5000ms\n' +
+      "  - waiting for getByRole('textbox', { name: 'Browser URL' })\n",
+    pass: false,
+    actual: undefined,
+    log: [
+      '  - Expect "to.have.value" with timeout 5000ms',
+      "  - waiting for getByRole('textbox', { name: 'Browser URL' })"
+    ],
+    timeout: undefined
+  }
+}
+
+Node.js v26.13.1
+npm error Lifecycle script `test:e2e:browser-tabs` failed with error:
+npm error code 1
+npm error path /home/exedev/worktrees/browser-profile-selector/packages/desktop
+npm error workspace @getpaseo/desktop@0.17.0-beta.1
+npm error location /home/exedev/worktrees/browser-profile-selector/packages/desktop
+npm error command failed
+npm error command sh -c npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+exit=1
+Tue Nov 24 00:01:47 UTC 2026

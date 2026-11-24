@@ -1,0 +1,82 @@
+Mon Nov 23 23:56:48 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-desktop ../../node_modules/.bin/vitest run src/features/browser-automation/service.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mlist tabs without a workspace reports every live registered tab[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mlist tabs filters destroyed tabs out of the visible tab list[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mlist tabs returns an empty list when the workspace has no registered tabs[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mtab commands return tab not found for an id in another workspace[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mtab commands return tab closed for a destroyed explicit tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22msnapshot and click use refs from the same explicit tab[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mclick options choose the trusted mouse button, double-click count, and modifiers[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mcommands include dialogs handled during the command[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22m'fill updates a ref from the latest sn…'[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22m'select sets the requested value on a …'[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mhover moves the trusted browser pointer to the actionable point[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscroll sends trusted wheel input at the viewport center[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscroll with a ref sends trusted wheel input at the actionable point[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mdrag sends trusted pointer input between actionable points[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mfill with an empty string clears a ref through the regular fill path[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mrefs become stale after navigation changes the tab URL[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mrefs become stale when the same URL no longer contains the element[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mclick returns a retryable browser timeout when the ref never becomes actionable[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mcommand failures include dialogs handled before the failure[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mwait resolves when the explicit tab contains the requested text[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mwait returns a retryable timeout when text never appears[32m 26[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mtype writes trusted text into a ref[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mtype inserts text through the tab, not the window-wide debugger input[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mkeypress dispatches a trusted key to the focused element when ref is omitted[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mkeypress focuses a non-editable ref without clicking before the trusted key[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mkeypress reports unsupported when focusing an editable ref requires unavailable CDP[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mnavigate loads the requested HTTP URL in the explicit tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mnavigate denies non-http URLs before loading the explicit tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mnavigation actions dispatch to the explicit tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mback and forward fail when the tab has no matching history entry[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22m'resize' is app-runtime owned[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22m'close_tab' is app-runtime owned[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mlogs returns bounded console messages and network entries from the explicit tab[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mlogs reports the HTTP status the browser recorded, and none it did not[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate returns primitive JSON from the page context[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate returns object JSON from the page context[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate passes the resolved ref element as the first argument[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate returns stale ref when the target ref cannot be resolved[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate converts thrown page code into a bounded unknown error[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate returns oversized results with explicit truncation[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate caps oversized results inside the page script[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'allows eval'[2m > [22mruns the function and returns its result as JSON[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'allows eval'[2m > [22mawaits an async function[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'allows eval'[2m > [22mresolves names against the page's globals, never the wrapper's own[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'allows eval'[2m > [22mreports what the function throws[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'allows eval'[2m > [22mreports an expression that is not a function[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'allows eval'[2m > [22mreports a syntax error with the compiler's own message, without touching the page[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'forbids eval (its Content Security Po…'[2m > [22mruns the function and returns its result as JSON[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'forbids eval (its Content Security Po…'[2m > [22mawaits an async function[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'forbids eval (its Content Security Po…'[2m > [22mresolves names against the page's globals, never the wrapper's own[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'forbids eval (its Content Security Po…'[2m > [22mreports what the function throws[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'forbids eval (its Content Security Po…'[2m > [22mreports an expression that is not a function[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mevaluate on a page that 'forbids eval (its Content Security Po…'[2m > [22mreports a syntax error with the compiler's own message, without touching the page[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot captures the painted viewport[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot returns no-frame when the viewport never paints[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mpaint and pixel capture share the five-second screenshot budget[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot surfaces ordinary viewport capture errors[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22moverlapping screenshots serialize through the shared capture queue[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22moverlapping screenshots across browser tabs serialize through the shared capture queue[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot with fullPage captures the page content area through CDP[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot with fullPage returns unsupported when CDP returns no image[32m 4[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot with fullPage retries UnknownVizError until the first CDP frame appears[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot with fullPage waits for a CDP image with painted pixels[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot with fullPage returns no-frame when the page never paints[32m 2[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mscreenshot with fullPage surfaces ordinary CDP capture errors[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mupload resolves workspace files before setting them on the file input[32m 1[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mupload denies paths outside the agent workspace[32m 0[2mms[22m[39m
+ [32m✓[39m src/features/browser-automation/service.test.ts[2m > [22mexecuteAutomationCommand[2m > [22mupload reports missing cwd before setting files on the file input[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m68 passed[39m[22m[90m (68)[39m
+[2m   Start at [22m 23:56:48
+[2m   Duration [22m 367ms[2m (transform 160ms, setup 0ms, import 185ms, tests 86ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:49 UTC 2026

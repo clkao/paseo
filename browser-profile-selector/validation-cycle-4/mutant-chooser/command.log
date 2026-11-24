@@ -1,0 +1,97 @@
+Tue Nov 24 00:01:47 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/mutant-chooser env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/mutant-chooser npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Browser desktop browser E2E failed. Artifacts: /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/mutant-chooser
+locator.click: Timeout 90000ms exceeded.
+Call log:
+  - waiting for getByTestId('sidebar-workspace-row-srv_m_Eh86ujDP1i:desktop-browser-original')
+    - locator resolved to <button tabindex="0" role="button" type="button" aria-selected="true" aria-label="Desktop browser workspace 1, Ready to review" data-testid="sidebar-workspace-row-srv_m_Eh86ujDP1i:desktop-browser-original" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_hfh6nfnp7t ">…</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="0" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_1n4y4t9mro6 "></div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="0" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_1n4y4t9mro6 "></div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    171 × waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <div tabindex="0" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_1n4y4t9mro6 "></div> from <div>…</div> subtree intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+
+    at openBrowserWorkspace (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:365:67)
+    at workspace (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:172:28)
+    at runProfileJourney (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:309:11)
+    at async checkProfiles (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1488:16)
+    at async main (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1585:22)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1615:1 {
+  name: 'TimeoutError'
+}
+node:internal/modules/run_main:111
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 90000ms exceeded.
+Call log:
+  - waiting for getByTestId('sidebar-workspace-row-srv_m_Eh86ujDP1i:desktop-browser-original')
+    - locator resolved to <button tabindex="0" role="button" type="button" aria-selected="true" aria-label="Desktop browser workspace 1, Ready to review" data-testid="sidebar-workspace-row-srv_m_Eh86ujDP1i:desktop-browser-original" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_hfh6nfnp7t ">…</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="0" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_1n4y4t9mro6 "></div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="0" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_1n4y4t9mro6 "></div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    171 × waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <div tabindex="0" class="css-view-g5y9jx r-cursor-1loqt21 r-touchAction-1otgn73 unistyles_1n4y4t9mro6 "></div> from <div>…</div> subtree intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+
+    at openBrowserWorkspace (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:365:67)
+    at workspace (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:172:28)
+    at runProfileJourney (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-profiles.electron.mjs:309:11)
+    at async checkProfiles (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1488:16)
+    at async main (/home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1585:22)
+    at async file:///home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs:1615:1 {
+  name: 'TimeoutError'
+}
+
+Node.js v26.13.1
+npm error Lifecycle script `test:e2e:browser-tabs` failed with error:
+npm error code 1
+npm error path /home/exedev/worktrees/browser-profile-selector/packages/desktop
+npm error workspace @getpaseo/desktop@0.17.0-beta.1
+npm error location /home/exedev/worktrees/browser-profile-selector/packages/desktop
+npm error command failed
+npm error command sh -c npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+exit=1
+Tue Nov 24 00:06:36 UTC 2026

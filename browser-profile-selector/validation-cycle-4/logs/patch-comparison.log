@@ -1,0 +1,26 @@
++ git rev-parse HEAD 'HEAD^'
+1618e78ffee8806b55537a9dda2394dc89edc9ae
+5a0bf1449286899f174ef7e1073f37c97cdc5443
++ git merge-base HEAD cba515ef7
+cba515ef7300bc00cc7c73cf69ee4d8c00907578
++ git diff --name-status 5a0bf1449 HEAD
+M	packages/desktop/e2e/browser-tabs.e2e.mjs
++ cd /tmp/profile-val4.2hk4vk/comparison
++ git apply --check /tmp/profile-val4.2hk4vk/test-fix.patch
++ git apply /tmp/profile-val4.2hk4vk/test-fix.patch
++ diff -u packages/desktop/e2e/browser-tabs.e2e.mjs /home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs
+--- packages/desktop/e2e/browser-tabs.e2e.mjs	2026-11-23 23:42:32.387437257 +0000
++++ /home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs	2026-11-23 23:41:23.770161898 +0000
+@@ -34,7 +34,8 @@
+   "desktop-browser-evict-three",
+ ];
+ const timeoutMs = 90_000;
+-// A cold Metro bundle must finish before the renderer can show its first workspace.
++// A cold Metro bundle must finish before the renderer can show its first workspace. With an
++// empty Metro cache on Linux/Xvfb, the workspace row took 141.8 s, 132.3 s of it in Metro.
+ const desktopStartupTimeoutMs = 240_000;
+ 
+ function assert(condition, message) {
++ test 1 = 1
++ python3 - packages/desktop/e2e/browser-tabs.e2e.mjs /home/exedev/worktrees/browser-profile-selector/packages/desktop/e2e/browser-tabs.e2e.mjs
+All remaining bytes identical after substituting only the recorded comment.

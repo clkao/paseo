@@ -1,0 +1,20 @@
+diff --git a/packages/desktop/e2e/browser-tabs.e2e.mjs b/packages/desktop/e2e/browser-tabs.e2e.mjs
+index 1ad367c57..a545497a2 100644
+--- a/packages/desktop/e2e/browser-tabs.e2e.mjs
++++ b/packages/desktop/e2e/browser-tabs.e2e.mjs
+@@ -1503,14 +1503,7 @@ async function main() {
+                 timeout: 30000,
+               })
+               .toBe(true);
+-            const { page: reopened } = await launchDesktop();
+-            // With the plugin fixture's second host, the launcher's open-project request
+-            // can show a host chooser over the restored workspace.
+-            const chooser = reopened.getByTestId("host-chooser");
+-            await reopened.addLocatorHandler(chooser, () => reopened.keyboard.press("Escape"), {
+-              times: 1,
+-            });
+-            return reopened;
++            return (await launchDesktop()).page;
+           },
+         });
+       } finally {

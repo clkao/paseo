@@ -1,0 +1,18 @@
+Mon Nov 23 23:56:54 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-desktop ../../node_modules/.bin/vitest run src/open-project-routing.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/open-project-routing.test.ts[2m > [22mopen-project-routing[2m > [22mreturns a bare absolute path argument[32m 2[2mms[22m[39m
+ [32m✓[39m src/open-project-routing.test.ts[2m > [22mopen-project-routing[2m > [22mfinds a bare absolute path even when Chromium noise args appear first[32m 0[2mms[22m[39m
+ [32m✓[39m src/open-project-routing.test.ts[2m > [22mopen-project-routing[2m > [22mdoes not treat flags as project paths[32m 0[2mms[22m[39m
+ [32m✓[39m src/open-project-routing.test.ts[2m > [22mopen-project-routing[2m > [22mreturns the path from an explicit --open-project flag for backward compatibility[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 23:56:55
+[2m   Duration [22m 152ms[2m (transform 36ms, setup 0ms, import 48ms, tests 4ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:55 UTC 2026
