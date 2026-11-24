@@ -1,0 +1,17 @@
+Mon Nov 23 23:56:47 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/desktop
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-desktop ../../node_modules/.bin/vitest run src/desktop-startup.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/desktop[39m
+
+ [32m✓[39m src/desktop-startup.test.ts[2m > [22mdesktop startup[2m > [22mruns CLI passthrough before GUI login-shell env inheritance[32m 2[2mms[22m[39m
+ [32m✓[39m src/desktop-startup.test.ts[2m > [22mdesktop startup[2m > [22mkeeps login-shell env inheritance on normal GUI startup[32m 0[2mms[22m[39m
+ [32m✓[39m src/desktop-startup.test.ts[2m > [22mdesktop startup[2m > [22mdoes not route open-project launches through CLI passthrough[32m 1[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 23:56:47
+[2m   Duration [22m 153ms[2m (transform 30ms, setup 0ms, import 42ms, tests 5ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:47 UTC 2026

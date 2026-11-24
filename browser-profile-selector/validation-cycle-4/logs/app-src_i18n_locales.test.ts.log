@@ -1,0 +1,29 @@
+Mon Nov 23 23:56:42 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-app ../../node_modules/.bin/vitest run src/i18n/locales.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mparseAppLanguage[2m > [22maccepts system and all supported language locales[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mparseAppLanguage[2m > [22mreturns null for unknown values[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mparseAppLanguage[2m > [22moffers system plus all supported languages[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mformatLanguageOptionLabel[2m > [22mshows the native language name and English name in English UI[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mformatLanguageOptionLabel[2m > [22mshows the native language name and Chinese name in Chinese UI[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mformatLanguageOptionLabel[2m > [22muses a single label when both language names match[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mformatLanguageOptionLabel[2m > [22muses the active-language name for System[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mrespects explicit language choices[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mmaps supported system locales[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mmaps Korean system locales to Korean[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mdoes not map non-Brazilian Portuguese system locales to Brazilian Portuguese[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mkeeps English when Spanish is a secondary system language[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mmaps Chinese system locales to Simplified Chinese[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mdoes not map Traditional Chinese system locales to Simplified Chinese[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/i18n/locales.test.ts[2m > [22mresolveSupportedLocale[2m > [22mmaps unsupported or missing system locales to English[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m15 passed[39m[22m[90m (15)[39m
+[2m   Start at [22m 23:56:42
+[2m   Duration [22m 211ms[2m (transform 60ms, setup 52ms, import 36ms, tests 7ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:43 UTC 2026

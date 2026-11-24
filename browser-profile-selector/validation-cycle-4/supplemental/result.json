@@ -1,0 +1,105 @@
+{
+  "profiles": {
+    "equivalentAutomatic": {
+      "entered": "Café 1",
+      "automatic": "Café 1",
+      "message": "A profile with this name already exists in this group."
+    },
+    "reservedMessage": "This name is reserved. Choose another name.",
+    "geometry": {
+      "caption": "Shared › International collaboration and customer experience research workspace profile",
+      "scroll": 536,
+      "visible": 316,
+      "overflow": "ellipsis",
+      "frame": {
+        "x": 720,
+        "y": 75.5,
+        "width": 340,
+        "height": 28,
+        "top": 75.5,
+        "right": 1060,
+        "bottom": 103.5,
+        "left": 720
+      },
+      "chevron": {
+        "x": 1044,
+        "y": 83.5,
+        "width": 12,
+        "height": 12,
+        "top": 83.5,
+        "right": 1056,
+        "bottom": 95.5,
+        "left": 1044
+      }
+    },
+    "accentedAndPlain": {
+      "accented": "persist:paseo-project-0c1d319a62f69d7b20c5767aa7bcdff4-cafe",
+      "plain": "persist:paseo-project-0c1d319a62f69d7b20c5767aa7bcdff4-cafe-2"
+    },
+    "keyboard": "Shared › default",
+    "unsupported": {
+      "caption": "Shared › default",
+      "url": "about:blank"
+    },
+    "eightSecondResponse": {
+      "browserId": "df27111c-0f13-4ca8-8dbc-c9bb2e976584",
+      "requestedMs": 77,
+      "returnedMs": 203,
+      "respondedMs": 8077,
+      "pending": [
+        "df27111c-0f13-4ca8-8dbc-c9bb2e976584"
+      ],
+      "loaded": [
+        "df27111c-0f13-4ca8-8dbc-c9bb2e976584"
+      ]
+    },
+    "agentWithUnreadableCatalog": {
+      "id": "df0ba4e8-6e61-468a-89a0-90cd92868383",
+      "url": "about:blank",
+      "listed": 1
+    },
+    "legacy": {
+      "id": "289205e5-b559-428a-bfa8-a0fd9cbd4e9d",
+      "caption": "Shared › default",
+      "cookie": "account=Alice"
+    },
+    "oldCollision": {
+      "before": [
+        {
+          "id": "a36c2211-0ac8-4102-945f-3f4bc514cb46",
+          "caption": "Desktop browser project 1 › Café 1",
+          "partition": "persist:paseo-project-0c1d319a62f69d7b20c5767aa7bcdff4-ws-d355505b482ee4e35b432abaad6ef6f4",
+          "account": "Alice",
+          "cookie": "account=Alice",
+          "storage": "Alice"
+        },
+        {
+          "id": "750861b6-047d-45ef-a9fc-fdcf34be3546",
+          "caption": "Desktop browser project 1 › Cafe 1",
+          "partition": "persist:paseo-project-0c1d319a62f69d7b20c5767aa7bcdff4-cafe-1",
+          "account": "Bob",
+          "cookie": "account=Bob",
+          "storage": "Bob"
+        }
+      ],
+      "after": [
+        {
+          "id": "a36c2211-0ac8-4102-945f-3f4bc514cb46",
+          "caption": "Desktop browser project 1 › Café 1 (Workspace)",
+          "partition": "persist:paseo-project-0c1d319a62f69d7b20c5767aa7bcdff4-ws-d355505b482ee4e35b432abaad6ef6f4",
+          "account": "Alice",
+          "cookie": "account=Alice",
+          "storage": "Alice"
+        },
+        {
+          "id": "750861b6-047d-45ef-a9fc-fdcf34be3546",
+          "caption": "Desktop browser project 1 › Café 1",
+          "partition": "persist:paseo-project-0c1d319a62f69d7b20c5767aa7bcdff4-cafe-1",
+          "account": "Bob",
+          "cookie": "account=Bob",
+          "storage": "Bob"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -eu
+unset ${!PASEO_@}
+e=$(cd "$(dirname "$0")/.." && pwd); s=$(cat /tmp/profile-val4-current)
+cd /home/exedev/worktrees/browser-profile-selector
+name=$1
+test ! -e "$s/STOP"
+test ! -e "$s/$name"
+mkdir -p "$s/$name/tmp" "$e/$name"
+if [[ ${2:-} = warm ]]; then
+  cp -al "$s/cold/tmp/metro-cache" "$s/$name/tmp/"
+  for map in "$s/cold/tmp/metro-file-map-"*; do cp "$map" "$s/$name/tmp/"; done
+fi
+{ echo "Metro cache source: ${2:-empty}"; ls -A "$s/$name/tmp"; du -sh "$s/$name/tmp"; } > "$e/$name/cache.log"
+cmd=(npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop)
+if [[ $name = supplemental ]]; then cmd=(node "$e/tools/extra-checks.mjs"); fi
+"$e/tools/run" "$name/command" "$name" env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR="$e/$name" "${cmd[@]}"

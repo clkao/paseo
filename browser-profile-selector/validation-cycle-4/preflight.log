@@ -1,0 +1,13 @@
+## HEAD (no branch)
+From https://github.com/clkao/paseo
+ * branch                task/browser-profile-selector -> FETCH_HEAD
+1618e78ffee8806b55537a9dda2394dc89edc9ae
+Previous HEAD position was 5a0bf1449 Document browser profile partitions, the catalog and the profile journey
+HEAD is now at 1618e78ff Make the desktop browser-tabs regression pass end to end
+1618e78ffee8806b55537a9dda2394dc89edc9ae
+lockfile diff exit 0
+M	packages/desktop/e2e/browser-tabs.e2e.mjs
+## HEAD (no branch)
+From https://github.com/clkao/paseo
+ * branch                dev-state  -> FETCH_HEAD
+39d882b93436f2a804ecbd597e7347a388c45d52

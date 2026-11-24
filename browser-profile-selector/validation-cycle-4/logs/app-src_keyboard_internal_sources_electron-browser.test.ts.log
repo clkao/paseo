@@ -1,0 +1,30 @@
+Mon Nov 23 23:56:45 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector/packages/app
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/unit-app ../../node_modules/.bin/vitest run src/keyboard/internal/sources/electron-browser.test.ts --bail=1 --reporter=verbose
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/home/exedev/worktrees/browser-profile-selector/packages/app[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mpublishes only chord starts while no browser chord is pending[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mpublishes a chord continuation only after its browser start crosses the boundary[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mrejects an entire chord when a continuation cannot cross the browser boundary[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mpublishes Mod bindings for the current shortcut platform[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mkeeps Ctrl+W out of the window menu after the tab-close shortcut is remapped[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mleaves macOS browser back and forward shortcuts in the guest[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mmarks editable-only exclusions for enforcement inside the guest[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mdoes not publish plain browser keys[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mpublishes Cmd+B with its logical key for non-QWERTY layouts[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mbuildBrowserKeyboardPolicy[2m > [22mpublishes the physical code needed for macOS Option shortcuts[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mshouldPublishBrowserShortcutPolicy[2m > [22mrestores the initial browser policy when a host key resets a pending chord[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mparseBrowserShortcutInput[2m > [22mnormalizes browser shortcut input without losing its identity[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mparseBrowserShortcutInput[2m > [22mkeeps browser identities exact[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mparseBrowserShortcutInput[2m > [22mrejects 'a missing browser identity'[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mparseBrowserShortcutInput[2m > [22mrejects 'a malformed repeat flag'[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/keyboard/internal/sources/electron-browser.test.ts[2m > [22mElectron guest source through shared resolution[2m > [22mreplays guest input through user rebinds and preserves focus restoration[32m 18[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m   Start at [22m 23:56:46
+[2m   Duration [22m 307ms[2m (transform 151ms, setup 59ms, import 108ms, tests 29ms, environment 0ms)[22m
+
+exit=0
+Mon Nov 23 23:56:46 UTC 2026

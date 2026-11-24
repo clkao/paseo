@@ -403,3 +403,20 @@ The code worktree stayed clean at `5a0bf1449`, and `git apply --check` passes fo
 ### Summary
 
 I applied the validator's three test-setup fixes to the desktop browser-tabs E2E. They close the annotation regression's right split, give cold startup a named 240 s budget and dismiss the host chooser after relaunch. My only change to the patch is the measured cold-start figures in the constant's comment. The lefthook pre-commit typecheck triggered the plugin package's `typecheck:examples`, which runs `npm install --ignore-scripts` for `plugin-examples/markdown-panel`. npm printed "up to date". Nothing was downloaded, `node_modules` still dates from Nov 21, and the tracked lockfile's content is unchanged. Future commits in this worktree will trigger the same step unless they use `--no-verify` or `LEFTHOOK=0`.
+
+## Stage Report: validation (cycle 4)
+
+Run on the VM paseo-acl-prototype (Linux, Xvfb) by Codex agent `b4b91f2e`, at `1618e78ffee8806b55537a9dda2394dc89edc9ae`. Full report and evidence: [validation-cycle-4/REPORT.md](browser-profile-selector/validation-cycle-4/REPORT.md) (imported from fork branch `evidence/browser-profile-selector-validation-4`, `4a364006`).
+
+- DONE: Independently reproduce every acceptance criterion of browser-profile-selector at 1618e78ff on the VM (Linux, Xvfb): the unit and browser test files one at a time with --bail=1, the capture harness browser-profile group, and the unfiltered npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop once cold and once warm, with no local patch, with isolated homes, user data and ports.
+  351 tests in 34 files pass, and the capture harness passes 6/6. AC-1 to AC-7 and browser-profile-name-normalization AC-1 to AC-3 pass. The unpatched full desktop regression passes cold and warm.
+- DONE: Confirm that 1618e78ff changes only packages/desktop/e2e/browser-tabs.e2e.mjs since 5a0bf1449, and that it matches the cycle-3c follow-up test-fix.patch apart from the timeout comment; break each of its three fixes and show the full run fails, then restore.
+  Only that file changed, and it matches the patch apart from the comment. Reversing each fix alone reproduces its failure: two URL fields, the 90 s cold-start timeout, and the host chooser over the restored workspace.
+- DONE: Run lint, format:check and typecheck; report PASSED or REJECTED with the commands, output and evidence paths.
+  Lint, format and typecheck pass; the typecheck used the installed plugin-example dependencies and skipped its nested install.
+
+One exception to the no-download rule: an interrupted first cold attempt let Electron download React DevTools 8.0.0 into its empty user data. The validator stopped that attempt and discarded it. Every counted run used a network namespace with no external route and an extension already on the VM.
+
+### Summary
+
+PASSED. The product meets every criterion on Linux, and the full desktop regression passes without a local patch.

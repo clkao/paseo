@@ -1,0 +1,5 @@
+Individual tests 351 34 files
+cold [198958, 201780] http://127.0.0.1:45815/profile-account retained
+warm [202505, 205095] http://127.0.0.1:39201/profile-account retained
+slow fixture {'browserId': 'df27111c-0f13-4ca8-8dbc-c9bb2e976584', 'requestedMs': 77, 'returnedMs': 203, 'respondedMs': 8077, 'pending': ['df27111c-0f13-4ca8-8dbc-c9bb2e976584'], 'loaded': ['df27111c-0f13-4ca8-8dbc-c9bb2e976584']}
+old collision [('Alice', 'Desktop browser project 1 › Café 1 (Workspace)'), ('Bob', 'Desktop browser project 1 › Café 1')]

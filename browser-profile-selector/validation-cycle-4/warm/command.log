@@ -1,0 +1,14 @@
+Mon Nov 23 23:51:25 UTC 2026
+cwd=/home/exedev/worktrees/browser-profile-selector
+command= /home/exedev/acl-result/browser-profile-selector/validation-cycle-4/tools/isolated /tmp/profile-val4.2hk4vk/warm env PASEO_DESKTOP_BROWSER_E2E_ARTIFACT_DIR=/home/exedev/acl-result/browser-profile-selector/validation-cycle-4/warm npm run test:e2e:browser-tabs --workspace=@getpaseo/desktop
+
+> @getpaseo/desktop@0.17.0-beta.1 test:e2e:browser-tabs
+> npm run build:main && node ./e2e/browser-tabs.e2e.mjs
+
+
+> @getpaseo/desktop@0.17.0-beta.1 build:main
+> tsc -p tsconfig.json
+
+Browser desktop browser E2E passed: WebContents 5 remained 5; viewport, inactive capture, focus continuity, list, snapshot, click, local-page selectors passed.
+exit=0
+Mon Nov 23 23:54:52 UTC 2026

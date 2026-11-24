@@ -1,0 +1,6 @@
+mutant-timeout full command exit 1
+Restored packages/desktop/e2e/browser-tabs.e2e.mjs 1ad367c574ac3098d5ebd32d68b96b1278b80247
+mutant-split full command exit 1
+Restored packages/desktop/e2e/browser-tabs.e2e.mjs 1ad367c574ac3098d5ebd32d68b96b1278b80247
+mutant-chooser full command exit 1
+Restored packages/desktop/e2e/browser-tabs.e2e.mjs 1ad367c574ac3098d5ebd32d68b96b1278b80247
