@@ -92,6 +92,22 @@ gates:
                 at: "2026-11-22T06:16:46.232115Z"
                 decision: revise
                 reason: 'CL: send back to implementation after the validator''s test-only rerun. Apply evidence/browser-profile-selector-validation-3c-followup test-fix.patch (split pane, cold-start timeout, host chooser); product behavior passed.'
+            - id: gate-attempt:vb7f0c31h72remcb4fypyeqg-validation-4
+              briefing:
+                id: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-4:revision-1
+                digest: sha256:9029cdc4fc9e89c7463034848d0b6b6e08e3d418cb872c56283cada4154e0d53
+                room-ref: '@review/validation/briefing-4'
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:vb7f0c31h72remcb4fypyeqg:validation:4
+                briefing: briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-4:revision-1
+                by: person:captain
+                at: "2026-11-24T05:11:30.78846Z"
+                decision: approve
+                reason: 'CL: approve validation cycle 4 (1618e78ff).'
+              application:
+                target-stage: done
+                state: pending
 review-round:
     id: round:vb7f0c31h72remcb4fypyeqg:validation:1
     stage: validation

@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:vb7f0c31h72remcb4fypyeqg:validation:attempt-4:revision-1",
+  "question": "Validation cycle 4 recommends PASSED: approve browser-profile-selector?",
+  "artifacts": [
+    {
+      "id": "artifact:vb7f0c31h72remcb4fypyeqg:validation:attempt-4:revision-1:item-1",
+      "uri": "git-root://state/b6f4181a816c0c0339b72be0245b99c8597a0352/browser-profile-selector.md",
+      "rev": "sha256:bb5d647505d6a45fdf5751c6dec8bf206aad58d0df7ccfe29b05519cea740e87",
+      "mediaType": "text/markdown",
+      "summary": "AC-1 to AC-7 and the three NFC criteria pass on Linux at 1618e78ff; the unpatched full desktop regression passes cold and warm; each test fix is shown necessary; lint, format and typecheck pass."
+    }
+  ]
+}
