@@ -1,10 +1,10 @@
 ---
 title: "Compare browser profile display names using Unicode NFC"
-status: backlog
+status: done
 source: "CL, 2026-11-20, via the paseo project manager. Follow-up to browser-profile-selector validation cycle 2."
 started:
-completed:
-verdict:
+completed: 2026-11-24T05:11:42Z
+verdict: PASSED
 score:
 worktree:
 issue:
@@ -12,6 +12,7 @@ pr:
 mod-block:
 mandate:
 id: hp3car3cqz824bad4ehdk6zf
+archived: 2026-11-24T05:11:42Z
 ---
 
 ## Status
