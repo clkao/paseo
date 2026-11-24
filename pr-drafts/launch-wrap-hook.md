@@ -1,6 +1,6 @@
 Title: feat(plugins): let an open hook wrap the provider launch, fail-closed
 
-Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (9f9f39ce, on 2445adec)
+Base: getpaseo/paseo main · Head: clkao:task/launch-wrap-hook (c027b014, on e03fe0d8, v0.17.4)
 
 ---
 
@@ -79,9 +79,9 @@ The hook fails closed. Injected MCP servers already use this rule on a provider 
 
 ### QA
 
-Each test file ran separately on macOS, with `vitest run <file> --bail=1`. A second agent did an independent validation at `9f9f39ce`. For each acceptance criterion, it changed the code to break the behavior, saw the test fail, and restored the code.
+Each test file ran separately on macOS, with `vitest run <file> --bail=1`. A second agent did an independent validation at `c027b014`, after a rebase onto v0.17.4. For each acceptance criterion, it changed the code to break the behavior, saw the test fail, and restored the code.
 
-Result: 1,209 tests passed in 16 files. Four tests are conditional skips. The validator also installed a directory plugin on a real daemon, and a real child process received the wrapped launch. [Commands and output for each file](https://github.com/clkao/paseo/blob/7b06de28d99abacc12c9b1eb0ac095cca5cd1cca/launch-wrap-hook.md#stage-report-validation-cycle-4)
+Result: 1,268 tests passed in 16 files. Four tests are conditional skips. The validator also installed a directory plugin on a real daemon, and a real child process received the wrapped launch. [Commands and output for each file](https://github.com/clkao/paseo/blob/6e6c9fa821ea73a88000bd6b4106940c3de4b914/launch-wrap-hook.md#stage-report-validation-cycle-5)
 
 | Behavior | Test files |
 |---|---|
