@@ -575,3 +575,23 @@ The AC-2 Antigravity test now depends on the registration's declared command, an
 ### Summary
 
 **PASSED** for AC-1 through AC-5 at `9f9f39ce1`. Both specified regression mutations failed committed tests for the intended reason. The broader environment failures reproduced on the base revision. Per-command output and the temporary probe and mutation scripts are in `/tmp/paseo-validate-wrap.vcRsrC` on this machine.
+
+## Stage Report: implementation (cycle 5)
+
+- DONE: task/launch-wrap-hook is rebased onto upstream main e03fe0d8e with all five conflicts resolved, launch-wrap behavior unchanged and upstream changes kept; the report explains each resolution.
+  New head `c027b0141`: `d067ee652` feat (was 14238df28), `6bdfa8249` Windows cmd.exe (was a503685dc), `3a991b397` internal prepend + seam (was 30a6f4e6c), `c027b0141` test pins (was 9f9f39ce1). Commits 2–4 replay with byte-identical +/- lines. `git diff e03fe0d8e c027b0141` equals `git diff 2445adecd 9f9f39ce1` except one merged import list in `provider.test.ts`.
+  Conflicts, all textual, all in commit 1 except one in commit 3:
+  1. `plugin-provider.ts` imports: upstream #10487 (provider troubleshooting) added `diagnostic-utils` imports; kept both those and `LaunchWrapUnsupportedError`. Commit 3: upstream added `this.label = registration.label` in the `PluginAgentClient` constructor where we set `supportsLaunchWrap`; kept both lines.
+  2. `provider.test.ts`: upstream #10496 (session metrics) added a `Provider metrics` describe and its imports; kept it whole and appended our `Provider launch wrap` describe; import list is the union.
+  3. `acp.test.ts`: upstream #10428, #10524, #10614 appended ACP tool-row, paging and legacy Auto Accept tests; took upstream's file, added `chmod` to the fs import, appended our `runAcpProvider launch wrap` describe unchanged.
+  4. `agent-manager.test.ts`: upstream #10483, #10496 appended an import-metrics test; took upstream's file and appended our launch-wrap client, manager helper and tests unchanged.
+  5. `index.posix.test.ts`: upstream #10487, #10470 added the `docsUrl` http(s) test at the same spot; kept it and placed our registration-metadata test after it.
+  Design check: upstream's changes in the wrap's path are orthogonal: provider `docsUrl` and `providers` in plugin metadata, `session.metrics` capability, Codex MCP-startup logging, and ACP open gaining an `isConnectionClosed` argument and session paging. `buildLaunchContext`, the `session.launch_wrap` gates, `mapSessionConfig`, `prepareAppServerSpawn` and the ACP command-branch spawn are untouched by upstream, and our sites are present at HEAD (`acp.ts:185`, `connection.ts:90,338,505-525`, `provider.ts:816`, `plugin-process.ts:295`, `index.ts:779`).
+- SKIPPED: After CL's approved npm ci, every changed or conflicted test file and boundaries.test.ts pass on their own with --bail=1; lint, format and the protocol/plugin/server/CLI typechecks pass; or the item is SKIPPED with the reason.
+  No approval for `npm ci` reached this worker, and upstream changed `package-lock.json` (114+/49−), so per the assignment I stopped before tests, lint, format and typecheck.
+- DONE: Nothing pushed; the report gives the new head and commits.
+  Local branch `task/launch-wrap-hook` at `c027b0141`; nothing pushed.
+
+### Summary
+
+Rebased the four launch-wrap commits onto upstream `e03fe0d8e` (v0.17.4). All five conflicts were adjacent-append or import collisions, and upstream did not change how plugin providers connect or open sessions. The net feature diff is unchanged. Verification waits on CL's approval for `npm ci` in the worktree.
