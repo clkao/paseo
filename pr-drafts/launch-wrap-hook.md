@@ -95,7 +95,7 @@ Result: 1,268 tests passed in 16 files. Four tests are conditional skips. The va
 | A missing launcher fails the open after one launch attempt, with no start of the bare harness. | `packages/plugin/src/server/acp.test.ts`, `agent/providers/codex-app-server-agent.spawn-error.test.ts` |
 | With the platform `win32`, a `.cmd` wrap resolves to `cmd.exe` with quoted arguments. A wrapped refresh with a `.cmd` provider command starts a new session through the real `spawnProcess`. | `packages/plugin/src/server/process.test.ts`, `agent/agent-manager.test.ts` |
 
-`npm run lint` and `npm run format` pass. The typecheck passes for protocol, plugin, server and CLI. I did not run the full root typecheck (app, desktop, website). The plugin examples typecheck fails in my checkout because `@tanstack/react-query` is not installed, and it fails in the same way on `2445adec`. CI must run these.
+`npm run lint` and `npm run format` pass. The typecheck passes for protocol, plugin, server and CLI. I did not run the full root typecheck (app, desktop, website, plugin examples). CI must run these.
 
 | Platform | Tested | Notes |
 |---|---|---|
