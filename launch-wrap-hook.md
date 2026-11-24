@@ -597,3 +597,5 @@ The AC-2 Antigravity test now depends on the registration's declared command, an
 ### Summary
 
 Rebased the four launch-wrap commits onto upstream `e03fe0d8e` (v0.17.4). All five conflicts were adjacent-append or import collisions, and upstream did not change how plugin providers connect or open sessions. The net feature diff is unchanged. After the approved `npm ci`, all 16 named test files pass on their own, except one upstream zombie-reaping test that needs `ps`, which this agent cannot run. Lint, format and the four typechecks also pass.
+
+CL ran the one test the sandbox could not run, outside it, on 2026-11-24 at `c027b0141`: `npx vitest run src/server/plugins/index.posix.test.ts -t "reaps compiler children" --bail=1` from `packages/server` passed (1 passed, 40 skipped by the filter, 11.2 s).
