@@ -599,3 +599,38 @@ The AC-2 Antigravity test now depends on the registration's declared command, an
 Rebased the four launch-wrap commits onto upstream `e03fe0d8e` (v0.17.4). All five conflicts were adjacent-append or import collisions, and upstream did not change how plugin providers connect or open sessions. The net feature diff is unchanged. After the approved `npm ci`, all 16 named test files pass on their own, except one upstream zombie-reaping test that needs `ps`, which this agent cannot run. Lint, format and the four typechecks also pass.
 
 CL ran the one test the sandbox could not run, outside it, on 2026-11-24 at `c027b0141`: `npx vitest run src/server/plugins/index.posix.test.ts -t "reaps compiler children" --bail=1` from `packages/server` passed (1 passed, 40 skipped by the filter, 11.2 s).
+
+## Stage Report: validation (cycle 5)
+
+- DONE: Independently reproduce AC-1 through AC-5 on `task/launch-wrap-hook` at `c027b0141`.
+  From each package directory I ran the installed `vitest run <file> --bail=1` in a separate invocation for each file. Each dev-tool invocation started with inherited `PASEO_*` variables cleared. The 16 named files produced 1,268 passing cases, four conditional skips and one sandbox skip, with the timeout adjustment below.
+- DONE: AC-1. Discover support before connecting and fail closed on an old host.
+  Configuration E2E (3), registration (40), snapshot manager (101), registry (53), snapshot schema (8) and handlers (38) passed. The cold create hook saw support at zero connections. The loading snapshot, inherited Codex support, connector omission and strict unknown-key checks passed.
+  Removing the snapshot field failed the cold-hook case with `{launchWrap: null, connects: 0}` instead of `true`. In a source archive of upstream `2445adecd` with only the current handler test overlaid, `-t 'can select a launch wrap'` failed with Zod `unrecognized_keys` for `wrap`.
+- DONE: AC-2. Preserve ACP argv, the session environment and isolation on a shared connection.
+  ACP (122) and Antigravity (17) passed. The recording child preserved arguments with spaces, and exactly one of two sessions used the wrapper. Omitting the session env changed the recorded token from `one` to `null`. Removing the telemetry flag from the production Antigravity registration failed its recorded argv assertion.
+- DONE: AC-3. Enforce a single wrap across handlers and plugins.
+  Handlers (38) and POSIX runtime (73) passed omission, repetition and conflict cases. Rejecting a second identical wrap failed both repetition tests with the wrap-conflict error.
+- DONE: AC-4. Preserve the wrap for interactive and archived-history resumes.
+  Codex (235) and handlers (38) passed. An extra wrapper argument on history resumes failed the exact spawn-argv assertion. The history hook test also verified tools and MCP servers were empty and the prompt addition was absent.
+- DONE: AC-5. Reject unsupported opens before spawn and keep the original session on a rejected refresh.
+  Agent manager (333), plugin provider (119), SDK provider (13), process (3), ACP (122) and Codex spawn-error (4) passed. Create, resume, import and refresh rejected with unchanged provider call counts, tool cleanup and an intact original session. The record omitted the wrap. Live capability admission, original wrap on reopen, connector omission and a single missing-launcher attempt passed.
+  Substituting `provider_unavailable` for `launch_wrap_unsupported` failed the manager assertion. Retrying the same missing ACP launcher produced two attempts where the test expected one. The Windows resolver used an injected platform. The wrapped refresh passed a Windows-style provider command to a real child on macOS.
+
+- DONE: Compare `git diff 2445adecd..9f9f39ce1` and `git diff e03fe0d8e..c027b0141` and check all five conflict files.
+  Both change the same 37 paths and modes. Ordered added/deleted lines match on 36. In SDK `provider.test.ts`, upstream already expanded the provider import for metrics, so the rebased patch adds only `requireProviderCapabilities`. Both describes and the union of imports remain. Remaining textual diff differences are blob IDs, hunk positions and upstream context. Commits two through four have identical ordered edits on every path. `git diff --check e03fe0d8e..c027b0141` exited 0.
+  In `plugin-provider.ts`, both the diagnostic and error imports survive, as do the label and support assignments. In `acp.test.ts`, upstream tool rows, paging and legacy Auto Accept cases precede the wrap suite. In `agent-manager.test.ts`, imported session metrics precede the wrap cases. In `index.posix.test.ts`, URL validation and wrap registration both survive. Comparing the upstream delta in both directions found only the merged SDK import and blank lines between adjacent suites.
+- DONE: Run boundary and contract tests and exercise bootstrap's real PluginService.
+  SDK boundaries (106), Windows command (15), snapshot codec (2), wire compatibility (23), plugin messages (22) and outbound validation (15) passed. The outbound inline compiler first omitted a default. The documented `npm run generate:validators --workspace=@getpaseo/protocol` prerequisite applied its compiler patch, then all 15 passed.
+  Plugin process (2), compiler (86), lifecycle E2E (18), client loader (67), session lifecycle boundary (1), projected timeline (3), reconnect (2) and Hub CLI (1) passed.
+  A temporary configuration E2E case installed a directory plugin over WebSocket. Its open hook returned a wrap. Bootstrap's PluginService and agent manager sent it to Codex, where one real child recorded the provider argv prefix `["validation-provider", "two words", "app-server"]`. The probe supplied discovery data and a Node wrapper that answered the fixture app-server protocol.
+- DONE: Run lint, formatting and protocol/plugin/server/CLI source typechecks.
+  `npm run lint` reported 0 warnings and 0 errors. `npm run format:check` reported all files correctly formatted. `node_modules/.bin/tsgo --noEmit -p packages/<name>/<config>` exited 0 for each package, using `tsconfig.server.typecheck.json` for server and `tsconfig.json` elsewhere.
+  The snapshot suite hit the default 5 s timeout importing the generated outbound validator on both the rebased head and freshly generated upstream base `e03fe0d8e`. With `--bail=1 --testTimeout=20000`, all eight passed. The launch-wrap schema case passed at the default timeout.
+- SKIPPED: Sandbox and conditional test cases.
+  `index.posix.test.ts` stopped at the compiler-child reaper with `spawnSync ps EPERM`. A direct `ps` was also denied. Running the file with `-t '^(?!.*reaps compiler children)'` passed all 40 other cases. CL separately recorded the reaper passing on this head outside the sandbox in state commit `6cdefb825`. In `plugin-provider.test.ts`, four controls-only cases skip by design in the settings variant.
+  In `user-message-contract.real.e2e.test.ts`, Pi received `EPERM` creating its home session directory. The harness skipped Claude, Codex and OpenCode at its availability checks.
+
+### Summary
+
+**PASSED** for AC-1 through AC-5 on `c027b0141`. Every selected production mutation failed its intended assertion, and all eight corresponding test invocations passed after restoration. The code worktree is clean. Commands, test output, the bootstrap probe and both patch comparisons are in `/tmp/paseo-wrap-validation.5XSxCV`.
