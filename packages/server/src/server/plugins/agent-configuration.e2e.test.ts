@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { DaemonClient } from "../test-utils/daemon-client.js";
 import type { AgentClient, AgentSessionConfig } from "../agent/agent-sdk-types.js";
 import { createTestAgentClient } from "../test-utils/fake-agent-client.js";
@@ -162,9 +162,13 @@ export default function contribute(server) {
   );
 }
 
-function launchCountingCodex(): { client: AgentClient; launches: () => number } {
+function launchCountingCodex(options: Parameters<typeof createTestAgentClient>[1] = {}): {
+  client: AgentClient;
+  launches: () => number;
+} {
   let launches = 0;
   const client = createTestAgentClient("codex", {
+    ...options,
     beforeCreateSession: async () => {
       launches += 1;
     },
@@ -177,7 +181,12 @@ function launchCountingCodex(): { client: AgentClient; launches: () => number } 
 
 test("an agent that requires its plugin opens only while the plugin is enabled", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "paseo-required-plugin-"));
-  const { client: codex, launches } = launchCountingCodex();
+  const held = Promise.withResolvers<void>();
+  const interrupt = vi.fn(() => held.resolve());
+  const { client: codex, launches } = launchCountingCodex({
+    beforeTurnComplete: () => held.promise,
+    onInterrupt: interrupt,
+  });
   const daemon = await createTestPaseoDaemon({
     daemonVersion: "0.14.0-beta.1",
     agentClients: { codex },
@@ -202,20 +211,41 @@ test("an agent that requires its plugin opens only while the plugin is enabled",
     ]);
     const handle = manager.getAgent(agent.id)!.persistence!;
 
+    await client.sendMessage(agent.id, "hold the turn");
+    await vi.waitFor(() => expect(manager.getAgent(agent.id)?.lifecycle).toBe("running"));
     await client.disablePlugin("sandbox-runtime");
     const before = launches();
-    const refused = { code: "required_plugin_inactive", pluginIds: ["sandbox-runtime"] };
-    await expect(manager.reloadAgentSession(agent.id)).rejects.toMatchObject(refused);
-    await manager.closeAgent(agent.id);
-    await expect(
-      manager.resumeAgentFromPersistence(handle, { cwd: directory }, agent.id),
-    ).rejects.toMatchObject(refused);
+    const refused = {
+      code: "agent_refresh_failed",
+      message: expect.stringContaining("sandbox-runtime"),
+    };
+    await expect(client.refreshAgent(agent.id)).rejects.toMatchObject(refused);
+    expect.soft(interrupt).not.toHaveBeenCalled();
+    expect.soft(manager.getAgent(agent.id)?.lifecycle).toBe("running");
+    held.resolve();
+    await vi.waitFor(() => expect(manager.hasInFlightRun(agent.id)).toBe(false));
+    const archived = await client.archiveAgent(agent.id);
+    await expect(client.refreshAgent(agent.id)).rejects.toMatchObject(refused);
+    expect
+      .soft((await daemon.daemon.agentStorage.get(agent.id))?.archivedAt)
+      .toBe(archived.archivedAt);
+    await expect(client.resumeAgent(handle, { cwd: directory })).rejects.toMatchObject({
+      code: "agent_resume_failed",
+      message: expect.stringContaining("sandbox-runtime"),
+    });
+    expect((await daemon.daemon.agentStorage.get(agent.id))?.archivedAt).toBe(archived.archivedAt);
     expect(launches()).toBe(before);
 
     await client.enablePlugin("sandbox-runtime");
-    await manager.resumeAgentFromPersistence(handle, { cwd: directory }, agent.id);
+    const resumed = await client.resumeAgent(handle, { cwd: directory });
+    expect(resumed.id).not.toBe(agent.id);
     expect(launches()).toBe(before + 1);
+    await manager.flush();
+    expect((await daemon.daemon.agentStorage.get(resumed.id))?.requiresPlugins).toEqual([
+      "sandbox-runtime",
+    ]);
   } finally {
+    held.resolve();
     await client.close();
     await daemon.close();
     await rm(directory, { recursive: true, force: true });

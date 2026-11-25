@@ -1765,6 +1765,7 @@ export class AgentManager {
       owner?: AgentOwner;
       background?: boolean;
       attention?: AttentionState;
+      requiresPlugins?: readonly string[];
     },
     resumeOptions?: AgentResumeSessionOptions,
   ): Promise<ManagedAgent> {
@@ -1799,6 +1800,7 @@ export class AgentManager {
       owner?: AgentOwner;
       background?: boolean;
       attention?: AttentionState;
+      requiresPlugins?: readonly string[];
     },
     resumeOptions?: AgentResumeSessionOptions,
   ): Promise<ManagedAgent> {
@@ -1818,7 +1820,7 @@ export class AgentManager {
     // settled before the config is prepared, because a history load reads an archived
     // agent whose working directory may be gone.
     const record = this.registry ? await this.registry.get(resolvedAgentId) : null;
-    const requiresPlugins = record?.requiresPlugins;
+    const requiresPlugins = unionPluginIds(record?.requiresPlugins, options?.requiresPlugins);
     this.requireActivePlugins(requiresPlugins);
     const purpose = await resolveResumePurpose(record, resumeOptions?.purpose, mergedConfig.cwd);
     const currentResumeOptions = { purpose } satisfies AgentResumeSessionOptions;
@@ -6648,7 +6650,7 @@ export class AgentManager {
   }
 
   /** An agent opens only while every plugin it requires is active, whatever the reason or purpose. */
-  private requireActivePlugins(pluginIds: readonly string[] | undefined): void {
+  requireActivePlugins(pluginIds: readonly string[] | undefined): void {
     const inactive = (pluginIds ?? []).filter(
       (pluginId) => this.pluginLifecycle?.isPluginActive(pluginId) !== true,
     );

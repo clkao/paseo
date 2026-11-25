@@ -3970,16 +3970,14 @@ export class Session {
     });
   }
 
-  private async unarchiveAgentByHandle(handle: AgentPersistenceHandle): Promise<{
-    record: StoredAgentRecord;
-    didUnarchive: boolean;
-    originalArchivedAt: string | null;
-  } | null> {
+  private async findAgentByHandle(
+    handle: AgentPersistenceHandle,
+  ): Promise<StoredAgentRecord | null> {
     const records = await this.agentStorage.listByProviderSession(
       handle.provider,
       handle.sessionId,
     );
-    const matched = records.reduce<StoredAgentRecord | null>((latest, candidate) => {
+    return records.reduce<StoredAgentRecord | null>((latest, candidate) => {
       if (!latest) {
         return candidate;
       }
@@ -3991,19 +3989,6 @@ export class Session {
       }
       return Date.parse(candidate.createdAt) > Date.parse(latest.createdAt) ? candidate : latest;
     }, null);
-    if (!matched) {
-      return null;
-    }
-    const didUnarchive = await unarchiveAgentState(
-      this.agentStorage,
-      this.agentManager,
-      matched.id,
-    );
-    return {
-      record: matched,
-      didUnarchive,
-      originalArchivedAt: matched.archivedAt ?? null,
-    };
   }
 
   private async handleUpdateAgentRequest(
@@ -5171,22 +5156,26 @@ export class Session {
       `Resuming agent ${handle.sessionId} (${handle.provider})`,
     );
     try {
-      const matched = await this.unarchiveAgentByHandle(handle);
+      const matched = await this.findAgentByHandle(handle);
       const effectiveOverrides = matched
-        ? { ...buildConfigOverrides(matched.record), ...overrides }
+        ? { ...buildConfigOverrides(matched), ...overrides }
         : overrides;
+      this.agentManager.requireActivePlugins(matched?.requiresPlugins);
+      // Native providers may need their archived thread restored before they can resume it.
+      const restored =
+        matched?.archivedAt &&
+        (await unarchiveAgentState(this.agentStorage, this.agentManager, matched.id));
       let snapshot: ManagedAgent;
       try {
         snapshot = await this.agentManager.resumeAgentFromPersistence(
           handle,
           effectiveOverrides,
           undefined,
-          { workspaceId: matched?.record.workspaceId },
+          { workspaceId: matched?.workspaceId, requiresPlugins: matched?.requiresPlugins },
         );
       } catch (error) {
-        if (matched?.didUnarchive && matched.originalArchivedAt) {
-          await this.agentManager.archiveSnapshot(matched.record.id, matched.originalArchivedAt);
-        }
+        if (restored && matched?.archivedAt)
+          await this.agentManager.archiveSnapshot(matched.id, matched.archivedAt);
         throw error;
       }
       await unarchiveAgentState(this.agentStorage, this.agentManager, snapshot.id);
@@ -5308,12 +5297,14 @@ export class Session {
     this.sessionLogger.info({ agentId }, `Refreshing agent ${agentId} from persistence`);
 
     try {
+      const required =
+        this.agentManager.getAgent(agentId) ?? (await this.agentStorage.get(agentId));
+      this.agentManager.requireActivePlugins(required?.requiresPlugins);
       await this.restoreOwningWorkspaceForLegacyAgentRefresh(agentId);
       await unarchiveAgentState(this.agentStorage, this.agentManager, agentId);
       let snapshot: ManagedAgent;
       const existing = this.agentManager.getAgent(agentId);
       if (existing) {
-        await this.interruptAgentIfRunning(agentId);
         snapshot = await this.agentManager.reloadAgentSession(agentId, undefined, {
           rehydrateFromDisk: true,
         });
