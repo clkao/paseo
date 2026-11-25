@@ -273,22 +273,35 @@ override its mode presets.
 
 ### Require your plugin for every open {#require-your-plugin}
 
-A plugin that enforces policy in `agent.open.before`, such as a sandbox, can make an agent open only
-while the plugin is active. Return `requirePlugin: true`:
+If your plugin enforces a policy in `agent.open.before`, require it at creation.
+If the host does not support requirements, throw an error to refuse creation.
 
 ```ts
 server.addHook("agent.create.before", async ({ request }) => {
-  // Older hosts do not send the field and reject it in a result.
-  if (request.requirePlugin === undefined) return request;
+  if (request.requirePlugin === undefined) {
+    throw new Error("This plugin requires a Paseo host that supports required plugins.");
+  }
   return { ...request, requirePlugin: true };
 });
 ```
 
-Paseo saves your plugin's ID on the agent. From then on, every open of that agent fails with
-`required_plugin_inactive` while your plugin is not active: disabled, reloading, removed, failed to
-load, crashed, or without an `agent.open.before` hook. This covers resume, refresh, history and
-scheduled opens. A running session keeps running; its next prompt is refused. To open the agent
-again, make the plugin active again under the same ID.
+For [imports](#agentopenbefore), use the same support check and return `requirePlugin: true` in
+`agent.open.before` when `request.reason === "import"`. Imports skip the create hook.
+
+Paseo saves the installed plugin ID on the agent. For each provider open, your plugin must run an
+`agent.open.before` handler. When Paseo calls the provider, the same instance must still be loaded and connected, with its open hook registered.
+This includes opens for resume, refresh, history, and scheduled runs.
+
+If your plugin becomes inactive, a turn already in progress can finish. Paseo refuses the next
+prompt, including requests to steer or replace that turn. The user can still stop or cancel it.
+To resume work, restore the plugin under the same ID.
+
+The server reports `required_plugin_inactive` when the required plugin is missing from an open.
+Resume and refresh RPCs return `agent_resume_failed` and `agent_refresh_failed`, respectively.
+Their error messages name the required plugin.
+
+Keep agent records on hosts that support requirements. An older daemon can open the agent
+without the plugin and can discard the saved requirement when it writes the record.
 
 | Rule             | Behavior                                                                                       |
 | ---------------- | ---------------------------------------------------------------------------------------------- |
@@ -297,10 +310,7 @@ again, make the plugin active again under the same ID.
 | Open hook needed | A plugin without an `agent.open.before` hook cannot require itself; creation fails.            |
 | Several handlers | A later handler that omits `requirePlugin` keeps the earlier value.                            |
 | Plugin ID        | The ID the plugin was installed under. Reinstalling under another ID does not satisfy it.      |
-| No release       | Nothing removes a requirement from an agent.                                                   |
-
-Imported agents run no create hook; declare the requirement from the
-[import open](#agentopenbefore) instead.
+| No release       | The plugin API cannot remove a saved requirement.                                              |
 
 ## agent.create.after
 

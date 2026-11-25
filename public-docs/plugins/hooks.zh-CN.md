@@ -269,17 +269,26 @@ server.addHook("agent.create.before", async ({ request }) => {
 
 ### 要求插件在每次打开时处于活动状态 {#require-your-plugin}
 
-在 `agent.open.before` 中执行策略的插件（例如沙盒）可以让 Agent 只在插件处于活动状态时打开。返回 `requirePlugin: true`：
+如果插件通过 `agent.open.before` 执行策略，请在创建 Agent 时将该插件设为必需插件。如果主机不支持必需插件，请抛出错误，拒绝创建 Agent。
 
 ```ts
 server.addHook("agent.create.before", async ({ request }) => {
-  // 旧版主机不发送此字段，并会拒绝包含它的返回值。
-  if (request.requirePlugin === undefined) return request;
+  if (request.requirePlugin === undefined) {
+    throw new Error("This plugin requires a Paseo host that supports required plugins.");
+  }
   return { ...request, requirePlugin: true };
 });
 ```
 
-Paseo 会把你的插件 ID 保存到 Agent 上。此后只要插件不处于活动状态（已停用、正在重新加载、已移除、加载失败、崩溃，或没有 `agent.open.before` 钩子），该 Agent 的每次打开都会以 `required_plugin_inactive` 失败。这包括恢复、刷新、历史记录和定时任务的打开。正在运行的会话会继续运行，它的下一条提示会被拒绝。要再次打开该 Agent，请让插件以相同 ID 重新处于活动状态。
+[导入 Agent](#agentopenbefore) 时会跳过创建钩子。当 `request.reason === "import"` 时，请在 `agent.open.before` 中检查主机是否支持必需插件，并返回 `requirePlugin: true`。
+
+Paseo 会在 Agent 记录中保存插件安装时使用的 ID。每次打开 Provider 会话时，插件都必须运行一个 `agent.open.before` 处理函数。Paseo 调用 Provider 时，运行该处理函数的插件实例必须仍处于加载和连接状态，且打开钩子仍已注册。这也适用于恢复、刷新、读取历史记录和执行定时任务时打开的会话。
+
+如果插件不再处于活动状态，当前轮次仍可完成。Paseo 会拒绝下一条提示词，包括在当前轮次中追加提示词或用新轮次替换当前轮次的请求。用户仍可停止或取消当前轮次。要继续使用该 Agent，请恢复相同 ID 的插件。
+
+打开会话时，如果缺少必需插件，服务端会报告 `required_plugin_inactive`。恢复和刷新 RPC 分别返回 `agent_resume_failed` 和 `agent_refresh_failed`，错误消息会指明缺少哪个插件。
+
+请将 Agent 记录保存在支持必需插件的主机上。旧版 daemon 可以在缺少插件时打开 Agent，还可能在写入记录时丢弃已保存的插件要求。
 
 | 规则         | 行为                                                                |
 | ------------ | ------------------------------------------------------------------- |
@@ -288,9 +297,7 @@ Paseo 会把你的插件 ID 保存到 Agent 上。此后只要插件不处于活
 | 需要打开钩子 | 没有 `agent.open.before` 钩子的插件不能要求自己，创建会失败。       |
 | 多个处理函数 | 后面的处理函数省略 `requirePlugin` 时，保留前面的值。               |
 | 插件 ID      | 使用插件安装时的 ID。以其他 ID 重新安装不满足要求。                 |
-| 不能解除     | 没有任何操作会从 Agent 上移除要求。                                 |
-
-导入的 Agent 不运行创建钩子，请在[导入时的打开](#agentopenbefore)中声明要求。
+| 不能解除     | 插件 API 无法移除已保存的要求。                                     |
 
 ## agent.create.after {#agentcreateafter}
 

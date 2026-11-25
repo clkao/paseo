@@ -1792,7 +1792,6 @@ function readConnectionId(value: unknown): string | null {
   return typeof connectionId === "string" ? connectionId : null;
 }
 
-// COMPAT(pluginTurnTimeline): added in v0.16.0-beta.3; plugins built before the field left the SDK type read `timeline`; remove after 2027-05-31
 /** Removes a plugin's `requirePlugin` answer so the next plugin is asked afresh. */
 function takeRequirePlugin(loaded: LoadedPlugin, request: { requirePlugin?: boolean }): boolean {
   const required = request.requirePlugin === true;
@@ -1804,6 +1803,7 @@ function takeRequirePlugin(loaded: LoadedPlugin, request: { requirePlugin?: bool
   return required;
 }
 
+// COMPAT(pluginTurnTimeline): added in v0.16.0-beta.3; plugins built before the field left the SDK type read `timeline`; remove after 2027-05-31
 function wireEvent<Name extends keyof PluginHookEvents>(
   name: Name,
   event: PluginHookEvents[Name],
