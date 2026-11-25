@@ -2403,14 +2403,16 @@ describe("plugin requirements", () => {
     children.get("dropped")!.emitMessage({ type: "hooks.changed", hooks: [] });
 
     const resumed = await runtime.before("agent.open.before", openRequest);
-    expect(resumed.hookPluginIds).toEqual(["sandbox"]);
+    expect(resumed.isActiveParticipant?.("sandbox")).toBe(true);
+    expect(resumed.isActiveParticipant?.("dropped")).toBe(false);
     expect(resumed).not.toHaveProperty("requiresPlugins");
 
     const imported = await runtime.before("agent.open.before", {
       ...openRequest,
       reason: "import",
     });
-    expect(imported.hookPluginIds).toEqual(["sandbox"]);
+    expect(imported.isActiveParticipant?.("sandbox")).toBe(true);
+    expect(imported.isActiveParticipant?.("dropped")).toBe(false);
     expect(imported.requiresPlugins).toEqual(["sandbox"]);
     expect(imported).not.toHaveProperty("requirePlugin");
     expect(received).toEqual([undefined, false]);
@@ -2443,11 +2445,13 @@ describe("plugin requirements", () => {
     });
     onTestFinished(() => runtime.stopAll());
     await runtime.startPlugin("once", directory);
-    expect((await runtime.before("agent.open.before", openRequest)).hookPluginIds).toEqual([
-      "once",
-    ]);
+    expect(
+      (await runtime.before("agent.open.before", openRequest)).isActiveParticipant?.("once"),
+    ).toBe(true);
     expect(runtime.isPluginActive("once")).toBe(true);
-    expect((await runtime.before("agent.open.before", openRequest)).hookPluginIds).toEqual([]);
+    expect(
+      (await runtime.before("agent.open.before", openRequest)).isActiveParticipant?.("once"),
+    ).toBe(false);
   });
 
   it("counts a plugin active only while it is published, running and has an open hook", async () => {

@@ -45,8 +45,8 @@ export type PluginBeforeResults = PluginWireBeforeRequests & {
   "agent.open.before": SessionOpenWireRequest &
     PluginRequirementResult & {
       mcpServerOwners?: Record<string, string>;
-      /** Runtime IDs of the plugins whose open hook ran on this open. */
-      hookPluginIds?: string[];
+      /** Checks the current runtime against the instance that handled this open. */
+      isActiveParticipant?: (pluginId: string) => boolean;
     };
 };
 

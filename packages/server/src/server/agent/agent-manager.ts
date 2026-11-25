@@ -1933,7 +1933,6 @@ export class AgentManager {
       resolvedAgentId,
       { resolveDefaultModel: false },
     );
-    let importedRequirements: string[] | undefined;
     using prepared = await this.prepareProviderOpen(
       resolvedAgentId,
       client,
@@ -1945,10 +1944,6 @@ export class AgentManager {
         purpose: "interactive",
         workspaceId: input.workspaceId,
         labels: input.labels ?? {},
-        // An import runs no create hook, so its open hooks declare the requirement.
-        onRequirePlugins: (pluginIds) => {
-          importedRequirements = pluginIds;
-        },
       },
     );
     const { launchContext } = prepared;
@@ -1981,7 +1976,7 @@ export class AgentManager {
         launchedOptions,
         labels: input.labels,
         workspaceId: input.workspaceId,
-        requiresPlugins: importedRequirements,
+        requiresPlugins: prepared.requiresPlugins,
         timelineRows,
         timelineNextSeq: timelineRows.length + 1,
         sessionMetrics: imported.sessionMetrics,
@@ -2071,6 +2066,7 @@ export class AgentManager {
       throw this.unsupportedMcpError(providerLaunchConfig, launchContext);
     }
 
+    prepared.verify();
     if (this.hasInFlightRun(agentId)) {
       await this.cancelAgentRunBefore(agentId, "reload");
       existing = this.requireSessionAgent(agentId);
@@ -6574,83 +6570,56 @@ export class AgentManager {
       metadata?: AgentMetadata;
       /** Each must have run its open hook on this open, or the open is refused. */
       requiresPlugins?: readonly string[];
-      /** Import only: receives the plugins whose open hook returned `requirePlugin: true`. */
-      onRequirePlugins?: (pluginIds: string[]) => void;
     },
   ) {
     // A plugin changing during this open must still make the resulting session stale.
     const generation = this.sessionOpenGeneration;
-    let tools: AttachedAgentTool[] = [];
-    let appendSystemPrompt: string[] | undefined;
-    let mcpServers: AgentSessionConfig["mcpServers"];
-    let mcpServerOwners: Record<string, string> | undefined;
-    if (this.pluginLifecycle) {
-      const request = {
-        agentId,
-        provider: client.provider,
-        cwd,
-        workspaceId: opening.workspaceId ?? null,
-        reason: opening.reason,
-        purpose: opening.purpose,
-        env: { ...env },
-        title: opening.title ?? null,
-        background: opening.background === true,
-        ...agentEntityData(opening),
-        tools: [],
-        mcpServers: {},
-      };
-      const transformed = await this.pluginLifecycle.before("agent.open.before", request);
-      tools = request.purpose === "interactive" ? (transformed.tools as AttachedAgentTool[]) : [];
-      try {
-        this.settleOpenRequirements(opening, transformed);
-      } catch (error) {
-        this.releasePluginTools(tools);
-        throw error;
-      }
-      env = transformed.env;
-      if (request.purpose === "interactive") {
-        appendSystemPrompt = transformed.appendSystemPrompt;
-        mcpServers = transformed.mcpServers;
-        mcpServerOwners = transformed.mcpServerOwners;
-      }
-    } else {
-      this.settleOpenRequirements(opening, null);
-    }
+    const transformed = await this.pluginLifecycle?.before("agent.open.before", {
+      agentId,
+      provider: client.provider,
+      cwd,
+      workspaceId: opening.workspaceId ?? null,
+      reason: opening.reason,
+      purpose: opening.purpose,
+      env: { ...env },
+      title: opening.title ?? null,
+      background: opening.background === true,
+      ...agentEntityData(opening),
+      tools: [],
+      mcpServers: {},
+    });
+    const interactive = opening.purpose === "interactive" ? transformed : undefined;
+    const tools = (interactive?.tools ?? []) as AttachedAgentTool[];
+    const requiresPlugins = unionPluginIds(opening.requiresPlugins, transformed?.requiresPlugins);
+    const verify = () => {
+      const missing = requiresPlugins?.filter((id) => !transformed?.isActiveParticipant?.(id));
+      if (missing?.length) throw new RequiredPluginInactiveError(missing);
+    };
     const context: AgentLaunchContext = {
       agentId,
-      ...pluginPromptContext(appendSystemPrompt),
-      mcpServers,
-      mcpServerOwners,
+      ...pluginPromptContext(interactive?.appendSystemPrompt),
+      mcpServers: interactive?.mcpServers,
+      mcpServerOwners: interactive?.mcpServerOwners,
       env: {
-        ...env,
+        ...(transformed?.env ?? env),
         ...agentIdentityEnv({ agentId, cwd, opening }),
       },
     };
-    const useNativeTools =
-      this.paseoToolsEnabled &&
-      isPaseoToolPolicyEnabled(paseoToolPolicy) &&
-      client.capabilities.supportsNativePaseoTools;
-    if (this.paseoToolCatalogFactory && (useNativeTools || tools.length > 0)) {
-      try {
-        const catalog = await this.paseoToolCatalogFactory({
-          callerAgentId: agentId,
-          ...(this.pluginAgentTools && {
-            pluginTools: tools.filter((tool) =>
-              this.pluginAgentTools!.isToolPluginAvailable(tool.pluginId, tool.pluginInstanceId),
-            ),
-          }),
-          paseoToolPolicy,
-        });
-        if (useNativeTools) context.paseoTools = catalog;
-      } catch (error) {
-        this.releasePluginTools(tools);
-        throw error;
-      }
+    try {
+      verify();
+      const catalog = await this.buildOpenToolCatalog(agentId, client, paseoToolPolicy, tools);
+      if (catalog) context.paseoTools = catalog;
+    } catch (error) {
+      this.releasePluginTools(tools);
+      throw error;
     }
     let activated = false;
     return {
       launchContext: context,
+      requiresPlugins,
+      verify,
       activate: () => {
+        verify();
         this.detachPluginTools(agentId);
         this.attachedPluginTools.set(agentId, tools);
         this.sessionOpenGenerations.set(agentId, generation);
@@ -6664,20 +6633,28 @@ export class AgentManager {
     };
   }
 
-  /**
-   * Refuses an open when a required plugin's open hook did not run: the runtime skips a plugin that
-   * stopped or dropped its hook mid-open. Hands an import open's requirement to the caller.
-   */
-  private settleOpenRequirements(
-    opening:
-      | { requiresPlugins?: readonly string[]; onRequirePlugins?: (ids: string[]) => void }
-      | undefined,
-    opened: { hookPluginIds?: string[]; requiresPlugins?: string[] } | null,
-  ): void {
-    const ran = new Set(opened?.hookPluginIds ?? []);
-    const skipped = (opening?.requiresPlugins ?? []).filter((pluginId) => !ran.has(pluginId));
-    if (skipped.length > 0) throw new RequiredPluginInactiveError(skipped);
-    if (opened?.requiresPlugins) opening?.onRequirePlugins?.(opened.requiresPlugins);
+  private async buildOpenToolCatalog(
+    agentId: string,
+    client: AgentClient,
+    paseoToolPolicy: ProviderPaseoToolsPolicy | undefined,
+    tools: readonly AttachedAgentTool[],
+  ) {
+    const useNativeTools =
+      this.paseoToolsEnabled &&
+      isPaseoToolPolicyEnabled(paseoToolPolicy) &&
+      client.capabilities.supportsNativePaseoTools;
+    if (!this.paseoToolCatalogFactory || (!useNativeTools && !tools.length)) return;
+    const runtime = this.pluginAgentTools;
+    const catalog = await this.paseoToolCatalogFactory({
+      callerAgentId: agentId,
+      paseoToolPolicy,
+      ...(runtime && {
+        pluginTools: tools.filter((tool) =>
+          runtime.isToolPluginAvailable(tool.pluginId, tool.pluginInstanceId),
+        ),
+      }),
+    });
+    if (useNativeTools) return catalog;
   }
 
   /** An agent opens only while every plugin it requires is active, whatever the reason or purpose. */

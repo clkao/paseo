@@ -256,6 +256,60 @@ export default function contribute(server) {
   }
 }, 60_000);
 
+test.each(["import catalog", "refresh close"] as const)(
+  "refuses a changed required instance during %s",
+  async (window) => {
+    const entered = Promise.withResolvers<void>();
+    const release = Promise.withResolvers<void>();
+    const wait = async () => {
+      entered.resolve();
+      await release.promise;
+    };
+    const source = `
+    export default function contribute(server) {
+      server.addHook("agent.create.before", ({request}) => ({...request, requirePlugin: true}));
+      server.addHook("agent.open.before", ({request}) => {
+        if (request.reason === "import") return {...request, requirePlugin: true};
+      });
+      return () => {};
+    }`;
+    const h = await setup(true, source, undefined, {
+      closeSession: window === "refresh close" ? wait : undefined,
+    });
+    try {
+      const manager = h.daemon.daemon.agentManager;
+      const agent = await h.create();
+      const original = h.launches[0]!.context!.paseoTools!;
+      manager.setPaseoToolCatalogFactory(async () => {
+        if (window === "import catalog") await wait();
+        return original;
+      });
+      const pending =
+        window === "import catalog"
+          ? manager.importProviderSession({
+              provider: "codex",
+              providerHandleId: agent.persistence!.sessionId,
+              cwd: h.directory,
+              workspaceId: "workspace",
+            })
+          : manager.reloadAgentSession(agent.id);
+      await entered.promise;
+      await h.client.reloadPlugin("tools-test");
+      const refused = expect(pending).rejects.toMatchObject({
+        code: "required_plugin_inactive",
+        pluginIds: ["tools-test"],
+      });
+      release.resolve();
+      await refused;
+      expect(h.launches).toHaveLength(1);
+    } finally {
+      release.resolve();
+      await h.close();
+    }
+  },
+  60_000,
+);
+
 test("native providers get the same attached schema and execution", async () => {
   const h = await setup(true);
   try {

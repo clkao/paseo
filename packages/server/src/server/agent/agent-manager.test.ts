@@ -16280,7 +16280,7 @@ function requirementLifecycle(
         const imported = request.reason === "import" && options.importRequires;
         return {
           ...request,
-          hookPluginIds,
+          isActiveParticipant: (id: string) => hookPluginIds.includes(id),
           ...(imported ? { requiresPlugins: options.importRequires } : {}),
         };
       }

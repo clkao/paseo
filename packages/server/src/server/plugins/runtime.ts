@@ -766,7 +766,7 @@ export class PluginRuntime {
     const attached: AttachedAgentTool[] = [];
     const mcpServers: SessionOpenWireRequest["mcpServers"] = {};
     const mcpServerOwners: Record<string, string> = {};
-    const hookPluginIds: string[] = [];
+    const participants = new Map<string, LoadedPlugin>();
     const requiresPlugins: string[] = [];
     // Each plugin decides its own requirement: it receives `false`, never another plugin's choice.
     const asksRequirement =
@@ -786,7 +786,7 @@ export class PluginRuntime {
         });
         if (name === "agent.open.before") {
           const { handlerRan, ...result } = openHookReplySchema.parse(output);
-          if (handlerRan) hookPluginIds.push(loaded.id);
+          if (handlerRan) participants.set(loaded.id, loaded);
           output = result;
         }
         request = await validateBeforeResult(name, request, output);
@@ -818,7 +818,8 @@ export class PluginRuntime {
         tools: attached,
         mcpServers,
         mcpServerOwners,
-        hookPluginIds,
+        isActiveParticipant: (id: string) =>
+          this.isPluginActive(id) && this.plugins.get(id) === participants.get(id),
         ...requirement,
       } as PluginBeforeResults[Name];
     }
