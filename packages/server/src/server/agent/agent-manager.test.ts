@@ -16340,7 +16340,9 @@ test.each([
     await manager.flush();
     expect((await storage.get(created.id))?.requiresPlugins).toEqual(["sandbox"]);
     const handle = manager.getAgent(created.id)!.persistence!;
-    if (!live) await manager.closeAgent(created.id);
+    // An archived agent reopens for history; a closed one with a working directory would not.
+    if (path === "history resume") await manager.archiveAgent(created.id);
+    else if (!live) await manager.closeAgent(created.id);
     const open = async () => {
       if (path === "reloadAgentSession") return manager.reloadAgentSession(created.id);
       if (path === "reloadStalePluginSession") {

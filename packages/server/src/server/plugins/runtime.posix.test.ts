@@ -2434,6 +2434,9 @@ describe("plugin requirements", () => {
     expect(runtime.isPluginActive("drops-hook")).toBe(false);
 
     expect(runtime.isPluginActive("crashes")).toBe(true);
+    // Disconnected but not yet unpublished: the child no longer runs, so the plugin is inactive.
+    children.get("crashes")!.disconnect();
+    expect(runtime.isPluginActive("crashes")).toBe(false);
     children.get("crashes")!.kill();
     await vi.waitFor(() => expect(runtime.isPluginActive("crashes")).toBe(false));
 
