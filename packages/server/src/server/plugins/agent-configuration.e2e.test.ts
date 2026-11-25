@@ -183,7 +183,11 @@ test("an agent that requires its plugin opens only while the plugin is enabled",
   const directory = await mkdtemp(path.join(tmpdir(), "paseo-required-plugin-"));
   const held = Promise.withResolvers<void>();
   const interrupt = vi.fn(() => held.resolve());
+  const steer = vi.fn(async () => ({ status: "accepted" as const }));
+  const start = vi.fn();
   const { client: codex, launches } = launchCountingCodex({
+    steerActiveTurn: steer,
+    onStartTurn: start,
     beforeTurnComplete: () => held.promise,
     onInterrupt: interrupt,
   });
@@ -222,7 +226,16 @@ test("an agent that requires its plugin opens only while the plugin is enabled",
     await expect(client.refreshAgent(agent.id)).rejects.toMatchObject(refused);
     expect.soft(interrupt).not.toHaveBeenCalled();
     expect.soft(manager.getAgent(agent.id)?.lifecycle).toBe("running");
-    held.resolve();
+    for (const behavior of ["steer", "interrupt"] as const) {
+      await expect(
+        client.sendMessage(agent.id, "new input", { activeTurnBehavior: behavior }),
+      ).rejects.toThrow("sandbox-runtime");
+    }
+    expect(steer).not.toHaveBeenCalled();
+    expect(interrupt).not.toHaveBeenCalled();
+    expect(start).toHaveBeenCalledTimes(1);
+    await client.cancelAgent(agent.id);
+    expect(interrupt).toHaveBeenCalledTimes(1);
     await vi.waitFor(() => expect(manager.hasInFlightRun(agent.id)).toBe(false));
     const archived = await client.archiveAgent(agent.id);
     await expect(client.refreshAgent(agent.id)).rejects.toMatchObject(refused);

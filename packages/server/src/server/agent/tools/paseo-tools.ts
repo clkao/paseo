@@ -2004,8 +2004,10 @@ function createToolCatalog(
       notifyOnFinish = Boolean(callerAgentId),
       activeTurnBehavior,
     }) => {
-      if (callerAgentId && !agentManager.getAgent(agentId) && !(await agentStorage.get(agentId))) {
-        throw new PaseoToolInputError(`Agent ${agentId} not found`);
+      if (callerAgentId) {
+        const recipient = agentManager.getAgent(agentId) ?? (await agentStorage.get(agentId));
+        if (!recipient) throw new PaseoToolInputError(`Agent ${agentId} not found`);
+        agentManager.requireActivePlugins(recipient.requiresPlugins);
       }
       const notifying = Boolean(callerAgentId && notifyOnFinish);
       const notification =

@@ -413,11 +413,12 @@ export async function sendPreparedPromptToAgent(
   const unarchive = params.unarchive ?? true;
 
   const record = await params.agentStorage.get(params.agentId);
+  if (record?.archivedAt && !unarchive) {
+    return { disposition: "turn_started", started: Promise.resolve() };
+  }
+  params.agentManager.requireActivePlugins(record?.requiresPlugins);
   let archivedAtToRestore: string | null = null;
   if (record?.archivedAt) {
-    if (!unarchive) {
-      return { disposition: "turn_started", started: Promise.resolve() };
-    }
     if (await unarchiveAgentState(params.agentStorage, params.agentManager, params.agentId)) {
       archivedAtToRestore = record.archivedAt;
     }

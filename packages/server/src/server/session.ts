@@ -9123,6 +9123,7 @@ export class Session {
       logger: this.sessionLogger,
     });
     const stored = await this.agentStorage.get(agentId);
+    this.agentManager.requireActivePlugins(stored?.requiresPlugins);
     if (stored && !stored.title && !stored.lastUserMessageAt) {
       const { provisionalTitle } = resolveCreateAgentTitles({ initialPrompt: text });
       if (provisionalTitle) await this.agentManager.setTitle(agentId, provisionalTitle);
@@ -9182,6 +9183,9 @@ export class Session {
       let queuedReceipt: { activeTurnBehavior: AgentMessageBehavior; guidance: string } | undefined;
       const send = async (beforeDispatch: () => Promise<void>) => {
         if (msg.sourceAgentId) {
+          const recipient =
+            this.agentManager.getAgent(agentId) ?? (await this.agentStorage.get(agentId));
+          this.agentManager.requireActivePlugins(recipient?.requiresPlugins);
           await beforeDispatch();
           const receipt = this.agentMessages.enqueue({
             recipientId: agentId,

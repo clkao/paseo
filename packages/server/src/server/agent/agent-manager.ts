@@ -3218,6 +3218,7 @@ export class AgentManager {
   ): Promise<boolean> {
     const agent = await this.findOutOfBandRecipient(agentId);
     if (!agent) return false;
+    this.requireActivePlugins(agent.requiresPlugins);
     // Providers parse slash commands from the raw text, so a command another agent sent
     // must reach them without its sender envelope.
     const agentMessage = typeof prompt === "string" ? parseAgentMessage(prompt) : null;
@@ -3337,6 +3338,7 @@ export class AgentManager {
       return null;
     }
     try {
+      this.requireActivePlugins(agent.requiresPlugins);
       const result = await agent.session.startTurn(prompt, options);
       if (pendingRun.settled) {
         throw new Error(`Agent ${agentId} run was canceled before its turn started`);
@@ -3490,6 +3492,7 @@ export class AgentManager {
     if (this.collectingRuntimes.has(agentId) || (!this.agents.has(agentId) && this.registry))
       return this.streamAfterRuntimeCollection(agentId, prompt, options, promptStart);
     const existingAgent = this.requireSessionAgent(agentId);
+    this.requireActivePlugins(existingAgent.requiresPlugins);
     if (this.historySessions.has(existingAgent.session))
       return this.streamAfterHistoryLoad(agentId, prompt, options, promptStart);
     this.logger.trace(
@@ -3814,6 +3817,7 @@ export class AgentManager {
       await this.drainSessionEvents(agent.id);
       this.agentStreamCoalescer.flushFor(agent.id);
       this.assertSteerAdmissionOwnsTurn(agent, expectedTurnId);
+      this.requireActivePlugins(agent.requiresPlugins);
       const barrier: SteerEventBarrier = { events: [] };
       this.steerEventBarriers.set(agent.id, barrier);
       try {
@@ -3906,6 +3910,7 @@ export class AgentManager {
           return { status: "starting" as const, run: starting };
         }
         assertAdmission?.(agent);
+        this.requireActivePlugins(agent.requiresPlugins);
         if (!this.hasInFlightRun(agent.id)) {
           return {
             status: "reserved" as const,
