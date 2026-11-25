@@ -76,6 +76,7 @@ test("bridge preserves tool failure messages and classifies invalid requests as 
   });
   const bridge = new OpenCodeBridge({ paseoHome, logger });
   try {
+    await scheduleService.start();
     await bridge.start();
     bridge.setManifestCatalog(catalog);
     bridge.bindSession({ sessionId: "diagnosis", env: {}, tools: catalog });
@@ -201,6 +202,7 @@ test("bridge preserves tool failure messages and classifies invalid requests as 
   } finally {
     await agentMessages.close();
     await bridge.close();
+    await scheduleService.stop();
     await providerSnapshotManager.shutdown();
     await rm(paseoHome, { recursive: true, force: true });
   }

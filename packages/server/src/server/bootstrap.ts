@@ -2048,6 +2048,7 @@ export async function createPaseoDaemon(
       speechService.start();
       scriptHealthMonitor.start();
     } catch (error) {
+      await scheduleService.stop();
       localCredential = null;
       await deleteLocalCredential(config.paseoHome);
       unsubscribePluginProviders();

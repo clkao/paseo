@@ -3,6 +3,8 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test, vi } from "vitest";
+import { Client as McpClient } from "@modelcontextprotocol/sdk/client/index.js";
+import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { BuiltinPluginLoader } from "./builtin/index.js";
 import { ScheduleService } from "../schedule/service.js";
 import { DaemonClient } from "../test-utils/daemon-client.js";
@@ -293,6 +295,7 @@ test("scheduled runs wait for plugins to load at daemon start", async () => {
       appVersion: "0.14.0-beta.1",
     });
     let scheduleId: string;
+    let manualId: string;
     try {
       await firstClient.connect();
       await firstClient.fetchAgents({ subscribe: {} });
@@ -303,6 +306,12 @@ test("scheduled runs wait for plugins to load at daemon start", async () => {
         target: { type: "agent", agentId: agent.id },
       });
       scheduleId = created.schedule!.id;
+      const manual = await firstClient.scheduleCreate({
+        prompt: "manual check",
+        cadence: { type: "cron", expression: "0 0 1 1 *" },
+        target: { type: "new-agent", config: { provider: "codex", cwd: workspace } },
+      });
+      manualId = manual.schedule!.id;
     } finally {
       await firstClient.close();
       await first.close();
@@ -328,8 +337,20 @@ test("scheduled runs wait for plugins to load at daemon start", async () => {
     vi.useFakeTimers({ toFake: ["Date", "setInterval", "clearInterval"] });
     vi.setSystemTime(new Date("2030-01-02T00:00:00.000Z"));
     const ticks = vi.spyOn(ScheduleService.prototype, "tick");
+    const requested = Promise.withResolvers<void>();
+    const runOnce = ScheduleService.prototype.runOnce;
+    const observed = vi
+      .spyOn(ScheduleService.prototype, "runOnce")
+      .mockImplementation(function (this: ScheduleService, id) {
+        const result = runOnce.call(this, id);
+        requested.resolve();
+        return result;
+      });
+    const mcp = new McpClient({ name: "schedule-test", version: "1" });
     const restarting = createTestPaseoDaemon({
       ...options,
+      listenPort: first.port,
+      mcpEnabled: true,
       builtinPlugins: loader,
       agentClients: { codex: launchCountingCodex().client },
     });
@@ -340,11 +361,32 @@ test("scheduled runs wait for plugins to load at daemon start", async () => {
           throw new Error("Plugin loader did not run");
         }),
       ]);
+      await mcp.connect(
+        new StreamableHTTPClientTransport(new URL(`http://127.0.0.1:${first.port}/mcp/agents`)),
+      );
+      const manual = mcp.callTool({ name: "run_schedule_once", arguments: { id: manualId } });
+      await Promise.race([
+        requested.promise,
+        manual.then(() => {
+          throw new Error("Manual request did not reach the scheduler");
+        }),
+      ]);
       await vi.advanceTimersByTimeAsync(2_000);
       expect(ticks).not.toHaveBeenCalled();
       expect(await readSchedule()).toMatchObject({ nextRunAt: due, runs: [] });
       ready.resolve();
-      await restarting;
+      const second = await restarting;
+      const result = await manual;
+      expect(result.isError).not.toBe(true);
+      const manualSchedule = JSON.parse(
+        await readFile(path.join(second.paseoHome, "schedules", `${manualId}.json`), "utf8"),
+      );
+      expect(manualSchedule.runs).toEqual([
+        expect.objectContaining({ status: "succeeded", agentId: expect.any(String) }),
+      ]);
+      expect(
+        (await second.daemon.agentStorage.get(manualSchedule.runs[0].agentId))?.requiresPlugins,
+      ).toEqual(["required-sandbox"]);
       await vi.advanceTimersByTimeAsync(1_000);
       expect(ticks).toHaveBeenCalledTimes(1);
       await ticks.mock.results[0]!.value;
@@ -354,8 +396,10 @@ test("scheduled runs wait for plugins to load at daemon start", async () => {
     } finally {
       ready.resolve();
       try {
+        await mcp.close();
         await (await restarting).close();
       } finally {
+        observed.mockRestore();
         ticks.mockRestore();
         vi.useRealTimers();
       }

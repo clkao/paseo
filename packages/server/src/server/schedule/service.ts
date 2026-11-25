@@ -269,6 +269,14 @@ export interface ScheduleServiceOptions {
   runner?: (schedule: StoredSchedule, runId: string) => Promise<ScheduleExecutionResult>;
 }
 
+function createDispatchReadiness() {
+  let resolve!: () => void;
+  const promise = new Promise<void>((ready) => {
+    resolve = ready;
+  });
+  return { promise, resolve };
+}
+
 export class ScheduleService {
   private readonly store: ScheduleStore;
   private readonly logger: Logger;
@@ -291,6 +299,8 @@ export class ScheduleService {
   private readonly heartbeatStops = new Map<string, () => Promise<void>>();
   private recovering = false;
   private recovery: Promise<void> | null = null;
+  private dispatchReady: ReturnType<typeof createDispatchReadiness> | null =
+    createDispatchReadiness();
   private tickTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor(options: ScheduleServiceOptions) {
@@ -311,8 +321,13 @@ export class ScheduleService {
   }
 
   recover(): Promise<void> {
+    const ready = (this.dispatchReady ??= createDispatchReadiness());
     return (this.recovery ??= this.recoverSchedules().catch((error) => {
-      this.recovery = null;
+      if (this.dispatchReady === ready) {
+        this.recovery = null;
+        this.dispatchReady = null;
+        ready.resolve();
+      }
       throw error;
     }));
   }
@@ -331,8 +346,9 @@ export class ScheduleService {
   }
 
   async start(): Promise<void> {
-    await this.recover();
-    if (this.tickTimer) return;
+    const recovery = this.recover();
+    await recovery;
+    if (this.tickTimer || this.recovery !== recovery) return;
     const timer = setInterval(() => {
       void this.tick().catch((error) => {
         this.logger.error({ err: error }, "Failed to process schedule tick");
@@ -340,10 +356,13 @@ export class ScheduleService {
     }, SCHEDULE_TICK_INTERVAL_MS);
     (timer as unknown as { unref?: () => void }).unref?.();
     this.tickTimer = timer;
+    this.dispatchReady?.resolve();
   }
 
   async stop(): Promise<void> {
     this.recovery = null;
+    this.dispatchReady?.resolve();
+    this.dispatchReady = null;
     if (this.tickTimer) {
       clearInterval(this.tickTimer);
       this.tickTimer = null;
@@ -627,6 +646,10 @@ export class ScheduleService {
   }
 
   async runOnce(id: string): Promise<StoredSchedule> {
+    const ready = this.dispatchReady;
+    await ready?.promise;
+    if (!this.tickTimer || this.dispatchReady !== ready)
+      throw new Error("Schedule service stopped before dispatch");
     const schedule = await this.inspect(id);
     if (schedule.status === "completed") {
       throw new ScheduleStateConflictError(`Schedule ${id} is already completed`);

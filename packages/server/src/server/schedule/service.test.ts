@@ -1,7 +1,7 @@
 import { chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, onTestFinished, test, vi } from "vitest";
 import { deriveAgentStateBucket } from "@getpaseo/protocol/agent-state-bucket";
 import { AgentManager } from "../agent/agent-manager.js";
 import { AgentStorage } from "../agent/agent-storage.js";
@@ -904,6 +904,8 @@ describe("ScheduleService", () => {
       providerSnapshotManager: NO_UNATTENDED_SCHEDULE_POLICY,
       now: () => now,
     });
+    await service.start();
+    onTestFinished(() => service.stop());
     const schedule = await service.create({
       prompt: "Check scheduled work",
       cadence: { type: "every", everyMs: 60_000 },
@@ -1419,6 +1421,8 @@ describe("ScheduleService", () => {
       now: () => now,
     });
 
+    await service.start();
+    onTestFinished(() => service.stop());
     const finalTextSchedule = await service.create({
       prompt: "final text",
       cadence: { type: "every", everyMs: 60_000 },
@@ -2793,6 +2797,27 @@ describe("ScheduleService", () => {
     expect(created.nextRunAt).toBe(now.toISOString());
   });
 
+  test("stopping during startup releases a waiting manual request without recording a run", async () => {
+    const service = createScheduleService({
+      paseoHome: tempDir,
+      logger: createTestLogger(),
+      agentManager: new AgentManager({ logger: createTestLogger() }),
+      agentStorage,
+      providerSnapshotManager: NO_UNATTENDED_SCHEDULE_POLICY,
+      now: () => now,
+    });
+    const { id } = await service.create({
+      prompt: "manual",
+      cadence: { type: "every", everyMs: 60_000 },
+      target: { type: "new-agent", config: { provider: "claude", cwd: tempDir } },
+    });
+    await service.recover();
+    const waiting = expect(service.runOnce(id)).rejects.toThrow("stopped before dispatch");
+    await service.stop();
+    await waiting;
+    expect((await service.inspect(id)).runs).toEqual([]);
+  });
+
   test("runOnce records a run without changing nextRunAt or completing the schedule", async () => {
     const service = createScheduleService({
       paseoHome: tempDir,
@@ -2807,6 +2832,8 @@ describe("ScheduleService", () => {
       }),
     });
 
+    await service.start();
+    onTestFinished(() => service.stop());
     const created = await service.create({
       prompt: "manual fire",
       cadence: { type: "cron", expression: "30 9 * * *" },
@@ -3130,6 +3157,8 @@ describe("ScheduleService", () => {
       runner: async () => ({ agentId: null, output: "ok" }),
     });
 
+    await service.start();
+    onTestFinished(() => service.stop());
     const created = await service.create({
       prompt: "one-shot",
       cadence: { type: "every", everyMs: 60_000 },
@@ -3562,6 +3591,8 @@ describe("ScheduleService", () => {
       now: () => now,
     });
 
+    await service.start();
+    onTestFinished(() => service.stop());
     const created = await service.create({
       prompt: "manual ping gone target",
       cadence: { type: "every", everyMs: 60_000 },
