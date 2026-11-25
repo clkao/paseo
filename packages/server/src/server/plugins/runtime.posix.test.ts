@@ -2269,3 +2269,175 @@ export default function contribute() {
     await runtime.stopAll();
   }
 });
+
+describe("plugin requirements", () => {
+  type HookInput = Record<string, unknown>;
+  interface HookPlugin {
+    id: string;
+    hooks: string[];
+    onHook?: (name: string, input: HookInput) => unknown;
+  }
+
+  function createHookChild(plugin: HookPlugin) {
+    const child = createReloadChild(plugin.id, []);
+    const send = child.send.bind(child);
+    child.send = (message, callback) => {
+      if (message.type === "initialize") {
+        callback?.(null);
+        queueMicrotask(() =>
+          child.emitMessage({ type: "ready", methods: [], providers: [], hooks: plugin.hooks }),
+        );
+        return true;
+      }
+      if (message.type === "hook") {
+        callback?.(null);
+        const { requestId, name, input } = message as unknown as {
+          requestId: string;
+          name: string;
+          input: HookInput;
+        };
+        const output = plugin.onHook ? plugin.onHook(name, input) : input;
+        queueMicrotask(() => child.emitMessage({ type: "result", requestId, output }));
+        return true;
+      }
+      return send(message, callback);
+    };
+    return child;
+  }
+
+  async function startPlugins(plugins: HookPlugin[]) {
+    const children = new Map(plugins.map((plugin) => [plugin.id, createHookChild(plugin)]));
+    const pending = [...children.values()];
+    const runtime = createTestRuntime({ spawnChild: () => pending.shift()! as never });
+    onTestFinished(() => runtime.stopAll());
+    for (const plugin of plugins) {
+      // The manifest ID differs from the runtime ID, as with an install under `--id`.
+      await runtime.startPlugin(plugin.id, await createPlugin("manifest-id", "export default {}"));
+    }
+    return { runtime, children };
+  }
+
+  const createRequest = { config: { provider: "codex", cwd: "/project" }, env: {}, metadata: {} };
+  const openRequest = {
+    agentId: "agent",
+    workspaceId: null,
+    provider: "codex",
+    cwd: "/project",
+    reason: "resume" as const,
+    purpose: "interactive" as const,
+    env: {},
+    title: null,
+    background: false,
+    labels: {},
+    metadata: {},
+    tools: [],
+    mcpServers: {},
+  };
+  const both = ["agent.create.before", "agent.open.before"];
+
+  it("records the runtime ID of each plugin that opts in, and asks each plugin afresh", async () => {
+    const received: Array<[string, unknown]> = [];
+    const optIn = (id: string) => (_name: string, input: HookInput) => {
+      received.push([id, input.requirePlugin]);
+      return { ...input, requirePlugin: true };
+    };
+    const { runtime } = await startPlugins([
+      { id: "audit", hooks: both, onHook: optIn("audit") },
+      { id: "other-id", hooks: both, onHook: optIn("other-id") },
+      {
+        id: "quiet",
+        hooks: both,
+        onHook: (_name, input) => {
+          received.push(["quiet", input.requirePlugin]);
+          return input;
+        },
+      },
+    ]);
+
+    const result = await runtime.before("agent.create.before", createRequest);
+    expect(result.requiresPlugins).toEqual(["audit", "other-id"]);
+    expect(result).not.toHaveProperty("requirePlugin");
+    expect(received).toEqual([
+      ["audit", false],
+      ["other-id", false],
+      ["quiet", false],
+    ]);
+  });
+
+  it("leaves the requirement absent when no plugin opts in", async () => {
+    const { runtime } = await startPlugins([{ id: "quiet", hooks: both }]);
+    const result = await runtime.before("agent.create.before", createRequest);
+    expect(result).not.toHaveProperty("requiresPlugins");
+    expect(result).not.toHaveProperty("requirePlugin");
+  });
+
+  it("fails the create when a plugin without an open hook requires itself", async () => {
+    const { runtime } = await startPlugins([
+      {
+        id: "notes",
+        hooks: ["agent.create.before"],
+        onHook: (_name, input) => ({ ...input, requirePlugin: true }),
+      },
+    ]);
+    await expect(runtime.before("agent.create.before", createRequest)).rejects.toThrow(
+      "Plugin notes agent.create.before failed: requirePlugin needs an agent.open.before hook",
+    );
+  });
+
+  it("lists the plugins whose open hook ran and asks for the requirement only on import", async () => {
+    const received: unknown[] = [];
+    let force = false;
+    const { runtime, children } = await startPlugins([
+      { id: "dropped", hooks: ["agent.open.before"] },
+      {
+        id: "sandbox",
+        hooks: ["agent.open.before"],
+        onHook: (_name, input) => {
+          received.push(input.requirePlugin);
+          return "requirePlugin" in input || force ? { ...input, requirePlugin: true } : input;
+        },
+      },
+    ]);
+    children.get("dropped")!.emitMessage({ type: "hooks.changed", hooks: [] });
+
+    const resumed = await runtime.before("agent.open.before", openRequest);
+    expect(resumed.hookPluginIds).toEqual(["sandbox"]);
+    expect(resumed).not.toHaveProperty("requiresPlugins");
+
+    const imported = await runtime.before("agent.open.before", {
+      ...openRequest,
+      reason: "import",
+    });
+    expect(imported.hookPluginIds).toEqual(["sandbox"]);
+    expect(imported.requiresPlugins).toEqual(["sandbox"]);
+    expect(imported).not.toHaveProperty("requirePlugin");
+    expect(received).toEqual([undefined, false]);
+
+    force = true;
+    await expect(runtime.before("agent.open.before", openRequest)).rejects.toThrow(
+      "agent.open.before hooks can set requirePlugin only on import opens",
+    );
+  });
+
+  it("counts a plugin active only while it is published, running and has an open hook", async () => {
+    const { runtime, children } = await startPlugins([
+      { id: "crashes", hooks: ["agent.open.before"] },
+      { id: "drops-hook", hooks: ["agent.open.before"] },
+      { id: "notes", hooks: ["agent.create.before"] },
+      { id: "sandbox", hooks: ["agent.open.before"] },
+    ]);
+    expect(runtime.isPluginActive("sandbox")).toBe(true);
+    expect(runtime.isPluginActive("notes")).toBe(false);
+    expect(runtime.isPluginActive("absent")).toBe(false);
+
+    children.get("drops-hook")!.emitMessage({ type: "hooks.changed", hooks: [] });
+    expect(runtime.isPluginActive("drops-hook")).toBe(false);
+
+    expect(runtime.isPluginActive("crashes")).toBe(true);
+    children.get("crashes")!.kill();
+    await vi.waitFor(() => expect(runtime.isPluginActive("crashes")).toBe(false));
+
+    await runtime.stopPluginById("sandbox");
+    expect(runtime.isPluginActive("sandbox")).toBe(false);
+  });
+});

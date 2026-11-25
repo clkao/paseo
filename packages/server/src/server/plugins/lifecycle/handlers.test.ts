@@ -398,3 +398,47 @@ test("session-open instructions compose, survive old hooks, and are ignored for 
   );
   expect(history).not.toHaveProperty("appendSystemPrompt");
 });
+
+test("a later create handler that omits requirePlugin keeps the earlier choice", async () => {
+  const hooks = new PluginHookHandlers(() => {});
+  hooks.addHook("agent.create.before", async ({ request }) => ({
+    ...request,
+    requirePlugin: true,
+  }));
+  hooks.addHook("agent.create.before", async ({ request }) => {
+    const { requirePlugin: _requirePlugin, ...rest } = request;
+    return rest;
+  });
+  const output = await hooks.invoke(
+    "create",
+    "agent.create.before",
+    { config: { provider: "codex", cwd: "/project" }, metadata: {}, requirePlugin: false },
+    paseo,
+  );
+  expect(output).toMatchObject({ requirePlugin: true });
+});
+
+test("an open hook may set requirePlugin only when the request carries it", async () => {
+  const hooks = new PluginHookHandlers(() => {});
+  hooks.addHook("agent.open.before", async ({ request }) => ({ ...request, requirePlugin: true }));
+  const input = {
+    agentId: "agent",
+    workspaceId: null,
+    provider: "codex",
+    cwd: "/project",
+    reason: "import",
+    purpose: "interactive",
+    env: {},
+    title: null,
+    labels: {},
+    metadata: {},
+    tools: [],
+    mcpServers: {},
+  };
+  await expect(
+    hooks.invoke("import", "agent.open.before", { ...input, requirePlugin: false }, paseo),
+  ).resolves.toMatchObject({ requirePlugin: true });
+  await expect(
+    hooks.invoke("resume", "agent.open.before", { ...input, reason: "resume" }, paseo),
+  ).rejects.toThrow("agent.open.before hooks can set requirePlugin only on import opens");
+});

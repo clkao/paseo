@@ -17,6 +17,7 @@ import {
   AgentManagerShuttingDownError,
   commandMayHaveChangedExternalState,
   type AgentManagerEvent,
+  type AgentPluginLifecycle,
   type ManagedAgent,
 } from "./agent-manager.js";
 import { AgentStorage, parseStoredAgentRecord } from "./agent-storage.js";
@@ -16258,4 +16259,235 @@ test("importProviderSession keeps the stats the provider reported with its histo
     ["user_message", null],
     ["assistant_message", null],
   ]);
+});
+
+function requirementLifecycle(
+  active: Set<string>,
+  options: { create?: string[]; importRequires?: string[]; hookPluginIds?: () => string[] } = {},
+) {
+  const calls: string[] = [];
+  const lifecycle = {
+    emit: () => {},
+    wait: async () => {},
+    before: async (name: string, request: Record<string, unknown>) => {
+      calls.push(name);
+      if (name === "agent.create.before") {
+        return options.create ? { ...request, requiresPlugins: options.create } : request;
+      }
+      if (name === "agent.open.before") {
+        // Like the runtime: an inactive plugin's open hook does not run.
+        const hookPluginIds = options.hookPluginIds?.() ?? [...active];
+        const imported = request.reason === "import" && options.importRequires;
+        return {
+          ...request,
+          hookPluginIds,
+          ...(imported ? { requiresPlugins: options.importRequires } : {}),
+        };
+      }
+      return request;
+    },
+    isPluginActive: (pluginId: string) => active.has(pluginId),
+  };
+  return { calls, lifecycle: lifecycle as unknown as AgentPluginLifecycle };
+}
+
+function createRequirementManager(
+  options: {
+    create?: string[];
+    importRequires?: string[];
+    hookPluginIds?: () => string[];
+    client?: TestAgentClient;
+  } = {},
+) {
+  const workdir = mkdtempSync(join(tmpdir(), "agent-required-plugins-"));
+  onTestFinished(() => rmSync(workdir, { recursive: true, force: true }));
+  const storage = new AgentStorage(join(workdir, "agents"), logger);
+  const timeline = new RecordingTimelineStore();
+  const client = options.client ?? new TestAgentClient();
+  const active = new Set(["sandbox"]);
+  const { calls, lifecycle } = requirementLifecycle(active, options);
+  const manager = new AgentManager({
+    clients: { codex: client },
+    registry: storage,
+    durableTimelineStore: timeline,
+    logger,
+    pluginLifecycle: lifecycle,
+    rescueTimeouts: { interruptSessionMs: 10 },
+  });
+  const opens = () => client.createdConfigs.length + client.resumeOverrides.length;
+  return { workdir, storage, timeline, client, active, calls, manager, opens };
+}
+
+const inactiveSandbox = { code: "required_plugin_inactive", pluginIds: ["sandbox"] };
+
+test.each([
+  { path: "reloadAgentSession", live: true },
+  { path: "reloadStalePluginSession", live: true },
+  { path: "interactive resume", live: false },
+  { path: "history resume", live: false },
+  { path: "createAgentFromRecord", live: false },
+])(
+  "$path refuses while a required plugin is inactive and opens once it is active",
+  async ({ path, live }) => {
+    // The open hook always reports it ran, so only the pre-check can refuse.
+    const { workdir, storage, active, manager, opens } = createRequirementManager({
+      create: ["sandbox"],
+      hookPluginIds: () => ["sandbox"],
+    });
+    const created = await manager.createAgent({ provider: "codex", cwd: workdir }, undefined, {
+      workspaceId: undefined,
+    });
+    await manager.flush();
+    expect((await storage.get(created.id))?.requiresPlugins).toEqual(["sandbox"]);
+    const handle = manager.getAgent(created.id)!.persistence!;
+    if (!live) await manager.closeAgent(created.id);
+    const open = async () => {
+      if (path === "reloadAgentSession") return manager.reloadAgentSession(created.id);
+      if (path === "reloadStalePluginSession") {
+        manager.invalidatePluginSessions();
+        return manager.reloadStalePluginSession(created.id);
+      }
+      if (path === "createAgentFromRecord") return manager.createAgentFromRecord(created.id);
+      return manager.resumeAgentFromPersistence(
+        handle,
+        { cwd: workdir },
+        created.id,
+        undefined,
+        path === "history resume" ? { purpose: "history" } : undefined,
+      );
+    };
+
+    active.delete("sandbox");
+    const before = opens();
+    await expect(open()).rejects.toMatchObject(inactiveSandbox);
+    expect(opens()).toBe(before);
+
+    active.add("sandbox");
+    await open();
+    expect(opens()).toBe(before + 1);
+    await manager.closeAgent(created.id);
+  },
+);
+
+test("a refused requirement runs no hook, keeps the stored agent, and leaves a running turn alone", async () => {
+  class HeldTurnSession extends TestAgentSession {
+    interrupts = 0;
+    override async startTurn(): Promise<{ turnId: string }> {
+      setTimeout(() => this.pushEvent({ type: "turn_started", provider: "codex", turnId: "held" }));
+      return { turnId: "held" };
+    }
+    override async interrupt(): Promise<void> {
+      this.interrupts += 1;
+      this.pushEvent({ type: "turn_canceled", provider: "codex", turnId: "held", reason: "x" });
+    }
+  }
+  const sessions: HeldTurnSession[] = [];
+  const client = new (class extends TestAgentClient {
+    override async createSession(config: AgentSessionConfig): Promise<AgentSession> {
+      this.createdConfigs.push(config);
+      const session = new HeldTurnSession(config);
+      sessions.push(session);
+      return session;
+    }
+  })();
+  const { workdir, storage, timeline, active, calls, manager, opens } = createRequirementManager({
+    create: ["sandbox"],
+    client,
+  });
+
+  const live = await manager.createAgent({ provider: "codex", cwd: workdir }, undefined, {
+    workspaceId: undefined,
+  });
+  await startAgentRun(manager, live.id, "work", logger, { replaceRunning: true });
+  await vi.waitFor(() => expect(manager.getAgent(live.id)?.lifecycle).toBe("running"));
+  active.delete("sandbox");
+  await expect(manager.reloadAgentSession(live.id)).rejects.toMatchObject(inactiveSandbox);
+  expect(sessions[0]!.interrupts).toBe(0);
+  expect(manager.getAgent(live.id)?.lifecycle).toBe("running");
+  await manager.closeAgent(live.id);
+
+  // A stored agent with no provider session to resume opens through createAgentFromRecord.
+  active.add("sandbox");
+  const stored = await manager.createAgent({ provider: "codex", cwd: workdir }, undefined, {
+    workspaceId: undefined,
+  });
+  await manager.appendTimelineItem(stored.id, { type: "assistant_message", text: "kept" });
+  await manager.closeAgent(stored.id);
+  await manager.flush();
+  const { persistence: _persistence, ...withoutHandle } = (await storage.get(stored.id))!;
+  await storage.upsert(withoutHandle);
+  const record = await storage.get(stored.id);
+  const rows = await timeline.getCommittedRows(stored.id);
+  expect(rows).toHaveLength(1);
+
+  active.delete("sandbox");
+  calls.length = 0;
+  const before = opens();
+  await expect(manager.createAgentFromRecord(stored.id)).rejects.toMatchObject(inactiveSandbox);
+  expect(calls).toEqual([]);
+  expect(opens()).toBe(before);
+  expect(await storage.get(stored.id)).toEqual(record);
+  expect(await timeline.getCommittedRows(stored.id)).toEqual(rows);
+});
+
+test("an open is refused when a required plugin's open hook did not run, even while it reports active", async () => {
+  let hookRan = true;
+  const { workdir, client, manager } = createRequirementManager({
+    create: ["sandbox"],
+    hookPluginIds: () => (hookRan ? ["sandbox"] : []),
+  });
+  const created = await manager.createAgent({ provider: "codex", cwd: workdir }, undefined, {
+    workspaceId: undefined,
+  });
+  const handle = manager.getAgent(created.id)!.persistence!;
+  await manager.closeAgent(created.id);
+
+  hookRan = false;
+  await expect(
+    manager.resumeAgentFromPersistence(handle, { cwd: workdir }, created.id),
+  ).rejects.toMatchObject(inactiveSandbox);
+  expect(client.resumeOverrides).toHaveLength(0);
+  await expect(
+    manager.createAgent({ provider: "codex", cwd: workdir }, undefined, { workspaceId: undefined }),
+  ).rejects.toMatchObject(inactiveSandbox);
+  expect(client.createdConfigs).toHaveLength(1);
+});
+
+test("an imported agent keeps the requirement its import open declared", async () => {
+  const importClient = new (class extends TestAgentClient {
+    async importSession(input: ImportProviderSessionInput) {
+      return {
+        session: new TestAgentSession({ provider: "codex", cwd: input.cwd }),
+        config: { provider: "codex" as const, cwd: input.cwd },
+        persistence: {
+          provider: "codex" as const,
+          sessionId: input.providerHandleId,
+          nativeHandle: input.providerHandleId,
+          metadata: { provider: "codex", cwd: input.cwd },
+        },
+        timeline: [],
+      };
+    }
+  })();
+  const { workdir, storage, active, manager, opens } = createRequirementManager({
+    importRequires: ["sandbox"],
+    client: importClient,
+  });
+  const imported = await manager.importProviderSession({
+    provider: "codex",
+    providerHandleId: "thread-imported",
+    cwd: workdir,
+    workspaceId: "ws-imported",
+  });
+  await manager.flush();
+  expect((await storage.get(imported.id))?.requiresPlugins).toEqual(["sandbox"]);
+  const handle = manager.getAgent(imported.id)!.persistence!;
+  await manager.closeAgent(imported.id);
+
+  active.delete("sandbox");
+  const before = opens();
+  await expect(
+    manager.resumeAgentFromPersistence(handle, { cwd: workdir }, imported.id),
+  ).rejects.toMatchObject(inactiveSandbox);
+  expect(opens()).toBe(before);
 });

@@ -95,6 +95,11 @@ export interface PluginSessionOpenRequest {
   readonly metadata: Readonly<Record<string, JsonValue>>;
   /** Instructions appended for this open; not saved on the agent. */
   appendSystemPrompt?: string[];
+  /**
+   * Present only on `reason: "import"` opens on a host that supports plugin requirements, where it
+   * arrives as `false`. Return `true` so the imported agent opens only while this plugin is active.
+   */
+  requirePlugin?: boolean;
   tools: AgentToolDefinition[];
   env: Record<string, string>;
   mcpServers: NonNullable<AgentSessionConfig["mcpServers"]>;
@@ -138,6 +143,11 @@ export interface PluginHookRequests {
     env?: Record<string, string>;
     /** Stored on the new agent. Always present in the payload; return it changed to change it. */
     metadata?: Record<string, JsonValue>;
+    /**
+     * Arrives as `false` on a host that supports plugin requirements and is absent on older hosts.
+     * Return `true` so the agent opens only while this plugin is active. Omitted means unchanged.
+     */
+    requirePlugin?: boolean;
   };
   "agent.open.before": PluginSessionOpenRequest;
   "workspace.create.before": Omit<WorkspaceCreateRequest, "type" | "requestId">;

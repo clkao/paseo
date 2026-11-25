@@ -1511,7 +1511,6 @@ export async function createPaseoDaemon(
     createPaseoWorktreeWorkspace: createSchedulePaseoWorktreeExternal,
     archiveWorkspace: archiveScheduleWorkspaceExternal,
   });
-  await scheduleService.start();
 
   const changeRequestWatches = createChangeRequestWatches({
     router: createChangeRequestRouter({ forgeResolver }),
@@ -1540,7 +1539,7 @@ export async function createPaseoDaemon(
       logger.warn({ err: error, agentId }, "Failed to complete schedules for archived agent");
     }
   });
-  logger.info({ elapsed: elapsed() }, "Schedule service initialized");
+  logger.info({ elapsed: elapsed() }, "Schedule service created");
   logger.info({ elapsed: elapsed() }, "Loading persisted agent registry");
   // Startup loads persisted agent history once before restoring the registry.
   const persistedRecords = await agentStorage.listAll();
@@ -1981,6 +1980,9 @@ export async function createPaseoDaemon(
             );
             pluginRuntime.bindPaseoSessionHost(wsServer);
             await pluginRuntime.start();
+            // Scheduled runs open agents, so they wait for plugins: an agent that requires a
+            // plugin cannot open before it loads.
+            await scheduleService.start();
             providerSnapshotManager.settlePluginProviders();
             restartRecovery.resumePending();
             await finishSubscriptions.start();

@@ -34,10 +34,35 @@ export type PluginWireBeforeRequests = Omit<PluginHookRequests, "agent.open.befo
   "agent.open.before": SessionOpenWireRequest;
 };
 
+/** Plugins whose `requirePlugin: true` this create or import open recorded, by runtime ID. */
+interface PluginRequirementResult {
+  requiresPlugins?: string[];
+}
+
 /** Daemon-only results; ownership never crosses the plugin process boundary. */
 export type PluginBeforeResults = PluginWireBeforeRequests & {
-  "agent.open.before": SessionOpenWireRequest & { mcpServerOwners?: Record<string, string> };
+  "agent.create.before": PluginWireBeforeRequests["agent.create.before"] & PluginRequirementResult;
+  "agent.open.before": SessionOpenWireRequest &
+    PluginRequirementResult & {
+      mcpServerOwners?: Record<string, string>;
+      /** Runtime IDs of the plugins whose open hook ran on this open. */
+      hookPluginIds?: string[];
+    };
 };
+
+export class RequiredPluginInactiveError extends Error {
+  readonly code = "required_plugin_inactive" as const;
+  // A plain field: the plugin process loads this file with type stripping only.
+  readonly pluginIds: readonly string[];
+
+  constructor(pluginIds: readonly string[]) {
+    super(
+      `This agent needs plugin${pluginIds.length === 1 ? "" : "s"} ${pluginIds.join(", ")} active to open`,
+    );
+    this.name = "RequiredPluginInactiveError";
+    this.pluginIds = pluginIds;
+  }
+}
 
 const worktreeRequestFields = {
   repoRoot: z.string(),
@@ -98,7 +123,9 @@ const beforeSchemas = {
     config: true,
     env: true,
     metadata: true,
-  }).strict(),
+  })
+    .extend({ requirePlugin: z.boolean().optional() })
+    .strict(),
   "agent.open.before": z
     .object({
       agentId: z.string(),
@@ -114,6 +141,7 @@ const beforeSchemas = {
       // Optional so a plugin that returns its own object keeps working; omitted means unchanged.
       metadata: z.record(z.string(), z.custom<JsonValue>()).optional(),
       appendSystemPrompt: z.array(z.string()).optional(),
+      requirePlugin: z.boolean().optional(),
       tools: z.array(agentToolMetadataSchema),
       env: z.record(z.string(), z.string()),
       mcpServers: CreateAgentRequestMessageSchema.shape.config.shape.mcpServers.unwrap(),
@@ -244,6 +272,15 @@ function changesSessionOpenTarget(previous: SessionOpenRequest, next: SessionOpe
   );
 }
 
+// Omitted means unchanged, so a later handler that returns its own object keeps an earlier `true`.
+function mergeRequirePlugin(
+  previous: { requirePlugin?: boolean },
+  next: { requirePlugin?: boolean },
+): { requirePlugin?: boolean } {
+  const requirePlugin = next.requirePlugin ?? previous.requirePlugin;
+  return requirePlugin === undefined ? {} : { requirePlugin };
+}
+
 type WorktreeBeforeRequest = z.infer<(typeof beforeSchemas)["worktree.create.before"]>;
 
 function validateWorktreeBeforeResult(
@@ -280,6 +317,9 @@ export async function validateBeforeResult<Name extends keyof PluginWireBeforeRe
         "agent.open.before hooks can only change env, tools, mcpServers, and appendSystemPrompt",
       );
     }
+    if (previous.requirePlugin === undefined && next.requirePlugin !== undefined) {
+      throw new Error("agent.open.before hooks can set requirePlugin only on import opens");
+    }
     return {
       ...result,
       background: previous.background,
@@ -287,6 +327,7 @@ export async function validateBeforeResult<Name extends keyof PluginWireBeforeRe
       ...(next.appendSystemPrompt === undefined && previous.appendSystemPrompt !== undefined
         ? { appendSystemPrompt: previous.appendSystemPrompt }
         : {}),
+      ...mergeRequirePlugin(previous, next),
     };
   }
   if (name === "agent.create.before") {
@@ -296,7 +337,11 @@ export async function validateBeforeResult<Name extends keyof PluginWireBeforeRe
       throw new Error("agent.create.before hooks cannot change the workspace directory");
     }
     // Omitted means unchanged: the next hook sees what this one was handed.
-    return { ...result, metadata: next.metadata ?? previous.metadata };
+    return {
+      ...result,
+      metadata: next.metadata ?? previous.metadata,
+      ...mergeRequirePlugin(previous, next),
+    };
   }
   if (name === "workspace.create.before") {
     const previous = beforeSchemas["workspace.create.before"].parse(input);

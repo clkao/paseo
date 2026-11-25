@@ -385,6 +385,31 @@ describe("AgentStorage", () => {
     expect(await cleared.get("agent-metrics")).not.toHaveProperty("sessionMetrics");
   });
 
+  test("required plugins round-trip, are never written empty, and survive a snapshot without them", async () => {
+    await storage.applySnapshot({
+      ...createManagedAgent({ id: "guarded-agent", cwd: "/tmp/project" }),
+      requiresPlugins: ["sandbox", "audit"],
+    });
+    await storage.applySnapshot(createManagedAgent({ id: "plain-agent", cwd: "/tmp/project" }));
+    await storage.applySnapshot({
+      ...createManagedAgent({ id: "empty-agent", cwd: "/tmp/project" }),
+      requiresPlugins: [],
+    });
+
+    const reloaded = new AgentStorage(storagePath, createTestLogger());
+    expect((await reloaded.get("guarded-agent"))?.requiresPlugins).toEqual(["sandbox", "audit"]);
+    for (const id of ["plain-agent", "empty-agent"]) {
+      expect(await reloaded.get(id)).not.toHaveProperty("requiresPlugins");
+      const file = JSON.parse(await fs.readFile(findRecordFile(storagePath, id), "utf8"));
+      expect(file).not.toHaveProperty("requiresPlugins");
+    }
+
+    // An open path that forgets the list cannot erase it.
+    await reloaded.applySnapshot(createManagedAgent({ id: "guarded-agent", cwd: "/tmp/project" }));
+    const again = new AgentStorage(storagePath, createTestLogger());
+    expect((await again.get("guarded-agent"))?.requiresPlugins).toEqual(["sandbox", "audit"]);
+  });
+
   test("a record stored with featureValues loads them in providerOptions", async () => {
     await storage.applySnapshot(createManagedAgent({ id: "agent-legacy" }));
     const file = findRecordFile(storagePath, "agent-legacy");

@@ -1,4 +1,4 @@
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -138,5 +138,166 @@ export default function contribute(server) {
     await client.close();
     await daemon.close();
     await rm(directory, { recursive: true, force: true });
+  }
+}, 60_000);
+
+/** A plugin that requires itself for every agent it creates; `loadDelayMs` slows its load. */
+async function writeRequiringPlugin(directory: string, loadDelayMs = 0): Promise<void> {
+  await writeFile(
+    path.join(directory, "paseo-plugin.json"),
+    JSON.stringify({ id: "required-sandbox", requirements: { paseo: ">=0.14.0-beta.1" } }),
+  );
+  await writeFile(
+    path.join(directory, "index.server.ts"),
+    `
+export default function contribute(server) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ${loadDelayMs});
+  server.addHook("agent.create.before", async ({ request }) =>
+    request.requirePlugin === undefined ? request : { ...request, requirePlugin: true },
+  );
+  server.addHook("agent.open.before", async ({ request }) => request);
+  return () => {};
+}
+`,
+  );
+}
+
+function launchCountingCodex(): { client: AgentClient; launches: () => number } {
+  let launches = 0;
+  const client = createTestAgentClient("codex", {
+    beforeCreateSession: async () => {
+      launches += 1;
+    },
+    beforeResumeSession: async () => {
+      launches += 1;
+    },
+  });
+  return { client, launches: () => launches };
+}
+
+test("an agent that requires its plugin opens only while the plugin is enabled", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "paseo-required-plugin-"));
+  const { client: codex, launches } = launchCountingCodex();
+  const daemon = await createTestPaseoDaemon({
+    daemonVersion: "0.14.0-beta.1",
+    agentClients: { codex },
+    mcpEnabled: false,
+  });
+  const client = new DaemonClient({
+    url: `ws://127.0.0.1:${daemon.port}/ws`,
+    appVersion: "0.14.0-beta.1",
+  });
+  const manager = daemon.daemon.agentManager;
+  try {
+    await writeRequiringPlugin(directory);
+    await client.connect();
+    await client.fetchAgents({ subscribe: {} });
+    await client.patchDaemonConfig({ pluginsEnabled: true });
+    // Installed under its own ID: the requirement names the runtime ID, not the manifest's.
+    await client.installDirectoryPlugin(directory, "sandbox-runtime");
+    const agent = await client.createAgent({ provider: "codex", cwd: directory });
+    await manager.flush();
+    expect((await daemon.daemon.agentStorage.get(agent.id))?.requiresPlugins).toEqual([
+      "sandbox-runtime",
+    ]);
+    const handle = manager.getAgent(agent.id)!.persistence!;
+
+    await client.disablePlugin("sandbox-runtime");
+    const before = launches();
+    const refused = { code: "required_plugin_inactive", pluginIds: ["sandbox-runtime"] };
+    await expect(manager.reloadAgentSession(agent.id)).rejects.toMatchObject(refused);
+    await manager.closeAgent(agent.id);
+    await expect(
+      manager.resumeAgentFromPersistence(handle, { cwd: directory }, agent.id),
+    ).rejects.toMatchObject(refused);
+    expect(launches()).toBe(before);
+
+    await client.enablePlugin("sandbox-runtime");
+    await manager.resumeAgentFromPersistence(handle, { cwd: directory }, agent.id);
+    expect(launches()).toBe(before + 1);
+  } finally {
+    await client.close();
+    await daemon.close();
+    await rm(directory, { recursive: true, force: true });
+  }
+}, 60_000);
+
+test("scheduled runs wait for plugins to load at daemon start", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "paseo-required-plugin-schedule-"));
+  const pluginDirectory = path.join(root, "plugin");
+  const workspace = path.join(root, "workspace");
+  await mkdir(pluginDirectory, { recursive: true });
+  await mkdir(workspace, { recursive: true });
+  await writeRequiringPlugin(pluginDirectory);
+  const options = {
+    daemonVersion: "0.14.0-beta.1",
+    paseoHomeRoot: path.join(root, "daemon"),
+    staticDir: path.join(root, "static"),
+    cleanup: false,
+    mcpEnabled: false,
+    pluginsEnabled: true,
+    plugins: {
+      "required-sandbox": { source: "directory" as const, path: pluginDirectory, enabled: true },
+    },
+  };
+  try {
+    const first = await createTestPaseoDaemon({
+      ...options,
+      agentClients: { codex: launchCountingCodex().client },
+    });
+    const firstClient = new DaemonClient({
+      url: `ws://127.0.0.1:${first.port}/ws`,
+      appVersion: "0.14.0-beta.1",
+    });
+    let scheduleId: string;
+    try {
+      await firstClient.connect();
+      await firstClient.fetchAgents({ subscribe: {} });
+      const agent = await firstClient.createAgent({ provider: "codex", cwd: workspace });
+      const created = await firstClient.scheduleCreate({
+        prompt: "check in",
+        cadence: { type: "cron", expression: "0 0 1 1 *" },
+        target: { type: "agent", agentId: agent.id },
+      });
+      scheduleId = created.schedule!.id;
+    } finally {
+      await firstClient.close();
+      await first.close();
+    }
+
+    // Due while the restarted daemon is still loading the plugin, which now takes 3 s.
+    const scheduleFile = path.join(
+      options.paseoHomeRoot,
+      ".paseo",
+      "schedules",
+      `${scheduleId}.json`,
+    );
+    const stored = JSON.parse(await readFile(scheduleFile, "utf8"));
+    await writeFile(
+      scheduleFile,
+      JSON.stringify({ ...stored, nextRunAt: new Date(Date.now() + 1_500).toISOString() }),
+    );
+    await writeRequiringPlugin(pluginDirectory, 3_000);
+    const second = await createTestPaseoDaemon({
+      ...options,
+      agentClients: { codex: launchCountingCodex().client },
+    });
+    const secondClient = new DaemonClient({
+      url: `ws://127.0.0.1:${second.port}/ws`,
+      appVersion: "0.14.0-beta.1",
+    });
+    try {
+      // The scheduler started after the plugin loaded, so the run never failed on its absence.
+      const restarted = JSON.parse(await readFile(scheduleFile, "utf8"));
+      expect(restarted.runs).toEqual([]);
+      await secondClient.connect();
+      const ran = await secondClient.scheduleRunOnce({ id: scheduleId });
+      expect(ran.schedule?.runs.map((run) => run.status)).toEqual(["succeeded"]);
+    } finally {
+      await secondClient.close();
+      await second.close();
+    }
+  } finally {
+    await rm(root, { recursive: true, force: true });
   }
 }, 60_000);

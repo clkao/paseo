@@ -100,6 +100,7 @@ export function toStoredAgentRecord(
     lastModeId: agent.currentModeId ?? config?.modeId ?? null,
     config: config ?? null,
     launchEnv: agent.launchEnv ? { ...agent.launchEnv } : undefined,
+    ...(agent.requiresPlugins?.length ? { requiresPlugins: [...agent.requiresPlugins] } : {}),
     runtimeInfo,
     controls: normalizeControls(agent.controls),
     persistence,

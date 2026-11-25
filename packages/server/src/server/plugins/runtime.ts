@@ -763,11 +763,18 @@ export class PluginRuntime {
     const attached: AttachedAgentTool[] = [];
     const mcpServers: SessionOpenWireRequest["mcpServers"] = {};
     const mcpServerOwners: Record<string, string> = {};
+    const hookPluginIds: string[] = [];
+    const requiresPlugins: string[] = [];
+    // Each plugin decides its own requirement: it receives `false`, never another plugin's choice.
+    const asksRequirement =
+      name === "agent.create.before" ||
+      (name === "agent.open.before" && (request as SessionOpenWireRequest).reason === "import");
     for (const loaded of plugins) {
       if (!loaded.hooks.includes(name)) {
         continue;
       }
       try {
+        if (asksRequirement) (request as { requirePlugin?: boolean }).requirePlugin = false;
         const output = await this.request(loaded, {
           type: "hook",
           requestId: randomUUID(),
@@ -775,6 +782,17 @@ export class PluginRuntime {
           input: name === "agent.open.before" ? { ...request, tools: [], mcpServers: {} } : request,
         });
         request = await validateBeforeResult(name, request, output);
+        if (asksRequirement) {
+          const result = request as { requirePlugin?: boolean };
+          if (result.requirePlugin === true) {
+            if (!loaded.hooks.includes("agent.open.before")) {
+              throw new Error("requirePlugin needs an agent.open.before hook");
+            }
+            requiresPlugins.push(loaded.id);
+          }
+          delete result.requirePlugin;
+        }
+        if (name === "agent.open.before") hookPluginIds.push(loaded.id);
         if (name === "worktree.create.before") {
           const worktree = request as PluginWireBeforeRequests["worktree.create.before"];
           worktree.path = await validateWorktreePath({
@@ -795,15 +813,24 @@ export class PluginRuntime {
         });
       }
     }
+    const requirement = requiresPlugins.length > 0 ? { requiresPlugins } : {};
     if (name === "agent.open.before") {
       return {
         ...request,
         tools: attached,
         mcpServers,
         mcpServerOwners,
+        hookPluginIds,
+        ...requirement,
       } as PluginBeforeResults[Name];
     }
-    return request;
+    return { ...request, ...requirement } as PluginBeforeResults[Name];
+  }
+
+  /** Published, its server process running, and an `agent.open.before` hook registered. */
+  isPluginActive(pluginId: string): boolean {
+    const loaded = this.plugins.get(pluginId);
+    return loaded?.child?.connected === true && loaded.hooks.includes("agent.open.before");
   }
 
   hasWorktreeManager(options?: {

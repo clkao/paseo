@@ -68,6 +68,8 @@ const RAW_STORED_AGENT_SCHEMA = z.object({
   lastModeId: z.string().nullable().optional(),
   config: SERIALIZABLE_CONFIG_SCHEMA,
   launchEnv: z.record(z.string(), z.string()).optional(),
+  /** Runtime IDs of plugins that must be active for every open; absent when none opted in. */
+  requiresPlugins: z.array(z.string()).optional(),
   runtimeInfo: z
     .object({
       provider: z.string(),
@@ -423,6 +425,11 @@ export class AgentStorage {
       }
       // Background is fixed at creation; a runtime opened without it cannot clear it.
       if (existing?.background) record.background = true;
+      // Nothing releases a requirement, so an open path that omits the list cannot erase it.
+      const requiresPlugins = [
+        ...new Set([...(existing?.requiresPlugins ?? []), ...(record.requiresPlugins ?? [])]),
+      ];
+      if (requiresPlugins.length > 0) record.requiresPlugins = requiresPlugins;
       record.resumeOnStartup =
         existing?.resumeOnStartup && agent.lifecycle !== "idle" && agent.lifecycle !== "error";
       return record;

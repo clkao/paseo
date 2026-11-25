@@ -10,7 +10,11 @@ import {
   TimelineProjection,
 } from "./timeline-projection.js";
 import type { PluginLifecycle } from "../plugins/lifecycle/index.js";
-import { describeHookAgent, publishAgentStream } from "../plugins/lifecycle/index.js";
+import {
+  describeHookAgent,
+  publishAgentStream,
+  RequiredPluginInactiveError,
+} from "../plugins/lifecycle/index.js";
 import { applyRecordPatch } from "../record-patch.js";
 import type { PluginSessionOpenRequest } from "@getpaseo/plugin/server";
 import { randomUUID } from "node:crypto";
@@ -385,8 +389,16 @@ export interface CreateAgentOptions {
   background?: boolean;
 }
 
+/** Plugin hooks plus the activity check that plugin requirements need on every open. */
+export type AgentPluginLifecycle = PluginLifecycle & { isPluginActive(pluginId: string): boolean };
+
+/** Create-path options that only a stored record supplies. */
+interface CreateAgentInternalOptions extends CreateAgentOptions {
+  requiresPlugins?: readonly string[];
+}
+
 export interface AgentManagerOptions {
-  pluginLifecycle?: PluginLifecycle;
+  pluginLifecycle?: AgentPluginLifecycle;
   /** An internal workspace makes every agent created inside it internal. */
   clients?: ProviderClientMap;
   providerDefinitions?: ProviderEnabledMap;
@@ -495,6 +507,8 @@ interface ManagedAgentBase {
   config: AgentSessionConfig;
   /** Explicit launch overrides, before per-opening hooks and daemon-owned variables. */
   launchEnv?: Record<string, string>;
+  /** Runtime IDs of plugins that must be active for every open. Nothing releases them. */
+  requiresPlugins?: string[];
   runtimeInfo?: AgentRuntimeInfo;
   createdAt: Date;
   updatedAt: Date;
@@ -863,6 +877,14 @@ function getFirstUserMessageTextFromRows(rows: readonly AgentTimelineRow[]): str
   return null;
 }
 
+function unionPluginIds(
+  stored: readonly string[] | undefined,
+  added: readonly string[] | undefined,
+): string[] | undefined {
+  const union = [...new Set([...(stored ?? []), ...(added ?? [])])];
+  return union.length > 0 ? union : undefined;
+}
+
 function shouldDetachFromArchivedParent(
   parent: Pick<StoredAgentRecord, "workspaceId">,
   child: StoredAgentRecord,
@@ -898,7 +920,7 @@ export interface RetiredInternalAgent {
 }
 
 export class AgentManager {
-  private readonly pluginLifecycle: PluginLifecycle | undefined;
+  private readonly pluginLifecycle: AgentPluginLifecycle | undefined;
   private readonly retiredInternalAgents = new Map<
     string,
     RetiredInternalAgent & { expiresAt: number }
@@ -1614,6 +1636,8 @@ export class AgentManager {
       this.runLifecycleMutation(resolvedAgentId, async () => {
         const record = await this.requireRegistry().get(resolvedAgentId);
         if (!record) throw new AgentNotFoundError(resolvedAgentId);
+        // Before the create hooks run and the old timeline is deleted.
+        this.requireActivePlugins(record.requiresPlugins);
         const config = buildSessionConfig(record, {
           validProviders: this.getRegisteredProviderIds(),
         });
@@ -1629,6 +1653,7 @@ export class AgentManager {
           owner: record.owner,
           background: record.background,
           env: record.launchEnv,
+          requiresPlugins: record.requiresPlugins,
         });
       }),
     );
@@ -1637,10 +1662,11 @@ export class AgentManager {
   private async createAgentInternal(
     config: AgentSessionConfig,
     resolvedAgentId: string,
-    options: CreateAgentOptions,
+    options: CreateAgentInternalOptions,
   ): Promise<ManagedAgent> {
     this.assertAcceptingAgentRegistrations();
     config = this.withConvertedOptions(config);
+    let requiresPlugins = options.requiresPlugins;
     if (this.pluginLifecycle && !config.internal) {
       const sent = exposeFeatureValuesToHook(config);
       const request = await this.pluginLifecycle.before("agent.create.before", {
@@ -1659,7 +1685,9 @@ export class AgentManager {
         internal: config.internal,
       };
       options = { ...options, env: request.env, metadata: request.metadata ?? options.metadata };
+      requiresPlugins = unionPluginIds(requiresPlugins, request.requiresPlugins);
     }
+    this.requireActivePlugins(requiresPlugins);
     await this.deleteAgentState(resolvedAgentId);
     const { storedConfig, launchConfig, paseoToolPolicy } = await this.prepareSessionConfig(
       config,
@@ -1685,6 +1713,7 @@ export class AgentManager {
         background: options.background,
         labels: options.labels ?? {},
         metadata: options.metadata ?? {},
+        requiresPlugins,
       },
     );
     const providerLaunchConfig = this.resolveProviderLaunchConfig(launchConfig, launchContext);
@@ -1701,6 +1730,7 @@ export class AgentManager {
       owner: options.owner,
       background: options.background,
       launchEnv: options.env ? { ...options.env } : undefined,
+      requiresPlugins,
       historyPrimed: true,
     });
     if (!agent.internal) {
@@ -1788,6 +1818,8 @@ export class AgentManager {
     // settled before the config is prepared, because a history load reads an archived
     // agent whose working directory may be gone.
     const record = this.registry ? await this.registry.get(resolvedAgentId) : null;
+    const requiresPlugins = record?.requiresPlugins;
+    this.requireActivePlugins(requiresPlugins);
     const purpose = await resolveResumePurpose(record, resumeOptions?.purpose, mergedConfig.cwd);
     const currentResumeOptions = { purpose } satisfies AgentResumeSessionOptions;
 
@@ -1819,6 +1851,7 @@ export class AgentManager {
         title: record?.title ?? mergedConfig.title ?? null,
         background: options?.background,
         ...agentEntityData(record ?? options),
+        requiresPlugins,
       },
     );
     const providerLaunchConfig = this.resolveProviderLaunchConfig(launchConfig, launchContext);
@@ -1846,6 +1879,7 @@ export class AgentManager {
         : {}),
       workspaceId,
       launchEnv,
+      requiresPlugins,
       persistence:
         purpose === "interactive" && session.persistenceUpdatedOnResume
           ? (session.describePersistence() ?? handle)
@@ -1889,6 +1923,7 @@ export class AgentManager {
       { resolveDefaultModel: false },
     );
     this.paseoToolPolicies.set(resolvedAgentId, paseoToolPolicy);
+    let importedRequirements: string[] | undefined;
     const launchContext = await this.buildLaunchContext(
       resolvedAgentId,
       client,
@@ -1900,6 +1935,10 @@ export class AgentManager {
         purpose: "interactive",
         workspaceId: input.workspaceId,
         labels: input.labels ?? {},
+        // An import runs no create hook, so its open hooks declare the requirement.
+        onRequirePlugins: (pluginIds) => {
+          importedRequirements = pluginIds;
+        },
       },
     );
     const providerLaunchConfig = this.resolveProviderLaunchConfig(launchConfig, launchContext);
@@ -1930,6 +1969,7 @@ export class AgentManager {
         launchedOptions,
         labels: input.labels,
         workspaceId: input.workspaceId,
+        requiresPlugins: importedRequirements,
         timelineRows,
         timelineNextSeq: timelineRows.length + 1,
         sessionMetrics: imported.sessionMetrics,
@@ -1975,6 +2015,8 @@ export class AgentManager {
   ): Promise<ManagedAgent> {
     this.assertAcceptingAgentRegistrations();
     let existing = this.requireSessionAgent(agentId);
+    // A refused reload leaves the live session and its running turn as they are.
+    this.requireActivePlugins(existing.requiresPlugins);
     if (this.hasInFlightRun(agentId)) {
       await this.cancelAgentRunBefore(agentId, "reload");
       existing = this.requireSessionAgent(agentId);
@@ -2014,6 +2056,7 @@ export class AgentManager {
         background: existing.background,
         labels: existing.labels,
         metadata: existing.metadata,
+        requiresPlugins: existing.requiresPlugins,
       },
     );
     const providerLaunchConfig = this.resolveProviderLaunchConfig(launchConfig, launchContext);
@@ -2064,6 +2107,7 @@ export class AgentManager {
         owner: existing.owner,
         background: existing.background,
         launchEnv: existing.launchEnv,
+        requiresPlugins: existing.requiresPlugins,
         createdAt: existing.createdAt,
         updatedAt: existing.updatedAt,
         lastUserMessageAt: existing.lastUserMessageAt,
@@ -4566,6 +4610,7 @@ export class AgentManager {
       owner?: AgentOwner;
       background?: boolean;
       launchEnv?: Record<string, string>;
+      requiresPlugins?: readonly string[];
     },
   ): Promise<ManagedAgent> {
     let registered = false;
@@ -4763,6 +4808,7 @@ export class AgentManager {
           workspaceId?: string;
           owner?: AgentOwner;
           launchEnv?: Record<string, string>;
+          requiresPlugins?: readonly string[];
         }
       | undefined;
   }): ActiveManagedAgent {
@@ -4782,6 +4828,10 @@ export class AgentManager {
       workspaceId: options?.workspaceId,
       owner: options?.owner,
       launchEnv: options?.launchEnv,
+      requiresPlugins:
+        options?.requiresPlugins && options.requiresPlugins.length > 0
+          ? [...options.requiresPlugins]
+          : undefined,
       session,
       capabilities: session.capabilities,
       config,
@@ -6508,6 +6558,10 @@ export class AgentManager {
       background?: boolean;
       labels?: Record<string, string>;
       metadata?: AgentMetadata;
+      /** Each must have run its open hook on this open, or the open is refused. */
+      requiresPlugins?: readonly string[];
+      /** Import only: receives the plugins whose open hook returned `requirePlugin: true`. */
+      onRequirePlugins?: (pluginIds: string[]) => void;
     },
   ): Promise<AgentLaunchContext> {
     // A plugin changing during this open must still make the resulting session stale.
@@ -6532,6 +6586,15 @@ export class AgentManager {
         mcpServers: {},
       };
       const transformed = await this.pluginLifecycle.before("agent.open.before", request);
+      // A required plugin that stopped or dropped its open hook mid-open is skipped by the
+      // runtime; refuse before any provider session starts.
+      const ran = new Set(transformed.hookPluginIds ?? []);
+      const skipped = (opening?.requiresPlugins ?? []).filter((pluginId) => !ran.has(pluginId));
+      if (skipped.length > 0) {
+        this.detachPluginTools(agentId);
+        throw new RequiredPluginInactiveError(skipped);
+      }
+      if (transformed.requiresPlugins) opening?.onRequirePlugins?.(transformed.requiresPlugins);
       env = transformed.env;
       if (request.purpose === "interactive") {
         this.attachedPluginTools.set(agentId, transformed.tools as AttachedAgentTool[]);
@@ -6539,6 +6602,8 @@ export class AgentManager {
         mcpServers = transformed.mcpServers;
         mcpServerOwners = transformed.mcpServerOwners;
       }
+    } else if (opening?.requiresPlugins && opening.requiresPlugins.length > 0) {
+      throw new RequiredPluginInactiveError(opening.requiresPlugins);
     }
     const context: AgentLaunchContext = {
       agentId,
@@ -6571,6 +6636,14 @@ export class AgentManager {
     }
     this.sessionOpenGenerations.set(agentId, generation);
     return context;
+  }
+
+  /** An agent opens only while every plugin it requires is active, whatever the reason or purpose. */
+  private requireActivePlugins(pluginIds: readonly string[] | undefined): void {
+    const inactive = (pluginIds ?? []).filter(
+      (pluginId) => this.pluginLifecycle?.isPluginActive(pluginId) !== true,
+    );
+    if (inactive.length > 0) throw new RequiredPluginInactiveError(inactive);
   }
 
   private resolveProviderLaunchConfig(
