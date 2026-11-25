@@ -2296,7 +2296,9 @@ describe("plugin requirements", () => {
           name: string;
           input: HookInput;
         };
-        const output = plugin.onHook ? plugin.onHook(name, input) : input;
+        const result = plugin.onHook ? plugin.onHook(name, input) : input;
+        const output =
+          name === "agent.open.before" ? { ...(result as HookInput), handlerRan: true } : result;
         queueMicrotask(() => child.emitMessage({ type: "result", requestId, output }));
         return true;
       }
@@ -2417,6 +2419,35 @@ describe("plugin requirements", () => {
     await expect(runtime.before("agent.open.before", openRequest)).rejects.toThrow(
       "agent.open.before hooks can set requirePlugin only on import opens",
     );
+  });
+
+  it("counts a void open handler but not an empty child dispatch with a stale parent catalog", async () => {
+    const directory = await createPlugin(
+      "once",
+      `
+      export default function contribute(server) {
+        const remove = server.addHook("agent.open.before", () => { remove(); });
+        return remove;
+      }`,
+    );
+    const runtime = createTestRuntime({
+      spawnChild: () => {
+        const child = spawnObservedPluginProcess(() => {});
+        const emit = child.emit.bind(child);
+        child.emit = (event, ...args) => {
+          if (event === "message" && args[0]?.type === "hooks.changed") return true;
+          return emit(event, ...args);
+        };
+        return child;
+      },
+    });
+    onTestFinished(() => runtime.stopAll());
+    await runtime.startPlugin("once", directory);
+    expect((await runtime.before("agent.open.before", openRequest)).hookPluginIds).toEqual([
+      "once",
+    ]);
+    expect(runtime.isPluginActive("once")).toBe(true);
+    expect((await runtime.before("agent.open.before", openRequest)).hookPluginIds).toEqual([]);
   });
 
   it("counts a plugin active only while it is published, running and has an open hook", async () => {

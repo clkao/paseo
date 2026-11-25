@@ -65,6 +65,8 @@ const REQUEST_TIMEOUT_MS = 30_000;
 const WORKTREE_MANAGER_TIMEOUT_MS = 120_000;
 const TOOL_CALL_TIMEOUT_MS = 10 * 60_000;
 
+const openHookReplySchema = z.looseObject({ handlerRan: z.boolean() });
+
 const worktreeCreateResultSchema = z
   .object({ type: z.literal("created"), path: z.string().min(1) })
   .strict()
@@ -776,16 +778,20 @@ export class PluginRuntime {
       }
       try {
         if (asksRequirement) (request as { requirePlugin?: boolean }).requirePlugin = false;
-        const output = await this.request(loaded, {
+        let output = await this.request(loaded, {
           type: "hook",
           requestId: name === "agent.open.before" ? attachmentId : randomUUID(),
           name,
           input: name === "agent.open.before" ? { ...request, tools: [], mcpServers: {} } : request,
         });
+        if (name === "agent.open.before") {
+          const { handlerRan, ...result } = openHookReplySchema.parse(output);
+          if (handlerRan) hookPluginIds.push(loaded.id);
+          output = result;
+        }
         request = await validateBeforeResult(name, request, output);
         if (asksRequirement && takeRequirePlugin(loaded, request as { requirePlugin?: boolean }))
           requiresPlugins.push(loaded.id);
-        if (name === "agent.open.before") hookPluginIds.push(loaded.id);
         if (name === "worktree.create.before") {
           const worktree = request as PluginWireBeforeRequests["worktree.create.before"];
           worktree.path = await validateWorktreePath({

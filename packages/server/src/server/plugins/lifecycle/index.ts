@@ -434,8 +434,9 @@ export class PluginHookHandlers implements PluginLifecycleRegistration {
     attachmentId: string,
     input: unknown,
     context: PluginHookContext,
-  ): Promise<SessionOpenWireRequest> {
+  ): Promise<SessionOpenWireRequest & { handlerRan: boolean }> {
     let request = validateBeforeRequest("agent.open.before", input);
+    let handlerRan = false;
     let tools: AgentToolDefinition[] = [];
     for (const handler of this.handlers.get("agent.open.before") ?? []) {
       context.signal.throwIfAborted();
@@ -443,6 +444,7 @@ export class PluginHookHandlers implements PluginLifecycleRegistration {
         { request: { ...structuredClone(request), tools: [...tools] } },
         context,
       );
+      handlerRan = true;
       if (result === undefined) continue;
       const local = sessionOpenLocalResultSchema.parse(result);
       const metadata = local.tools.map(serializeAgentTool);
@@ -458,7 +460,7 @@ export class PluginHookHandlers implements PluginLifecycleRegistration {
       request.mcpServers = {};
       delete request.appendSystemPrompt;
     } else this.agentTools?.attach(attachmentId, request.agentId, tools);
-    return request;
+    return { ...request, handlerRan };
   }
 
   cancel(id: string): void {
