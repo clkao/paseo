@@ -3,6 +3,8 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test, vi } from "vitest";
+import { BuiltinPluginLoader } from "./builtin/index.js";
+import { ScheduleService } from "../schedule/service.js";
 import { DaemonClient } from "../test-utils/daemon-client.js";
 import type { AgentClient, AgentSessionConfig } from "../agent/agent-sdk-types.js";
 import { createTestAgentClient } from "../test-utils/fake-agent-client.js";
@@ -141,8 +143,7 @@ export default function contribute(server) {
   }
 }, 60_000);
 
-/** A plugin that requires itself for every agent it creates; `loadDelayMs` slows its load. */
-async function writeRequiringPlugin(directory: string, loadDelayMs = 0): Promise<void> {
+async function writeRequiringPlugin(directory: string): Promise<void> {
   await writeFile(
     path.join(directory, "paseo-plugin.json"),
     JSON.stringify({ id: "required-sandbox", requirements: { paseo: ">=0.14.0-beta.1" } }),
@@ -151,7 +152,6 @@ async function writeRequiringPlugin(directory: string, loadDelayMs = 0): Promise
     path.join(directory, "index.server.ts"),
     `
 export default function contribute(server) {
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ${loadDelayMs});
   server.addHook("agent.create.before", async ({ request }) =>
     request.requirePlugin === undefined ? request : { ...request, requirePlugin: true },
   );
@@ -295,37 +295,57 @@ test("scheduled runs wait for plugins to load at daemon start", async () => {
       await first.close();
     }
 
-    // Due while the restarted daemon is still loading the plugin, which now takes 3 s.
     const scheduleFile = path.join(
       options.paseoHomeRoot,
       ".paseo",
       "schedules",
       `${scheduleId}.json`,
     );
-    const stored = JSON.parse(await readFile(scheduleFile, "utf8"));
-    await writeFile(
-      scheduleFile,
-      JSON.stringify({ ...stored, nextRunAt: new Date(Date.now() + 1_500).toISOString() }),
-    );
-    await writeRequiringPlugin(pluginDirectory, 3_000);
-    const second = await createTestPaseoDaemon({
+    const readSchedule = async () => JSON.parse(await readFile(scheduleFile, "utf8"));
+    const due = "2030-01-02T00:00:02.000Z";
+    await writeFile(scheduleFile, JSON.stringify({ ...(await readSchedule()), nextRunAt: due }));
+
+    const loading = Promise.withResolvers<void>();
+    const ready = Promise.withResolvers<void>();
+    const loader = new BuiltinPluginLoader(undefined, []);
+    vi.spyOn(loader, "load").mockImplementation(async () => {
+      loading.resolve();
+      await ready.promise;
+    });
+    vi.useFakeTimers({ toFake: ["Date", "setInterval", "clearInterval"] });
+    vi.setSystemTime(new Date("2030-01-02T00:00:00.000Z"));
+    const ticks = vi.spyOn(ScheduleService.prototype, "tick");
+    const restarting = createTestPaseoDaemon({
       ...options,
+      builtinPlugins: loader,
       agentClients: { codex: launchCountingCodex().client },
     });
-    const secondClient = new DaemonClient({
-      url: `ws://127.0.0.1:${second.port}/ws`,
-      appVersion: "0.14.0-beta.1",
-    });
     try {
-      // The scheduler started after the plugin loaded, so the run never failed on its absence.
-      const restarted = JSON.parse(await readFile(scheduleFile, "utf8"));
-      expect(restarted.runs).toEqual([]);
-      await secondClient.connect();
-      const ran = await secondClient.scheduleRunOnce({ id: scheduleId });
-      expect(ran.schedule?.runs.map((run) => run.status)).toEqual(["succeeded"]);
+      await Promise.race([
+        loading.promise,
+        restarting.then(() => {
+          throw new Error("Plugin loader did not run");
+        }),
+      ]);
+      await vi.advanceTimersByTimeAsync(2_000);
+      expect(ticks).not.toHaveBeenCalled();
+      expect(await readSchedule()).toMatchObject({ nextRunAt: due, runs: [] });
+      ready.resolve();
+      await restarting;
+      await vi.advanceTimersByTimeAsync(1_000);
+      expect(ticks).toHaveBeenCalledTimes(1);
+      await ticks.mock.results[0]!.value;
+      expect((await readSchedule()).runs).toEqual([
+        expect.objectContaining({ scheduledFor: due, status: "succeeded" }),
+      ]);
     } finally {
-      await secondClient.close();
-      await second.close();
+      ready.resolve();
+      try {
+        await (await restarting).close();
+      } finally {
+        ticks.mockRestore();
+        vi.useRealTimers();
+      }
     }
   } finally {
     await rm(root, { recursive: true, force: true });

@@ -290,6 +290,7 @@ export class ScheduleService {
   private readonly runningScheduleIds = new Set<string>();
   private readonly heartbeatStops = new Map<string, () => Promise<void>>();
   private recovering = false;
+  private recovery: Promise<void> | null = null;
   private tickTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor(options: ScheduleServiceOptions) {
@@ -309,10 +310,14 @@ export class ScheduleService {
     this.runner = options.runner ?? ((schedule, runId) => this.executeSchedule(schedule, runId));
   }
 
-  async start(): Promise<void> {
-    if (this.tickTimer) {
-      return;
-    }
+  recover(): Promise<void> {
+    return (this.recovery ??= this.recoverSchedules().catch((error) => {
+      this.recovery = null;
+      throw error;
+    }));
+  }
+
+  private async recoverSchedules(): Promise<void> {
     this.recovering = true;
     try {
       await this.recoverInterruptedRuns();
@@ -323,6 +328,11 @@ export class ScheduleService {
     for (const schedule of await this.store.list()) {
       this.syncHeartbeat(schedule, "write");
     }
+  }
+
+  async start(): Promise<void> {
+    await this.recover();
+    if (this.tickTimer) return;
     const timer = setInterval(() => {
       void this.tick().catch((error) => {
         this.logger.error({ err: error }, "Failed to process schedule tick");
@@ -333,6 +343,7 @@ export class ScheduleService {
   }
 
   async stop(): Promise<void> {
+    this.recovery = null;
     if (this.tickTimer) {
       clearInterval(this.tickTimer);
       this.tickTimer = null;

@@ -1512,6 +1512,9 @@ export async function createPaseoDaemon(
     archiveWorkspace: archiveScheduleWorkspaceExternal,
   });
 
+  // Only occurrences before recovery count as downtime. Later slots wait for plugin startup.
+  await scheduleService.recover();
+
   const changeRequestWatches = createChangeRequestWatches({
     router: createChangeRequestRouter({ forgeResolver }),
     backgroundWork: agentManager,
