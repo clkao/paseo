@@ -16455,6 +16455,29 @@ test("an open is refused when a required plugin's open hook did not run, even wh
   expect(client.createdConfigs).toHaveLength(1);
 });
 
+test("a late required-hook refusal preserves committed recreation history", async () => {
+  let participates = true;
+  const { workdir, manager, storage, opens, timeline } = createRequirementManager({
+    create: ["sandbox"],
+    hookPluginIds: () => (participates ? ["sandbox"] : []),
+  });
+  const agent = await manager.createAgent({ provider: "codex", cwd: workdir }, undefined, {
+    workspaceId: undefined,
+  });
+  await manager.appendTimelineItem(agent.id, { type: "assistant_message", text: "keep this" });
+  await manager.closeAgent(agent.id);
+  await manager.flush();
+  const { persistence: _handle, ...record } = (await storage.get(agent.id))!;
+  await storage.upsert(record);
+  const rows = await timeline.getCommittedRows(agent.id);
+  expect(rows).toHaveLength(1);
+  participates = false;
+  await expect(manager.createAgentFromRecord(agent.id)).rejects.toMatchObject(inactiveSandbox);
+  expect(opens()).toBe(1);
+  expect(await timeline.getCommittedRows(agent.id)).toEqual(rows);
+  expect(await storage.get(agent.id)).toEqual(record);
+});
+
 test("an imported agent keeps the requirement its import open declared", async () => {
   const importClient = new (class extends TestAgentClient {
     async importSession(input: ImportProviderSessionInput) {

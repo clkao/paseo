@@ -125,6 +125,7 @@ import type { ProviderPaseoToolsPolicy } from "@getpaseo/protocol/provider-confi
 import { isPaseoToolEnabled } from "../paseo-tool-policy.js";
 
 export interface PaseoToolHostDependencies {
+  pluginTools?: readonly import("../../plugins/agent-tools.js").AttachedAgentTool[];
   agentMessages?: () => AgentMessageDelivery;
   changeRequestWatches?: ChangeRequestWatches;
   finishSubscriptions?: () => FinishSubscriptions;
@@ -3383,6 +3384,7 @@ function createToolCatalog(
   );
 
   registerPluginTools({
+    pluginTools: options.pluginTools,
     agentManager,
     callerAgentId,
     scope,

@@ -215,6 +215,47 @@ test("session hooks attach tools only to matching agents over MCP, with validate
   }
 }, 60_000);
 
+test("a late refresh refusal preserves the turn and its callable tool attachment", async () => {
+  const held = Promise.withResolvers<void>();
+  const source = pluginSource.replace(
+    'if (request.labels.x !== "y") return;',
+    'if (request.reason === "refresh") return;',
+  );
+  const h = await setup(true, source, undefined, {
+    beforeTurnComplete: () => held.promise,
+    onInterrupt: () => held.resolve(),
+  });
+  try {
+    await h.install(
+      "z-policy",
+      `
+export default function contribute(server) {
+  server.addHook("agent.create.before", ({request}) => ({...request, requirePlugin: true}));
+  server.addHook("agent.open.before", ({request}) => {
+    if (request.reason === "refresh") throw new Error("policy refused refresh");
+  });
+  return () => {};
+}`,
+    );
+    const agent = await h.create({ x: "y" });
+    const catalog = h.launches[0]!.context!.paseoTools!;
+    await h.client.sendMessage(agent.id, "held");
+    await expect
+      .poll(() => h.daemon.daemon.agentManager.getAgent(agent.id)?.lifecycle)
+      .toBe("running");
+    await expect(h.client.refreshAgent(agent.id)).rejects.toThrow("policy refused refresh");
+    expect.soft(h.events.interrupts).toBe(0);
+    expect.soft(h.daemon.daemon.agentManager.getAgent(agent.id)?.lifecycle).toBe("running");
+    expect.soft(h.launches).toHaveLength(1);
+    expect((await catalog.executeTool("plugin_echo", { text: "still attached" })).isError).not.toBe(
+      true,
+    );
+  } finally {
+    held.resolve();
+    await h.close();
+  }
+}, 60_000);
+
 test("native providers get the same attached schema and execution", async () => {
   const h = await setup(true);
   try {

@@ -170,21 +170,15 @@ export class PluginService {
     return this.runtime.isPluginActive?.(pluginId) ?? false;
   }
 
-  readonly detachTools: PluginAgentToolsRuntime["detachTools"] = (agentId) => {
-    this.runtime.detachTools?.(agentId);
+  readonly detachTools: PluginAgentToolsRuntime["detachTools"] = (attachmentId) => {
+    this.runtime.detachTools?.(attachmentId);
   };
 
-  readonly callTool: PluginAgentToolsRuntime["callTool"] = async (
-    pluginId,
-    pluginInstanceId,
-    agent,
-    name,
-    input,
-    signal,
-  ) => {
+  readonly callTool: PluginAgentToolsRuntime["callTool"] = async (tool, agent, input, signal) => {
+    const { pluginId, pluginInstanceId } = tool;
     if (!this.isToolPluginAvailable(pluginId, pluginInstanceId) || !this.runtime.callTool)
       return { isError: true, text: `Plugin is not available: ${pluginId}` };
-    return this.runtime.callTool(pluginId, pluginInstanceId, agent, name, input, signal);
+    return this.runtime.callTool(tool, agent, input, signal);
   };
 
   readonly wait: PluginLifecycle["wait"] = async (name, payload) => {

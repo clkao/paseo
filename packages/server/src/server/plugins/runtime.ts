@@ -760,6 +760,7 @@ export class PluginRuntime {
     const plugins = [...this.plugins.values()].sort((left, right) => {
       return left.id.localeCompare(right.id);
     });
+    const attachmentId = randomUUID();
     const attached: AttachedAgentTool[] = [];
     const mcpServers: SessionOpenWireRequest["mcpServers"] = {};
     const mcpServerOwners: Record<string, string> = {};
@@ -777,7 +778,7 @@ export class PluginRuntime {
         if (asksRequirement) (request as { requirePlugin?: boolean }).requirePlugin = false;
         const output = await this.request(loaded, {
           type: "hook",
-          requestId: randomUUID(),
+          requestId: name === "agent.open.before" ? attachmentId : randomUUID(),
           name,
           input: name === "agent.open.before" ? { ...request, tools: [], mcpServers: {} } : request,
         });
@@ -795,11 +796,10 @@ export class PluginRuntime {
         if (name === "agent.open.before") {
           const opened = request as SessionOpenWireRequest;
           this.collectMcpServers(mcpServers, mcpServerOwners, loaded, opened.mcpServers);
-          this.collectAgentTools(attached, loaded, opened.tools);
+          this.collectAgentTools(attached, attachmentId, loaded, opened.tools);
         }
       } catch (error) {
-        if (name === "agent.open.before")
-          this.detachTools((request as SessionOpenWireRequest).agentId);
+        if (name === "agent.open.before") this.detachTools(attachmentId);
         throw new Error(`Plugin ${loaded.id} ${name} failed: ${describeError(error)}`, {
           cause: error,
         });
@@ -965,6 +965,7 @@ export class PluginRuntime {
 
   private collectAgentTools(
     attached: AttachedAgentTool[],
+    attachmentId: string,
     loaded: LoadedPlugin,
     tools: SessionOpenWireRequest["tools"],
   ): void {
@@ -974,7 +975,12 @@ export class PluginRuntime {
         throw new Error(
           `Agent tool ${tool.name} from plugin ${loaded.id} collides with plugin ${collision.pluginId}`,
         );
-      attached.push({ ...tool, pluginId: loaded.id, pluginInstanceId: loaded.instanceId });
+      attached.push({
+        ...tool,
+        attachmentId,
+        pluginId: loaded.id,
+        pluginInstanceId: loaded.instanceId,
+      });
     }
   }
 
@@ -982,20 +988,20 @@ export class PluginRuntime {
     return this.plugins.get(pluginId)?.instanceId === pluginInstanceId;
   }
 
-  detachTools(agentId: string): void {
+  detachTools(attachmentId: string): void {
     for (const loaded of this.plugins.values()) {
-      if (loaded.child) void send(loaded.child, { type: "tools.detach", agentId }).catch(() => {});
+      if (loaded.child)
+        void send(loaded.child, { type: "tools.detach", attachmentId }).catch(() => {});
     }
   }
 
   async callTool(
-    pluginId: string,
-    pluginInstanceId: string,
+    tool: AttachedAgentTool,
     agent: PluginHookAgent,
-    name: string,
     input: unknown,
     signal?: AbortSignal,
   ): Promise<AgentToolResult> {
+    const { pluginId, pluginInstanceId, attachmentId, name } = tool;
     const loaded = this.plugins.get(pluginId);
     if (!loaded || loaded.instanceId !== pluginInstanceId)
       return { isError: true, text: `Plugin is not available: ${pluginId}` };
@@ -1003,7 +1009,7 @@ export class PluginRuntime {
     try {
       return (await this.request(
         loaded,
-        { type: "tool.call", requestId, agent, name, input },
+        { type: "tool.call", requestId, attachmentId, agent, name, input },
         { signal },
       )) as AgentToolResult;
     } catch (error) {

@@ -603,7 +603,7 @@ export function createPluginWorker(options: {
     { type: "tool.call" | "tool.cancel" | "tools.detach" }
   > {
     if (message.type === "tools.detach") {
-      agentTools.detach(message.agentId);
+      agentTools.detach(message.attachmentId);
       return true;
     }
     if (message.type === "tool.cancel") {
@@ -616,7 +616,14 @@ export function createPluginWorker(options: {
         return true;
       }
       void agentTools
-        .call(message.requestId, message.agent, message.name, message.input, paseo)
+        .call(
+          message.requestId,
+          message.attachmentId,
+          message.agent,
+          message.name,
+          message.input,
+          paseo,
+        )
         .then((output) =>
           send({
             type: "result",

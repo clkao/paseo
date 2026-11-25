@@ -22,19 +22,21 @@ export const agentToolMetadataSchema = z
   })
   .strict();
 export type AgentToolMetadata = z.infer<typeof agentToolMetadataSchema>;
-export type AttachedAgentTool = AgentToolMetadata & { pluginId: string; pluginInstanceId: string };
+export type AttachedAgentTool = AgentToolMetadata & {
+  pluginId: string;
+  pluginInstanceId: string;
+  attachmentId: string;
+};
 export type SessionOpenWireRequest = Omit<PluginSessionOpenRequest, "tools"> & {
   tools: AgentToolMetadata[];
 };
 
 export interface PluginAgentToolsRuntime {
   isToolPluginAvailable(pluginId: string, pluginInstanceId: string): boolean;
-  detachTools(agentId: string): void;
+  detachTools(attachmentId: string): void;
   callTool(
-    pluginId: string,
-    pluginInstanceId: string,
+    tool: AttachedAgentTool,
     agent: PluginHookAgent,
-    name: string,
     input: unknown,
     signal?: AbortSignal,
   ): Promise<AgentToolResult>;
@@ -51,10 +53,13 @@ export function serializeAgentTool(tool: AgentToolDefinition): AgentToolMetadata
 
 // This store lives only in the plugin process. Definitions and parsed values never cross IPC.
 export class PluginAgentTools {
-  private readonly agents = new Map<string, AgentToolDefinition[]>();
-  private readonly calls = new Map<string, { agentId: string; controller: AbortController }>();
+  private readonly attachments = new Map<
+    string,
+    { agentId: string; tools: AgentToolDefinition[] }
+  >();
+  private readonly calls = new Map<string, { attachmentId: string; controller: AbortController }>();
 
-  attach(agentId: string, tools: AgentToolDefinition[]): AgentToolMetadata[] {
+  attach(attachmentId: string, agentId: string, tools: AgentToolDefinition[]): AgentToolMetadata[] {
     const names = new Set<string>();
     const metadata = tools.map((tool) => {
       const serialized = serializeAgentTool(tool);
@@ -62,14 +67,14 @@ export class PluginAgentTools {
       names.add(tool.name);
       return serialized;
     });
-    this.agents.set(agentId, tools);
+    if (tools.length) this.attachments.set(attachmentId, { agentId, tools });
     return metadata;
   }
 
-  detach(agentId: string): void {
-    this.agents.delete(agentId);
+  detach(attachmentId: string): void {
+    this.attachments.delete(attachmentId);
     for (const call of this.calls.values()) {
-      if (call.agentId === agentId) call.controller.abort();
+      if (call.attachmentId === attachmentId) call.controller.abort();
     }
   }
 
@@ -79,20 +84,24 @@ export class PluginAgentTools {
 
   close(): void {
     for (const call of this.calls.values()) call.controller.abort();
-    this.agents.clear();
+    this.attachments.clear();
   }
 
   async call(
     requestId: string,
+    attachmentId: string,
     agent: PluginHookAgent,
     name: string,
     input: unknown,
     paseo: PluginHookContext["paseo"],
   ): Promise<AgentToolResult> {
     const controller = new AbortController();
-    this.calls.set(requestId, { agentId: agent.id, controller });
+    this.calls.set(requestId, { attachmentId, controller });
     try {
-      const tool = this.agents.get(agent.id)?.find((definition) => definition.name === name);
+      const attachment = this.attachments.get(attachmentId);
+      const tool =
+        attachment?.agentId === agent.id &&
+        attachment.tools.find((definition) => definition.name === name);
       if (!tool) throw new Error(`Agent tool not attached: ${name}`);
       const parsed = await tool.input.parseAsync(input);
       controller.signal.throwIfAborted();

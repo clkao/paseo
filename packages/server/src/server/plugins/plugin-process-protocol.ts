@@ -53,9 +53,16 @@ export interface PluginWorktreeManagerCapabilities {
 }
 
 export type PluginProcessRequest =
-  | { type: "tool.call"; requestId: string; agent: PluginHookAgent; name: string; input: unknown }
+  | {
+      type: "tool.call";
+      requestId: string;
+      attachmentId: string;
+      agent: PluginHookAgent;
+      name: string;
+      input: unknown;
+    }
   | { type: "tool.cancel"; requestId: string }
-  | { type: "tools.detach"; agentId: string }
+  | { type: "tools.detach"; attachmentId: string }
   | {
       type: "provider.status";
       requestId: string;
@@ -226,6 +233,7 @@ export const PluginProcessRequestSchema: z.ZodType<PluginProcessRequest> = z.dis
     z
       .object({
         type: z.literal("tool.call"),
+        attachmentId: z.string(),
         requestId: z.string(),
         agent: z
           .object({
@@ -244,7 +252,7 @@ export const PluginProcessRequestSchema: z.ZodType<PluginProcessRequest> = z.dis
       })
       .strict(),
     z.object({ type: z.literal("tool.cancel"), requestId: z.string() }).strict(),
-    z.object({ type: z.literal("tools.detach"), agentId: z.string() }).strict(),
+    z.object({ type: z.literal("tools.detach"), attachmentId: z.string() }).strict(),
     z
       .object({
         type: z.literal("provider.status"),

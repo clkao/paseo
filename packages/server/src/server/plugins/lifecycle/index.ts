@@ -398,7 +398,7 @@ export class PluginHookHandlers implements PluginLifecycleRegistration {
       if (Object.hasOwn(beforeSchemas, name)) {
         const hookName = name as keyof PluginHookRequests;
         if (hookName === "agent.open.before") {
-          return await this.openSession(input, { paseo, signal: controller.signal });
+          return await this.openSession(id, input, { paseo, signal: controller.signal });
         }
         let request = validateBeforeRequest(hookName, input);
         for (const handler of this.handlers.get(name) ?? []) {
@@ -431,11 +431,11 @@ export class PluginHookHandlers implements PluginLifecycleRegistration {
   }
 
   private async openSession(
+    attachmentId: string,
     input: unknown,
     context: PluginHookContext,
   ): Promise<SessionOpenWireRequest> {
     let request = validateBeforeRequest("agent.open.before", input);
-    this.agentTools?.detach(request.agentId);
     let tools: AgentToolDefinition[] = [];
     for (const handler of this.handlers.get("agent.open.before") ?? []) {
       context.signal.throwIfAborted();
@@ -457,7 +457,7 @@ export class PluginHookHandlers implements PluginLifecycleRegistration {
       request.tools = [];
       request.mcpServers = {};
       delete request.appendSystemPrompt;
-    } else this.agentTools?.attach(request.agentId, tools);
+    } else this.agentTools?.attach(attachmentId, request.agentId, tools);
     return request;
   }
 

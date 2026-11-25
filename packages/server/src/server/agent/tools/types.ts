@@ -1,3 +1,4 @@
+import type { AttachedAgentTool } from "../../plugins/agent-tools.js";
 import type { z } from "zod";
 import type { ProviderPaseoToolsPolicy } from "@getpaseo/protocol/provider-config";
 
@@ -48,6 +49,7 @@ export interface PaseoToolCatalog {
 }
 
 export interface PaseoToolRuntimeContext {
+  pluginTools?: readonly AttachedAgentTool[];
   callerAgentId?: string;
   paseoToolPolicy?: ProviderPaseoToolsPolicy;
   enableVoiceTools?: boolean;

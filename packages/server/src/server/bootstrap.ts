@@ -1598,6 +1598,7 @@ export async function createPaseoDaemon(
   const createAgentToolHostDependencies = (
     runtime: PaseoToolRuntimeContext,
   ): PaseoToolHostDependencies => ({
+    pluginTools: runtime.pluginTools,
     changeRequestWatches,
     finishSubscriptions: () => finishSubscriptions,
     agentMessages: () => {
