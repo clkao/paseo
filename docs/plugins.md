@@ -465,6 +465,32 @@ owns payloads, ordering, failure behavior, and examples. `agent.create.before` e
 configuration; `agent.open.before` contributes launch-only `env`, `tools`, and `mcpServers` on
 every open. Executable tool definitions stay in the plugin process; only metadata crosses the boundary.
 
+### Plugin requirements
+
+A plugin enforces its policy only while its hooks run. An agent can require the plugin that created
+it, so that losing the plugin stops the agent instead of reopening it without the policy (see the
+[hooks reference](../public-docs/plugins/hooks.md#require-your-plugin) for the plugin side).
+
+- Paseo records the runtime ID (`loaded.id`), never an ID the plugin writes, so an install under
+  `--id` works and one plugin cannot require or release another. The list lives in
+  `requiresPlugins` on the agent record and `AgentStorage.applySnapshot` keeps it as a union, so an
+  open path that forgets the field cannot erase it.
+- Active means published in `PluginRuntime`, child process connected, and an `agent.open.before`
+  hook registered. `PluginService.isPluginActive` forwards to the runtime; AgentManager's
+  `AgentPluginLifecycle` type requires it, so dropping the forward fails typecheck instead of
+  refusing every required agent.
+- Every open checks twice. A pre-check runs before any side effect: before create hooks and
+  timeline deletion in `createAgentFromRecord`, before configuration and availability probes on
+  resume, and before a reload cancels the running turn. A post-check refuses the open when a
+  required plugin is missing from the open result's `hookPluginIds`, which covers a plugin that
+  stops or drops its hook while another plugin's hook runs.
+- A live session keeps running when its plugin leaves. The plugin leaving bumps the session-open
+  generation, so the next prompt reloads the session and the pre-check refuses it.
+- Bootstrap starts the schedule service after `PluginService.start()` settles, so a scheduled run
+  cannot open an agent before its plugin loads. Restart recovery and clients already wait for it.
+- A daemon older than this feature strips the unknown field on load; after a downgrade the agent
+  opens without the requirement.
+
 Worktree placement is resolved before Git source planning, so a hook can change the branch and base
 without undoing fetched refs. Restores use the recorded destination and bypass creation hooks.
 Workspace records decide ownership, including explicit non-ownership after recovery. Without a record,

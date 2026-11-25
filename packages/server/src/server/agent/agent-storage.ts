@@ -51,6 +51,14 @@ const PERSISTENCE_HANDLE_SCHEMA = z
   .nullable()
   .optional();
 
+/** Nothing releases a requirement, so an open path that omits the list cannot erase it. */
+function keepRequiredPlugins(record: StoredAgentRecord, existing: StoredAgentRecord | null): void {
+  const requiresPlugins = [
+    ...new Set([...(existing?.requiresPlugins ?? []), ...(record.requiresPlugins ?? [])]),
+  ];
+  if (requiresPlugins.length > 0) record.requiresPlugins = requiresPlugins;
+}
+
 const RAW_STORED_AGENT_SCHEMA = z.object({
   id: z.string(),
   provider: z.string(),
@@ -425,11 +433,7 @@ export class AgentStorage {
       }
       // Background is fixed at creation; a runtime opened without it cannot clear it.
       if (existing?.background) record.background = true;
-      // Nothing releases a requirement, so an open path that omits the list cannot erase it.
-      const requiresPlugins = [
-        ...new Set([...(existing?.requiresPlugins ?? []), ...(record.requiresPlugins ?? [])]),
-      ];
-      if (requiresPlugins.length > 0) record.requiresPlugins = requiresPlugins;
+      keepRequiredPlugins(record, existing);
       record.resumeOnStartup =
         existing?.resumeOnStartup && agent.lifecycle !== "idle" && agent.lifecycle !== "error";
       return record;

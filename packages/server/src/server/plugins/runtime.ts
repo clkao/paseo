@@ -782,16 +782,8 @@ export class PluginRuntime {
           input: name === "agent.open.before" ? { ...request, tools: [], mcpServers: {} } : request,
         });
         request = await validateBeforeResult(name, request, output);
-        if (asksRequirement) {
-          const result = request as { requirePlugin?: boolean };
-          if (result.requirePlugin === true) {
-            if (!loaded.hooks.includes("agent.open.before")) {
-              throw new Error("requirePlugin needs an agent.open.before hook");
-            }
-            requiresPlugins.push(loaded.id);
-          }
-          delete result.requirePlugin;
-        }
+        if (asksRequirement && takeRequirePlugin(loaded, request as { requirePlugin?: boolean }))
+          requiresPlugins.push(loaded.id);
         if (name === "agent.open.before") hookPluginIds.push(loaded.id);
         if (name === "worktree.create.before") {
           const worktree = request as PluginWireBeforeRequests["worktree.create.before"];
@@ -1788,6 +1780,17 @@ function readConnectionId(value: unknown): string | null {
 }
 
 // COMPAT(pluginTurnTimeline): added in v0.16.0-beta.3; plugins built before the field left the SDK type read `timeline`; remove after 2027-05-31
+/** Removes a plugin's `requirePlugin` answer so the next plugin is asked afresh. */
+function takeRequirePlugin(loaded: LoadedPlugin, request: { requirePlugin?: boolean }): boolean {
+  const required = request.requirePlugin === true;
+  delete request.requirePlugin;
+  // An agent that requires a plugin without an open hook could never open.
+  if (required && !loaded.hooks.includes("agent.open.before")) {
+    throw new Error("requirePlugin needs an agent.open.before hook");
+  }
+  return required;
+}
+
 function wireEvent<Name extends keyof PluginHookEvents>(
   name: Name,
   event: PluginHookEvents[Name],

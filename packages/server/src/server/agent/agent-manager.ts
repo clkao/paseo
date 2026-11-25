@@ -4828,10 +4828,7 @@ export class AgentManager {
       workspaceId: options?.workspaceId,
       owner: options?.owner,
       launchEnv: options?.launchEnv,
-      requiresPlugins:
-        options?.requiresPlugins && options.requiresPlugins.length > 0
-          ? [...options.requiresPlugins]
-          : undefined,
+      requiresPlugins: unionPluginIds(options?.requiresPlugins, undefined),
       session,
       capabilities: session.capabilities,
       config,
@@ -6586,15 +6583,7 @@ export class AgentManager {
         mcpServers: {},
       };
       const transformed = await this.pluginLifecycle.before("agent.open.before", request);
-      // A required plugin that stopped or dropped its open hook mid-open is skipped by the
-      // runtime; refuse before any provider session starts.
-      const ran = new Set(transformed.hookPluginIds ?? []);
-      const skipped = (opening?.requiresPlugins ?? []).filter((pluginId) => !ran.has(pluginId));
-      if (skipped.length > 0) {
-        this.detachPluginTools(agentId);
-        throw new RequiredPluginInactiveError(skipped);
-      }
-      if (transformed.requiresPlugins) opening?.onRequirePlugins?.(transformed.requiresPlugins);
+      this.settleOpenRequirements(agentId, opening, transformed);
       env = transformed.env;
       if (request.purpose === "interactive") {
         this.attachedPluginTools.set(agentId, transformed.tools as AttachedAgentTool[]);
@@ -6602,8 +6591,8 @@ export class AgentManager {
         mcpServers = transformed.mcpServers;
         mcpServerOwners = transformed.mcpServerOwners;
       }
-    } else if (opening?.requiresPlugins && opening.requiresPlugins.length > 0) {
-      throw new RequiredPluginInactiveError(opening.requiresPlugins);
+    } else {
+      this.settleOpenRequirements(agentId, opening, null);
     }
     const context: AgentLaunchContext = {
       agentId,
@@ -6636,6 +6625,26 @@ export class AgentManager {
     }
     this.sessionOpenGenerations.set(agentId, generation);
     return context;
+  }
+
+  /**
+   * Refuses an open when a required plugin's open hook did not run: the runtime skips a plugin that
+   * stopped or dropped its hook mid-open. Hands an import open's requirement to the caller.
+   */
+  private settleOpenRequirements(
+    agentId: string,
+    opening:
+      | { requiresPlugins?: readonly string[]; onRequirePlugins?: (ids: string[]) => void }
+      | undefined,
+    opened: { hookPluginIds?: string[]; requiresPlugins?: string[] } | null,
+  ): void {
+    const ran = new Set(opened?.hookPluginIds ?? []);
+    const skipped = (opening?.requiresPlugins ?? []).filter((pluginId) => !ran.has(pluginId));
+    if (skipped.length > 0) {
+      this.detachPluginTools(agentId);
+      throw new RequiredPluginInactiveError(skipped);
+    }
+    if (opened?.requiresPlugins) opening?.onRequirePlugins?.(opened.requiresPlugins);
   }
 
   /** An agent opens only while every plugin it requires is active, whatever the reason or purpose. */

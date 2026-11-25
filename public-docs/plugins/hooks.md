@@ -226,7 +226,7 @@ server.addHook("worktree.create.after", async ({ worktree }) => {
 
 ## agent.create.before
 
-Receives `{ request: { config, env?, metadata } }`. Config and `metadata` changes are saved and remain after the plugin is disabled or removed; `env` applies to the initial launch and is not saved. You cannot change `config.cwd`. A throw, invalid result, or timeout fails creation.
+Receives `{ request: { config, env?, metadata, requirePlugin? } }`. Config and `metadata` changes are saved and remain after the plugin is disabled or removed; `env` applies to the initial launch and is not saved. You cannot change `config.cwd`. A throw, invalid result, or timeout fails creation.
 
 **`agent.create.before.config`** uses `AgentSessionConfig`:
 
@@ -271,6 +271,37 @@ server.addHook("agent.create.before", async ({ request }) => {
 The selected provider validates `providerOptions`. Explicit Codex sandbox and approval options
 override its mode presets.
 
+### Require your plugin for every open {#require-your-plugin}
+
+A plugin that enforces policy in `agent.open.before`, such as a sandbox, can make an agent open only
+while the plugin is active. Return `requirePlugin: true`:
+
+```ts
+server.addHook("agent.create.before", async ({ request }) => {
+  // Older hosts do not send the field and reject it in a result.
+  if (request.requirePlugin === undefined) return request;
+  return { ...request, requirePlugin: true };
+});
+```
+
+Paseo saves your plugin's ID on the agent. From then on, every open of that agent fails with
+`required_plugin_inactive` while your plugin is not active: disabled, reloading, removed, failed to
+load, crashed, or without an `agent.open.before` hook. This covers resume, refresh, history and
+scheduled opens. A running session keeps running; its next prompt is refused. To open the agent
+again, make the plugin active again under the same ID.
+
+| Rule             | Behavior                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| Support signal   | `requirePlugin` arrives as `false` on hosts that support requirements and is absent otherwise. |
+| Your choice only | Each plugin receives `false`; it never sees another plugin's choice.                           |
+| Open hook needed | A plugin without an `agent.open.before` hook cannot require itself; creation fails.            |
+| Several handlers | A later handler that omits `requirePlugin` keeps the earlier value.                            |
+| Plugin ID        | The ID the plugin was installed under. Reinstalling under another ID does not satisfy it.      |
+| No release       | Nothing removes a requirement from an agent.                                                   |
+
+Imported agents run no create hook; declare the requirement from the
+[import open](#agentopenbefore) instead.
+
 ## agent.create.after
 
 Ordinary creation finishes. Receives `{ agent }`; import and resume do not fire it.
@@ -283,7 +314,7 @@ server.addHook("agent.create.after", async ({ agent }) => {
 
 ## agent.open.before
 
-Receives `{ request }`; only `env`, `appendSystemPrompt`, `tools`, and `mcpServers` may change, for this launch. All other fields are read-only. A throw, invalid result, or timeout fails the open.
+Receives `{ request }`; only `env`, `appendSystemPrompt`, `tools`, and `mcpServers` may change, for this launch. All other fields are read-only, except `requirePlugin` on an import open. A throw, invalid result, or timeout fails the open.
 
 Do not await a write to the agent being opened: `setMetadata`, `setLabels`, or an option, model, thinking or mode change. The write waits for the open to finish, the open waits for your hook, so the hook times out and the open fails. Start the write without awaiting it; it runs right after the open:
 
@@ -316,18 +347,19 @@ server.addHook("agent.open.before", async ({ request }, { paseo }) => {
 }
 ```
 
-| Field         | Values                                                                                                                  |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `workspaceId` | String or `null`                                                                                                        |
-| `title`       | Read-only string or `null`; creation title on create, stored title on resume.                                           |
-| `background`  | Read-only `true` for a [background agent](#background-agents). Fixed at creation.                                       |
-| `labels`      | Read-only string map; creation labels on create, stored labels on resume.                                               |
-| `metadata`    | Read-only JSON map; the [metadata](#metadata) stored on the agent.                                                      |
-| `tools`       | Editable `AgentToolDefinition[]`, local to this plugin. See [Attach tools to agents](#attach-tools-to-agents).          |
-| `mcpServers`  | Editable launch-only server map, local to this plugin. See [Inject MCP servers](#inject-mcp-servers).                   |
-| `reason`      | `create`, `resume`, `refresh`, `import`                                                                                 |
-| `purpose`     | `interactive`, `history`                                                                                                |
-| `env`         | Launch override map; excludes the daemon's inherited environment. Replace the map to add, replace, or remove overrides. |
+| Field           | Values                                                                                                                                                                    |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `workspaceId`   | String or `null`                                                                                                                                                          |
+| `title`         | Read-only string or `null`; creation title on create, stored title on resume.                                                                                             |
+| `background`    | Read-only `true` for a [background agent](#background-agents). Fixed at creation.                                                                                         |
+| `labels`        | Read-only string map; creation labels on create, stored labels on resume.                                                                                                 |
+| `metadata`      | Read-only JSON map; the [metadata](#metadata) stored on the agent.                                                                                                        |
+| `tools`         | Editable `AgentToolDefinition[]`, local to this plugin. See [Attach tools to agents](#attach-tools-to-agents).                                                            |
+| `mcpServers`    | Editable launch-only server map, local to this plugin. See [Inject MCP servers](#inject-mcp-servers).                                                                     |
+| `reason`        | `create`, `resume`, `refresh`, `import`                                                                                                                                   |
+| `purpose`       | `interactive`, `history`                                                                                                                                                  |
+| `requirePlugin` | Only on `reason: "import"`, as `false`. Return `true` to [require your plugin](#require-your-plugin) for the imported agent. Returning it on another open fails the open. |
+| `env`           | Launch override map; excludes the daemon's inherited environment. Replace the map to add, replace, or remove overrides.                                                   |
 
 ### Append instructions on every session opening
 

@@ -223,7 +223,7 @@ server.addHook("worktree.create.after", async ({ worktree }) => {
 
 ## agent.create.before {#agentcreatebefore}
 
-收到 `{ request: { config, env?, metadata } }`。配置和 `metadata` 的修改会保存，即使插件以后被停用或移除；`env` 只用于首次启动，不会保存。不能修改 `config.cwd`。抛出错误、无效返回或超时会让创建失败。
+收到 `{ request: { config, env?, metadata, requirePlugin? } }`。配置和 `metadata` 的修改会保存，即使插件以后被停用或移除；`env` 只用于首次启动，不会保存。不能修改 `config.cwd`。抛出错误、无效返回或超时会让创建失败。
 
 **`agent.create.before.config`** 使用 `AgentSessionConfig`：
 
@@ -267,6 +267,31 @@ server.addHook("agent.create.before", async ({ request }) => {
 
 所选的 Provider 会校验 `providerOptions`。显式的 Codex 沙盒和批准选项会覆盖它的模式预设。
 
+### 要求插件在每次打开时处于活动状态 {#require-your-plugin}
+
+在 `agent.open.before` 中执行策略的插件（例如沙盒）可以让 Agent 只在插件处于活动状态时打开。返回 `requirePlugin: true`：
+
+```ts
+server.addHook("agent.create.before", async ({ request }) => {
+  // 旧版主机不发送此字段，并会拒绝包含它的返回值。
+  if (request.requirePlugin === undefined) return request;
+  return { ...request, requirePlugin: true };
+});
+```
+
+Paseo 会把你的插件 ID 保存到 Agent 上。此后只要插件不处于活动状态（已停用、正在重新加载、已移除、加载失败、崩溃，或没有 `agent.open.before` 钩子），该 Agent 的每次打开都会以 `required_plugin_inactive` 失败。这包括恢复、刷新、历史记录和定时任务的打开。正在运行的会话会继续运行，它的下一条提示会被拒绝。要再次打开该 Agent，请让插件以相同 ID 重新处于活动状态。
+
+| 规则         | 行为                                                                |
+| ------------ | ------------------------------------------------------------------- |
+| 支持信号     | 支持此功能的主机发送 `requirePlugin: false`，其他主机不发送此字段。 |
+| 只决定自己   | 每个插件都收到 `false`，看不到其他插件的选择。                      |
+| 需要打开钩子 | 没有 `agent.open.before` 钩子的插件不能要求自己，创建会失败。       |
+| 多个处理函数 | 后面的处理函数省略 `requirePlugin` 时，保留前面的值。               |
+| 插件 ID      | 使用插件安装时的 ID。以其他 ID 重新安装不满足要求。                 |
+| 不能解除     | 没有任何操作会从 Agent 上移除要求。                                 |
+
+导入的 Agent 不运行创建钩子，请在[导入时的打开](#agentopenbefore)中声明要求。
+
 ## agent.create.after {#agentcreateafter}
 
 常规创建完成后触发，收到 `{ agent }`；导入和恢复不会触发。
@@ -279,7 +304,7 @@ server.addHook("agent.create.after", async ({ agent }) => {
 
 ## agent.open.before {#agentopenbefore}
 
-收到 `{ request }`，只能修改 `env`、`appendSystemPrompt`、`tools` 和 `mcpServers`，修改只用于此次启动。其他字段只读。抛出错误、无效返回或超时会让打开操作失败。
+收到 `{ request }`，只能修改 `env`、`appendSystemPrompt`、`tools` 和 `mcpServers`，修改只用于此次启动。其他字段只读，导入时的 `requirePlugin` 除外。抛出错误、无效返回或超时会让打开操作失败。
 
 不要 await 对正在打开的 Agent 的写入，例如 `setMetadata`。该写入要等打开完成，而打开在等你的钩子，结果钩子超时，打开失败。启动写入但不要 await，它会在打开完成后立即执行：
 
@@ -312,18 +337,19 @@ server.addHook("agent.open.before", async ({ request }, { paseo }) => {
 }
 ```
 
-| 字段          | 取值                                                                                                     |
-| ------------- | -------------------------------------------------------------------------------------------------------- |
-| `workspaceId` | 字符串或 `null`                                                                                          |
-| `title`       | 只读字符串或 `null`；创建时使用创建请求的标题，恢复时使用已保存的标题。                                  |
-| `background`  | 只读；[后台 Agent](#background-agents) 为 `true`。在创建时确定。                                         |
-| `labels`      | 只读的字符串映射；创建时使用创建请求的标签，恢复时使用已保存的标签。                                     |
-| `metadata`    | 只读的 JSON 映射；Agent 上已保存的[元数据](#metadata)。                                                  |
-| `tools`       | 可编辑的 `AgentToolDefinition[]`，仅包含此插件的工具。参阅[为 Agent 附加工具](#attach-tools-to-agents)。 |
-| `mcpServers`  | 可编辑的服务器映射，仅用于启动且仅包含本插件的条目。参阅[注入 MCP 服务器](#inject-mcp-servers)。         |
-| `reason`      | `create`、`resume`、`refresh`、`import`                                                                  |
-| `purpose`     | `interactive`、`history`                                                                                 |
-| `env`         | 启动覆盖映射；不包括 daemon 继承的环境变量。替换整个映射即可添加、替换或移除覆盖项。                     |
+| 字段            | 取值                                                                                                                                                      |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `workspaceId`   | 字符串或 `null`                                                                                                                                           |
+| `title`         | 只读字符串或 `null`；创建时使用创建请求的标题，恢复时使用已保存的标题。                                                                                   |
+| `background`    | 只读；[后台 Agent](#background-agents) 为 `true`。在创建时确定。                                                                                          |
+| `labels`        | 只读的字符串映射；创建时使用创建请求的标签，恢复时使用已保存的标签。                                                                                      |
+| `metadata`      | 只读的 JSON 映射；Agent 上已保存的[元数据](#metadata)。                                                                                                   |
+| `tools`         | 可编辑的 `AgentToolDefinition[]`，仅包含此插件的工具。参阅[为 Agent 附加工具](#attach-tools-to-agents)。                                                  |
+| `mcpServers`    | 可编辑的服务器映射，仅用于启动且仅包含本插件的条目。参阅[注入 MCP 服务器](#inject-mcp-servers)。                                                          |
+| `reason`        | `create`、`resume`、`refresh`、`import`                                                                                                                   |
+| `purpose`       | `interactive`、`history`                                                                                                                                  |
+| `requirePlugin` | 仅在 `reason: "import"` 时出现，值为 `false`。返回 `true` 可为导入的 Agent [要求插件处于活动状态](#require-your-plugin)。在其他打开中返回它会让打开失败。 |
+| `env`           | 启动覆盖映射；不包括 daemon 继承的环境变量。替换整个映射即可添加、替换或移除覆盖项。                                                                      |
 
 ### 在每次打开会话时追加指令 {#append-instructions-on-every-session-opening}
 
