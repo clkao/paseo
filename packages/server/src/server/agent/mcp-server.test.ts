@@ -276,6 +276,7 @@ function buildAgentManagerSpies() {
     hydrateTimelineFromProvider: vi.fn().mockResolvedValue(undefined),
     appendTimelineItem: vi.fn().mockResolvedValue(undefined),
     emitLiveTimelineItem: vi.fn().mockResolvedValue(undefined),
+    requireActivePlugins: AgentManager.prototype.requireActivePlugins,
     getPluginTools: () => [],
     effectiveOptionsFor: (_provider: string, own?: Record<string, unknown>) => own ?? {},
     reloadStalePluginSession: async () => {},
@@ -4280,6 +4281,27 @@ describe("send_agent_prompt MCP tool", () => {
 
   const logger = createTestLogger();
   const existingCwd = process.cwd();
+
+  it("refuses an agent-scoped prompt before enqueue when the stored recipient needs an inactive plugin", async () => {
+    const { agentManager, agentStorage, spies } = createTestDeps();
+    spies.agentStorage.get.mockResolvedValue({ id: "child-agent", requiresPlugins: ["sandbox"] });
+    const server = await createAgentMcpServer({
+      agentManager,
+      agentStorage,
+      providerSnapshotManager: createOpenCodeManager().manager,
+      callerAgentId: "parent-agent",
+      logger,
+    });
+    const enqueue = vi.spyOn(serverDeliveries.get(server)!, "enqueue");
+    await expect(
+      invokeToolWithParsedInput(registeredTool(server, "send_agent_prompt"), {
+        agentId: "child-agent",
+        prompt: "Follow up",
+      }),
+    ).rejects.toMatchObject({ code: "required_plugin_inactive", pluginIds: ["sandbox"] });
+    expect(enqueue).not.toHaveBeenCalled();
+    expect(serverSubscriptionRecords.get(server)!.size).toBe(0);
+  });
 
   it("defaults agent-scoped prompts to background finish notifications", async () => {
     const { agentManager, agentStorage, spies } = createTestDeps();
